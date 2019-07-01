@@ -12,9 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(\auth::guest())
+        return view('welcome');
+    else
+        return view('home');
 });
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/listening', function(){
+    return view('apps.pages.listening');
+})->name('listening');
+
+Route::get('/reading', function(){
+    return view('apps.pages.reading');
+})->name('reading');
