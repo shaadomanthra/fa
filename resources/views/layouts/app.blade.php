@@ -7,20 +7,31 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
      <meta name="description" content="Online Test engine for GRE, IELTS, TOEFL, PTE and OTE by First Academy">
     <meta name="author" content="Krishna Teja G S">
-    <title>First Academy Online Tests for GRE, IELTS, TOEFL, PTE,  OTE</title>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <title>First Academy Online Tests for GRE, IELTS, TOEFL, PTE, OTE</title>
+    @if(isset($player))
+    <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
+    @endif
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/test.css') }}" rel="stylesheet">
+    @if(isset($editor))
+    <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
+    @endif
+    @if(isset($try))
+    <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
+    @endif
+    
 </head>
 <body>
     <div id="app">
         @include('layouts.menu')
 
-        <main class="py-4">
+        <main class="py-4 container">
             @yield('content')
         </main>
+        
+
     </div>
+    @include('layouts.script')
 </body>
 </html>
