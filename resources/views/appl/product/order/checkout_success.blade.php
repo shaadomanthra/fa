@@ -11,7 +11,7 @@
 
 <p> Your transaction with Order Number <b>{{ $order->order_id }}</b> is successful. <br>Your Service Request will be active.  
 	<hr>
-In case of any query contact the adminstrator, the contact details are mentioned in this <a href="{{ route('contact-corporate')}}">link</a></p>
+In case of any query contact the adminstrator, the contact details are mentioned in this <a href="#">link</a></p>
 
 <a href="{{ route('product.view',$order->product->slug) }}">
 <button class="btn btn-outline-primary btn-lg"> View Product</button>
