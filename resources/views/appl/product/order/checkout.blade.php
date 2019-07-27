@@ -3,6 +3,8 @@
 
 @section('content')
 
+<div class="row">
+  <div class="col-12 col-md-8">
 <form method="post" action="{{ route('product.order')}}">
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <div class="bg-white rounded">
@@ -56,4 +58,24 @@
 </div>		
 </div>
 </form>
+</div>
+<div class="col-12 col-md-4">
+<form method="post" action="{{ route('product.order')}}">
+   <input type="hidden" name="_token" value="{{ csrf_token() }}">
+<div class="bg-primary text-white rounded">
+<div class="card-body p-4 ">
+<h1><i class="fa fa-cart"></i> Access Coupon</h1><br>
+<div class="mb-3">
+  <input class="form-control" type="text" name="coupon" placeholder="Enter the Coupon Code">
+ <input class="form-check-input amount" type="hidden" name="txn_amount" value="0">
+<input class="form-check-input product" type="hidden" name="product_id"  value="{{ $product->id }}">
+</div>
+<button class="btn btn-sm btn-outline-light" type="submit">Submit</button>
+
+</div>    
+</div>
+</form>
+</div>
+
+</div>
 @endsection           

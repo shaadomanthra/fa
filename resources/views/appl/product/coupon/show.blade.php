@@ -40,6 +40,19 @@
             <div class="col-md-4"><b>Expiry</b></div>
             <div class="col-md-8">{{($obj->expiry) ? $obj->expiry : ''}}</div>
           </div>
+
+           @if(count($obj->products))
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Products</b></div>
+            <div class="col-md-8">
+              @foreach($obj->products as $product)
+                <a href="{{ route('product.show',$product->id)}}">
+                  {{$product->name }}
+                </a><br>
+              @endforeach
+            </div>
+          </div>
+          @endif
          
          <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>

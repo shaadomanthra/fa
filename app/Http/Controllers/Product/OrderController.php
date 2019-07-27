@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Instamojo as Instamojo;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
+use App\Models\Product\Coupon;
 use App\User;
 
 class OrderController extends Controller
@@ -172,6 +173,7 @@ class OrderController extends Controller
             $o = Order::where('product_id',$request->get('product_id'))
                   ->where('user_id',$user->id)->first();
             $product = Product::where('id',$request->get('product_id'))->first();
+            $coupon = Coupon::where('code',strtoupper($request->get('coupon')))->first();
 
 
             if($o)
@@ -179,6 +181,22 @@ class OrderController extends Controller
               return view('appl.product.order.checkout_denail')->with('order',$o);
 
               $rebuy = true;
+            }
+
+            if(!$coupon){
+                $m = "Invalid Coupon Code";
+                 return view('appl.product.order.checkout_coupon')->with('message',$m);
+
+            }else{
+                if($coupon->status==0){
+                   $m = "Coupon Code Expired!";
+                 return view('appl.product.order.checkout_coupon')->with('message',$m); 
+                }
+                
+                if(!$coupon->products()->where('id',$product->id)->first()){
+                    $m = "Restricted Access - This Copoun cannot be used for this product";
+                    return view('appl.product.order.checkout_coupon')->with('message',$m);
+                }
             }
 
               //dd($response);
@@ -197,16 +215,20 @@ class OrderController extends Controller
               $order->txn_amount = 0;
               $order->status=1;
               $order->payment_mode = 'COUPON';
-              $order->txn_id = $order->order_id;
+              $order->txn_id = $coupon->code;
               $order->product_id = $request->get('product_id');
 
               
                //dd($order);
               $order->save();
               $order->payment_status = 'Successful';
+
+              //update coupon
+              $coupon->status = 0;
+              $coupon->save();
              // Mail::to($user->email)->send(new OrderSuccess($user,$order));
 
-              return view('appl.product.pages.checkout_success')->with('order',$order);
+              return view('appl.product.order.checkout_success')->with('order',$order);
 
           }
           catch (Exception $e) {

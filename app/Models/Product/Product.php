@@ -19,4 +19,12 @@ class Product extends Model
     {
         return $this->belongsToMany('App\Models\Test\Group');
     }
+
+    public function order($user=null){
+        if(!$user)
+            return null;
+
+        $order = $user->orders()->where('product_id',$this->id)->where('status',1)->orderBy('id','desc')->first();
+        return $order;
+    }
 }

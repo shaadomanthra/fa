@@ -69,7 +69,7 @@ Route::resource('/admin/coupon', 'Product\CouponController')->middleware('auth')
 /* Product/Orders Public Routes */
 Route::get('/products','Product\ProductController@public')->name('product.public');
 Route::get('/products/{product}','Product\ProductController@view')->name('product.view');
-Route::get('/checkout/{product}','Product\OrderController@checkout')->name('product.checkout');
+Route::get('/checkout/{product}','Product\OrderController@checkout')->name('product.checkout')->middleware('auth');
 Route::post('/order','Product\OrderController@order')->name('product.order');
 Route::get('/order_payment', 'Product\OrderController@instamojo_return');
 Route::post('/order_payment', 'Product\OrderController@instamojo_return');

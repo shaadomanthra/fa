@@ -152,7 +152,6 @@ class ProductController extends Controller
     public function view($slug)
     {
         $obj = Obj::where('slug',$slug)->first();
-        $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.view')
                     ->with('obj',$obj)->with('app',$this);
