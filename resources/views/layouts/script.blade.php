@@ -16,13 +16,35 @@
               });
           });
 </script>
+@elseif(isset($reading))
+<script src="{{asset('js/jquery.js')}}"></script>  
+<script src="{{asset('js/script.js')}}"></script>  
+<script>
+    $( document ).ready(function() {
+    var height = $( window ).height();
+    var nav = $('.navbar').height();
+    var bottom = $('.bottom-qno').height();
+    console.log(nav);
+    $('.panel').css('height',height-nav-bottom-15);
+
+    $('.pallete-control').on('click',function(){
+        var height = $( window ).height();
+        var nav = $('.navbar').height();
+        var bottom = $('.pallete').height();
+        var h = height - nav - bottom - 60;
+        $('.panel').animate( { "height":h }, { queue:false, duration:500 });
+        $('.bottom-scroll').slideToggle(function(){
+
+        });
+       
+    });
+});
+</script>
 @elseif(isset($player))
 <script src="{{asset('js/player.js')}}"></script>
-<script id="rendered-js">
-
-</script>
 <script src="{{asset('js/jquery.js')}}"></script>  
 <script src="{{asset('js/bootstrap.js')}}"></script>
+
 <script>
     $(document).ready(function(){
         const controls = [// Restart playback
@@ -38,7 +60,7 @@
           }
 
 
-
+/*
 @if(isset($test))
 @foreach($test->sections as $s=>$section)
  on('.load_s{{$s}}', 'click', () => { 
@@ -87,7 +109,11 @@
  @endforeach
  @endif
 
-  on('.play', 'click', () => { 
+
+  on('.play2', 'click', () => { 
+    alert($(this).data('seek'));
+    player.stop();
+    player.forward(10);
     player.play();
   });
 
@@ -95,6 +121,13 @@
   on('.pause', 'click', () => { 
     player.pause();
   });
+*/
+        $(".play").click(function() {
+            $seek = $(this).data('seek');
+            player.stop();
+            player.forward($seek);
+            player.play();
+        });
 
 
         $(".sno").click(function() {
@@ -118,10 +151,65 @@
                 $(id).removeClass('answered');
             }
         });
+
+         
         
 
     });     
 </script>
 @else
 <script src="{{asset('js/script.js')}}"></script>  
+@endif
+
+@if(isset($timer))
+<script>
+// Set the date we're counting down to
+@if(!isset($time))
+var countDownDate = addMinutes(new Date(),{{ count($questions) }});
+@else
+var countDownDate = addMinutes(new Date(),{{ ($time) }});
+@endif
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  var t="" ;
+  if(hours!=0)
+    t = hours+"h ";
+  if(minutes !=0)
+    t = t+minutes+"m ";
+  if(seconds !=0)
+    t = t+seconds+"s ";
+console.log(t);
+  // Display the result in the element with id="demo"
+  document.getElementById("timer").innerHTML =  t;
+
+  document.getElementById("timer2").innerHTML =  t;
+
+  // If the count down is finished, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("timer").innerHTML = "EXPIRED";
+    document.getElementById("timer2").innerHTML = "EXPIRED";
+
+    alert('The Test time has expired. ');
+    $('.test').submit();
+
+  }
+}, 1000);
+
+function addMinutes(date, minutes) {
+    return new Date(date.getTime() + minutes*60000);
+}
+</script>
 @endif

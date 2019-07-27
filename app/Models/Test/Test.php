@@ -17,12 +17,13 @@ class Test extends Model
         'test_time',
         'status',
         'type',
+        'type_id',
         // add all other fields
     ];
 
-    public function tags()
+    public function testtype()
     {
-        return $this->belongsToMany('App\Models\Test\Tag');
+        return $this->belongsTo('App\Models\Test\Type','type_id');
     }
 
     public function category()

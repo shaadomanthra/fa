@@ -27,4 +27,9 @@ class Fillup extends Model
     {
         return $this->belongsTo('App\Models\Test\Extract');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Test\Tag');
+    }
 }

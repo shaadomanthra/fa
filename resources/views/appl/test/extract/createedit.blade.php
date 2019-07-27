@@ -39,11 +39,7 @@
         </select>
       </div>
 
-        <div class="form-group">
-        <label for="formGroupExampleInput ">File</label>
-        <input type="file" class="form-control" name="file_" id="formGroupExampleInput" 
-          >
-      </div>
+        
 
       
       <div class="form-group">
@@ -64,6 +60,16 @@
             value="{{ (old('glance_time')) ? old('glance_time') : '' }}"
             @else
             value = "{{ $obj->glance_time }}"
+            @endif
+          >
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Seek Time (seconds)</label>
+        <input type="text" class="form-control" name="seek_time" id="formGroupExampleInput" placeholder="Enter the seek time in seconds" 
+            @if($stub=='Create')
+            value="{{ (old('seek_time')) ? old('seek_time') : '' }}"
+            @else
+            value = "{{ $obj->seek_time }}"
             @endif
           >
       </div>

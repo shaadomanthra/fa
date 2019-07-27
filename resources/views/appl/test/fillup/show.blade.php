@@ -67,6 +67,25 @@
               </a>
             </div>
           </div>
+
+          @if(count($obj->tags))
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Tags</b></div>
+            <div class="col-md-8">
+              @foreach($obj->tags as $m=>$tag)
+              @if($m==0)
+              <a href="{{ route('tag.show',$tag->id) }}">
+                {{ $tag->value }}
+              </a>
+              @else
+              ,<a href="{{ route('tag.show',$tag->id) }}">
+                {{ $tag->value }}
+              </a>
+              @endif
+              @endforeach
+            </div>
+          </div>
+          @endif
           
 
           <div class="row mb-2">

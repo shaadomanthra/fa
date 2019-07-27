@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Test as Obj;
 use App\Models\Test\Tag;
+use App\Models\Test\Type;
 use App\Models\Test\Category;
+use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
 {
@@ -52,14 +54,14 @@ class TestController extends Controller
         $obj = new Obj();
         $this->authorize('create', $obj);
 
-        $tags = Tag::where('status',1)->get();
+        $types = Type::all();
         $categories = Category::where('status',1)->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
-                ->with('tags',$tags)
+                ->with('types',$types)
                 ->with('categories',$categories)
                 ->with('app',$this);
     }
@@ -79,26 +81,18 @@ class TestController extends Controller
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
             }
 
-            /* If image is given upload and store path */
+            /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];
-                $extension = $file->getClientOriginalExtension();
-                $filename  = str_random().'.' . $extension;
-
-                $path      = $file->storeAs('public/files/extract/', $filename);
- 
-                $request->merge(['file' => 'files/extract/'.$filename]);
+                $path = Storage::disk('uploads')->putFile('extracts', $request->file('file_'));
+                $request->merge(['file' => $path]);
             }
 
             
             /* create a new entry */
-            $obj = $obj->create($request->except(['tags']));
+            $obj = $obj->create($request->all());
 
-            // attach the tags
-            $tags = $request->get('tags');
-            foreach($tags as $tag){
-                $obj->tags()->attach($tag);
-            }
+            
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -143,7 +137,7 @@ class TestController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        $tags = Tag::where('status',1)->get();
+        $types = Type::all();
         $categories = Category::where('status',1)->get();
 
         if($obj)
@@ -151,7 +145,7 @@ class TestController extends Controller
                 ->with('stub','Update')
                 ->with('obj',$obj)
                 ->with('editor',true)
-                ->with('tags',$tags)
+                ->with('types',$types)
                 ->with('categories',$categories)
                 ->with('app',$this);
         else
@@ -172,39 +166,22 @@ class TestController extends Controller
 
             $this->authorize('update', $obj);
 
-                /* delete file request */
+            /* delete file request */
             if($request->get('deletefile')){
-                if(file_exists(storage_path('app/public/'.$obj->file)))
-                    unlink(storage_path('app/public/'.$obj->file));
+                if(Storage::disk('uploads')->exists($obj->file))
+                    Storage::disk('uploads')->delete($obj->file);
                 redirect()->route($this->module.'.show',[$id]);
             }
 
             /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];
-                $extension = $file->getClientOriginalExtension();
-
-                if($obj->filename){
-                    $filename = str_replace('files/extract/', '', $obj->file);
-                }else{
-                    $filename  = str_random().'.' . $extension;
-                }
-                
-                $path      = $file->storeAs('public/files/extract/', $filename);
- 
-                $request->merge(['file' => 'files/extract/'.$filename]);
-
-                //echo $filename."<br>";
+                $path = Storage::disk('uploads')->putFile('extracts', $request->file('file_'));
+                $request->merge(['file' => $path]);
             }
 
-            // attach the tags
-            $tags = $request->get('tags');
-            $obj->tags()->detach();
-            foreach($tags as $tag){
-                $obj->tags()->attach($tag);
-            }
-
-            $obj = $obj->update($request->except(['tags'])); 
+            
+            $obj = $obj->update($request->all()); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);
         }
@@ -228,9 +205,9 @@ class TestController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        // remove image
-        if(file_exists(storage_path('app/public/'.$obj->file)))
-        unlink(storage_path('app/public/'.$obj->file));
+        // remove file
+        if(Storage::disk('uploads')->exists($obj->file))
+            Storage::disk('uploads')->delete($obj->file);
         
         $obj->delete();
 

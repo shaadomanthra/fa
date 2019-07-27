@@ -49,6 +49,17 @@
               </a>
             </div>
           </div>
+
+          @if($obj->testtype)
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Type</b></div>
+            <div class="col-md-8">
+              <a href="{{ route('type.show',$obj->testtype->id) }}">
+                {{ $obj->testtype->name }}
+              </a>
+            </div>
+          </div>
+          @endif
           <div class="row mb-2">
             <div class="col-md-4"><b>Description</b></div>
             <div class="col-md-8">{!! $obj->description !!}</div>
@@ -62,10 +73,10 @@
                 <div class="row mb-2">
             <div class="col-md-4"><b>File</b></div>
             <div class="col-md-8">
-              @if(file_exists(public_path().'/storage/'.$obj->file) && $obj->file )
+              @if(\Storage::disk('uploads')->exists($obj->file) && $obj->file )
               <div class="bg-light border mb-3">
                  <audio>
-                  <source src="{{ asset('storage/'.$obj->file)}}" type="audio/mp3">
+                  <source src="{{ asset(\storage::disk('uploads')->url($obj->file))}}" type="audio/mp3">
                   </audio>
               </div>
               <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
@@ -80,14 +91,7 @@
             </div>
           </div>
 
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Tags</b></div>
-            <div class="col-md-8"> 
-              @foreach($obj->tags as $tag)
-                <a href="{{ route('tag.show',$tag->id)}}">{{ $tag->name }}</a> &nbsp;&nbsp;
-              @endforeach
-            </div>
-          </div>
+          
           <div class="row mb-2">
             <div class="col-md-4"><b>Marks</b></div>
             <div class="col-md-8">{{ $obj->marks }}</div>

@@ -105,6 +105,24 @@
         </select>
       </div>
 
+       <div class="form-group">
+        <label for="formGroupExampleInput">Tags</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach($tags as $tag)
+          <div class="col-12 col-md-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="tags[]" value="{{$tag->id}}" id="defaultCheck1" @if($obj->tags->contains($tag->id))) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ $tag->name }} - {{ $tag->value }}
+            </label>
+          </div>
+          </div>
+          @endforeach
+         </div>
+         </div>
+      </div>
+
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Tag as Obj;
+use Illuminate\Support\Facades\Storage;
 
 class TagController extends Controller
 {
@@ -24,16 +25,13 @@ class TagController extends Controller
      */
     public function index(Obj $obj,Request $request)
     {
-
-
         $this->authorize('view', $obj);
-
         $search = $request->search;
         $item = $request->item;
-        
         $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->get();  
+
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
@@ -69,23 +67,13 @@ class TagController extends Controller
     {
         try{
             
-            /* If image is given upload and store path */
-            if(isset($request->all()['file'])){
-                $file      = $request->all()['file'];
-                $extension = $file->getClientOriginalExtension();
-                $filename  = $request->get('slug').'.' . $extension;
-                $path      = $file->storeAs('public/images/tag/', $filename);
- 
-                $request->merge(['image' => 'images/tag/'.$filename]);
+            /* Change to uppercase */
+            if($request->get('name')){
+                $request->merge(['name' => strtoupper($request->get('name'))]);
+                $request->merge(['value' => strtoupper($request->get('value'))]);
             }
-
-            // update slug with name if its empty
-            if(!$request->get('slug')){
-                $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
-            }
-            
             /* create a new entry */
-            $obj = $obj->create($request->except(['file']));
+            $obj = $obj->create($request->all());
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -150,24 +138,15 @@ class TagController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
-            if($request->get('deleteimage')){
-                if(file_exists(storage_path('app/public/'.$obj->image)))
-                    unlink(storage_path('app/public/'.$obj->image));
-                redirect()->route($this->module.'.show',$id);
-            }
-
             $this->authorize('update', $obj);
-            /* If image is given upload and store path */
-            if(isset($request->all()['file'])){
-                $file      = $request->all()['file'];
-                $extension = $file->getClientOriginalExtension();
-                $filename  = $request->get('slug').'.' . $extension;
-                $path      = $file->storeAs('public/images/tag/', $filename);
- 
-                $request->merge(['image' => 'images/tag/'.$filename]);
+            
+            /* Change to uppercase */
+            if($request->get('name')){
+                $request->merge(['name' => strtoupper($request->get('name'))]);
+                $request->merge(['value' => strtoupper($request->get('value'))]);
             }
-
-            $obj = $obj->update($request->except(['file'])); 
+            
+            $obj = $obj->update($request->all()); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);
         }
@@ -190,10 +169,6 @@ class TagController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
-
-        // remove image
-        if(file_exists(storage_path('app/public/'.$obj->image)))
-        unlink(storage_path('app/public/'.$obj->image));
         
         $obj->delete();
 

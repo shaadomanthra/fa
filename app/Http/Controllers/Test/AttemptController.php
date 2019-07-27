@@ -11,6 +11,8 @@ use App\Models\Test\Extract;
 use App\Models\Test\Test;
 use App\Models\Test\Attempt;
 
+use Illuminate\Support\Facades\Storage;
+
 class AttemptController extends Controller
 {
     
@@ -41,10 +43,16 @@ class AttemptController extends Controller
 
    /* Test Attempt Function */
    public function try($slug,Request $request){
-        $test = Test::where('slug',$slug)->first();
+      $test = Test::where('slug',$slug)->first();
 
-        $qcount = 0;
-        foreach($test->sections as $section){
+      $qcount = 0;
+
+      if(!$test->testtype)
+          abort('403','Test Type not defined');
+      else
+        $view =  strtolower($test->testtype->first()->name);
+
+      foreach($test->sections as $section){
         foreach($section->extracts as $extract){
           foreach($extract->mcq as $mcq){
             if($mcq->qno)
@@ -57,13 +65,64 @@ class AttemptController extends Controller
         }
       }
 
-        return view('appl.test.attempt.try')
+      if($view == 'listening' || $view == 'reading')
+        return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
                 ->with('try',true)
                 ->with('app',$this)
                 ->with('qcount',$qcount)
-                ->with('test',$test);
+                ->with('test',$test)
+                ->with('timer',true)
+                ->with('time',$test->test_time);
+      else{
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        return view('appl.test.attempt.try_'.$view)
+                  ->with('test',$test)
+                  ->with('attempt',$attempt)
+                  ->with('player',1);
+      }
 
+   }
+
+   /* Function to upload files in server */
+   public function upload($slug,Request $request){
+      $test = Test::where('slug',$slug)->first();
+      $user = \auth::user();
+      /* upload the file to server */
+      if(isset($request->all()['file_'])){
+          $file      = $request->all()['file_'];
+          $extension = $file->getClientOriginalExtension();
+          $filename  = $test->slug.'_'.$user->id.'.' . $extension;
+          $path = Storage::disk('uploads')->putFileAs('response', $request->file('file_'), $filename);
+      }
+
+      $model = new Attempt();
+      $model->user_id = $user->id;
+      $model->qno = 1;
+      $model->response = $path;
+      $model->test_id = $test->id;
+      $model->save();
+
+      flash('Successfully uploaded the file !')->success();
+      return redirect()->route($this->module.'.try',[$this->test->slug]);
+   }
+
+   /* Delete the File */
+   public function file_delete($slug,Request $request){
+      $test = Test::where('slug',$slug)->first();
+      $user = \auth::user();
+
+      $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+
+      // remove file
+      if($attempt){
+        if(Storage::disk('uploads')->exists($attempt->response))
+        Storage::disk('uploads')->delete($attempt->response);
+        $attempt->delete();
+      }
+      
+
+      return redirect()->route($this->module.'.try',[$this->test->slug]);
    }
 
    /* Function to save data in database */

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Test\MCQ as Obj;
 use App\Models\Test\Extract;
 use App\Models\Test\Test;
+use App\Models\Test\Tag;
 
 class McqController extends Controller
 {
@@ -62,17 +63,19 @@ class McqController extends Controller
         $this->authorize('create', $obj);
 
         /* add the serial number */
-        if(Obj::orderBy('id','desc')->first())
+        if(Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first())
             $this->sno = Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first()->sno+1;
         else
             $this->sno = 1;
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+         $tags = Tag::all();
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('tags',$tags)
                 ->with('app',$this);
     }
 
@@ -98,7 +101,13 @@ class McqController extends Controller
             $request->merge(['question' => Strip_tags($question),'a' => Strip_tags($a),'b' => Strip_tags($b),'c' => Strip_tags($c),'d' => Strip_tags($d)]);
             
             /* create a new entry */
-            $obj = $obj->create($request->all());
+            $obj = $obj->create($request->except(['tags']));
+
+            // attach the tags
+            $tags = $request->get('tags');
+            foreach($tags as $tag){
+                $obj->tags()->attach($tag);
+            }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index',[$this->test->id]);
@@ -142,6 +151,7 @@ class McqController extends Controller
         $this->authorize('update', $obj);
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+         $tags = Tag::all();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -149,6 +159,7 @@ class McqController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('tags',$tags)
                 ->with('app',$this);
         else
             abort(404);
@@ -178,6 +189,16 @@ class McqController extends Controller
             
             /* merge the updated data in request */
             $request->merge(['question' => Strip_tags($question),'a' => Strip_tags($a),'b' => Strip_tags($b),'c' => Strip_tags($c),'d' => Strip_tags($d)]);
+
+            $tags = $request->get('tags');
+            if($tags){
+                $obj->tags()->detach();
+                foreach($tags as $tag){
+                $obj->tags()->attach($tag);
+                }
+            }else{
+                $obj->tags()->detach();
+            }
 
             $obj = $obj->update($request->all()); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();

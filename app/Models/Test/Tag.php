@@ -8,16 +8,18 @@ class Tag extends Model
 {
     protected $fillable = [
         'name',
-        'slug',
-        'image',
-        'description',
-        'status',
+        'value',
         // add all other fields
     ];
 
-     public function tests()
+    public function fillup()
     {
-        return $this->belongsToMany('App\Models\Test\Test');
+        return $this->belongsToMany('App\Models\Test\Fillup');
+    }
+
+    public function mcq()
+    {
+        return $this->belongsToMany('App\Models\Test\mcq');
     }
 
 }

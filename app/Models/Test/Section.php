@@ -11,7 +11,7 @@ class Section extends Model
         'name',
         'slug',
         'instructions',
-        'file',
+        'seek_time',
         'type',
         // add all other fields
     ];

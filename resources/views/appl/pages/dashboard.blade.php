@@ -21,19 +21,25 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="ml-0 ml-md-2">
+                                <a href="{{ route('reading')}}">
                             <button class="btn btn-lg btn-outline-success w-100 "><i class="fa fa-book"></i> Reading</button>
+                        </a>
                         </div>
                         </div>
                     </div>
                     <div class="row no-gutters">
                         <div class="col-12 col-md-6">
                             <div class="mr-0 mr-md-2">
+                            <a href="{{ route('test','oet-speaking-1')}}">
                             <button class="btn btn-lg btn-outline-secondary w-100 mb-4 mb-md-0"><i class="fa fa-microphone"></i> Speaking</button>
+                            </a>
                         </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="ml-0 ml-md-2">
+                        <a href="{{ route('test','oet-writing-1')}}">
                           <button class="btn btn-lg btn-outline-danger w-100 "><i class="fa fa-pencil"></i> Writing</button>
+                      </a>
                       </div>
                         </div>
                     </div>

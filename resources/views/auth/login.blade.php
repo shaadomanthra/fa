@@ -6,6 +6,16 @@
     @csrf
     <img class="mb-4 mt-4" src="{{ asset('images/logo.png') }}" alt="" width="250" >
     <hr>
+    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+                    @if (session('warning'))
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
     <h1 class="h4 mb-3 font-weight-normal">Please sign in</h1>
     <label for="inputEmail" class="sr-only">Email address</label>
 

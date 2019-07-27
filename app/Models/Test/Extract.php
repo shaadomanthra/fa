@@ -10,9 +10,10 @@ class Extract extends Model
         'test_id',
         'section_id',
         'name',
-        'file',
+        'seek_time',
         'text',
         'glance_time',
+
         // add all other fields
     ];
 

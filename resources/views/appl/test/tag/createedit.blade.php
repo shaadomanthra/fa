@@ -29,42 +29,16 @@
       </div>
       
       <div class="form-group">
-        <label for="formGroupExampleInput ">Slug</label>
-        <input type="text" class="form-control" name="slug" id="formGroupExampleInput" placeholder="Enter the unique identifier" 
+        <label for="formGroupExampleInput ">Value</label>
+        <input type="text" class="form-control" name="value" id="formGroupExampleInput" placeholder="Enter the value" 
             @if($stub=='Create')
-            value="{{ (old('slug')) ? old('slug') : '' }}"
+            value="{{ (old('value')) ? old('value') : '' }}"
             @else
-            value = "{{ $obj->slug }}"
+            value = "{{ $obj->value }}"
             @endif
           >
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Image</label>
-        <input type="file" class="form-control" name="file" id="formGroupExampleInput" placeholder="Enter the image path" 
-          >
-      </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Description</label>
-        <textarea class="form-control summernote" name="description"  rows="5">
-            @if($stub=='Create')
-            {{ (old('description')) ? old('description') : '' }}
-            @else
-            {{ $obj->description }}
-            @endif
-        </textarea>
-      </div>
-      
-     
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Status</label>
-        <select class="form-control" name="status">
-          <option value="0" @if(isset($obj)) @if($obj->status==0) selected @endif @endif >Inactive</option>
-          <option value="1" @if(isset($obj)) @if($obj->status==1) selected @endif @endif >Active</option>
-        </select>
-      </div>
 
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">

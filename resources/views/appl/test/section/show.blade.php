@@ -58,24 +58,15 @@
             <div class="col-md-8">{!! $obj->instructions !!}</div>
           </div>
 
-             <div class="row mb-2">
-            <div class="col-md-4"><b>File</b></div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Seek Time</b></div>
             <div class="col-md-8">
-              @if(file_exists(public_path().'/storage/'.$obj->file) && $obj->file )
-              <div class="bg-light border mb-3">
-                 <audio>
-                  <source src="{{ asset('storage/'.$obj->file)}}" type="audio/mp3">
-                  </audio>
-              </div>
-              <form method="post" action="{{route($app->module.'.update',[$app->test->id,$obj->id])}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deletefile" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
-              </form>
-              @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
-              @endif
+                @if($obj->seek_time)
+                {{ $obj->seek_time}} sec
+               @else
+                - NA -
+               @endif 
+           
             </div>
           </div>
           

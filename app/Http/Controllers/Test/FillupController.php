@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Fillup as Obj;
 use App\Models\Test\Extract;
+use App\Models\Test\Tag;
 use App\Models\Test\Test;
 
 class FillupController extends Controller
@@ -60,7 +61,7 @@ class FillupController extends Controller
     {
         $obj = new Obj();
         $this->authorize('create', $obj);
-       $test_id = $this->test->id;
+        $test_id = $this->test->id;
 
         /* add the serial number */
         if(Obj::where('test_id',$test_id)->orderBy('id','desc')->first())
@@ -69,11 +70,13 @@ class FillupController extends Controller
             $this->sno = 1;
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+        $tags = Tag::all();
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('tags',$tags)
                 ->with('app',$this);
     }
 
@@ -89,7 +92,13 @@ class FillupController extends Controller
           
             
             /* create a new entry */
-            $obj = $obj->create($request->all());
+            $obj = $obj->create($request->except(['tags']));
+
+            // attach the tags
+            $tags = $request->get('tags');
+            foreach($tags as $tag){
+                $obj->tags()->attach($tag);
+            }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index',[$this->test->id]);
@@ -113,6 +122,7 @@ class FillupController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
 
+
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
@@ -133,6 +143,7 @@ class FillupController extends Controller
         $this->authorize('update', $obj);
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+        $tags = Tag::all();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -140,6 +151,7 @@ class FillupController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('tags',$tags)
                 ->with('app',$this);
         else
             abort(404);
@@ -159,8 +171,20 @@ class FillupController extends Controller
 
             $this->authorize('update', $obj);
 
+            $tags = $request->get('tags');
+            if($tags){
+                $obj->tags()->detach();
+                foreach($tags as $tag){
+                $obj->tags()->attach($tag);
+                }
+            }else{
+                $obj->tags()->detach();
+            }
 
-            $obj = $obj->update($request->all()); 
+            $obj = $obj->update($request->except(['tags'])); 
+
+            
+
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',[$test_id,$id]);
         }

@@ -49,23 +49,14 @@
           </div>
          
            <div class="row mb-2">
-            <div class="col-md-4"><b>File</b></div>
+            <div class="col-md-4"><b>Seek Time</b></div>
             <div class="col-md-8">
-              @if(file_exists(public_path().'/storage/'.$obj->file) && $obj->file )
-              <div class="bg-light border mb-3">
-                 <audio>
-                  <source src="{{ asset('storage/'.$obj->file)}}" type="audio/mp3">
-                  </audio>
-              </div>
-              <form method="post" action="{{route($app->module.'.update',[$app->test->id,$obj->id])}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deletefile" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
-              </form>
-              @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
-              @endif
+              @if($obj->seek_time)
+                {{ $obj->seek_time}} sec
+               @else
+                - NA -
+               @endif 
+           
             </div>
           </div>
 
@@ -99,7 +90,7 @@
                   <div class="card-text"><ul class="p-0 m-0"><li>
                   @if($f->prefix ) {{$f->prefix }}  @endif 
                   @if($f->answer)<u><i>({{$f->qno}}) {{$f->answer }}</i> </u> @endif
-                  @if($f->suffix ){{$f->suffix }}@endif
+                  @if($f->suffix ){{$f->suffix }}@endif <a href="{{ route('fillup.edit',[$app->test->id,$f->id])}}"><i class="fa fa-pencil-square text-secondary"></i></a>
                 </li></ul>
                   </div>
                 </div>
@@ -114,12 +105,12 @@
                       <div class="qno">{{$m->qno}}</div>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
-                      <div class="question">{!! $m->question !!}</div>
+                      <div class="question">{!! $m->question !!} <a href="{{ route('mcq.edit',[$app->test->id,$m->id])}}"><i class="fa fa-pencil-square text-secondary"></i></a></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op">A</div>
+                      <div class="op  @if($m->answer=='A') border-success @endif">A</div>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
                       <div class="option">{!! $m->a !!}</div>
@@ -127,7 +118,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op">B</div>
+                      <div class="op @if($m->answer=='B') border-success @endif"">B</div>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
                       <div class="option">{!! $m->b !!}</div>
@@ -135,7 +126,7 @@
                 </div>
                 <div class="row">
                     <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op">C</div>
+                      <div class="op @if($m->answer=='C') border-success @endif"">C</div>
                     </div>
                     <div class="col-12 col-md-9 col-lg-10">
                       <div class="option">{!! $m->c !!}</div>

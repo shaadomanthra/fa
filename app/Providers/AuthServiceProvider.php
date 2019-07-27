@@ -22,6 +22,18 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Test\Attempt::class => \App\Policies\Test\AttemptPolicy::class,
         \App\Models\Test\Category::class => \App\Policies\Test\CategoryPolicy::class,
         \App\Models\Test\Tag::class => \App\Policies\Test\TagPolicy::class,
+        \App\Models\Test\File::class => \App\Policies\Test\FilePolicy::class,
+        \App\Models\Test\Group::class => \App\Policies\Test\GroupPolicy::class,
+        \App\Models\Test\Type::class => \App\Policies\Test\TypePolicy::class,
+
+        \App\Models\Test\Type::class => \App\Policies\Test\TypePolicy::class,
+        
+        \App\User::class => \App\Policies\User\UserPolicy::class,
+
+
+        \App\Models\Product\Product::class => \App\Policies\Product\ProductPolicy::class,
+        \App\Models\Product\Order::class => \App\Policies\Product\OrderPolicy::class,
+        \App\Models\Product\Coupon::class => \App\Policies\Product\CouponPolicy::class,
     ];
 
     /**

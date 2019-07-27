@@ -27,7 +27,7 @@
         <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
         <div class="col-md-8">
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="Enter you email (gmail preferred)">
 
             @error('email')
             <span class="invalid-feedback" role="alert">
@@ -36,7 +36,18 @@
             @enderror
         </div>
     </div>
-
+    <div class="form-group row">
+        <label for="email" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+        @if(isset($message)){{$message }}@endif
+        <div class="col-md-8">
+            <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Enter 10 digit phone number">
+        </div>
+        @error('phone')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
     <div class="form-group row">
         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 

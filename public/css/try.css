@@ -57,8 +57,9 @@
         cursor: pointer; 
     }
     .answered{
-        color:#11c0d0;
+        background: #0ea0ad;
     }
+    .answered-spot{ color:#0ea0ad; }
     .unanswered{
         color:#fff;
     }
@@ -83,3 +84,14 @@
     b{
         color:#0fa0ad;
     }
+
+    /* Reading */
+.panel{ overflow:auto; min-height:300px; }
+.leftpanel{ background: #dcfcff;  }
+.bottom-qno{ background: #284664; color:white;}
+.bottom-wrap{ padding:20px; }
+.pallete{ height:30px; }
+.bottom-box{ width:50px;margin-right:8px; margin-bottom:8px;float:left; color:white;  }
+.bottom-scroll{ overflow: auto; height:80px; }
+
+

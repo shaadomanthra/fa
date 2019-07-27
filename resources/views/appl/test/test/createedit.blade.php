@@ -49,6 +49,15 @@
       </div>
 
       <div class="form-group">
+        <label for="formGroupExampleInput ">Type</label>
+        <select class="form-control" name="type_id">
+          @foreach($types as $type)
+          <option value="{{$type->id}}" @if(isset($obj)) @if($obj->type_id == $type->id) selected @endif @endif >{{ $type->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group">
         <label for="formGroupExampleInput ">Description</label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
@@ -98,25 +107,6 @@
           >
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput">Tags</label>
-         <div class=" card p-3">
-          <div class="row">
-          @foreach($tags as $tag)
-          @if($tag->status==1)
-          <div class="col-12 col-md-3">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="tags[]" value="{{$tag->id}}" id="defaultCheck1" @if($obj->tags->contains($tag->id))) checked @endif>
-            <label class="form-check-label" for="defaultCheck1">
-              {{ $tag->name }}
-            </label>
-          </div>
-          </div>
-          @endif
-          @endforeach
-         </div>
-         </div>
-      </div>
      
 
       <div class="form-group">

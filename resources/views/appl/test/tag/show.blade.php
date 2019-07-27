@@ -6,7 +6,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }}</li>
+    <li class="breadcrumb-item">{{ $obj->value }}</li>
   </ol>
 </nav>
 
@@ -17,7 +17,7 @@
     <div class="col-md-12">
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
+          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->value }} 
 
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
@@ -37,51 +37,12 @@
             <div class="col-md-8">{{ $obj->name }}</div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Slug</b></div>
-            <div class="col-md-8">{{ $obj->slug }}</div>
+            <div class="col-md-4"><b>Value</b></div>
+            <div class="col-md-8">{{ $obj->value }}</div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Image</b></div>
-            <div class="col-md-8">
-              @if(file_exists(public_path().'/storage/'.$obj->image) && $obj->image )
-              <div class="bg-light border p-3">
-              <img src="{{ asset('storage/'.$obj->image)}}"  class="w-25 mb-3"/>
-              <form method="post" action="{{route($app->module.'.update',$obj->id)}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deleteimage" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
-              </form>
-            </div>
-              @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> Image path not found </span>
-              @endif
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Description</b></div>
-            <div class="col-md-8">{!! $obj->description !!}</div>
-          </div>
-          @if(count($obj->tests))
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Tests</b></div>
-            <div class="col-md-8">
-              @foreach($obj->tests as $test)
-                <a href="{{ route('test.show',$test->id)}}">
-                  {{$test->name }}
-                </a><br>
-              @endforeach
-
-            </div>
-          </div>
-          @endif
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Status</b></div>
-            <div class="col-md-8">@if($obj->status==0)
-                    <span class="badge badge-warning">Inactive</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-success">Active</span>
-                  @endif</div>
+            <div class="col-md-4"><b>Questions</b></div>
+            <div class="col-md-8">MCQ - {{ count($obj->mcq)  }}, Fillup - {{ count($obj->fillup)  }}</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Created at</b></div>
@@ -89,6 +50,8 @@
           </div>
         </div>
       </div>
+
+
 
     </div>
 

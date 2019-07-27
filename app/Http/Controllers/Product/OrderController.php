@@ -4,82 +4,218 @@ namespace App\Http\Controllers\Product;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+use Instamojo as Instamojo;
+use App\Models\Product\Product;
+use App\Models\Product\Order;
 
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Checkout page.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function checkout($slug,Request $request){
+        $product = Product::where('slug',$slug)->first();
+        if($product){
+          if(!$product)
+            return view('appl.product.order.checkout_invalid');
+          else{
+              return view('appl.product.order.checkout')->with('product',$product);
+          }
+
+        }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+
+    public function instamojo(Request $request){
+    $api = new Instamojo\Instamojo('dd96ddfc50d8faaf34b513d544b7bee7', 'd2f1beaacf12b2288a94558c573be485');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function instamojo_return(Request $request){
+      $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+      try {
+            $id = $request->get('payment_request_id');
+            //dd($id);
+            if($id){
+            $response = $api->paymentRequestStatus($id);
+            //dd($response);
+            }
+            else
+              echo "input the id";
+
+          if($response['status']=='Completed')
+          { 
+            $order = Order::where('order_id',$id)->first();
+            $user = User::where('id',$order->user_id)->first();
+            $product = Product::where('id',$order->product_id)->first();
+
+            $order->payment_mode = $response['payments'][0]['instrument_type'];
+            $order->bank_txn_id = $response['payments'][0]['payment_id'];
+            $order->bank_name = $response['payments'][0]['billing_instrument'];
+            $order->txn_id = $response['payments'][0]['payment_id'];
+            if($response['status']=='Completed'){
+              $order->status = 1;
+            }
+            else{
+              $order->status = 2;
+              
+            }
+            $order->save();
+          }
+
+        if ($response['status']=='Completed') {
+          $order->payment_status = 'Successful';
+          //Mail::to($user->email)->send(new OrderSuccess($user,$order));
+        }
+        
+        return view('appl.product.pages.checkout_success')->with('order',$order);
+            
+        }
+        catch (Exception $e) {
+            print('Error: ' . $e->getMessage());
+        }
+
+
     }
 
-    /**
-     * Display the specified resource.
+
+
+     /**
+     * Redirect the user to the Payment Gateway.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function show($id)
+    public function order(Request $request)
     {
-        //
+          if($request->type=='instamojo' && $request->txn_amount!=0){
+
+          $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+          try {
+            
+
+            if($request->txn_amount<10)
+                abort('403','Transaction ammount cannot be < Rs.10');
+
+            $user = \auth::user();
+            $o = Order::where('product_id',$request->get('product_id'))
+                  ->where('user_id',$user->id)->first();
+            $product = Product::where('id',$request->get('product_id'))->first();
+
+
+            if($o)
+            if($o->status == 1 ){
+              return view('appl.product.order.checkout_denail')->with('order',$o);
+
+              $rebuy = true;
+            }
+            
+              
+            $response = $api->paymentRequestCreate(array(
+                  "buyer_name" => $user->name,
+                  "purpose" => strip_tags($product->name),
+                  "amount" =>  $request->txn_amount,
+                  "send_email" => false,
+                  "email" => $user->email,
+                  "redirect_url" => "https://fa.packetprep.com/order_payment"
+                ));
+
+              //dd($response);
+              $order = new Order();
+              $order->order_id = $response['id'];
+
+              $o_check = Order::where('order_id',$order->order_id)->first();
+              while($o_check){
+                $response = $api->paymentRequestCreate(array(
+                  "buyer_name" => $user->name,
+                  "purpose" => strip_tags($product->name),
+                  "amount" =>  $request->txn_amount,
+                  "send_email" => false,
+                  "email" => $user->email,
+                  "redirect_url" => "https://fa.packetprep.com/order_payment"
+                  ));
+                $order->order_id = $response->id;
+                $o_check = Order::where('order_id',$order->order_id)->first();
+                if(!$o_check)
+                  break;
+              }
+
+              $order->user_id = $user->id;
+              $order->txn_amount = $request->txn_amount;
+              $order->status=0;
+              $order->product_id = $request->get('product_id');
+
+              
+               //dd($order);
+              $order->save();
+              $order->payment_status = 'Pending';
+
+              return redirect($response['longurl']);
+
+          }
+          catch (Exception $e) {
+              print('Error: ' . $e->getMessage());
+          }
+
+
+
+          
+        }else{
+         $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+
+          try {
+            
+
+            $user = \auth::user();
+            $o = Order::where('product_id',$request->get('product_id'))
+                  ->where('user_id',$user->id)->first();
+            $product = Product::where('id',$request->get('product_id'))->first();
+
+
+            if($o)
+            if($o->status == 1 ){
+              return view('appl.product.order.checkout_denail')->with('order',$o);
+
+              $rebuy = true;
+            }
+
+              //dd($response);
+              $order = new Order();
+              $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+
+              $o_check = Order::where('order_id',$order->order_id)->first();
+              while($o_check){
+                $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+                $o_check = Order::where('order_id',$order->order_id)->first();
+                if(!$o_check)
+                  break;
+              }
+
+              $order->user_id = $user->id;
+              $order->txn_amount = 0;
+              $order->status=1;
+              $order->payment_mode = 'COUPON';
+              $order->txn_id = $order->order_id;
+              $order->product_id = $request->get('product_id');
+
+              
+               //dd($order);
+              $order->save();
+              $order->payment_status = 'Successful';
+             // Mail::to($user->email)->send(new OrderSuccess($user,$order));
+
+              return view('appl.product.pages.checkout_success')->with('order',$order);
+
+          }
+          catch (Exception $e) {
+              print('Error: ' . $e->getMessage());
+          }
+
+
+        }
+        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
