@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Instamojo as Instamojo;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
+use App\User;
 
 class OrderController extends Controller
 {
