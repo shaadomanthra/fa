@@ -30,7 +30,7 @@ class OrderController extends Controller
 
 
     public function instamojo(Request $request){
-    $api = new Instamojo\Instamojo('dd96ddfc50d8faaf34b513d544b7bee7', 'd2f1beaacf12b2288a94558c573be485');
+    $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
     }
 
     public function instamojo_return(Request $request){
@@ -70,7 +70,7 @@ class OrderController extends Controller
           //Mail::to($user->email)->send(new OrderSuccess($user,$order));
         }
         
-        return view('appl.product.pages.checkout_success')->with('order',$order);
+        return view('appl.product.order.checkout_success')->with('order',$order);
             
         }
         catch (Exception $e) {
