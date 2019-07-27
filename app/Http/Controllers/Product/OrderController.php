@@ -225,6 +225,7 @@ class OrderController extends Controller
 
               //update coupon
               $coupon->status = 0;
+              $coupon->user_id = \auth::user()->id;
               $coupon->save();
              // Mail::to($user->email)->send(new OrderSuccess($user,$order));
 
