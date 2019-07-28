@@ -10,9 +10,19 @@ use App\Models\Product\Product;
 use App\Models\Product\Order;
 use App\Models\Product\Coupon;
 use App\User;
+use App\Models\Product\Order as Obj;
 
 class OrderController extends Controller
 {
+    /*
+        Order Controller
+    */
+
+    public function __construct(){
+        $this->app      =   'product';
+        $this->module   =   'order';
+    }
+
     /**
      * Checkout page.
      *
@@ -30,19 +40,17 @@ class OrderController extends Controller
         }
     }
 
-
-    public function instamojo(Request $request){
-    $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
-    }
-
+    /**
+     * To handle instamojo return request
+     *
+     */
     public function instamojo_return(Request $request){
       $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
       try {
             $id = $request->get('payment_request_id');
-            //dd($id);
+
             if($id){
-            $response = $api->paymentRequestStatus($id);
-            //dd($response);
+                $response = $api->paymentRequestStatus($id);
             }
             else
               echo "input the id";
@@ -241,5 +249,71 @@ class OrderController extends Controller
         
     }
 
+  /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Obj $obj,Request $request)
+    {
+
+
+        $this->authorize('view', $obj);
+
+        $search = $request->search;
+        $item = $request->item;
+        
+        $objs = $obj->where('order_id','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));   
+        $view = $search ? 'list': 'index';
+
+        return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function myorders(Obj $obj,Request $request)
+    {
+        $search = $request->search;
+        $item = $request->item;
+        
+        $objs = $obj->where('order_id','LIKE',"%{$item}%")
+                    ->where('user_id',\auth::user()->id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));   
+        $view = $search ? 'mylist': 'myorders';
+
+        return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
+
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $obj = Obj::where('id',$id)->first();
+        $this->authorize('view', $obj);
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.show')
+                    ->with('obj',$obj)->with('app',$this);
+        else
+            abort(404);
+    }
+    
     
 }

@@ -6,7 +6,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Order ID</th>
-                <th scope="col">User </th>
+                <th scope="col">User - Phone</th>
                 <th scope="col">Product</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created At</th>
@@ -22,7 +22,7 @@
                   </a>
                 </td>
                 <td>
-                {{ $obj->user->name }} 
+                {{ $obj->user->name }} - {{ $obj->user->phone }}
                 </td>
                 <td>
                 {{ $obj->product->name }} 

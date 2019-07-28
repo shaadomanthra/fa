@@ -4,7 +4,7 @@
   <div class="row">
 
     <div class="col-md-12">
-      <div class="card  mb-3">
+      <div class="card  mb-3" >
         <div class="card-body p-5">
           <h1 class="h1 mb-0"> {{ $obj->name }} 
           </h1>

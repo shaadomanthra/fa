@@ -66,11 +66,11 @@
             </a>
         </div>
         <div class="col-6 col-md-3 col-lg-2">
-            <a href="{{ route('construction') }}">
+            <a href="{{ route('order.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
                     <img src="{{ asset('images/admin/orders.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Transactions</div>
+                    <div class="text-center">Orders</div>
                 </div>
             </div>
             </a>

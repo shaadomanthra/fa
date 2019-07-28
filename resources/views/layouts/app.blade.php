@@ -14,6 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/test.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/general.css') }}" rel="stylesheet">
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
@@ -29,8 +30,12 @@
         <main class="py-4 container">
             @yield('content')
         </main>
+        <footer class="bg-white">
+            <div class="container">
+            @include('layouts.footer')
+        </div>
+        </footer>
         
-
     </div>
     @include('layouts.script')
 </body>

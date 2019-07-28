@@ -12,16 +12,13 @@
 */
 
 Route::get('/', function () {
-    if(\auth::guest())
-        return view('welcome');
-    else
-        return view('appl.pages.dashboard');
+    return view('welcome2');
 });
 
 
 
 Route::get('/home', function () {
-    return redirect('/');
+    return view('appl.pages.dashboard');
 })->name('home');
 
 // login routes
@@ -65,6 +62,8 @@ Route::get('/test/{test}/analysis','Test\AttemptController@analysis')->middlewar
 /* Product Routes */
 Route::resource('/admin/product', 'Product\ProductController')->middleware('auth');
 Route::resource('/admin/coupon', 'Product\CouponController')->middleware('auth');
+Route::resource('/admin/order', 'Product\OrderController')->middleware('auth');
+Route::get('/orders', 'Product\OrderController@myorders')->middleware('auth')->name('myorders');
 
 /* Product/Orders Public Routes */
 Route::get('/products','Product\ProductController@public')->name('product.public');
@@ -73,6 +72,14 @@ Route::get('/checkout/{product}','Product\OrderController@checkout')->name('prod
 Route::post('/order','Product\OrderController@order')->name('product.order');
 Route::get('/order_payment', 'Product\OrderController@instamojo_return');
 Route::post('/order_payment', 'Product\OrderController@instamojo_return');
+
+
+/* Pages */
+Route::get('/terms', function(){ return view('appl.pages.terms');})->name('terms');
+Route::get('/privacy', function(){ return view('appl.pages.privacy');})->name('privacy');
+Route::get('/refund', function(){ return view('appl.pages.refund');})->name('refund');
+Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->name('disclaimer');
+Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
 
 /* Sample Routes */
 Route::get('/listening', function(){

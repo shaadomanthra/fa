@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#2c4059">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="mb-2 mt-2" src="{{ asset('images/logo_white.png') }}" alt="" width="200" >
@@ -16,9 +16,20 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
+                @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
                 </li>
+                @else
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-home"></i> Dashboard</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
+                </li>
+                @endguest
                 @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}"><i class="fa fa-sign-in"></i> {{ __('Login') }}</a>
@@ -30,9 +41,6 @@
                 @endif
                 @else
 
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/') }}"><i class="fa fa-home"></i> Dashboard</a>
-                </li>
                 @if(\auth::user()->isAdmin())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin') }}"><i class="fa fa-adn"></i> Admin</a>
@@ -43,8 +51,12 @@
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
                     </a>
-
+                        
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('myorders') }}"
+                           >
+                            My Orders
+                        </a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">

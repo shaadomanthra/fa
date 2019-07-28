@@ -1,0 +1,34 @@
+
+.user{
+    width:140px;
+
+}
+.user_container{
+    margin:-70px auto 0px;
+
+}
+
+.heading{
+	font-size:60px;
+	font-family: 'Anton', sans-serif;
+}
+
+.heading2{
+	font-size:30px;
+	color:white;
+	font-family: 'Muli', sans-serif;
+}
+
+@media only screen and (max-width: 600px) {
+.heading{
+	font-size:40px;
+	font-family: 'Anton', sans-serif;
+}
+
+.heading2{
+	font-size:20px;
+	color:white;
+	font-family: 'Muli', sans-serif;
+}
+
+	}

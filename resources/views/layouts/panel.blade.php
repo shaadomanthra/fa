@@ -1,30 +1,43 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Online Test engine for GRE, IELTS, TOEFL, PTE and OTE by First Academy">
-    <meta name="author" content="Krishna Teja G S">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+     <meta name="description" content="Online Test engine for GRE, IELTS, TOEFL, PTE and OTE by First Academy">
+    <meta name="author" content="Krishna Teja G S">
     <title>First Academy Online Tests for GRE, IELTS, TOEFL, PTE, OTE</title>
-     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-      
+    @if(isset($player))
+    <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
+    @endif
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Anton|Bungee+Outline|Muli&display=swap" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <style>
-    	html, body {
-        height: 100%;
-        margin: 0px;
-    }
-    .cont {
-        height: 100%;
-        background: #f0e68c;
-    }
-    </style>
-  </head>
-  <body class="">
-       @yield('content')
-  </body>
-</html>
+    <link href="{{ asset('css/test.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    @if(isset($editor))
+    <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
+    @endif
+    @if(isset($try) || isset($reading))
+    <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
+    @endif
+    
+</head>
+<body>
+    <div id="app">
+        @include('layouts.menu')
 
+        <main class="">
+            @yield('content')
+        </main>
+        <footer class="bg-white">
+            <div class="container">
+            @include('layouts.footer')
+        </div>
+        </footer>
+        
+    </div>
+    @include('layouts.script')
+</body>
+</html>

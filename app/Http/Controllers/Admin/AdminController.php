@@ -23,7 +23,8 @@ class AdminController extends Controller
     public function analytics(Obj $obj){
         $this->authorize('view', $obj);
         $admin = new Admin;
-        $data['user'] = $admin->userAnalytics(); 
+        $data['user'] = $admin->userAnalytics();
+        $data['order'] = $admin->orderAnalytics(); 
         $data['group_count'] = $admin->groupCount();
         $data['test_count'] = $admin->testCount();
         $data['product_count'] = $admin->productCount();

@@ -1,62 +1,39 @@
 @extends('layouts.panel')
 
-@section('content') 
-<div class="con"> 
-<div class="row">
-	<div class="col-12 col-md-6">
-		<div class="h-100 bg-white">
-		sample
-		</div>
-	</div>
-	<div class="col-12 col-md-6">
-		<form class="bg-white border rounded p-4" method="POST" action="{{ route('login') }}">
-
-    @csrf
-    <img class="mb-4 mt-4" src="{{ asset('images/logo.png') }}" alt="" width="250" >
-    <hr>
-    <h1 class="h4 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-
-    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Email address" required autocomplete="email" autofocus>
-
-    @error('email')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-    <label for="inputPassword" class="sr-only">Password</label>
-
-    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Password" required autocomplete="current-password">
-
-    @error('password')
-    <span class="invalid-feedback" role="alert">
-        <strong>{{ $message }}</strong>
-    </span>
-    @enderror
-    <div class="checkbox mb-3">
-        <label>
-            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-            <label class="form-check-label" for="remember">
-                {{ __('Remember Me') }}
-            </label>
-        </label>
+@section('content')  
+<div class="" style="background: linear-gradient(to top, rgba(44, 64, 89,0.6),rgba(44, 64, 89,0.6)), url({{ asset('images/dashboard/bg6.jpg')}}); height: stretch;background-repeat: no-repeat;background-size: auto;
+-webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; width:100%;min-height:600px; padding:25px;padding-top:90px;"> 
+<div class="container ">
+    <div class="heading text-light">
+    The time to be awesome has come
     </div>
-    <button class="btn btn-lg btn-primary " type="submit">Sign in</button>
-    <a href="{{ route('register') }}">
-        <button class="btn btn-lg btn-success" type="button">Register</button>
-    </a>
-    @if (Route::has('password.request'))
-    <a class="btn btn-link mt-2" href="{{ route('password.request') }}">
-        {{ __('Forgot Your Password?') }}
-    </a>
-    @endif
+    <div class="heading2 mb-5">
+    Get started for FREE
+    </div>
 
-    <p class="mt-5 mb-3 text-muted">&copy; First Academy</p>
-</form>
-	</div>
 
+    @guest
+    <a href="{{ route('register')}}">
+    <button class="btn btn-success btn-lg">Register Now</button>
+    </a>
+    @else
+    <a href="{{ route('home')}}">
+    <button class="btn btn-success btn-lg">Open Dashboard</button>
+    </a>
+    @endguest
+    <div class="p-5"></div>
+    <div>
+        <button class="btn btn-outline-light mr-2 mb-3">OET Free Test</button>
+        <button class="btn btn-outline-light mr-2 mb-3">IELTS Free Test</button>
+        <button class="btn btn-outline-light mr-2 mb-3">GRE</button>
+        <button class="btn btn-outline-light mr-2 mb-3">PTE</button>
+        <button class="btn btn-outline-light mr-2 mb-3">TOEFL</button>
+        <button class="btn btn-outline-light mr-2 mb-3">SAT</button>
+    </div>
+    <div class="p-5"></div>
 </div>
 </div>
-
 @endsection

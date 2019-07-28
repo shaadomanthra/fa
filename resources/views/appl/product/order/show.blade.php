@@ -6,7 +6,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }}</li>
+    <li class="breadcrumb-item">{{ $obj->order_id }}</li>
   </ol>
 </nav>
 
@@ -17,14 +17,8 @@
     <div class="col-md-12">
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
+          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->order_id }} 
 
-          @can('update',$obj)
-            <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
-            </span>
-            @endcan
           </p>
         </div>
       </div>
@@ -33,10 +27,65 @@
       <div class="card mb-4">
         <div class="card-body">
           <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
+            <div class="col-md-4"><b>Order ID</b></div>
+            <div class="col-md-8">{{ $obj->order_id }}</div>
           </div>
-         
+          <div class="row mb-2">
+            <div class="col-md-4"><b>User </b></div>
+            <div class="col-md-8">
+              <a href="{{ route('user.show',$obj->user->id) }}">
+                {{ $obj->user->name }}
+              </a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Product </b></div>
+            <div class="col-md-8">
+              <a href="{{ route('product.show',$obj->product->id) }}">
+                {{ $obj->product->name }}
+              </a>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Txn ID / Coupon </b></div>
+            <div class="col-md-8">
+                {{ $obj->txn_id }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Payment Mode </b></div>
+            <div class="col-md-8">
+                {{ $obj->payment_mode }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Bank Txn ID  </b></div>
+            <div class="col-md-8">
+                {{ $obj->bank_txn_id }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Bank Name  </b></div>
+            <div class="col-md-8">
+                {{ $obj->bank_name }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Txn Amount  </b></div>
+            <div class="col-md-8">
+                {{ $obj->txn_amount }}
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Status  </b></div>
+            <div class="col-md-8">
+                 @if($obj->status==0)
+                    <span class="badge badge-warning">Open</span>
+                  @elseif($obj->status==1)
+                    <span class="badge badge-success">Completed</span>
+                  @endif
+            </div>
+          </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Created at</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>

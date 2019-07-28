@@ -19,7 +19,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('css/signin.css') }}" rel="stylesheet">
   </head>
-  <body class="text-center bg">
+  <body class="text-center ">
        @yield('content')
   </body>
 </html>

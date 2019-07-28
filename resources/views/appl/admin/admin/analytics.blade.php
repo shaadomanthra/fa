@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-12 col-md-6">
-            <div class="bg-white  p-3 "><a href="{{route('user.index')}}"><h3>Transactions <div class="float-right"><i class="fa fa-tag"></i> 20</div></h3></a></div>
+            <div class="bg-white  p-3 "><a href="{{route('order.index')}}"><h3>Orders <div class="float-right"><i class="fa fa-tag"></i> {{ $data['order']['total']}}</div></h3></a></div>
             <div class="bg-light p-4 mb-4">
 
                 <div class="row">
@@ -49,15 +49,15 @@
 
                     <div class="col-5 col-md-5 col-lg-4">
                         <div class="h5">This month</div>
-                        <div class="h3">20</div>
+                        <div class="h3">{{ $data['order']['this_month']}}</div>
                         <div class="h5">Last month</div>
-                        <div class="h3">20</div>
+                        <div class="h3">{{ $data['order']['last_month']}}</div>
                     </div>
                      <div class="col-5 col-md-5 col-lg-4">
                         <div class="h5">This year</div>
-                        <div class="h3">20</div>
+                        <div class="h3">{{ $data['order']['this_year']}}</div>
                         <div class="h5">Last year</div>
-                        <div class="h3">20</div>
+                        <div class="h3">{{ $data['order']['last_year']}}</div>
                     </div>
                     
                 </div>
@@ -68,29 +68,29 @@
 
     <div class="row">
         <div class="col-12 col-md-3">
-            <div class=" p-4 border  border-secondary rounded text-center">
+            <div class=" p-4 border  border-primary list-group-item-primary rounded text-center">
                 <div class=" h3"><a href="{{ route('group.index')}}">Test Groups</a></div>
-                <div class="display-3 text-secondary">{{ $data['group_count']}}</div>
+                <div class="display-3">{{ $data['group_count']}}</div>
             </div>
         </div>
         <div class="col-12 col-md-3">
-            <div class=" p-4 border   border-secondary  rounded text-center">
+            <div class=" p-4 border   border-primary list-group-item-primary  rounded text-center">
                 <div class=" h3"><a href="{{ route('test.index')}}">Tests</a></div>
-                <div class="display-3 text-secondary">{{ $data['test_count']}}</div>
+                <div class="display-3 ">{{ $data['test_count']}}</div>
             </div>
         </div>
 
         <div class="col-12 col-md-3">
-            <div class=" p-4 border  border-secondary rounded text-center">
+            <div class=" p-4 border  border-primary list-group-item-primary rounded text-center">
                 <div class=" h3"><a href="{{ route('product.index')}}">Products</a></div>
-                <div class="display-3 text-secondary">{{ $data['product_count']}}</div>
+                <div class="display-3 ">{{ $data['product_count']}}</div>
             </div>
         </div>
 
         <div class="col-12 col-md-3">
-            <div class=" p-4 border  border-secondary rounded text-center">
+            <div class=" p-4 border  border-primary list-group-item-primary rounded text-center">
                 <div class=" h3"><a href="{{ route('coupon.index')}}">Coupons</a></div>
-                <div class="display-3 text-secondary">{{ $data['coupon_count']}}</div>
+                <div class="display-3 ">{{ $data['coupon_count']}}</div>
             </div>
         </div>
     </div>
