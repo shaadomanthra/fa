@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Category as Obj;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -72,11 +73,8 @@ class CategoryController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $extension = $file->getClientOriginalExtension();
-                $filename  = $request->get('slug').'.' . $extension;
-                $path      = $file->storeAs('public/images/category/', $filename);
- 
-                $request->merge(['image' => 'images/category/'.$filename]);
+                $path = Storage::disk('uploads')->putFile('category', $request->file('file'));
+                $request->merge(['image' => $path]);
             }
 
             // update slug with name if its empty
@@ -150,21 +148,21 @@ class CategoryController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
-            if($request->get('deleteimage')){
-                if(file_exists(storage_path('app/public/'.$obj->image)))
-                    unlink(storage_path('app/public/'.$obj->image));
-                redirect()->route($this->module.'.show',$id);
+             /* delete file request */
+            if($request->get('deletefile')){
+
+                if(Storage::disk('uploads')->exists($obj->image)){
+                    Storage::disk('uploads')->delete($obj->image);
+                }
+                redirect()->route($this->module.'.show',[$id]);
             }
 
             $this->authorize('update', $obj);
-            /* If image is given upload and store path */
+            /* If file is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $extension = $file->getClientOriginalExtension();
-                $filename  = $request->get('slug').'.' . $extension;
-                $path      = $file->storeAs('public/images/category/', $filename);
- 
-                $request->merge(['image' => 'images/category/'.$filename]);
+                $path = Storage::disk('uploads')->putFile('category', $request->file('file'));
+                $request->merge(['image' => $path]);
             }
 
             $obj = $obj->update($request->except(['file'])); 
@@ -191,9 +189,9 @@ class CategoryController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        // remove image
-        if(file_exists(storage_path('app/public/'.$obj->image)))
-        unlink(storage_path('app/public/'.$obj->image));
+        // remove file
+        if(Storage::disk('uploads')->exists($obj->image))
+            Storage::disk('uploads')->delete($obj->image);
         
         $obj->delete();
 

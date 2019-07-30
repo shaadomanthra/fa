@@ -51,12 +51,40 @@
       </div>
 
       <div class="form-group">
+        <label for="formGroupExampleInput ">Validity (months)</label>
+        <input type="text" class="form-control" name="validity" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('validity')) ? old('validity') : '6' }}"
+            @else
+            value = "{{ $obj->validity }}"
+            @endif
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Image</label>
+        <input type="file" class="form-control" name="file" id="formGroupExampleInput" placeholder="Enter the image path" 
+          >
+      </div>
+
+      <div class="form-group">
         <label for="formGroupExampleInput ">Description</label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
             {{ (old('description')) ? old('description') : '' }}
             @else
             {{ $obj->description }}
+            @endif
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Details</label>
+        <textarea class="form-control summernote" name="details"  rows="5">
+            @if($stub=='Create')
+            {{ (old('details')) ? old('details') : '' }}
+            @else
+            {{ $obj->details }}
             @endif
         </textarea>
       </div>

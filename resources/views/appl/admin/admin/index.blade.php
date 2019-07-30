@@ -25,16 +25,7 @@
             </a>
         </div>
 
-        <div class="col-6 col-md-3 col-lg-2">
-            <a href="{{ route('test.index') }}">
-            <div class="border bg-light p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/test.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Tests</div>
-                </div>
-            </div>
-            </a>
-        </div>
+        
         <div class="col-6 col-md-3 col-lg-2">
             <a href="{{ route('group.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
@@ -51,6 +42,16 @@
                 <div>
                     <img src="{{ asset('images/admin/tag.png') }}" class="w-100 mb-3" >
                     <div class="text-center">Question Tags</div>
+                </div>
+            </div>
+            </a>
+        </div>
+        <div class="col-6 col-md-3 col-lg-2">
+            <a href="{{ route('test.index') }}">
+            <div class="border bg-light p-4 rounded mb-4">
+                <div>
+                    <img src="{{ asset('images/admin/test.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Tests</div>
                 </div>
             </div>
             </a>

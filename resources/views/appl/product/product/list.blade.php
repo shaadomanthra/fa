@@ -6,6 +6,7 @@
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">Name </th>
+                <th scope="col">Price</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created at</th>
               </tr>
@@ -18,6 +19,13 @@
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
                   {{ $obj->name }}
                   </a>
+                </td>
+                <td>
+                  @if($obj->price)
+                  <i class="fa fa-rupee"></i> {{ $obj->price}}
+                  @else
+                    <span class="badge badge-warning">FREE</span>
+                  @endif
                 </td>
                 <td>
                   @if($obj->status==0)

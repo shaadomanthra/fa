@@ -13,7 +13,7 @@
         </div>
         <div class="col-12 col-md-4">
         <div class="pr-4">
-           <img src="{{  url('/').'/uploads/'.$test->tags->first()->image}}" class=" mt-4 mb-4 mx-auto d-block" style="max-width:100px;"/>
+           <img src="{{  url('/').'/images/general/speaking.png'}}" class=" mt-4 mb-4 mx-auto d-block" style="max-width:100px;"/>
       
            <h3 class="mb-5 text-center">Speaking Task</h3>
 
@@ -23,7 +23,9 @@
                 @include('appl.test.attempt.blocks.speaking_audio')
            @endif
 
+           @if(!$attempt->answer)
            @include('appl.test.attempt.blocks.premium')
+           @endif
         </div>
         </div>
     </div>

@@ -17,7 +17,7 @@ class Group extends Model
 
     public function tests()
     {
-        return $this->belongsToMany('App\Models\Test\Test');
+        return $this->hasMany('App\Models\Test\Test');
     }
 
     public function products()

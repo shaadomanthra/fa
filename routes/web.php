@@ -42,6 +42,9 @@ Route::resource('/admin/test/{test}/extract', 'Test\ExtractController')->middlew
 Route::resource('/admin/test/{test}/mcq', 'Test\McqController')->middleware('auth');
 Route::resource('/admin/test/{test}/fillup', 'Test\FillupController')->middleware('auth');
 Route::resource('/admin/file', 'Test\FileController')->middleware('auth');
+Route::get('/admin/{file}/download','Test\FileController@download')->name('file.download');
+Route::get('/admin/{file}/notify','Test\FileController@notify')->name('review.notify');
+
 Route::resource('/admin/group', 'Test\GroupController')->middleware('auth');
 Route::resource('/admin/type', 'Test\TypeController')->middleware('auth');
 
@@ -55,6 +58,8 @@ Route::get('/test/{test}/try','Test\AttemptController@try')->middleware('auth')-
 Route::post('/test/{test}/try','Test\AttemptController@store')->name('attempt.store');
 Route::post('/test/{test}/upload','Test\AttemptController@upload')->name('attempt.upload');
 Route::get('/test/{test}/delete','Test\AttemptController@file_delete')->name('attempt.delete');
+Route::get('/test/{test}/review','Test\AttemptController@review')->name('test.review');
+
 Route::get('/test/{test}/evaluation','Test\AttemptController@evaluation')->name('attempt.evaluation');
 Route::get('/test/{test}/analysis','Test\AttemptController@analysis')->middleware('auth')->name('test.analysis');
 
@@ -64,6 +69,7 @@ Route::resource('/admin/product', 'Product\ProductController')->middleware('auth
 Route::resource('/admin/coupon', 'Product\CouponController')->middleware('auth');
 Route::resource('/admin/order', 'Product\OrderController')->middleware('auth');
 Route::get('/orders', 'Product\OrderController@myorders')->middleware('auth')->name('myorders');
+Route::get('/orders/{order}', 'Product\OrderController@myordersview')->middleware('auth')->name('myorder.view');
 
 /* Product/Orders Public Routes */
 Route::get('/products','Product\ProductController@public')->name('product.public');

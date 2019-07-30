@@ -6,6 +6,8 @@
 			<input type="file" class="form-control-file" name="file_" id="exampleFormControlFile1">
 		</div>
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+		<input type="hidden" name="type" value="audio">
+		<input type="hidden" name="product_slug" value="{{$product->slug}}">
 		<button class="btn btn-success mb-4" type="submit">Upload</button>
 	</form>
 	<div class="text-secondary">*Only the following file types are supported: mp3, wav, mkv</div>

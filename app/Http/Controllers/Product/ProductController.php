@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product as Obj;
 use App\Models\Test\Group;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -101,9 +102,16 @@ class ProductController extends Controller
             if(!$request->get('slug')){
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
             }
-            
+
+            /* If image is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $path = Storage::disk('uploads')->putFile('product', $request->file('file'));
+                $request->merge(['image' => $path]);
+            }
+
             /* create a new entry */
-            $obj = $obj->create($request->except(['groups']));
+            $obj = $obj->create($request->except(['groups','file']));
 
             // attach the tags
 
@@ -194,12 +202,29 @@ class ProductController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
+
             // change to uppercase
             if($request->get('name')){
                 $request->merge(['name' => strtoupper($request->get('name'))]);
             }
 
+             /* delete file request */
+            if($request->get('deletefile')){
+
+                if(Storage::disk('uploads')->exists($obj->image)){
+                    Storage::disk('uploads')->delete($obj->image);
+                }
+                redirect()->route($this->module.'.show',[$id]);
+            }
+
             $this->authorize('update', $obj);
+            /* If file is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $path = Storage::disk('uploads')->putFile('product', $request->file('file'));
+                $request->merge(['image' => $path]);
+            }
+
             
             // attach the tags
             $groups = $request->get('groups');
@@ -212,7 +237,7 @@ class ProductController extends Controller
             	$obj->groups()->detach();
             }
 
-            $obj = $obj->update($request->except(['groups'])); 
+            $obj = $obj->update($request->except(['groups','file'])); 
 
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
@@ -238,7 +263,10 @@ class ProductController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        
+         // remove file
+        if(Storage::disk('uploads')->exists($obj->image))
+            Storage::disk('uploads')->delete($obj->image);
+
         $obj->delete();
 
         flash('('.$this->app.'/'.$this->module.') item  Successfully deleted!')->success();

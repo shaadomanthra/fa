@@ -64,7 +64,7 @@
    <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <div class="bg-primary text-white rounded">
 <div class="card-body p-4 ">
-<h1><i class="fa fa-cart"></i> Access Coupon</h1><br>
+<h1><i class="fa fa-cart"></i> Access Code</h1><br>
 <div class="mb-3">
   <input class="form-control" type="text" name="coupon" placeholder="Enter the Coupon Code">
  <input class="form-check-input amount" type="hidden" name="txn_amount" value="0">

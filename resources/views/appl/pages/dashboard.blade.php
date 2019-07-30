@@ -35,19 +35,38 @@
 
       
       <div class="col-12 col-md-6 col-lg-8">
-        <div class="card">
+        <div class="row">
+          <div class="col-12 col-md-6">
+       <div class="card ">
   <div class="card-header">
-    Featured
+    Speaking Evaluation
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <p class="card-text">Get your speaking tasks evaluated by expert trainers.</p>
+    <a href="{{ route('product.view','writing-evaluation')}}" class="btn btn-outline-secondary">more details</a>
   </div>
 </div>
+          </div>
+
+          <div class="col-12 col-md-6">
+       <div class="card bg-light">
+   <div class="card-header">
+    Writing Evaluation
+  </div>
+  <div class="card-body">
+    <p class="card-text">Get your writing tasks evaluated by expert trainers.</p>
+    <a href="{{ route('product.view','writing-evaluation')}}" class="btn btn-outline-secondary">more details</a>
+  </div>
+</div>
+          </div>
+
+        </div>
+ 
 
 <div class="bg-light p-4 rounded mt-4">
     <h3 class="mb-4">My Products <a href="{{ route('myorders') }}"><button class="btn btn-outline-primary btn-sm float-right">My Orders</button></a></h3>
+@if(count(auth::user()->orders)!=0)    
+  <div class="rounded table-responsive">
 <table class="table table-striped mb-0 border">
   <thead>
     <tr>
@@ -59,29 +78,33 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>@mdo</td>
-    </tr>
+      @foreach(auth::user()->orders as $k=>$order)
+                 <tr>
+                  <th scope="row">{{ $k+1}}</th>
+                  <td><a href="{{ route('product.view',$order->product->slug) }}">{{$order->product->name}}</a></td>
+                  <td>
+                    @if($order->product->price==0)
+                      <span class="badge badge-warning">Free</span>
+                      @else
+                      <span class="badge badge-primary">Premium</span>
+                      @endif
+                  </td>
+                  <td>{{date('d M Y', strtotime($order->expiry))}}</td>
+                  <td> 
+                    @if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
+                      <span class="badge badge-success">Active</span>
+                    @else
+                      <span class="badge badge-danger">Expired</span>
+                    @endif
+                  </td>
+                </tr>
+                @endforeach
   </tbody>
 </table>
+</div>
+@else
+  <div class="p-4 rounded border">No Products Purchased</div>
+@endif
 
     </div>
 

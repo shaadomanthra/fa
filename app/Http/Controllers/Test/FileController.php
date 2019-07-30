@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\File as Obj;
+use App\Models\Test\Test ;
 use Illuminate\Support\Facades\Storage;
+use App\User;
+
+use App\Mail\reviewnotify;
+use Illuminate\Support\Facades\Mail;
 
 class FileController extends Controller
 {
@@ -72,9 +77,66 @@ class FileController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
-        if($obj)
+
+        if(!$obj)
+            abort(404);
+
+        /* get extension and load player */
+        $info = pathinfo('uploads/'.$obj->response);
+        $ext = $info['extension'];
+
+        if(in_array($ext, ['mp3','wav','mkv'])){
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('app',$this)->with('player',true);
+        }else{
+            return view('appl.'.$this->app.'.'.$this->module.'.show')
+                    ->with('obj',$obj)->with('app',$this)->with('player',false);
+        }
+        
+     
+            
+        
+            
+    }
+
+
+
+    /**
+     * Download the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function download($id)
+    {
+        $obj = Obj::where('id',$id)->first();
+        $this->authorize('view', $obj);
+        
+        if($obj)
+            return response()->download('uploads/'.$obj->response);
+        else
+            abort(404);
+    }
+
+    /**
+     * Notify User with Email
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function notify($id)
+    {
+        $obj = Obj::where('id',$id)->first();
+        $test  = Test::where('id',$obj->test_id)->first();
+        $this->authorize('view', $obj);
+        $user = User::where('id',$obj->user_id)->first();
+        if($obj){
+
+             //Mail notifaction to the user
+             Mail::to($user->email)->send(new reviewnotify($user,$test));
+
+            return view('appl.'.$this->app.'.attempt.notify')->with('user',$user);
+        }
         else
             abort(404);
     }

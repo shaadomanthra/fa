@@ -58,6 +58,15 @@
       </div>
 
       <div class="form-group">
+        <label for="formGroupExampleInput ">Group</label>
+        <select class="form-control" name="group_id">
+          @foreach($groups as $group)
+          <option value="{{$group->id}}" @if(isset($obj)) @if($obj->group_id == $group->id) selected @endif @endif >{{ $group->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
+      <div class="form-group">
         <label for="formGroupExampleInput ">Description</label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
@@ -117,13 +126,7 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Type</label>
-        <select class="form-control" name="type">
-          <option value="0" @if(isset($obj)) @if($obj->type==0) selected @endif @endif >FREE</option>
-          <option value="1" @if(isset($obj)) @if($obj->type==1) selected @endif @endif >PREMIUM</option>
-        </select>
-      </div>
+      
 
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">

@@ -1,8 +1,9 @@
 
 @if($objs->total()!=0)
 @foreach($objs as $obj)
+@if($obj->status)
 <div class="col-12 col-md-6 col-lg-6 mb-4">
-<div class="card" >
+<div class="card " >
   <div class="card-body">
     <h5 class="card-title">{{ $obj->name }}
     @if($obj->price!=0)
@@ -17,11 +18,14 @@
     <p class="card-text">
       <hr>
       <div class="row">
+        
+        @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
         <div class="col-3 ">
-          <img src="{{ asset('images/general/document.png')}}" class="w-100 p-2">
+          <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100 ">
         </div>
-        <div class="col-9">
-          {!!$obj->description!!}
+        @endif
+        <div class="col">
+            {!!$obj->description!!}</br>
           <a href="{{ route('product.view',$obj->slug)}}" class="btn  btn-outline-primary">Explore</a>
         </div>
 
@@ -30,6 +34,7 @@
   </div>
 </div>
 </div>
+@endif
 @endforeach
 @else
 <div class="container">

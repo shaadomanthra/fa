@@ -60,6 +60,18 @@
             </div>
           </div>
           @endif
+
+          @if($obj->group)
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Group</b></div>
+            <div class="col-md-8">
+              <a href="{{ route('group.show',$obj->group->id) }}">
+                {{ $obj->group->name }}
+              </a>
+            </div>
+          </div>
+          @endif
+
           <div class="row mb-2">
             <div class="col-md-4"><b>Description</b></div>
             <div class="col-md-8">{!! $obj->description !!}</div>

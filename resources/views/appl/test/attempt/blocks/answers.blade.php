@@ -12,12 +12,12 @@
     @foreach($result as $qno => $item)
     @if($qno)
     <tr>
-      <th scope="row">{{ $qno}}</th>
-      <td>{{ $item['answer']}}</td>
-      <td>{{ $item['response']}}</td>
-      <td>@if($item['accuracy']==1) 
+      <th scope="row">{{ $item->qno}}</th>
+      <td>{{ $item->answer}}</td>
+      <td>{{ $item->response}}</td>
+      <td>@if($item->accuracy==1) 
         <span class="badge badge-success">Correct</span>
-      @elseif($item['accuracy']==2) 
+      @elseif($item->accuracy==2) 
        <span class="badge badge-secondary">Unattempted</span> 
       @else 
         <span class="badge badge-danger">Incorrect</span>

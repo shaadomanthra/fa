@@ -48,4 +48,19 @@ class User extends Authenticatable
     public function orders(){
         return $this->hasMany('App\Models\Product\Order');
     }
+
+
+    public function productAccess($product){
+        $order = $this->orders()->where('product_id',$product->id)->orderBy('id','desc')->first();
+        if($order){
+            if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
+                return true;
+            else
+                return false;
+        }else
+            return false;
+        
+    }
+
+
 }

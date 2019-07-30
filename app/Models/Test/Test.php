@@ -16,7 +16,7 @@ class Test extends Model
         'marks',
         'test_time',
         'status',
-        'type',
+        'group_id',
         'type_id',
         // add all other fields
     ];
@@ -34,6 +34,11 @@ class Test extends Model
     public function sections()
     {
         return $this->hasMany('App\Models\Test\Section');
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Test\Group');
     }
     
 }

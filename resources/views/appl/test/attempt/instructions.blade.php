@@ -11,7 +11,7 @@
         <div class="mb-3">
         {!! $test->instructions !!}
         </div>
-        <a href="{{ route('test.try',$test->slug)}}">
+        <a href="{{ route('test.try',$test->slug)}}?product={{$product->slug}}">
         <button class="btn btn-primary btn-lg"> Start Test</button>
         </a>
      </div>

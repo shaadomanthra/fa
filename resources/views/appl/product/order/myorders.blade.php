@@ -3,7 +3,7 @@
 
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb border bg-light">
-    <li class="breadcrumb-item"><a href="{{ url('/')}}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item">My Orders</li>
   </ol>
 </nav>

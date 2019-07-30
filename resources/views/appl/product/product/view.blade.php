@@ -3,30 +3,41 @@
 
   <div class="row">
 
-    <div class="col-md-12">
-      <div class="card  mb-3" >
+    <div class="col-12 col-md-12">
+      <div class="card  mb-4" >
         <div class="card-body p-5">
-          <h1 class="h1 mb-0"> {{ $obj->name }} 
+          <div class="row">
+            <div class="col @if($obj->image) col-md-9 @endif">
+               <h1 class="h1 mb-0"> {{ $obj->name }} 
           </h1>
           <p>
              {!! $obj->description !!} 
           </p>
-
+          <p>
+             {!! $obj->details !!} 
+          </p>
           @if(\auth::user())
-          @if($obj->order(\auth::user()))
-            <div class="border p-3 rounded mb-3">
+            @if($obj->order(\auth::user()))
+            <div class="border p-3 rounded ">
               <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $obj->order(\auth::user())->created_at->diffForHumans()}}</span>
             </div>
             @else
-            @if($obj->price !=0)
-          <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
-          <a href="{{ route('product.checkout',$obj->slug) }}">
-          <button class="btn btn-lg btn-success">Buy Now</button>
-          </a>
-          @else
-            <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
-          @endif
-          @endif
+              @if($obj->price !=0)
+              <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
+              <a href="{{ route('product.checkout',$obj->slug) }}">
+              <button class="btn btn-lg btn-success">Buy Now</button>
+              </a>
+              @else
+                <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
+              <form method="post" action="{{ route('product.order')}}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="txn_amount" value="0">
+              <input  type="hidden" name="product_id"  value="{{ $obj->id }}">
+              <input  type="hidden" name="coupon"  value="FREE">
+              <button class="btn btn-lg btn-success" type="submit">Access Now</button>
+              </form>
+              @endif
+            @endif
           @else
             @if($obj->price !=0)
             <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
@@ -38,6 +49,15 @@
             @endif
 
           @endif
+            </div>
+            @if($obj->image)
+            <div class="col col-md-3">
+                <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100">
+            </div>
+            @endif
+
+          </div>
+         
 
           
         </div>
@@ -45,10 +65,12 @@
 
       <div class="row">
         @foreach($obj->groups as $group)
+
+        @if($group->status)
           <div class="col-12 
             @if(count($obj->groups)==2) col-md-6 col-lg-6 @endif
             @if(count($obj->groups)>2) col-md-6 col-lg-4 @endif
-            ">
+             mb-3">
               <div class="card" >
                 @if(file_exists(public_path().'/uploads/'.$group->image) && $group->image)
                    <div class="card-img-top" style="background: linear-gradient(to top, rgba(0, 0, 0,0.3),rgba(255, 255, 255,0.3)), url({{ asset(url('/').'/uploads/'.$group->image)}}); height: stretch;background-repeat: no-repeat;background-size: auto;
@@ -63,12 +85,13 @@
     <p class="card-text">{!! $group->description !!}</p>
     @foreach($group->tests as $test)
     @if($test->testtype)
-    <a href="#" class="btn btn-outline-secondary mb-1">{{$test->testtype->name}}</a>
+    <a href="{{ route('test',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->testtype->name}}</a>
     @endif
     @endforeach
   </div>
 </div>
           </div>
+          @endif
           @endforeach
 
       </div>

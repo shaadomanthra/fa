@@ -6,8 +6,8 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Order ID</th>
-                <th scope="col">User - Phone</th>
                 <th scope="col">Product</th>
+                <th scope="col">Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created At</th>
               </tr>
@@ -17,21 +17,26 @@
               <tr>
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
                 <td>
-                  <a href=" {{ route($app->module.'.show',$obj->id) }} ">
+                  <a href=" {{ route('myorder.view',$obj->order_id) }} ">
                   {{ $obj->order_id }}
                   </a>
-                </td>
-                <td>
-                {{ $obj->user->name }} - {{ $obj->user->phone }}
                 </td>
                 <td>
                 {{ $obj->product->name }} 
                 </td>
                 <td>
+                  @if($obj->product->price==0)
+                    <span class="badge badge-secondary">Free</span>
+                  @else
+                    <span class="badge badge-primary">Premium</span>
+                  @endif
+                </td>
+                
+                <td>
                   @if($obj->status==0)
-                    <span class="badge badge-warning">Open</span>
+                    <span class="badge badge-warning">Incomplete</span>
                   @elseif($obj->status==1)
-                    <span class="badge badge-success">Completed</span>
+                    <span class="badge badge-success">Successful</span>
                   @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>

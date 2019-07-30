@@ -19,10 +19,13 @@
         <div class="card-body text-secondary">
           <p class="h2 mb-0"><i class="fa fa-file-o "></i> {{ $obj->test->name }} - {{ $obj->user->name }} 
 
+            <a href="{{ route('review.notify',$obj->id)}}">
+          <button class="btn btn-sm btn-outline-primary"><i class="fa fa-envelope"></i> Notify User</button>
+          </a>
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-download"></i></a>
+              <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
@@ -33,10 +36,24 @@
      
       <div class="card mb-4">
         <div class="card-body">
+          
+          @if($player)
+          <div class="row mb-2">
+            <div class="col-md-4"><b>File</b></div>
+            <div class="col-md-8">
+              <div class="border">
+              <audio >
+              <source id="player"  src="{{ url('/').'/uploads/'.$obj->response }}" type="audio/mp3">
+              </audio>
+            </div>
+            </div>
+          </div>
+          @else
           <div class="row mb-2">
             <div class="col-md-4"><b>File</b></div>
             <div class="col-md-8">{{ $obj->response }}</div>
           </div>
+          @endif
           <div class="row mb-2">
             <div class="col-md-4"><b>Expert Feedback</b></div>
             <div class="col-md-8">
@@ -48,11 +65,11 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Created at</b></div>
+            <div class="col-md-4"><b>Uploaded at</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Updated at</b></div>
+            <div class="col-md-4"><b>Reviewed at</b></div>
             <div class="col-md-8">{{ ($obj->updated_at) ? $obj->updated_at->diffForHumans() : '' }}</div>
           </div>
         </div>

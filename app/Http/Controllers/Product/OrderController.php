@@ -110,14 +110,14 @@ class OrderController extends Controller
 
             $user = \auth::user();
             $o = Order::where('product_id',$request->get('product_id'))
-                  ->where('user_id',$user->id)->first();
+                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
             $product = Product::where('id',$request->get('product_id'))->first();
 
 
             if($o)
             if($o->status == 1 ){
-              return view('appl.product.order.checkout_denail')->with('order',$o);
-
+              if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                return view('appl.product.order.checkout_denail')->with('order',$o);
               $rebuy = true;
             }
             
@@ -153,6 +153,8 @@ class OrderController extends Controller
 
               $order->user_id = $user->id;
               $order->txn_amount = $request->txn_amount;
+              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+              $order->expiry = $valid_till;
               $order->status=0;
               $order->product_id = $request->get('product_id');
 
@@ -179,23 +181,31 @@ class OrderController extends Controller
 
             $user = \auth::user();
             $o = Order::where('product_id',$request->get('product_id'))
-                  ->where('user_id',$user->id)->first();
+                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
             $product = Product::where('id',$request->get('product_id'))->first();
             $coupon = Coupon::where('code',strtoupper($request->get('coupon')))->first();
 
 
             if($o)
             if($o->status == 1 ){
-              return view('appl.product.order.checkout_denail')->with('order',$o);
-
+              if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                return view('appl.product.order.checkout_denail')->with('order',$o);
               $rebuy = true;
             }
 
-            if(!$coupon){
+            if(!$coupon && $request->get('coupon')!='FREE'){
                 $m = "Invalid Coupon Code";
                  return view('appl.product.order.checkout_coupon')->with('message',$m);
 
             }else{
+
+              if($request->get('coupon')=='FREE'){
+                  if($product->price !=0){
+                    $m = "You cannot access this course";
+                    return view('appl.product.order.checkout_coupon')->with('message',$m);
+                  } 
+
+              }else{
                 if($coupon->status==0){
                    $m = "Coupon Code Expired!";
                  return view('appl.product.order.checkout_coupon')->with('message',$m); 
@@ -205,6 +215,7 @@ class OrderController extends Controller
                     $m = "Restricted Access - This Copoun cannot be used for this product";
                     return view('appl.product.order.checkout_coupon')->with('message',$m);
                 }
+              }
             }
 
               //dd($response);
@@ -222,19 +233,29 @@ class OrderController extends Controller
               $order->user_id = $user->id;
               $order->txn_amount = 0;
               $order->status=1;
-              $order->payment_mode = 'COUPON';
-              $order->txn_id = $coupon->code;
+              $order->txn_id = '';
+              if($request->get('coupon') == 'FREE')
+                $order->payment_mode = 'FREE';
+              else{
+                $order->payment_mode = 'COUPON';
+                //update coupon
+                $coupon->status = 0;
+                $coupon->user_id = \auth::user()->id;
+                $coupon->save();
+                $order->txn_id = $coupon->code;
+              }
+
+              
               $order->product_id = $request->get('product_id');
 
+              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+              $order->expiry = $valid_till;
               
                //dd($order);
               $order->save();
               $order->payment_status = 'Successful';
 
-              //update coupon
-              $coupon->status = 0;
-              $coupon->user_id = \auth::user()->id;
-              $coupon->save();
+              
              // Mail::to($user->email)->send(new OrderSuccess($user,$order));
 
               return view('appl.product.order.checkout_success')->with('order',$order);
@@ -297,6 +318,22 @@ class OrderController extends Controller
     }
 
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function myordersview($order_id)
+    {
+        $obj = Obj::where('order_id',$order_id)->first();
+        $this->authorize('view', $obj);
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.myview')
+                    ->with('obj',$obj)->with('app',$this);
+        else
+            abort(404);
+    }
 
     /**
      * Display the specified resource.

@@ -4,10 +4,10 @@
           <table class="table table-bordered mb-0">
             <thead>
               <tr>
-                <th scope="col">#({{$objs->total()}})</th>
-                <th scope="col">Name </th>
-                <th scope="col">Status</th>
-                <th scope="col">Created at</th>
+                <th scope="col" style="width: 5%">#({{$objs->total()}})</th>
+                <th scope="col" style="width: 60%">Name </th>
+                <th scope="col" style="width: 10%">Status</th>
+                <th scope="col" style="width: 20%">Created at</th>
               </tr>
             </thead>
             <tbody>
@@ -15,9 +15,11 @@
               <tr>
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
                 <td>
+                  
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
-                  {{ $obj->name }}
+                  <h4 class="mb-0">{{ $obj->name }}</h3>
                   </a>
+                  {!! $obj->description !!}
                 </td>
                 <td>
                   @if($obj->status==0)

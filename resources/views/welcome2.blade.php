@@ -1,7 +1,7 @@
 @extends('layouts.panel')
 
 @section('content')  
-<div class="" style="background: linear-gradient(to top, rgba(44, 64, 89,0.6),rgba(44, 64, 89,0.6)), url({{ asset('images/dashboard/bg6.jpg')}}); height: stretch;background-repeat: no-repeat;background-size: auto;
+<div class="" style="background: linear-gradient(to top, rgba(44, 64, 89,0.6),rgba(0, 0, 0,0.6)), url({{ asset('images/dashboard/bg6.jpg')}}); height: stretch;background-repeat: no-repeat;background-size: auto;
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

@@ -8,6 +8,7 @@ use App\Models\Test\Test as Obj;
 use App\Models\Test\Tag;
 use App\Models\Test\Type;
 use App\Models\Test\Category;
+use App\Models\Test\Group;
 use Illuminate\Support\Facades\Storage;
 
 class TestController extends Controller
@@ -56,6 +57,7 @@ class TestController extends Controller
 
         $types = Type::all();
         $categories = Category::where('status',1)->get();
+        $groups = Group::where('status',1)->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
@@ -63,6 +65,7 @@ class TestController extends Controller
                 ->with('editor',true)
                 ->with('types',$types)
                 ->with('categories',$categories)
+                ->with('groups',$groups)
                 ->with('app',$this);
     }
 
@@ -139,6 +142,7 @@ class TestController extends Controller
 
         $types = Type::all();
         $categories = Category::where('status',1)->get();
+        $groups = Group::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -147,6 +151,7 @@ class TestController extends Controller
                 ->with('editor',true)
                 ->with('types',$types)
                 ->with('categories',$categories)
+                ->with('groups',$groups)
                 ->with('app',$this);
         else
             abort(404);

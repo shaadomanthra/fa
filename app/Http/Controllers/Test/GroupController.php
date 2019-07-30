@@ -54,13 +54,10 @@ class GroupController extends Controller
         $obj = new Obj();
         $this->authorize('create', $obj);
 
-        $tests = Test::where('status',1)->get();
-
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
-                ->with('tests',$tests)
                 ->with('app',$this);
     }
 
@@ -90,13 +87,8 @@ class GroupController extends Controller
             }
             
             /* create a new entry */
-            $obj = $obj->create($request->except(['file','tests']));
+            $obj = $obj->create($request->except(['file']));
 
-            // attach the tags
-            $tests = $request->get('tests');
-            foreach($tests as $test){
-                $obj->tests()->attach($test);
-            }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -137,14 +129,12 @@ class GroupController extends Controller
     {
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
-        $tests = Test::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Update')
                 ->with('obj',$obj)
                 ->with('editor',true)
-                ->with('tests',$tests)
                 ->with('app',$this);
         else
             abort(404);
@@ -177,18 +167,8 @@ class GroupController extends Controller
                 $request->merge(['image' => $path]);
             }
 
-            // attach the tags
-            $tests = $request->get('tests');
-            if($tests){
-                $obj->tests()->detach();
-                foreach($tests as $test){
-                $obj->tests()->attach($test);
-                }
-            }else{
-            	$obj->tests()->detach();
-            }
 
-            $obj = $obj->update($request->except(['file','tests'])); 
+            $obj = $obj->update($request->except(['file'])); 
 
 
 
@@ -220,7 +200,6 @@ class GroupController extends Controller
             Storage::disk('uploads')->delete($obj->image);
         }
 
-        $obj->tests()->detach();
         $obj->delete();
 
         flash('('.$this->app.'/'.$this->module.') item  Successfully deleted!')->success();

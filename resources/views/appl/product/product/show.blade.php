@@ -41,10 +41,41 @@
             <div class="col-md-4"><b>Slug</b></div>
             <div class="col-md-8">{{ $obj->slug }}</div>
           </div>
+           <div class="row mb-2">
+            <div class="col-md-4"><b>Price</b></div>
+            <div class="col-md-8"><i class="fa fa-rupee"></i> {{ $obj->price }}</div>
+          </div>
+           <div class="row mb-2">
+            <div class="col-md-4"><b>Validity</b></div>
+            <div class="col-md-8">{{ $obj->validity }} months</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Image</b></div>
+            <div class="col-md-8">
+              @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
+              <div class="bg-light border  p-3 mb-3">
+                <img src="{{ asset('uploads/'.$obj->image)}}"  class="w-25 "/>
+              </div>
+              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
+                 <input type="hidden" name="_method" value="PUT">
+                 <input type="hidden" name="deletefile" value="1">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
+              </form>
+              @else
+               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
+              @endif
+            </div>
+          </div>
 
           <div class="row mb-2">
             <div class="col-md-4"><b>Description</b></div>
             <div class="col-md-8">{!! $obj->description !!}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Details</b></div>
+            <div class="col-md-8">{!! $obj->details !!}</div>
           </div>
           @if(count($obj->groups))
           <div class="row mb-2">

@@ -40,21 +40,21 @@
             <div class="col-md-4"><b>Slug</b></div>
             <div class="col-md-8">{{ $obj->slug }}</div>
           </div>
-          <div class="row mb-2">
+         <div class="row mb-2">
             <div class="col-md-4"><b>Image</b></div>
             <div class="col-md-8">
-              @if(file_exists(public_path().'/storage/'.$obj->image) && $obj->image )
-              <div class="bg-light border p-3">
-              <img src="{{ asset('storage/'.$obj->image)}}"  class="w-25 mb-3"/>
-              <form method="post" action="{{route($app->module.'.update',$obj->id)}}" >
+              @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
+              <div class="bg-light border  p-3 mb-3">
+                <img src="{{ asset('uploads/'.$obj->image)}}"  class="w-25 "/>
+              </div>
+              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
                  <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deleteimage" value="1">
+                 <input type="hidden" name="deletefile" value="1">
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
               </form>
-            </div>
               @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> Image path not found </span>
+               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
               @endif
             </div>
           </div>

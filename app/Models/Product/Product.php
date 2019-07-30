@@ -10,6 +10,9 @@ class Product extends Model
         'name',
         'slug',
         'description',
+        'image',
+        'details',
+        'validity',
         'price',
         'status',
         // add all other fields

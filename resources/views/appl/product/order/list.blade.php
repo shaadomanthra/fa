@@ -8,6 +8,7 @@
                 <th scope="col">Order ID</th>
                 <th scope="col">User </th>
                 <th scope="col">Product</th>
+                <th scope="col">Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created At</th>
               </tr>
@@ -26,6 +27,13 @@
                 </td>
                 <td>
                 {{ $obj->product->name }} 
+                </td>
+                <td>
+                @if($obj->product->price==0)
+                    <span class="badge badge-warning">Free</span>
+                  @else
+                    <span class="badge badge-primary">Premium</span>
+                  @endif
                 </td>
                 <td>
                   @if($obj->status==0)

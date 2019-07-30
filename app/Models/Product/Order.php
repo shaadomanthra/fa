@@ -16,6 +16,7 @@ class Order extends Model
         'bank_txn_id',
         'bank_name',
         'txn_amount',
+        'expiry',
         'status',
         // add all other fields
     ];
@@ -27,5 +28,33 @@ class Order extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function grantaccess($product_id){
+        $user = \auth::user();
+        $o = $this->where('product_id',$product_id)
+                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
+        $product = Product::where('id',$product_id)->first();
+
+        $this->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+
+        $o_check = $this->where('order_id',$this->order_id)->first();
+        while($o_check){
+            $this->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+            $o_check = Order::where('order_id',$this->order_id)->first();
+            if(!$o_check)
+                break;
+        }
+
+        $this->user_id = $user->id;
+        $this->txn_amount = 0;
+        $this->status=1;
+        $this->txn_id = '';
+        $this->payment_mode = 'FREE';
+        $this->product_id = $product_id;
+        $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+        $this->expiry = $valid_till;
+              
+        $this->save();
     }
 }
