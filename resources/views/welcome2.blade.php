@@ -46,7 +46,7 @@
         </div>
         <div class="col-12 col-md-5">
              <div class="p-5 d-none d-md-block"><div class="p-3"></div></div>
-             <img class="mb-2 mt-2 d-none d-md-block" src="{{ asset('images/general/front2.png') }}" alt="" width="400" >
+             <img class="mb-2 mt-2 d-none d-md-block w-100" src="{{ asset('images/general/front2.png') }}" alt=""  >
         </div>
 
     </div>

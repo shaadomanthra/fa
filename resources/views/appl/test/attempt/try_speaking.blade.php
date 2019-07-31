@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="col-12 col-md-4">
-        <div class="pr-4">
+        <div class="pr-4 pl-4 pl-md-0 pb-4">
            <img src="{{  url('/').'/images/general/speaking.png'}}" class=" mt-4 mb-4 mx-auto d-block" style="max-width:100px;"/>
       
            <h3 class="mb-5 text-center">Speaking Task</h3>
