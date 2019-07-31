@@ -208,9 +208,6 @@ class SectionController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        // remove image
-        if(file_exists(storage_path('app/public/'.$obj->file)))
-        unlink(storage_path('app/public/'.$obj->file));
         
         $obj->delete();
 

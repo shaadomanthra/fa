@@ -51,8 +51,8 @@
           @endif
             </div>
             @if($obj->image)
-            <div class="col col-md-3">
-                <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100">
+            <div class="col-12  col-md-3">
+                <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100 d-none d-md-block">
             </div>
             @endif
 
@@ -67,9 +67,9 @@
         @foreach($obj->groups as $group)
 
         @if($group->status)
-          <div class="col-12 
+          <div class="col-12 @if(count($obj->groups)==1) col-md-6 @endif
             @if(count($obj->groups)==2) col-md-6 col-lg-6 @endif
-            @if(count($obj->groups)>2) col-md-6 col-lg-4 @endif
+            @if(count($obj->groups)>2) col-md-6 col-lg-3 @endif
              mb-3">
               <div class="card" >
                 @if(file_exists(public_path().'/uploads/'.$group->image) && $group->image)

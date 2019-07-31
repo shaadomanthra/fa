@@ -25,7 +25,9 @@
         </div>
         @endif
         <div class="col">
-            {!!$obj->description!!}</br>
+            <p>
+              {{ substr(strip_tags($obj->description),0,200 )}}
+              @if(strlen(strip_tags($obj->description))>200) ...@endif</p>
           <a href="{{ route('product.view',$obj->slug)}}" class="btn  btn-outline-primary">Explore</a>
         </div>
 

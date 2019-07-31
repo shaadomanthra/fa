@@ -1,30 +1,43 @@
-@extends('layouts.app')
+@extends('layouts.reading')
 @section('content')
-<div class="container" style="padding-left:0px;padding-right:0px;">
-    <form id="test" class="test" action="{{route($app->module.'.store',$app->test->slug)}}" method="post">  
+<div class="" style="padding-left:0px;padding-right:0px;">
+    <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
-    <div class="row">
-        <div class="col-12 col-md-8">
-           
-            @if(file_exists(public_path().'/uploads/'.$test->file) && $test->file)
-                @include('appl.test.attempt.blocks.audio')
-            @endif
-            
-            @foreach($test->sections as $s=>$section)
-                @include('appl.test.attempt.blocks.section')
-            @endforeach
+        <div class="row no-gutters">
+            <div class="col-12 col-md-6">
+                <div class="panel leftpanel p-4 ">
+                    <div class="0"></div>
+                    @foreach($test->sections as $s=>$section)
+                    @include('appl.test.attempt.blocks.section_reading_text')
+                    @endforeach
+                    <br><br><br><br>
 
+                </div>
+
+            </div>
+            <div class="col-12 col-md-6">
+                <div id="a" class="panel rightpanel p-4 " >
+                    <div id="c" class="content"> 
+                    <h2 id="0">Questions</h2>
+                    @foreach($test->sections as $s=>$section)
+                    @include('appl.test.attempt.blocks.section_reading_ques')
+                    @endforeach
+                    <br><br><br><br>
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <div class="col-12 col-md-4">
-            <input type="hidden" name="test_id" value="{{ $app->test->id }}">
-            <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
-             <input type="hidden" name="product" value="{{ $product->slug }}">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @include('appl.test.attempt.blocks.qno')
-        </div>
+
+        <input type="hidden" name="test_id" value="{{ $app->test->id }}">
+        <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
+        <input type="hidden" name="product" value="{{ $product->slug }}">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        @include('appl.test.attempt.blocks.qno_reading')
+
         
-    </div>
-    @include('appl.test.attempt.blocks.modal')
+
+        @include('appl.test.attempt.blocks.modal')
     </form>
 </div>
 

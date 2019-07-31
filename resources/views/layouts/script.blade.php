@@ -22,22 +22,58 @@
 <script>
     $( document ).ready(function() {
     var height = $( window ).height();
+    var width = $( window ).width();
     var nav = $('.navbar').height();
     var bottom = $('.bottom-qno').height();
-    console.log(nav);
-    $('.panel').css('height',height-nav-bottom-15);
+    var h = height-nav-80;
+    console.log(width);
+    if(width<768)
+    $('.panel').css('height',h/2);
+    else
+    $('.panel').css('height',h);
 
     $('.pallete-control').on('click',function(){
         var height = $( window ).height();
         var nav = $('.navbar').height();
         var bottom = $('.pallete').height();
-        var h = height - nav - bottom - 60;
-        $('.panel').animate( { "height":h }, { queue:false, duration:500 });
+        var h = height - nav  - 60;
         $('.bottom-scroll').slideToggle(function(){
 
         });
        
     });
+
+    
+    $(".bottom-sno").click(function() {
+            $id = "#"+$(this).data('id'); 
+            $class = "."+$(this).data('id'); 
+            
+            if(Math.sign($('#0').offset().top)<0)
+              $h = $('#0').offset().top*(-1) + $($id).offset().top + 10 ;
+            else
+              $h = $($id).offset().top -90;
+
+            if(Math.sign($('.0').offset().top)<0)
+              $h2 = $('.0').offset().top*(-1) + $($class).offset().top + 10 ;
+            else
+              $h2 = $($class).offset().top -90;
+
+            $(".rightpanel").animate({
+            scrollTop: $h 
+        }, 1000);
+            $(".leftpanel").animate({
+            scrollTop: $h2 
+        }, 50);
+        });
+    $('.input').on('input',function(e){
+            var value = $(this).val();
+            var id = '.s'+$(this).data('id');
+            if(value.length){
+                $(id).addClass('answered');
+            }else{
+                $(id).removeClass('answered');
+            }
+        });
 });
 </script>
 @elseif(isset($player))
@@ -190,7 +226,7 @@ var x = setInterval(function() {
     t = t+minutes+"m ";
   if(seconds !=0)
     t = t+seconds+"s ";
-console.log(t);
+
   // Display the result in the element with id="demo"
   document.getElementById("timer").innerHTML =  t;
 

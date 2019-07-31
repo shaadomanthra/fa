@@ -6,7 +6,7 @@
     <div class="row">
         
         <div class="col-12 col-md-8">
-            <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;">
+            <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;height: stretch;height:100%">
             {!!$test->description!!}
             </div>
         </div>
@@ -22,8 +22,12 @@
                 @include('appl.test.attempt.blocks.writing_file')
            @endif
 
-           @if(!$attempt->answer)
+           @if(!$attempt)
               @include('appl.test.attempt.blocks.premium')
+           @else
+            @if(!$attempt->answer)
+              @include('appl.test.attempt.blocks.premium')
+            @endif
            @endif
         </div>
       </div>

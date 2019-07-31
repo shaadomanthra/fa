@@ -35,6 +35,7 @@ Route::get('/admin/analytics', 'Admin\AdminController@analytics')->name('admin.a
 
 /* Admin Application Routes */
 Route::resource('/admin/test', 'Test\TestController')->middleware('auth');
+Route::get('/admin/test/{test}/view', 'Test\AttemptController@view')->middleware('auth')->name('test.view');
 Route::resource('/admin/category', 'Test\CategoryController')->middleware('auth');
 Route::resource('/admin/tag', 'Test\TagController')->middleware('auth');
 Route::resource('/admin/test/{test}/section', 'Test\SectionController')->middleware('auth');

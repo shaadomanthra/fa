@@ -63,6 +63,8 @@ class FillupController extends Controller
         $this->authorize('create', $obj);
         $test_id = $this->test->id;
 
+
+
         /* add the serial number */
         if(Obj::where('test_id',$test_id)->orderBy('id','desc')->first())
             $this->sno = Obj::where('test_id',$test_id)->orderBy('id','desc')->first()->sno+1;
@@ -90,12 +92,15 @@ class FillupController extends Controller
     {
         try{
           
-            
+            $request->session()->put('extract_id', $request->get('extract_id'));
+
             /* create a new entry */
             $obj = $obj->create($request->except(['tags']));
 
             // attach the tags
+
             $tags = $request->get('tags');
+            if($tags)
             foreach($tags as $tag){
                 $obj->tags()->attach($tag);
             }
@@ -169,6 +174,7 @@ class FillupController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
+            $request->session()->put('extract_id', $request->get('extract_id'));
             $this->authorize('update', $obj);
 
             $tags = $request->get('tags');

@@ -7,7 +7,7 @@
     <div class="row">
         
         <div class="col-12 col-md-8">
-            <div class=" p-5  rounded mb-4 mb-md-0" style="background: #FFF5EB;">
+            <div class=" p-5  rounded mb-4 mb-md-0" style="background: #FFF5EB;height: stretch;height:100%;">
             {!!$test->description!!}
             </div>
         </div>
@@ -23,8 +23,12 @@
                 @include('appl.test.attempt.blocks.speaking_audio')
            @endif
 
-           @if(!$attempt->answer)
-           @include('appl.test.attempt.blocks.premium')
+           @if(!$attempt)
+              @include('appl.test.attempt.blocks.premium')
+           @else
+            @if(!$attempt->answer)
+              @include('appl.test.attempt.blocks.premium')
+            @endif
            @endif
         </div>
         </div>

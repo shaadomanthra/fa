@@ -56,7 +56,7 @@
         <label for="formGroupExampleInput ">Extract</label>
         <select class="form-control" name="extract_id">
           @foreach($extracts as $extract)
-          <option value="{{$extract->id}}" @if(isset($obj)) @if($obj->extract_id == $extract->id) selected @endif @endif >{{ $extract->name }}</option>
+          <option value="{{$extract->id}}" @if(isset($obj)) @if($obj->extract_id == $extract->id) selected @else @if(request()->session()->get('extract_id')) @if(request()->session()->get('extract_id') == $extract->id) selected @endif @endif @endif  @endif >{{ $extract->name }}</option>
           @endforeach
         </select>
       </div>

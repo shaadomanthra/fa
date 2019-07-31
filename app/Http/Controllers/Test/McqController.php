@@ -90,6 +90,7 @@ class McqController extends Controller
         try{
             $user = \auth::user();
 
+            $request->session()->put('extract_id', $request->get('extract_id'));
             /* upload images if any */
             $question = summernote_imageupload($user,$request->get('question'));
             $a = summernote_imageupload($user,$request->get('a'));
@@ -105,6 +106,7 @@ class McqController extends Controller
 
             // attach the tags
             $tags = $request->get('tags');
+            if($tags)
             foreach($tags as $tag){
                 $obj->tags()->attach($tag);
             }
@@ -180,6 +182,7 @@ class McqController extends Controller
             $this->authorize('update', $obj);
 
             $user = \auth::user();
+            $request->session()->put('extract_id', $request->get('extract_id'));
             /* upload images if any */
             $question = summernote_imageupload($user,$request->get('question'));
             $a = summernote_imageupload($user,$request->get('a'));

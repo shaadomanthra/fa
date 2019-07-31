@@ -91,6 +91,12 @@ class TestController extends Controller
                 $request->merge(['file' => $path]);
             }
 
+            /* upload images if any */
+            $text = summernote_imageupload($user,$request->get('description'));
+            
+            /* merge the updated data in request */
+            $request->merge(['description' => $text]);
+
             
             /* create a new entry */
             $obj = $obj->create($request->all());
@@ -183,6 +189,15 @@ class TestController extends Controller
                 $file      = $request->all()['file_'];
                 $path = Storage::disk('uploads')->putFile('extracts', $request->file('file_'));
                 $request->merge(['file' => $path]);
+            }
+
+            if($request->get('description')){
+                $user = \auth::user();
+                /* upload images if any */
+                $text = summernote_imageupload($user,$request->get('description'));
+                
+                /* merge the updated data in request */
+                $request->merge(['description' => $text]);
             }
 
             

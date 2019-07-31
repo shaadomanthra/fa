@@ -14,9 +14,44 @@
 }
 
 .heading2{
-	font-size:30px;
+	font-size:20px;
 	color:white;
 	font-family: 'Muli', sans-serif;
+}
+
+.btn-orange{
+	background-color: #ea7559;
+	border-color:#ef7759;
+	color:white;
+}
+.btn-orange:hover{
+	background-color: #e56651;
+	border-color:#ea7559;
+	color:white;
+}
+
+.btn-yellow{
+	background-color: #ffcd51;
+	border-color:#eaba42;
+	color:white;
+}
+.btn-yellow:hover{
+	background-color: #eaba42;
+	border-color:#e6b53b;
+	color:white;
+}
+.btn-green{
+	border:1px solid #0d8d98;
+	border-bottom:2px solid #a1d5e8;
+	padding:1px 10px;
+	background: #0d8d98;
+	color:#a1d5e8
+}
+.btn-green:hover{
+	border:1px solid #0d7e88;
+	border-bottom:2px solid #a1d5e8;
+	background: #0d7e88;
+	color:#a1d5e8;
 }
 
 @media only screen and (max-width: 600px) {

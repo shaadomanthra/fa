@@ -26,7 +26,7 @@
     <div id="app">
         @include('layouts.menu')
 
-        <main class="container">
+        <main class="">
             @yield('content')
         </main>
         

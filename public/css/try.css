@@ -87,11 +87,25 @@
 
     /* Reading */
 .panel{ overflow:auto; min-height:300px; }
-.leftpanel{ background: #dcfcff;  }
-.bottom-qno{ background: #284664; color:white;}
+.leftpanel{background: #fff;   }
+.rightpanel{background: #fffbe6;}
+.bottom-qno{ background: #378066; color:white;position:fixed;bottom:0;left:0;right:0}
 .bottom-wrap{ padding:20px; }
-.pallete{ height:30px; }
+.bottom-sno{ background: #2b6f57;
+        font-weight:bold;
+        width:100%;
+        border-radius: 15px;  
+        padding:5px;
+        cursor: pointer;  }
+.pallete{ margin-bottom: 25px;padding-bottom:10px; }
+.pallete-control{cursor:pointer;}
 .bottom-box{ width:50px;margin-right:8px; margin-bottom:8px;float:left; color:white;  }
-.bottom-scroll{ overflow: auto; height:80px; }
+.bottom-scroll{ overflow: auto; height:80px;padding-top: 5px; }
 
+ .answered{
+        background: #57b392;
+    }
+    .unanswered{
+        color:#fff;
+    }
 

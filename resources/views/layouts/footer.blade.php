@@ -1,4 +1,4 @@
-
+<div class="p-2">
 <div class="p-4"></div>
 <div class="row">
 	<div class="col-6 col-md">
@@ -65,4 +65,5 @@
 <hr>
 <div class="text-secondary">Copyright © First Academy. All Rights Reserved. Designed and developed by Piofx</div>
 <div class="p-4"></div>
+</div>
 

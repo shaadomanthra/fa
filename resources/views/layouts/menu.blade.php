@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#2c4059">
+<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#1a4248">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="mb-2 mt-2" src="{{ asset('images/logo_white.png') }}" alt="" width="200" >

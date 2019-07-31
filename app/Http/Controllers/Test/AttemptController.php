@@ -118,10 +118,8 @@ class AttemptController extends Controller
         if($attempt){
             $testtype=  strtolower($test->testtype->name);
 
-            if($testtype=='writing' || $testtype == 'speaking')
+            if($testtype=='listening' || $testtype == 'reading')
             {
-              return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
-            }else{
               return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
             }
         }
@@ -147,7 +145,7 @@ class AttemptController extends Controller
       }
 
       
-      if($view == 'listening' || $view == 'reading')
+      if($view == 'listening')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
                 ->with('try',true)
@@ -157,6 +155,17 @@ class AttemptController extends Controller
                 ->with('product',$product)
                 ->with('timer',true)
                 ->with('time',$test->test_time);
+      else if($view =='reading'){
+        return view('appl.test.attempt.try_'.$view)
+                ->with('try',true)
+                ->with('app',$this)
+                ->with('qcount',$qcount)
+                ->with('test',$test)
+                ->with('product',$product)
+                ->with('reading',1)
+                ->with('timer',true)
+                ->with('time',$test->test_time);
+      }
       else{
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
@@ -167,6 +176,70 @@ class AttemptController extends Controller
       }
 
    }
+
+
+   /* Test View Function - Here you cannot attempt test */
+   public function view($slug,Request $request){
+      $test = Test::where('slug',$slug)->first();
+
+      $user = \auth::user();
+      $product = Product::first();
+    
+
+      $qcount = 0;
+
+      if(!$test->testtype)
+          abort('403','Test Type not defined');
+      else
+        $view =  strtolower($test->testtype->name);
+
+      foreach($test->sections as $section){
+        foreach($section->extracts as $extract){
+          foreach($extract->mcq as $mcq){
+            if($mcq->qno)
+              $qcount++;
+          }
+          foreach($extract->fillup as $fillup){
+            if($fillup->qno)
+             $qcount++;
+          }
+        }
+      }
+
+      
+      if($view == 'listening')
+        return view('appl.test.attempt.try_'.$view)
+                ->with('player',true)
+                ->with('try',true)
+                ->with('app',$this)
+                ->with('qcount',$qcount)
+                ->with('test',$test)
+                ->with('product',$product)
+                ->with('view',true)
+                ->with('time',$test->test_time);
+      else if($view =='reading'){
+        return view('appl.test.attempt.try_'.$view)
+                ->with('try',true)
+                ->with('app',$this)
+                ->with('qcount',$qcount)
+                ->with('test',$test)
+                ->with('product',$product)
+                ->with('reading',1)
+                ->with('view',true)
+                ->with('time',$test->test_time);
+      }
+      else{
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        return view('appl.test.attempt.try_'.$view)
+                  ->with('test',$test)
+                  ->with('product',$product)
+                  ->with('attempt',$attempt)
+                  ->with('view',true)
+                  ->with('player',1);
+      }
+
+   }
+
 
    /* Function to upload files in server */
    public function upload($slug,Request $request){
@@ -231,6 +304,7 @@ class AttemptController extends Controller
 
    /* Function to save data in database */
    public function store($slug,Request $request){
+      
       $result = array();
       $score =0;
       $test = Test::where('slug',$slug)->first();
