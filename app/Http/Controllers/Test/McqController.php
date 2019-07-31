@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Test;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Test\MCQ as Obj;
+use App\Models\Test\Mcq as Obj;
 use App\Models\Test\Extract;
 use App\Models\Test\Test;
 use App\Models\Test\Tag;
