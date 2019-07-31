@@ -36,8 +36,9 @@ class FileController extends Controller
 
         $search = $request->search;
         $item = $request->item;
-        
+        $tests = Test::whereIn('type_id',[3,4])->pluck('id');
         $objs = $obj->where('response','LIKE',"%{$item}%")
+                    ->whereIn('test_id',$tests)
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));   
         $view = $search ? 'list': 'index';

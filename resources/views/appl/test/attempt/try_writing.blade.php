@@ -6,7 +6,7 @@
     <div class="row">
         
         <div class="col-12 col-md-8">
-            <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;height: stretch;height:100%">
+            <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;height: stretch;height:100%;">
             {!!$test->description!!}
             </div>
         </div>
