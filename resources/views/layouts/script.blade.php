@@ -194,7 +194,12 @@
 
         $(".qdata").hide();
         $(".qshow").click(function() {
-            $(".qdata").slideToggle();
+            $(".qdata").slideToggle(function(){
+              if($('.qdata').is(':visible'))
+          $('.angle').html('<i class="fa fa-angle-double-down"></i>');
+          else
+            $('.angle').html('<i class="fa fa-angle-double-up"></i>');
+            });
         });
 
         $('.input').on('input',function(e){
