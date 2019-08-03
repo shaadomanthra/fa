@@ -40,7 +40,7 @@ class Attempt extends Model
     }
 
 
-    public function writing_band($score){
+    public function reading_band($score){
         if($score==39 || $score ==40)
             $band = 9;
         else if($score==37 || $score ==38)
