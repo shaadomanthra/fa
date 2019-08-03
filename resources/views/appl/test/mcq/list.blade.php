@@ -41,6 +41,16 @@
                   @endif
                   {{ $obj->c }}
                   </div>
+                  @if($obj->d)
+                  <div>
+                  @if($obj->answer=='D')
+                   <span class="text-success">(D)</span> 
+                  @else
+                  <span >(D)</span>
+                  @endif
+                  {{ $obj->d }}
+                  </div>
+                  @endif
 
                 </td>
                 <td>

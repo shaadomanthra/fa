@@ -91,6 +91,7 @@ class TestController extends Controller
                 $request->merge(['file' => $path]);
             }
 
+            $user = \auth::user();
             /* upload images if any */
             $text = summernote_imageupload($user,$request->get('description'));
             

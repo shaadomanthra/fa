@@ -153,8 +153,8 @@ class GroupController extends Controller
             $obj = Obj::where('id',$id)->first();
 
             if($request->get('deleteimage')){
-               if(Storage::disk('uploads')->exists($obj->file))
-                    Storage::disk('uploads')->delete($obj->file);
+               if(Storage::disk('uploads')->exists($obj->image))
+                    Storage::disk('uploads')->delete($obj->image);
                 redirect()->route($this->module.'.show',[$id]);
             }
 

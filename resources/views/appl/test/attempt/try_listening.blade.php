@@ -4,7 +4,7 @@
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
     <div class="row">
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-8 col-lg-8">
            
             @if(file_exists(public_path().'/uploads/'.$test->file) && $test->file)
                 @include('appl.test.attempt.blocks.audio')
@@ -15,7 +15,7 @@
             @endforeach
 
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 col-lg-4">
             <input type="hidden" name="test_id" value="{{ $app->test->id }}">
             <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
             <input type="hidden" name="product" value="{{ $product->slug }}">

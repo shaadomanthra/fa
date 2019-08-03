@@ -73,7 +73,7 @@
              mb-3">
               <div class="card" >
                 @if(file_exists(public_path().'/uploads/'.$group->image) && $group->image)
-                   <div class="card-img-top" style="background: linear-gradient(to top, rgba(0, 0, 0,0.3),rgba(255, 255, 255,0.3)), url({{ asset(url('/').'/uploads/'.$group->image)}}); height: stretch;background-repeat: no-repeat;background-size: auto;
+                   <div class="card-img-top" style="background: linear-gradient(to top, rgba(0, 0, 0,0.3),rgba(255, 255, 255,0.2)), url({{ asset(url('/').'/uploads/'.$group->image)}}); height: stretch;background-repeat: no-repeat;background-size: auto;
 -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -85,7 +85,9 @@
     <p class="card-text">{!! $group->description !!}</p>
     @foreach($group->tests as $test)
     @if($test->testtype)
+    @if($test->status)
     <a href="{{ route('test',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->testtype->name}}</a>
+    @endif
     @endif
     @endforeach
   </div>

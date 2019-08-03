@@ -21,6 +21,17 @@
 	font-size:18px;
 	line-height: 30px;
 }
+.speaking,.writing{
+    font-size: 18px;
+}
+.speaking b{
+	color:#f1851a;
+	font-weight: 900;
+}
+.writing b{
+	color:#dcba2f;
+	font-weight: 900;
+}
 
 .op{
 	background: #dfe6e9;

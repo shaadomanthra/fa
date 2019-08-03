@@ -10,7 +10,7 @@
                     @foreach($test->sections as $s=>$section)
                     @include('appl.test.attempt.blocks.section_reading_text')
                     @endforeach
-                    <br><br><br><br>
+                    <br><br>
 
                 </div>
 
@@ -18,11 +18,11 @@
             <div class="col-12 col-md-6">
                 <div id="a" class="panel rightpanel p-4 " >
                     <div id="c" class="content"> 
-                    <h2 id="0">Questions</h2>
+                    <div id="0"></div>
                     @foreach($test->sections as $s=>$section)
                     @include('appl.test.attempt.blocks.section_reading_ques')
                     @endforeach
-                    <br><br><br><br>
+                    <br><br>
                     </div>
                 </div>
 

@@ -1,10 +1,10 @@
 
 <div class="sticky-top d-none d-sm-block">
 <div class=" p-4  sidebar ">
-<h5 class="mb-4 "><i class="fa fa-th"></i> Questions Pallete &nbsp;<span class="badge badge-warning float-right" id="timer2"></span></h5>
+<h5 class="mb-4 "><i class="fa fa-th"></i> Questions  &nbsp;<span class="badge badge-warning float-right" id="timer2"></span></h5>
 <div class="row no-gutters">
 @for($i=1;$i <= $qcount; $i++ ) 
-<div class="col-2">
+<div class="col-2 col-md-3 col-lg-2">
 <div class="box pr-2 pb-2 text-center">
 <div class="sno s{{$i}}" data-id="{{$i}}">{{$i}}</div>
 </div>

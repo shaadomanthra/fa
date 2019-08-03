@@ -1,18 +1,20 @@
 @extends('layouts.app')
 @section('content')
-<div class="container" style="padding-left:0px;padding-right:0px;">
+<div class="" style="padding-left:0px;padding-right:0px;">
 
 <div class="bg-white rounded ">
-    <div class="row">
+    <div class="row no-gutters">
         
-        <div class="col-12 col-md-8">
+        <div class="col-12 col-md-7 col-lg-8">
             <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;height: stretch;height:100%;">
-            {!!$test->description!!}
+            <div class="writing">{!!$test->description!!}</div>
             </div>
         </div>
-        <div class="col-12 col-md-4">
-          <div class="pr-4 pl-4 pl-md-0 pb-4">
-           <img src="{{  url('/').'/images/general/writing.png'}}" class=" mt-4 mb-4 mx-auto d-block" style="max-width:100px;"/>
+        <div class="col-12 col-md-5 col-lg-4">
+          <div class="p-4" >
+            <div class="">
+           <img src="{{  url('/').'/images/general/writing.png'}}" class="  mb-4 mx-auto d-block" style="max-width:100px;"/>
+         </div>
       
            <h3 class="mb-5 text-center">Writing Task</h3>
 

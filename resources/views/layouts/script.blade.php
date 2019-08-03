@@ -25,7 +25,7 @@
     var width = $( window ).width();
     var nav = $('.navbar').height();
     var bottom = $('.bottom-qno').height();
-    var h = height-nav-80;
+    var h = height-nav-70;
     console.log(width);
     if(width<768)
     $('.panel').css('height',h/2);
@@ -39,31 +39,43 @@
         var h = height - nav  - 60;
         $('.bottom-scroll').slideToggle(function(){
 
+          if($('.bottom-scroll').is(':visible'))
+          $('.angle').html('<i class="fa fa-angle-double-down"></i>');
+          else
+            $('.angle').html('<i class="fa fa-angle-double-up"></i>');
         });
        
     });
 
+    $(".bottom-pno").click(function() {
+            $class = ".r"+$(this).data('id'); 
+            
+            if(Math.sign($('.0').offset().top)<0)
+              $h2 = $('.0').offset().top*(-1) + $($class).offset().top + 10 ;
+            else
+              $h2 = $($class).offset().top - 110;
+
+            $(".leftpanel").animate({
+            scrollTop: $h2 
+        }, 1000);
+            
+        });
     
     $(".bottom-sno").click(function() {
             $id = "#"+$(this).data('id'); 
-            $class = "."+$(this).data('id'); 
+
+            console.log($('.0').offset().top);
             
             if(Math.sign($('#0').offset().top)<0)
               $h = $('#0').offset().top*(-1) + $($id).offset().top + 10 ;
             else
               $h = $($id).offset().top -90;
 
-            if(Math.sign($('.0').offset().top)<0)
-              $h2 = $('.0').offset().top*(-1) + $($class).offset().top + 10 ;
-            else
-              $h2 = $($class).offset().top -90;
 
             $(".rightpanel").animate({
             scrollTop: $h 
         }, 1000);
-            $(".leftpanel").animate({
-            scrollTop: $h2 
-        }, 50);
+            
         });
     $('.input').on('input',function(e){
             var value = $(this).val();
@@ -163,6 +175,13 @@
             player.stop();
             player.forward($seek);
             player.play();
+        });
+
+        $(".forward").click(function() {
+            player.forward();
+        });
+        $(".backward").click(function() {
+            player.rewind();
         });
 
 

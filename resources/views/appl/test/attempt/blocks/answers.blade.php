@@ -1,5 +1,5 @@
 <div class="table-responsive">
-<table class="table table-bordered">
+<table class="table table-bordered mb-0">
   <thead>
     <tr>
       <th scope="col" style="width:10%">Qno</th>
@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     @foreach($result as $qno => $item)
-    @if($qno)
+    @if($item->qno)
     <tr>
       <th scope="row">{{ $item->qno}}</th>
       <td>{{ $item->answer}}</td>

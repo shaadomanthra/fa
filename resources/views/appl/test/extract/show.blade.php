@@ -132,6 +132,16 @@
                       <div class="option">{!! $m->c !!}</div>
                     </div>
                 </div>
+                @if($m->d)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if($m->answer=='D') border-success @endif"">D</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $m->d !!}</div>
+                    </div>
+                </div>
+                @endif
             </div>
             
             @endforeach

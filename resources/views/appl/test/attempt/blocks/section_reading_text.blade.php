@@ -1,11 +1,10 @@
 <div class="mb-3">
-	<div class="part">
-	<h3><i class="fa fa-clone"></i> {{ $section->name}}
+	<div class="p-2">
+	<h3 class="heading-box r{{$section->id}}
+	"><i class="fa fa-clone"></i> {{ $section->name}}
 	</h3>
-	<p>{!! $section->instructions !!}</p>
+	<p >{!! $section->instructions !!}</p>
 	</div>
 	
-	@foreach($section->extracts as $k=>$extract )
-		@include('appl.test.attempt.blocks.extract_reading_text')
-	@endforeach
+	
 </div>

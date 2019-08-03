@@ -9,6 +9,7 @@ use App\Models\Test\Fillup;
 use App\Models\Test\Section;
 use App\Models\Test\Extract;
 use App\Models\Test\Test;
+use App\Models\Test\Type;
 use App\Models\Test\Attempt;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
@@ -408,10 +409,17 @@ class AttemptController extends Controller
           $score++;
       }
 
+      $type = strtolower($test->testtype->name);
+      $function_name = $type.'_band';
+      $attempt = new Attempt;
+      $band = $attempt->$function_name($score);
+
       return view('appl.test.attempt.result')
               ->with('result',$result)
+              ->with('band',$band)
               ->with('score',$score);
    }
+
 
 
    /**

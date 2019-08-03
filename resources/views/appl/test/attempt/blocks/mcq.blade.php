@@ -36,6 +36,17 @@
                       <div class="option">{!! $m->c !!}</div>
                     </div>
                 </div>
+                @if($m->d )
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op"><input class
+                        ='input' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="D"/> <span class="mt-2">D</span></div>
+                    </div>
+                    <div class="col-9 col-md-9 col-lg-10">
+                      <div class="option">{!! $m->d !!}</div>
+                    </div>
+                </div>
+                @endif
             </div>
 
             

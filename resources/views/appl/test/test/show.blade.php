@@ -121,16 +121,7 @@
                     <span class="badge badge-success">Active</span>
                   @endif</div>
           </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Status</b></div>
-            <div class="col-md-8">
-              @if($obj->status==0)
-                    <span class="badge badge-secondary">FREE</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-primary">PREMIUM</span>
-                  @endif
-            </div>
-          </div>
+          
           <div class="row mb-2">
             <div class="col-md-4"><b>Created At</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
