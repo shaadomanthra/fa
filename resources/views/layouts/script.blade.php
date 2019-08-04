@@ -26,7 +26,7 @@
     var nav = $('.navbar').height();
     var bottom = $('.bottom-qno').height();
     var h = height-nav-70;
-    console.log(width);
+    console.log(h);
     if(width<768)
     $('.panel').css('height',h/2);
     else
@@ -49,35 +49,129 @@
 
     $(".bottom-pno").click(function() {
             $class = ".r"+$(this).data('id'); 
+            $('.r').hide();
+            $($class).show();
             
-            if(Math.sign($('.0').offset().top)<0)
-              $h2 = $('.0').offset().top*(-1) + $($class).offset().top + 10 ;
-            else
-              $h2 = $($class).offset().top - 110;
-
             $(".leftpanel").animate({
-            scrollTop: $h2 
-        }, 1000);
+              scrollTop: 0
+            }, 500);
             
         });
     
-    $(".bottom-sno").click(function() {
-            $id = "#"+$(this).data('id'); 
+    $(".button").click(function() {
+            $id = $(this).data('id');
+            $class = ".r"+$id; 
+            $('.r').hide();
+            $($class).show();
 
-            console.log($('.0').offset().top);
-            
-            if(Math.sign($('#0').offset().top)<0)
-              $h = $('#0').offset().top*(-1) + $($id).offset().top + 10 ;
-            else
-              $h = $($id).offset().top -90;
+            $('.section-number').html($id);
+            for($k=1;$k<10;$k++){
+
+              
+              if(!$('.r'+$k).length)
+                break;
+              $last = $k;
+            }
+
+            for($m=1;$m<=$last;$m++){
+              if($id == $m){
+                $('.prev').data('id',$m-1);
+                $('.next').data('id',$m+1);
 
 
+                if($id == 1){
+                  $('.prev').hide();
+                  $('.next').show();
+                }
+
+                else if($id==$last){
+                  $('.next').hide();
+                  $('.prev').show();
+                }
+                else{
+                  $('.next').show();
+                  $('.prev').show();
+                }
+
+              }
+            }
+
+            $(".leftpanel").animate({
+              scrollTop: 0
+            }, 50);
             $(".rightpanel").animate({
-            scrollTop: $h 
-        }, 1000);
+              scrollTop: 0
+            }, 500);
             
         });
-    $('.input').on('input',function(e){
+    $(".bottom-sno").click(function() {
+            $id = "#"+$(this).data('id'); 
+            $section_number = $(this).data('section')+1;
+            $section = ".r"+$section_number; 
+          
+
+            if(!$($section).is(':visible')){
+              $('.r').hide();
+              $($section).show();
+
+              $(".leftpanel").animate({
+                scrollTop: 0
+                }, 50);
+
+            $('.section-number').html($section_number);
+            for($k=1;$k<10;$k++){
+
+              
+              if(!$('.r'+$k).length)
+                break;
+              $last = $k;
+            }
+
+            for($m=1;$m<=$last;$m++){
+              if($section_number == $m){
+                $('.prev').data('id',$m-1);
+                $('.next').data('id',$m+1);
+
+
+                if($section_number == 1){
+                  $('.prev').hide();
+                  $('.next').show();
+                }
+
+                else if($section_number==$last){
+                  $('.next').hide();
+                  $('.prev').show();
+                }
+                else{
+                  $('.next').show();
+                  $('.prev').show();
+                }
+
+              }
+            }
+
+              if(Math.sign($('#0').offset().top)<0)
+                $h = $('#0').offset().top*(-1) + $($id).offset().top + 10 ;
+              else
+                $h = $($id).offset().top -90;
+              $(".rightpanel").animate({
+                scrollTop: $h 
+                }, 1000);
+              
+            }else{
+              if(Math.sign($('#0').offset().top)<0)
+                $h = $('#0').offset().top*(-1) + $($id).offset().top + 10 ;
+              else
+                $h = $($id).offset().top -90;
+              $(".rightpanel").animate({
+                scrollTop: $h 
+                }, 1000);
+            }
+            
+            
+        });
+
+      $('.input').on('input',function(e){
             var value = $(this).val();
             var id = '.s'+$(this).data('id');
             if(value.length){

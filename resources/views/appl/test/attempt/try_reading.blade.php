@@ -4,8 +4,8 @@
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
         <div class="row no-gutters">
-            <div class="col-12 col-md-6">
-                <div class="panel leftpanel p-4 ">
+            <div class="col-12 col-md-6 ">
+                <div class="panel leftpanel p-4 {{$sno=1}}">
                     <div class="0"></div>
                     @foreach($test->sections as $s=>$section)
                     @include('appl.test.attempt.blocks.section_reading_text')
@@ -15,8 +15,8 @@
                 </div>
 
             </div>
-            <div class="col-12 col-md-6">
-                <div id="a" class="panel rightpanel p-4 " >
+            <div class="col-12 col-md-6 ">
+                <div id="a" class="panel rightpanel p-4 {{$sno}}" >
                     <div id="c" class="content"> 
                     <div id="0"></div>
                     @foreach($test->sections as $s=>$section)

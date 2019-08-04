@@ -24,10 +24,10 @@
            @endif
 
            @if(!$attempt)
-              @include('appl.test.attempt.blocks.premium')
+              @include('appl.test.attempt.blocks.premium_speaking')
            @else
             @if(!$attempt->answer)
-              @include('appl.test.attempt.blocks.premium')
+              @include('appl.test.attempt.blocks.premium_speaking')
             @endif
            @endif
         </div>

@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
+    <meta name="description" content="@yield('description')">
+    <meta name="keywords" content="@yield('keywords')">
+    <meta name="author" content="First Academy Team">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-     <meta name="description" content="Online Test engine for GRE, IELTS, TOEFL, PTE and OTE by First Academy">
-    <meta name="author" content="Krishna Teja G S">
-    <title>First Academy Online Tests for GRE, IELTS, TOEFL, PTE, OTE</title>
+    <title>@yield('title')</title>
     @if(isset($player))
     <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
     @endif

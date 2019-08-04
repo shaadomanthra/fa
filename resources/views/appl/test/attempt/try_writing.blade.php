@@ -25,10 +25,10 @@
            @endif
 
            @if(!$attempt)
-              @include('appl.test.attempt.blocks.premium')
+              @include('appl.test.attempt.blocks.premium_writing')
            @else
             @if(!$attempt->answer)
-              @include('appl.test.attempt.blocks.premium')
+              @include('appl.test.attempt.blocks.premium_writing')
             @endif
            @endif
         </div>

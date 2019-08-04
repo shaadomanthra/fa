@@ -5,8 +5,14 @@
 		<source id="player"  src="{{ url('/').'/uploads/'.$attempt->response }}" type="audio/mp3">
 		</audio>
 	</div>
-	<p>The smart always work on their mistakes. Take a step to get your response evaluated by our team.</p>
-	<a href="{{ route('pricing')}}">
-	<button class="btn btn-sm btn-outline-primary">Choose a Plan</button>
+	<p>Good job ! Your  audio track is uploaded. Get it evaluated. </p>
+	@if($attempt->answer)
+	<a href="{{ route('test.review',$test->slug)}}">
+	<button class="btn btn-sm btn-success">Expert Review</button>
 	</a>
+	@else
+	<a href="{{ route('product.view','speaking-evaluation')}}">
+	<button class="btn btn-sm btn-outline-primary">Expert Evaluation</button>
+	</a>
+	@endif
 </div>
