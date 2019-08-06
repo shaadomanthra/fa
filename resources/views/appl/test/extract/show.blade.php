@@ -64,10 +64,7 @@
             <div class="col-md-4"><b>Text</b></div>
             <div class="col-md-8">{!! $obj->text !!}</div>
           </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Glance Time</b></div>
-            <div class="col-md-8">{{ $obj->glance_time}} sec</div>
-          </div>
+
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Created At</b></div>

@@ -53,16 +53,10 @@
         </textarea>
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Glance Time (seconds)</label>
-        <input type="text" class="form-control" name="glance_time" id="formGroupExampleInput" placeholder="Enter the glance time in seconds" 
-            @if($stub=='Create')
-            value="{{ (old('glance_time')) ? old('glance_time') : '' }}"
-            @else
-            value = "{{ $obj->glance_time }}"
-            @endif
+
+        <input type="hidden" class="form-control" name="glance_time" id="formGroupExampleInput" value="0"
           >
-      </div>
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Seek Time (seconds)</label>
         <input type="text" class="form-control" name="seek_time" id="formGroupExampleInput" placeholder="Enter the seek time in seconds" 
