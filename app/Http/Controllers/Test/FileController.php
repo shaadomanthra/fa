@@ -77,6 +77,7 @@ class FileController extends Controller
     public function show($id)
     {
         $obj = Obj::where('id',$id)->first();
+
         $this->authorize('view', $obj);
 
         if(!$obj)
@@ -108,13 +109,23 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function download($id)
+    public function download($id,Request $request)
     {
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
+
+        if($request->get('pdf')){
+            // expert feedback document
+            $file = 'feedback/'.$id.'.pdf';
+        }
+        else{
+            //user response file (audio or doc)
+            $file = $obj->response;
+        }
+        
         
         if($obj)
-            return response()->download('uploads/'.$obj->response);
+            return response()->download('uploads/'.$file);
         else
             abort(404);
     }
@@ -176,6 +187,28 @@ class FileController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
             $obj->answer = $request->answer;
+
+            /* delete file request */
+            if($request->get('deletefile')){
+                if(Storage::disk('uploads')->exists('feedback/'.$obj->id.'.pdf'))
+                    Storage::disk('uploads')->delete('feedback/'.$obj->id.'.pdf');
+                redirect()->route($this->module.'.show',[$id]);
+            }
+
+            /* If file is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $extension = $file->getClientOriginalExtension();
+
+              
+                if($extension!='pdf')
+                    return abort('403','Only PDF Doc allowed');
+
+                $filename  = $obj->id.'.' . $extension;
+
+                $path = Storage::disk('uploads')->putFileAs('feedback', $request->file('file'),$filename);
+            }
+
             $obj->save();
             
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();

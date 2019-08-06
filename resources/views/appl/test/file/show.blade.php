@@ -46,6 +46,9 @@
               <source id="player"  src="{{ url('/').'/uploads/'.$obj->response }}" type="audio/mp3">
               </audio>
             </div>
+            <a href="{{route($app->module.'.download',[$obj->id])}}" >
+                <button type="button" class="btn btn-sm btn-outline-secondary float-left mr-2 mt-3">Download Response</button>
+              </a>
             </div>
           </div>
           @else
@@ -65,12 +68,31 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Uploaded at</b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
+            <div class="col-md-4"><b>PDF Doc</b></div>
+            <div class="col-md-8">
+              @if(file_exists('uploads/feedback/'.$obj->id.'.pdf'))
+              <div class="bg-light border  p-3 mb-3">
+                {{ $obj->id.'.pdf' }}
+              </div>
+              
+              <a href="{{route($app->module.'.download',[$obj->id])}}?pdf=1" >
+                <button type="button" class="btn btn-sm btn-outline-success float-left mr-2">Download Feedback</button>
+              </a>
+              
+              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" class = "form-inline" role = "form">
+                 <input type="hidden" name="_method" value="PUT">
+                 <input type="hidden" name="deletefile" value="1">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger ml-2">Delete Feedback</button>
+              </form>
+              @else
+               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
+              @endif
+            </div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Reviewed at</b></div>
-            <div class="col-md-8">{{ ($obj->updated_at) ? $obj->updated_at->diffForHumans() : '' }}</div>
+            <div class="col-md-4"><b>Uploaded at</b></div>
+            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
         </div>
       </div>

@@ -146,7 +146,7 @@ class AttemptController extends Controller
       }
 
       
-      if($view == 'listening')
+      if($view == 'listening' || $view == 'grammar')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
                 ->with('try',true)
@@ -208,7 +208,7 @@ class AttemptController extends Controller
       }
 
       
-      if($view == 'listening')
+      if($view == 'listening' || $view == 'grammar')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
                 ->with('try',true)
@@ -410,9 +410,13 @@ class AttemptController extends Controller
       }
 
       $type = strtolower($test->testtype->name);
-      $function_name = $type.'_band';
-      $attempt = new Attempt;
-      $band = $attempt->$function_name($score);
+      if($type=='listening' || $type=='reading'){
+        $function_name = $type.'_band';
+        $attempt = new Attempt;
+        $band = $attempt->$function_name($score);
+      }else
+      $band =0;
+      
 
       return view('appl.test.attempt.result')
               ->with('result',$result)
@@ -434,7 +438,7 @@ class AttemptController extends Controller
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
 
         if($attempt)
-        if($attempt->answer)
+        if($attempt->answer || Storage::disk('uploads')->exists('feedback/'.$attempt->id.'.pdf'))
             return view('appl.'.$this->app.'.attempt.review')
                     ->with('attempt',$attempt)->with('test',$test);
         else

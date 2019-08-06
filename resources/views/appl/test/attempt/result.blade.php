@@ -20,10 +20,12 @@
                     <div class="">Score</div>
                   <div class="display-4">{{ $score }} / {{count($result)}} </div>
                 </div>
+                @if($band)
                 <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right mr-md-4 border bg-light p-3 rounded">
                     <div class="">Band</div>
                   <div class="display-4 pr-3 pl-3 text-primary">{{ $band }} </div>
                 </div>
+                @endif
               </div>
             </div>
             

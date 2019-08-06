@@ -18,8 +18,17 @@
     </div>
     <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
-        <div class="mb-3">
+        <div class="">
+        @if(strip_tags($attempt->answer))
         {!! $attempt->answer !!}
+        @endif
+
+        @if(\Storage::disk('uploads')->exists('feedback/'.$attempt->id.'.pdf'))
+          <h4 class="mb-4">Your Task Reponse - Evaluation is ready !</h4>
+          <a href="{{route('file.download',[$attempt->id])}}?pdf=1">
+          <button class="btn btn-success btn-lg"> Download the Evaluation</button>
+          </a>
+        @endif
         </div>
         
      </div>

@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('appl.pages.dashboard');
-})->name('home');
+})->name('home')->middleware('auth');
 
 // login routes
 Auth::routes(['verify' => true]);
