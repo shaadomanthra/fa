@@ -66,16 +66,8 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Description</label>
-        <textarea class="form-control summernote" name="description"  rows="5">
-            @if($stub=='Create')
-            {{ (old('description')) ? old('description') : '' }}
-            @else
-            {{ $obj->description }}
-            @endif
-        </textarea>
-      </div>
+      <input type="hidden" class="form-control" name="description" id="formGroupExampleInput" value=""
+          >
       
       <div class="form-group">
         <label for="formGroupExampleInput ">Instructions</label>
