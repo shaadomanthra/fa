@@ -7,7 +7,7 @@
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">Name </th>
                 <th scope="col">Status</th>
-                <th scope="col">Type</th>
+                <th scope="col">Group</th>
                 <th scope="col">Created at</th>
               </tr>
             </thead>
@@ -28,11 +28,7 @@
                   @endif
                 </td>
                 <td>
-                  @if($obj->status==0)
-                    <span class="badge badge-secondary">FREE</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-primary">PREMIUM</span>
-                  @endif
+                  
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>
