@@ -21,9 +21,7 @@
     @endif
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Anton|Bungee+Outline|Muli&display=swap" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/test.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/general.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
@@ -31,17 +29,7 @@
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
     <style>
-.bg{
-    background: 
-    radial-gradient(#0d8d98 3px, transparent 4px),
-    radial-gradient(#0d8d98 3px, transparent 4px),
-    linear-gradient(#0a838e 4px, transparent 0),
-    linear-gradient(45deg, transparent 74px, transparent 75px, #0d8d98 75px,#0d8d98 76px, transparent 77px, transparent 109px),
-    linear-gradient(-45deg, transparent 75px, transparent 76px, #0d8d98 76px, #0d8d98 77px, transparent 78px, transparent 109px),
-  #0a838e;
-  background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
-  background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
-}
+
 </style>
 </head>
 <body style="background-color: white">
