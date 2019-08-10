@@ -1,0 +1,67 @@
+[
+    {
+        "id": 5,
+        "name": "IELTS FREE TEST",
+        "slug": "ielts_free_test",
+        "description": "<p>Get an understanding of the IELTS test with our comprehensive practice test.<\/p>",
+        "price": 0,
+        "status": 1,
+        "created_at": "2019-07-31 05:03:46",
+        "updated_at": "2019-08-10 06:48:43",
+        "image": "product\/0XyRNypXZEIEkGIEwq8yWUzV0pHz0ObEXg3H2q0d.png",
+        "details": "<p><br><\/p>",
+        "validity": 6
+    },
+    {
+        "id": 4,
+        "name": "SPEAKING EVALUATION",
+        "slug": "speaking-evaluation",
+        "description": "<p>Will my speaking score an 8.0? Yes or No answers are of little help.\r\nSee how our master trainers answer questions such as these.\r\n<\/p>",
+        "price": 2000,
+        "status": 1,
+        "created_at": "2019-07-30 07:01:56",
+        "updated_at": "2019-08-04 09:00:58",
+        "image": "product\/Dyceubrh6HHukHrKTNsy3an8W7wCUjpOeWhhbEg9.png",
+        "details": "<p>Our speaking evaluation will give you an insight into the complexities of speaking. From letting you know the mistakes to how frequently they are being made, the evaluation, which is based on the IELTS Speaking Band Descriptors, will give you a score just like the examiners do. <\/p>\r\n<p>The evaluation presents a score for each assessment parameter giving you a well-defined understanding of what you need to do to improve. <\/p>\r\n<p>Speak the talk! <\/p>",
+        "validity": 6
+    },
+    {
+        "id": 3,
+        "name": "WRITING EVALUATION",
+        "slug": "writing-evaluation",
+        "description": "<p>Get that one bit extra! Figure out what went wrong?<\/p>\r\n<p>\r\nGet the easiest way out of the IELTS writing trap. Let our trainers point out what you never thought existed. \r\n<\/p>\r\n<p>\r\nBe amazed at how easy it is to score well!\r\n<\/p>",
+        "price": 2000,
+        "status": 1,
+        "created_at": "2019-07-27 08:11:09",
+        "updated_at": "2019-08-04 09:02:54",
+        "image": "product\/6ELr2cEa20XpRPjTSav05UnT4N3bhqSxgeOnx8Ta.png",
+        "details": "<p>You feel you\u2019ve done extremely well, but your score card doesn\u2019t agree with you.<\/p>\r\n<p>\r\nHaven\u2019t we heard that one before?<\/p>\r\n\r\n<p>A line by line evaluation of your tasks will help you understand why you scored what you scored.<\/p>\r\n<p>\r\n\r\nA detailed break-down of scores based on the band descriptors give you a complete picture of how IELTS examiners see your writing. \r\n<\/p>\r\n<p>Write Right!<\/p>",
+        "validity": 6
+    },
+    {
+        "id": 2,
+        "name": "OET MOCK TEST PACK",
+        "slug": "oet_mock_test_pack",
+        "description": "<p>Take the easiest way through the OET with our exam-grade practice tests.<\/p>",
+        "price": 2000,
+        "status": 1,
+        "created_at": "2019-07-25 12:14:05",
+        "updated_at": "2019-08-04 09:04:17",
+        "image": "product\/dzMuHkdhnMH5Y3yrymoTDMlpZrICuTkLDoqoUoaI.png",
+        "details": "<p>Our tests have been prepared and vetted by both English and medical professionals. Take the tests that accurately match the standards of the real test.<\/p>\r\n\r\n<p>Get unparalleled understanding of each subtest.<\/p>\r\n\r\n<p>\r\nEach test comes with an option of expert evaluation of your writing and speaking sections!\r\n<\/p>",
+        "validity": 12
+    },
+    {
+        "id": 1,
+        "name": "GRAMMAR TEST",
+        "slug": "grammar-test",
+        "description": "<p>This is the easiest way to improve your score. Avoid the most common mistakes test takers make. Focus only on what is important. Grammar books may now be thrown away!<\/p>",
+        "price": 0,
+        "status": 1,
+        "created_at": "2019-07-25 11:49:28",
+        "updated_at": "2019-08-04 09:05:00",
+        "image": "product\/LDrPrxulbScuDsGLByiNDbBjIZiSlC92tqu7i8TB.png",
+        "details": "<p>Tired of figuring out what a predicate or a subjunctive is?  These tests are designed to help you avoid the mistakes that cost you the score you want without suffering through the boring mechanics of grammar.<\/p>\r\n\r\n<p>\r\nQuestions in these tests are based on responses submitted by actual test takers!\r\n<\/p>\r\n<p>\r\nLet others\u2019 mistakes be your guiding light.\r\n<\/p>",
+        "validity": 12
+    }
+]

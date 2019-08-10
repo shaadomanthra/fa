@@ -1,5 +1,4 @@
-
-@if($objs->total()!=0)
+@if(count($objs)!=0)
 @foreach($objs as $obj)
 @if($obj->status)
 <div class="col-12 col-md-6 col-lg-6 mb-4">
@@ -18,7 +17,6 @@
     <p class="card-text">
       <hr>
       <div class="row">
-        
         @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
         <div class="col-3 ">
           <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100 ">
@@ -30,9 +28,7 @@
               @if(strlen(strip_tags($obj->description))>200) ...@endif</p>
           <a href="{{ route('product.view',$obj->slug)}}" class="btn  btn-outline-primary">Explore</a>
         </div>
-
       </div></p>
-    
   </div>
 </div>
 </div>
@@ -45,4 +41,3 @@
 </div>
 </div>
 @endif
-

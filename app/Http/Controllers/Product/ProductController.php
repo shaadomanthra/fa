@@ -28,14 +28,25 @@ class ProductController extends Controller
     {
 
 
+
         $this->authorize('view', $obj);
 
         $search = $request->search;
         $item = $request->item;
-        
+
+        /* update in cache folder */
+        if($request->refresh){
+            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $objs = $obj->orderBy('created_at','desc')
+                        ->get();  
+            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+            flash('Cache ('.$this->app.'/'.$this->module.') Updated')->success();
+        }
+            
         $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records'));  
+        
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
@@ -56,9 +67,17 @@ class ProductController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        $objs = $obj->where('name','LIKE',"%{$item}%")
+        $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+        if(file_exists($filename) && !$search)
+        {
+            $objs = json_decode(file_get_contents($filename));
+        }else{
+            $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->get();  
+            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+        }
+
         $view = $search ? 'public_list': 'public';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
@@ -111,15 +130,22 @@ class ProductController extends Controller
             }
 
             /* create a new entry */
-            $obj = $obj->create($request->except(['groups','file']));
+            $obj->create($request->except(['groups','file']));
 
             // attach the tags
-
             $groups = $request->get('groups');
             if($groups)
             foreach($groups as $group){
                 $obj->groups()->attach($group);
             }
+
+
+            /* update in cache folder */
+            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $objs = $obj->orderBy('created_at','desc')
+                        ->get(); 
+            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+            
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -237,8 +263,14 @@ class ProductController extends Controller
             	$obj->groups()->detach();
             }
 
-            $obj = $obj->update($request->except(['groups','file'])); 
+            $obj->update($request->except(['groups','file'])); 
 
+            /* update in cache folder */
+            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $objs = $obj->orderBy('created_at','desc')
+                        ->get();  
+            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+            
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);

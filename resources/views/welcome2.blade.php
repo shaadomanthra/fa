@@ -31,6 +31,15 @@
     <a href="{{ route('home')}}">
     <button class="btn btn-success btn-orange btn-lg">Open Dashboard</button>
     </a>
+    <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
+                    <button class="btn btn-primary btn-yellow btn-lg ">Logout</button>
+                    </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
     @endguest
 
     <div class="p-5"></div>
@@ -38,10 +47,10 @@
     <button class="btn btn-green btn-lg" style="">products</button>
     </a></div>
     <a href="{{ route('product.view','oet_mock_test_pack')}}">
-    <button class="btn btn-outline-light btn-sm mb-2 mr-1">OET Free Test</button>
+    <button class="btn btn-outline-light btn-sm mb-2 mr-1">OET MOCK TEST PACK</button>
     </a>
     <a href="{{route('product.view','ielts_free_test')}}">
-    <button class="btn btn-outline-light btn-sm mb-2 mr-1">IELTS Free Test</button>
+    <button class="btn btn-outline-light btn-sm mb-2 mr-1">IELTS Practice Test</button>
     </a>
     <a href="{{route('product.view','grammar-test')}}">
     <button class="btn btn-outline-light btn-sm mb-2 mr-1">Grammar Test</button>
@@ -49,12 +58,9 @@
         </div>
         <div class="col-12 col-md-5">
              <div class="p-5 d-none d-md-block"><div class="p-3"></div></div>
-             <img class="mb-2 mt-2 d-none d-md-block w-100" src="{{ asset('images/general/front2.png') }}" alt=""  >
+             <img class="mb-2 mt-2 d-none d-md-block w-100" src="{{ asset('images/general/front5.png') }}" alt=""  >
         </div>
-
     </div>
-    
-    
     <div class="p-5"></div>
 </div>
 </div>

@@ -18,9 +18,13 @@
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
           <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }} </a>
+          
 
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
 
+            <a href="{{route($app->module.'.index')}}?refresh=1">
+              <button type="button" class="btn btn-outline-secondary my-2 my-sm-2 mr-sm-3">Refresh Cache</button>
+            </a>
             @can('create',$obj)
             <a href="{{route($app->module.'.create')}}">
               <button type="button" class="btn btn-outline-success my-2 my-sm-2 mr-sm-3">Create {{ ucfirst($app->module) }}</button>
