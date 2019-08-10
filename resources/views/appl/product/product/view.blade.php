@@ -5,9 +5,7 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET, '.$obj->name)
 
 @section('content')
-
   <div class="row">
-
     <div class="col-12 col-md-12">
       <div class="card  mb-4" >
         <div class="card-body p-5">
@@ -22,9 +20,9 @@
              {!! $obj->details !!} 
           </p>
           @if(\auth::user())
-            @if($obj->order(\auth::user()))
+            @if($obj->order)
             <div class="border p-3 rounded ">
-              <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $obj->order(\auth::user())->created_at->diffForHumans()}}</span>
+              <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $obj->order->created_at->diffForHumans()}}</span>
             </div>
             @else
               @if($obj->price !=0)
@@ -78,11 +76,7 @@
              mb-3">
               <div class="card" >
                 @if(file_exists(public_path().'/uploads/'.$group->image) && $group->image)
-                   <div class="card-img-top" style="background: linear-gradient(to top, rgba(0, 0, 0,0.3),rgba(255, 255, 255,0.2)), url({{ asset(url('/').'/uploads/'.$group->image)}}); height: stretch;background-repeat: no-repeat;background-size: auto;
--webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; width:100%;height:100px; padding:25px;padding-top:90px;"> 
+                   <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/uploads/'.$group->image)}})"> 
 </div>
   @endif
   <div class="card-body">
@@ -103,11 +97,5 @@
 
       </div>
     </div>
-
-     
-
   </div> 
-
-
-
 @endsection

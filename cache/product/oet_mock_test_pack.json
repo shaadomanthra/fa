@@ -1,0 +1,167 @@
+{
+    "id": 2,
+    "name": "OET MOCK TEST PACK",
+    "slug": "oet_mock_test_pack",
+    "description": "<p>Take the easiest way through the OET with our exam-grade practice tests.<\/p>",
+    "price": 2000,
+    "status": 1,
+    "created_at": "2019-07-25 12:14:05",
+    "updated_at": "2019-08-04 09:04:17",
+    "image": "product\/dzMuHkdhnMH5Y3yrymoTDMlpZrICuTkLDoqoUoaI.png",
+    "details": "<p>Our tests have been prepared and vetted by both English and medical professionals. Take the tests that accurately match the standards of the real test.<\/p>\r\n\r\n<p>Get unparalleled understanding of each subtest.<\/p>\r\n\r\n<p>\r\nEach test comes with an option of expert evaluation of your writing and speaking sections!\r\n<\/p>",
+    "validity": 12,
+    "groups": [
+        {
+            "id": 1,
+            "name": "OET MockTest - Speaking",
+            "slug": "oet-mock-speaking",
+            "image": "group\/uhWSwyXQ0jcHZSN3aws1rB4NjaqOixSfrjFaIJZ9.jpeg",
+            "description": "<p>Try some free IELTS Speaking sample questions. These practise tasks include prompts, audio\/MP3, full transcripts and sample answers.<\/p>",
+            "status": 1,
+            "created_at": "2019-07-24 01:40:22",
+            "updated_at": "2019-07-31 06:30:17",
+            "pivot": {
+                "product_id": 2,
+                "group_id": 1
+            },
+            "tests": [
+                {
+                    "id": 6,
+                    "name": "OET Speaking 1",
+                    "slug": "oet-speaking-1",
+                    "description": "<b><h3>ROLEPLAYER  NO. 1<\/h3><\/b><hr><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">SETTING<\/dt>\r\n  <dd class=\"col-sm-9\">Home Visit<\/dd>\r\n\r\n  <dt class=\"col-sm-3\"><span style=\"font-weight: normal;\">PATIENT<\/span><\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    <p>You are 51 and have had Parkinson's disease for 15 years. Until recently, your symptoms (especially trembling in hands and legs, loss of balance) were effectively controlled by medication. Recently they have got a lot worse. You have organised an OT review of your home, which you share with your spouse and two teenage children, to minimise falling hazards and make it easier to perform everyday tasks. You feel anxious about the future, and seek reassurance.<\/p>\r\n  <\/dd>\r\n\r\n  <dt class=\"col-sm-3\">TASK<\/dt>\r\n  <dd class=\"col-sm-9\"><ul><li>When asked, explain that you want to know what changes can be made to make life easier and safer when your symptoms get worse.<\/li><li> Explain that when you are tired you can't be bothered cleaning up completely after meals. <\/li><li>You would like to know how to operate more safely in the kitchen.<\/li><li> Ask if the living room and hallways can be made safer.<\/li><li> They are not very tidy because your family is messy. <\/li><li>Find out how you can feel safer when you are home alone.<\/li><\/ul><\/dd>\r\n\r\n<\/dl><hr><b><h3>CANDIDATE CARD NO. 1<\/h3><\/b><hr><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">SETTING<\/dt>\r\n  <dd class=\"col-sm-9\">Home Visit<\/dd>\r\n\r\n  <dt class=\"col-sm-3\"><span style=\"font-weight: normal;\">THERAPIST<\/span><\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    <p>A home re-assessment has been requested by a 51-year-old Parkinson's disease sufferer. He\/she lives with his\/her spouse and two teenage children and was diagnosed 15 years ago, but the disease progressed slowly and symptoms have been well controlled until now. A sudden escalation of symptoms (especially tremor and loss of balance) has prompted the patient to request your visit. Be encouraging.<\/p>\r\n  <\/dd>\r\n\r\n  <dt class=\"col-sm-3\">TASK<\/dt>\r\n  <dd class=\"col-sm-9\"><ul><p><\/p><li>Find out the patient's main concerns.<\/li> <li>Outline how to organise the home better - keep house tidy (e.g., in kitchen: improve lighting, clean spills immediately).<\/li><li>Reduce lifting (use trolley, keep items accessible, drag them along bench).<\/li><li> Discuss how the patient uses the kitchen. Recommend they simplify tasks to conserve energy.<\/li><li> Suggest further home modifications &ndash; in shower (chair, tap, no step) in passages (rails, lighting, power cords) in bedroom (phone by bed; radio phone when alone).<\/li><li> Promote the idea of increased community support: family meetings, community involvement, and support groups.<\/li><p><\/p><\/ul><\/dd>\r\n\r\n<\/dl>\n",
+                    "instructions": "<ul><li>                        The Speaking sub-test is delivered individually and takes around 20 minutes. <\/li><li>This part of OET uses materials specifically designed for your profession. <\/li><li>In each role-play, you take your professional role (for example, as a nurse or as a pharmacist) while the interlocutor plays a patient, a client, or a patient\u2019s relative or carer. <\/li><li>For veterinary science, the interlocutor is the owner or carer of the animal.\r\n                    <\/li><\/ul>",
+                    "marks": 70,
+                    "test_time": null,
+                    "status": 1,
+                    "created_at": "2019-07-20 04:55:46",
+                    "updated_at": "2019-08-06 09:00:21",
+                    "category_id": 10,
+                    "file": null,
+                    "type_id": 4,
+                    "group_id": 1,
+                    "testtype": {
+                        "id": 4,
+                        "name": "SPEAKING",
+                        "created_at": "2019-07-24 09:52:58",
+                        "updated_at": "2019-07-24 09:52:58"
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "OET MockTest - Writing",
+            "slug": "oet-mock-writing",
+            "image": "group\/lUKD83zQKYnSaWJ2VmBoZbCvlZFmJm1CL37RGRqo.jpeg",
+            "description": "<p>You will be allowed 1 hour to complete two tasks in the Academic Writing test. The two parts of this practice Writing test are presented on two separate <\/p>",
+            "status": 1,
+            "created_at": "2019-07-25 11:22:36",
+            "updated_at": "2019-07-31 06:35:32",
+            "pivot": {
+                "product_id": 2,
+                "group_id": 2
+            },
+            "tests": [
+                {
+                    "id": 5,
+                    "name": "OET Writing 1",
+                    "slug": "oet-writing-1",
+                    "description": "<p><b>NOTES:<\/b><p>You are a veterinarian at a private veterinary clinic. Lulu is a long-term patient of yours.<\/p><p><\/p><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">Date admitted:<\/dt>\r\n  <dd class=\"col-sm-9\">23 July 2018<\/dd>\r\n\r\n  <dt class=\"col-sm-3\">Owner:<\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    <p>Mrs Martina Schmidt<\/p>\r\n  <\/dd>\r\n\r\n  <dt class=\"col-sm-3\">Patient:<\/dt>\r\n  <dd class=\"col-sm-9\">&lsquo;Lulu&rsquo; &ndash; 18-year-old poodle cross, spayed female<\/dd>\r\n\r\n  <dt class=\"col-sm-3 text-truncate\">*Care*<\/dt>\r\n  <dd class=\"col-sm-9\">unpredictable behaviour &ndash; anxious &amp; can bite when frightened<\/dd>\r\n\r\n  <dt class=\"col-sm-3\">DOB:<\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    April 2000\r\n  <\/dd>\r\n<\/dl><h4> History:                  <\/h4><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">18\/6\/11<\/dt>\r\n  <dd class=\"col-sm-9\">Vaccination given (C5).\r\nOwner reports dog &lsquo;slowing down&rsquo; e.g. sleeping ++, with moderate cough (frequent &uarr;), energy -- &larr; shorter walks.\r\nClinical examination &ndash; cardiopulmonary auscultation suggests provisional diagnosis: congestive heart failure (CHF). Recommended tests to confirm: haemogram, biochemical profile, urinalysis (U\/A), thoracic X-rays, ECG.<\/dd>\r\n\r\n\r\n  <dt class=\"col-sm-3\">23\/6\/11<\/dt>\r\n  <dd class=\"col-sm-9\">Haemogram, biochemical profile, U\/A, thoracic X-rays, ECG. Test results confirm provisional diagnosis: ++CHF.\r\nTreatment: medication &ndash; Frusemide 2mg\/kg BID initially; benazepril hydrochloride (1\/2 tab daily), pimobendan 0.5 mg\/kg BID.\r\nAlso gentle exercise, good diet, maintain healthy weight.\r\n\r\n  <\/dd><dt class=\"col-sm-3\">25\/8\/12<\/dt>\r\n  <dd class=\"col-sm-9\">Dog well, bright &amp; alert. Coat glossy. Body weight (BW): 10kg. Vaccination given (C5). CHF treatment continuing.\r\n\r\n<\/dd><dt class=\"col-sm-3\">3\/8\/13<\/dt>\r\n  <dd class=\"col-sm-9\">Bright &amp; alert. BW: 9.5kg. Heart rate: 90bpm. Managing 1-hour walk daily. Good muscle tone. Vaccination (C5). Continue CHF treatment regime.\r\n\r\n<\/dd><dt class=\"col-sm-3\">10\/7\/14<\/dt>\r\n  <dd class=\"col-sm-9\">Dog well, responsive. BW 9.5kg. CHF treatment ongoing. Vaccination (C5). Heart rate: 88bpm.\r\n\r\n\r\n<\/dd><dt class=\"col-sm-3\">26\/5\/15<\/dt>\r\n  <dd class=\"col-sm-9\">Check-up. Bright &amp; responsive. Heart rate: 85bpm. Lungs clear. Muscle tone good. Heartworm prevention. Vaccination (C5).\r\n\r\n<\/dd><dt class=\"col-sm-3\">24\/6\/17<\/dt>\r\n  <dd class=\"col-sm-9\">Bright &amp; alert. BW: 9.0kg. Vaccination (C5). Heart rate 80bpm. Lungs clear.\r\n\r\n<\/dd><dt class=\"col-sm-3\">10\/7\/18<\/dt>\r\n  <dd class=\"col-sm-9\">Owner reports Lulu seems depressed, sleeping more, slow sitting down &amp; reluctant to get up, &darr;interaction with family &amp; other dogs, &lsquo;shivering&rsquo;, periodic retching, drinking&uarr;, urinating&uarr; urinary incontinence. Coat dull. BW: 8.5kg. Heart rate: 81bpm. Vaccination (C5). Provisional diagnosis: chronic renal insufficiency\/chronic renal failure. Recommended tests: U\/A, haemogram, biochemical profile. Owner doesn&rsquo;t want dog euthanased.\r\n\r\n<\/dd><dt class=\"col-sm-3\">17\/7\/18<\/dt>\r\n  <dd class=\"col-sm-9\">Tests: U\/A, haemogram, biochemical profile; observation.\r\nClinical findings: provisional diagnosis confirmed: ++chronic renal insufficiency (CRI); ++CHF; osteoarthritis (OA).\r\n\r\n<\/dd><dt class=\"col-sm-3\">Care notes:<\/dt>\r\n  <dd class=\"col-sm-9\">For CRI &ndash; low protein diet (commercial or homemade &ndash; recipes available) to reduce load on kidneys. Fresh water daily.\r\nFor CHF &ndash; daily walk, adequate (varied) diet.\r\nFor OA &ndash; warm bedding &amp; sleeping place, ? dog coat (for warmth), daily exercise (not too long\/difficult).\r\n\r\n<\/dd><dt class=\"col-sm-3\">Medications:<\/dt>\r\n  <dd class=\"col-sm-9\">For CHF: Frusemide 2mg\/kg BID; benazepril hydrochloride &ndash; 1&frasl;2 tab daily (ongoing); pimobendan 0.5 mg\/kg BID.\r\nFor OA: cartrophen injection &ndash; 1x wkly for 4 wks, then mthly (ongoing); chondroitin sulfate (Cosequin DS) &ndash; one capsule daily, sprinkled over food.\r\nFor urinary incontinence: phenylpropanolamine (Propalin Syrup) &ndash; 0.25ml 2x daily on food (calibrated syringe provided to measure dosage).\r\n\r\n\r\n<\/dd><\/dl><h2>Writing Task<\/h2><p>Write a letter to the dog&rsquo;s owner outlining your diagnosis of Lulu&rsquo;s illnesses and appropriate instructions for care at home. Address your letter to: Mrs M Schmidt, 21 High Street, Newtown.<\/p><p>In your answer:\r\n<\/p><ul><li>Expand the relevant notes into complete sentences <\/li><li>Do not use note form <\/li><li>Use letter format\r\n<\/li><\/ul><p>The body of the letter should be approximately 180&ndash;200 words.<\/p><p><\/p><p><\/p><\/p>\n",
+                    "instructions": "<p><b>WRITING SUB-TEST: <\/b><\/p><p>VETERINARY SCIENCE\r\n<\/p><p><b>\r\nTIME ALLOWED: <\/b><\/p><ul><li>READING TIME: 5 MINUTES\r\n<\/li><li>\r\nWRITING TIME: 40 MINUTES \r\n\r\n<\/li><\/ul>",
+                    "marks": null,
+                    "test_time": 45,
+                    "status": 1,
+                    "created_at": "2019-07-20 04:47:44",
+                    "updated_at": "2019-08-06 08:56:49",
+                    "category_id": 10,
+                    "file": null,
+                    "type_id": 3,
+                    "group_id": 2,
+                    "testtype": {
+                        "id": 3,
+                        "name": "WRITING",
+                        "created_at": "2019-07-24 09:52:52",
+                        "updated_at": "2019-07-24 09:52:52"
+                    }
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "OET MockTest - Reading",
+            "slug": "oet-mock-reading",
+            "image": "group\/Uzitv35eFopwMsUSoafoBUG9cyx7l6EFnp1sRv7z.jpeg",
+            "description": "<p>Try out each section of an Academic and General Training OET Reading test; complete the 40 questions to find out your current OET band score.<\/p>",
+            "status": 1,
+            "created_at": "2019-07-30 05:31:17",
+            "updated_at": "2019-07-31 06:34:34",
+            "pivot": {
+                "product_id": 2,
+                "group_id": 3
+            },
+            "tests": [
+                {
+                    "id": 4,
+                    "name": "OET Reading 1",
+                    "slug": "oet_reading_1",
+                    "description": null,
+                    "instructions": "<ul><li> Write your answers on the spaces provided on the webpage.<\/li><li>PART A - You must answer the questions within the 15-minute time limit.<\/li><li>PART B&amp;C - You must answer the questions within the 45-minute time limit.<\/li><li>One mark will be granted for each correct answer.<\/li><li>\r\nAnswer ALL questions. <\/li><li>Marks are NOT deducted for incorrect answers.<\/li><\/ul>",
+                    "marks": 42,
+                    "test_time": 60,
+                    "status": 1,
+                    "created_at": "2019-07-18 10:12:24",
+                    "updated_at": "2019-08-06 11:22:27",
+                    "category_id": 10,
+                    "file": null,
+                    "type_id": 2,
+                    "group_id": 3,
+                    "testtype": {
+                        "id": 2,
+                        "name": "READING",
+                        "created_at": "2019-07-24 09:52:45",
+                        "updated_at": "2019-07-24 09:52:45"
+                    }
+                }
+            ]
+        },
+        {
+            "id": 6,
+            "name": "OET MockTest - Listening",
+            "slug": "oet-mock-listening",
+            "image": "group\/SbNdL8A4c3B7CpBl6Zh4zWWiY6oygJaN1GdpMnnw.jpeg",
+            "description": "<p>How can you improve your listening skills? Take the free OET listening skills practice test for a total of 40 questions to help pass the exam.<\/p>",
+            "status": 1,
+            "created_at": "2019-07-31 06:37:16",
+            "updated_at": "2019-07-31 06:37:16",
+            "pivot": {
+                "product_id": 2,
+                "group_id": 6
+            },
+            "tests": [
+                {
+                    "id": 1,
+                    "name": "OET Listening 1",
+                    "slug": "oet_listening_1",
+                    "description": "<p>English language test for healthcare professionals, approved by governments, immigration, university and college for visas, migration, study, registration and work: Nursing, Medicine<\/p>\n",
+                    "instructions": "<ul><li><span style=\"font-size: 14.4px;\">One mark will be granted for each correct answer.<\/span><\/li><li><span style=\"font-size: 14.4px;\">Answer ALL questions. Marks are NOT deducted for incorrect answers.<\/span><\/li><li><span style=\"font-size: 14.4px;\">At the end of the test, you will have two minutes to check your answers.&nbsp;<\/span><br><\/li><li>This test has three parts. In each part you\u2019ll hear a number of different extracts. At the start of each extract, you\u2019ll hear this sound: --beep--\r\n<\/li><li>You\u2019ll have time to read the questions before you hear each extract and you\u2019ll hear each extract ONCE ONLY. Complete your answers as you listen.\r\n<\/li><li>At the end of the test you'll have two minutes to check your answers.<\/li><\/ul>",
+                    "marks": 40,
+                    "test_time": 40,
+                    "status": 1,
+                    "created_at": "2019-07-06 14:56:19",
+                    "updated_at": "2019-08-06 08:25:43",
+                    "category_id": 10,
+                    "file": "extracts\/OgVELYOA76uFmOPcrin4hWHpyXNH0yJKDNWhuYqL.mpga",
+                    "type_id": 1,
+                    "group_id": 6,
+                    "testtype": {
+                        "id": 1,
+                        "name": "LISTENING",
+                        "created_at": "2019-07-24 09:52:37",
+                        "updated_at": "2019-07-24 09:52:37"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,53 @@
+{
+    "id": 1,
+    "name": "GRAMMAR TEST",
+    "slug": "grammar-test",
+    "description": "<p>This is the easiest way to improve your score. Avoid the most common mistakes test takers make. Focus only on what is important. Grammar books may now be thrown away!<\/p>",
+    "price": 0,
+    "status": 1,
+    "created_at": "2019-07-25 11:49:28",
+    "updated_at": "2019-08-04 09:05:00",
+    "image": "product\/LDrPrxulbScuDsGLByiNDbBjIZiSlC92tqu7i8TB.png",
+    "details": "<p>Tired of figuring out what a predicate or a subjunctive is?  These tests are designed to help you avoid the mistakes that cost you the score you want without suffering through the boring mechanics of grammar.<\/p>\r\n\r\n<p>\r\nQuestions in these tests are based on responses submitted by actual test takers!\r\n<\/p>\r\n<p>\r\nLet others\u2019 mistakes be your guiding light.\r\n<\/p>",
+    "validity": 12,
+    "groups": [
+        {
+            "id": 7,
+            "name": "Grammar",
+            "slug": "grammar",
+            "image": "group\/3cYwzfEeKYqECSN7pM2BVeujLbwSO94H97RFjlHc.jpeg",
+            "description": "<p>Grammar. A confusing point for both native and foreign English speakers is whether to use used to or use to in a phrase. Used to is used to describe an action ..<\/p>",
+            "status": 1,
+            "created_at": "2019-07-31 06:44:48",
+            "updated_at": "2019-07-31 06:44:48",
+            "pivot": {
+                "product_id": 1,
+                "group_id": 7
+            },
+            "tests": [
+                {
+                    "id": 10,
+                    "name": "Grammer Test 1",
+                    "slug": "grammar-1",
+                    "description": "<p>This is a sample grammar test<\/p>",
+                    "instructions": "<ul><li>Each questions has 4 options<\/li><li>Each question carries 1 mark<\/li><\/ul>",
+                    "marks": 5,
+                    "test_time": 5,
+                    "status": 1,
+                    "created_at": "2019-07-24 10:09:03",
+                    "updated_at": "2019-07-31 06:46:02",
+                    "category_id": 9,
+                    "file": "extracts\/I47bSaTINuTdD4pI8aX3RCgIBZjlXFo6xQHK8AEK.png",
+                    "type_id": 5,
+                    "group_id": 7,
+                    "testtype": {
+                        "id": 5,
+                        "name": "GRAMMAR",
+                        "created_at": "2019-07-24 09:53:18",
+                        "updated_at": "2019-07-24 09:53:18"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -26,9 +26,6 @@ class ProductController extends Controller
      */
     public function index(Obj $obj,Request $request)
     {
-
-
-
         $this->authorize('view', $obj);
 
         $search = $request->search;
@@ -36,11 +33,24 @@ class ProductController extends Controller
 
         /* update in cache folder */
         if($request->refresh){
-            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../cache/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get();  
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
-            flash('Cache ('.$this->app.'/'.$this->module.') Updated')->success();
+            
+            foreach($objs as $obj){ 
+                $filename = '../cache/product/'.request()->getHost().'.'.$obj->slug.'.json';
+                $obj->groups = $obj->groups;
+                foreach($obj->groups as $m=>$group){
+                    $obj->groups->tests = $group->tests;
+                    foreach($obj->groups->tests as $test){
+                        $obj->groups->tests->testtype = $test->testtype;
+                    }
+                }
+                file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+            }
+           
+            flash('Product Pages Cache Updated')->success();
         }
             
         $objs = $obj->where('name','LIKE',"%{$item}%")
@@ -67,7 +77,7 @@ class ProductController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+        $filename = '../cache/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
         if(file_exists($filename) && !$search)
         {
             $objs = json_decode(file_get_contents($filename));
@@ -141,7 +151,7 @@ class ProductController extends Controller
 
 
             /* update in cache folder */
-            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../cache/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get(); 
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
@@ -185,7 +195,29 @@ class ProductController extends Controller
      */
     public function view($slug)
     {
-        $obj = Obj::where('slug',$slug)->first();
+        //$obj = Obj::where('slug',$slug)->first();
+        
+        $filename = '../cache/product/'.request()->getHost().'.'.$slug.'.json';
+        if(file_exists($filename))
+        {
+            $obj = json_decode(file_get_contents($filename));
+        }else{
+            $obj = Obj::where('slug',$slug)->first();  
+            $obj->groups = $obj->groups;
+            foreach($obj->groups as $m=>$group){
+                $obj->groups->tests = $group->tests;
+                foreach($obj->groups->tests as $test){
+                    $obj->groups->tests->testtype = $test->testtype;
+                }
+            }
+            file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+        }
+
+        if(\auth::user())
+            $obj->order = \auth::user()->orders()->where('product_id',$obj->id)->where('status',1)->orderBy('id','desc')->first();
+        else
+            $obj->order = null;
+
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.view')
                     ->with('obj',$obj)->with('app',$this);
@@ -266,7 +298,7 @@ class ProductController extends Controller
             $obj->update($request->except(['groups','file'])); 
 
             /* update in cache folder */
-            $filename = '../cache/index.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../cache/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get();  
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));

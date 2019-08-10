@@ -10,6 +10,10 @@
 	background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
 }
 
+body {
+  background-color: #e1e6ea;
+}
+
 .user{
 	width:140px;
 

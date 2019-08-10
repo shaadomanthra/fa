@@ -18,9 +18,6 @@ mix.styles(['public/css/app.css','public/css/test.css',
     'public/css/general.css'
 ], 'public/css/styles.css');
 
-
-
-
- mix.js(['public/js/app.js',
+mix.js(['public/js/app.js',
     'public/js/global.js'
 ], 'public/js/script.js');
