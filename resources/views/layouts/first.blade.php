@@ -34,7 +34,6 @@
 </head>
 <body style="background-color: white">
     <div id="app">
-
         <main class="">
             @yield('content')
         </main>
@@ -43,8 +42,6 @@
             @include('layouts.footer')
         </div>
         </footer>
-        
     </div>
-    @include('layouts.script')
 </body>
 </html>

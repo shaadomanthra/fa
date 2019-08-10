@@ -8,11 +8,7 @@
     <div class="row ">
         <div class="col-12 col-md-6 col-lg-4">
             <div class="card mb-4">
-                <div class="" style="background: linear-gradient(to top, rgba(0, 0, 0,0.4),rgba(0, 0, 0,0.1)), url({{asset('images/dashboard/bg2.jpg')}}); height: stretch;background-repeat: no-repeat;background-size: auto;
--webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; width:100%;height:100px; padding:25px;padding-top:90px;"> 
+                <div class="bg-image" style=""> 
 </div>
     <div class="user_container">
         <img src="{{ asset('images/admin/user.png')}}" class="user" />
