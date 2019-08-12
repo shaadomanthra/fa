@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title', 'Test Review - '.$test->name)
+@section('description', 'The Test Review page of '.$test->name)
+@section('keywords', 'practice tests, '.$test->name)
 @section('content')
 <div  class="row ">
   <div class="col-md-12">

@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('title', 'Writing Test - '.$test->name)
+@section('description', 'The Test page of '.$test->name)
+@section('keywords', 'practice tests, '.$test->name)
+
 @section('content')
 <div class="" style="padding-left:0px;padding-right:0px;">
 

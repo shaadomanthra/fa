@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title', 'Result page of Test  ')
+@section('description', 'Result page of Test')
+@section('keywords', 'result page of test, first academy ')
 @section('content')
 <div class="container">
     <div class="row">
