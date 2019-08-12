@@ -213,7 +213,8 @@ class ProductController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache';
+            $folder = 'cache'; 
+        
 
         $filename = '../'.$folder.'/product/'.$slug.'.json';
         if(file_exists($filename))
