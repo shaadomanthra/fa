@@ -74,9 +74,15 @@
           @endif
 
 
+
            <div class="row mb-2">
             <div class="col-md-4"><b>Instructions</b></div>
             <div class="col-md-8">{!! $obj->instructions !!}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Description</b></div>
+            <div class="col-md-8">{!! $obj->description !!}</div>
           </div>
 
                 <div class="row mb-2">

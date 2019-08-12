@@ -81,6 +81,17 @@
       </div>
 
       <div class="form-group">
+        <label for="formGroupExampleInput ">Description</label>
+        <textarea class="form-control summernote" name="description"  rows="5">
+            @if($stub=='Create')
+            {{ (old('description')) ? old('description') : '' }}
+            @else
+            {{ $obj->description }}
+            @endif
+        </textarea>
+      </div>
+
+      <div class="form-group">
         <label for="formGroupExampleInput ">File</label>
         <input type="file" class="form-control" name="file_" id="formGroupExampleInput" 
           >
