@@ -34,17 +34,17 @@ class ProductController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
         /* update in cache folder */
         if($request->refresh){
-            $filename = '../'.$folder.'/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get();  
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
             
             foreach($objs as $obj){ 
-                $filename = '../cache/product/'.request()->getHost().'.'.$obj->slug.'.json';
+                $filename = '../cache/product/'.$obj->slug.'.json';
                 $obj->groups = $obj->groups;
                 foreach($obj->groups as $m=>$group){
                     $obj->groups->tests = $group->tests;
@@ -85,9 +85,9 @@ class ProductController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
-        $filename = '../'.$folder.'/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
+        $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
         if(file_exists($filename) && !$search)
         {
             $objs = json_decode(file_get_contents($filename));
@@ -162,10 +162,10 @@ class ProductController extends Controller
             if(request()->getHost()=='project.test')
             $folder = 'cache';
             else
-            $folder = 'cache2';
+            $folder = 'cache';
 
             /* update in cache folder */
-            $filename = '../'.$folder.'/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get(); 
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
@@ -213,9 +213,9 @@ class ProductController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
-        $filename = '../'.$folder.'/product/'.request()->getHost().'.'.$slug.'.json';
+        $filename = '../'.$folder.'/product/'.$slug.'.json';
         if(file_exists($filename))
         {
             $obj = json_decode(file_get_contents($filename));
@@ -318,10 +318,10 @@ class ProductController extends Controller
             if(request()->getHost()=='project.test')
             $folder = 'cache';
             else
-            $folder = 'cache2';
+            $folder = 'cache';
 
             /* update in cache folder */
-            $filename = '../'.$folder.'/index.'.request()->getHost().'.'.$this->app.'.'.$this->module.'.json';
+            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
             $objs = $obj->orderBy('created_at','desc')
                         ->get();  
             file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));

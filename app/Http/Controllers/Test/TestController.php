@@ -127,16 +127,16 @@ class TestController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
-        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
         if(file_exists($filename)){
             $json = json_decode(file_get_contents($filename)); 
             $obj->cache_updated_at = $json->updated_at;
         }
 
  
- 
+
         $app = $this;
         $app->test= $obj;
         if($obj)
@@ -155,10 +155,10 @@ class TestController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
         /* update in cache folder */
-        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename))
             flash('cache is updated!')->success();
@@ -191,10 +191,10 @@ class TestController extends Controller
         if(request()->getHost()=='project.test')
             $folder = 'cache';
         else
-            $folder = 'cache2';
+            $folder = 'cache';
 
         /* delete cache */
-        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename)){
             unlink($filename);
