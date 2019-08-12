@@ -124,7 +124,12 @@ class TestController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
 
-        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        if(request()->getHost()=='project.test')
+            $folder = 'cache';
+        else
+            $folder = 'cache2';
+
+        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
         if(file_exists($filename)){
             $json = json_decode(file_get_contents($filename)); 
             $obj->cache_updated_at = $json->updated_at;
@@ -145,8 +150,13 @@ class TestController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
+        if(request()->getHost()=='project.test')
+            $folder = 'cache';
+        else
+            $folder = 'cache2';
+
         /* update in cache folder */
-        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename))
             flash('cache is updated!')->success();
@@ -176,8 +186,13 @@ class TestController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
+        if(request()->getHost()=='project.test')
+            $folder = 'cache';
+        else
+            $folder = 'cache2';
+
         /* delete cache */
-        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = '../'.$folder.'/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename)){
             unlink($filename);
