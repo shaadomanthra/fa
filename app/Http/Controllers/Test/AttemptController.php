@@ -30,7 +30,7 @@ class AttemptController extends Controller
         $this->app      =   'test';
         $this->module   =   'test';
         if(request()->route('test')){
-            $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.request()->route('test').'.json'; 
+            $filename = '../cache/test/'.$this->app.'.'.request()->route('test').'.json'; 
             if(file_exists($filename)){
               $this->test = json_decode(file_get_contents($filename));
             }
@@ -97,7 +97,7 @@ class AttemptController extends Controller
      abort('403','Product Not Defined');
 
     /* Load product from cache else database */
-    $filename = '../cache/product/'.request()->getHost().'.'.$product_slug.'.json';
+    $filename = '../cache/product/'.$product_slug.'.json';
 
     if(file_exists($filename)){
       $this->product = json_decode(file_get_contents($filename));
