@@ -1,0 +1,33 @@
+{
+    "id": 6,
+    "name": "OET Speaking 1",
+    "slug": "oet-speaking-1",
+    "description": "<b><h3>ROLEPLAYER  NO. 1<\/h3><\/b><hr><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">SETTING<\/dt>\r\n  <dd class=\"col-sm-9\">Home Visit<\/dd>\r\n\r\n  <dt class=\"col-sm-3\"><span style=\"font-weight: normal;\">PATIENT<\/span><\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    <p>You are 51 and have had Parkinson's disease for 15 years. Until recently, your symptoms (especially trembling in hands and legs, loss of balance) were effectively controlled by medication. Recently they have got a lot worse. You have organised an OT review of your home, which you share with your spouse and two teenage children, to minimise falling hazards and make it easier to perform everyday tasks. You feel anxious about the future, and seek reassurance.<\/p>\r\n  <\/dd>\r\n\r\n  <dt class=\"col-sm-3\">TASK<\/dt>\r\n  <dd class=\"col-sm-9\"><ul><li>When asked, explain that you want to know what changes can be made to make life easier and safer when your symptoms get worse.<\/li><li> Explain that when you are tired you can't be bothered cleaning up completely after meals. <\/li><li>You would like to know how to operate more safely in the kitchen.<\/li><li> Ask if the living room and hallways can be made safer.<\/li><li> They are not very tidy because your family is messy. <\/li><li>Find out how you can feel safer when you are home alone.<\/li><\/ul><\/dd>\r\n\r\n<\/dl><hr><b><h3>CANDIDATE CARD NO. 1<\/h3><\/b><hr><dl class=\"row\">\r\n  <dt class=\"col-sm-3\">SETTING<\/dt>\r\n  <dd class=\"col-sm-9\">Home Visit<\/dd>\r\n\r\n  <dt class=\"col-sm-3\"><span style=\"font-weight: normal;\">THERAPIST<\/span><\/dt>\r\n  <dd class=\"col-sm-9\">\r\n    <p>A home re-assessment has been requested by a 51-year-old Parkinson's disease sufferer. He\/she lives with his\/her spouse and two teenage children and was diagnosed 15 years ago, but the disease progressed slowly and symptoms have been well controlled until now. A sudden escalation of symptoms (especially tremor and loss of balance) has prompted the patient to request your visit. Be encouraging.<\/p>\r\n  <\/dd>\r\n\r\n  <dt class=\"col-sm-3\">TASK<\/dt>\r\n  <dd class=\"col-sm-9\"><ul><p><\/p><li>Find out the patient's main concerns.<\/li> <li>Outline how to organise the home better - keep house tidy (e.g., in kitchen: improve lighting, clean spills immediately).<\/li><li>Reduce lifting (use trolley, keep items accessible, drag them along bench).<\/li><li> Discuss how the patient uses the kitchen. Recommend they simplify tasks to conserve energy.<\/li><li> Suggest further home modifications &ndash; in shower (chair, tap, no step) in passages (rails, lighting, power cords) in bedroom (phone by bed; radio phone when alone).<\/li><li> Promote the idea of increased community support: family meetings, community involvement, and support groups.<\/li><p><\/p><\/ul><\/dd>\r\n\r\n<\/dl>\n",
+    "instructions": "<ul><li>                        The Speaking sub-test is delivered individually and takes around 20 minutes. <\/li><li>This part of OET uses materials specifically designed for your profession. <\/li><li>In each role-play, you take your professional role (for example, as a nurse or as a pharmacist) while the interlocutor plays a patient, a client, or a patient\u2019s relative or carer. <\/li><li>For veterinary science, the interlocutor is the owner or carer of the animal.\r\n                    <\/li><\/ul>",
+    "marks": 70,
+    "test_time": null,
+    "status": 1,
+    "created_at": "2019-07-20 04:55:46",
+    "updated_at": "2019-08-11 10:13:50",
+    "category_id": 10,
+    "file": null,
+    "type_id": 4,
+    "group_id": 1,
+    "sections": [],
+    "testtype": {
+        "id": 4,
+        "name": "SPEAKING",
+        "created_at": "2019-07-24 09:52:58",
+        "updated_at": "2019-07-24 09:52:58"
+    },
+    "category": {
+        "id": 10,
+        "name": "OET",
+        "slug": "oet",
+        "image": "category\/XhOVqPVYwsd3kqjIXFpZZEMLM4r8m6VVJpYzHauw.png",
+        "description": "English language test for healthcare professionals, approved by governments, immigration, university and college for visas, migration, study, registration",
+        "status": 1,
+        "created_at": "2019-07-06 14:04:19",
+        "updated_at": "2019-07-29 10:24:27"
+    }
+}

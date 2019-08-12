@@ -11,11 +11,11 @@
 	@endif
 	<hr>
 
-	@if($extract->mcq()->first())
+	@if(count($extract->mcq)!=0)
 		@include('appl.test.attempt.blocks.mcq')
 	@endif
 	
-	@if($extract->fillup()->first())
+	@if(count($extract->fillup)!=0)
 		@include('appl.test.attempt.blocks.fillup')
 	@endif
 	</div>

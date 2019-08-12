@@ -60,6 +60,29 @@
         </div>
       </div>
 
+       <div class="card ">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0 border">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Test</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($obj->tests() as $k=>$test)
+                  <tr>
+                      <td>{{$k+1}}</td>
+                      <td><a href="{{ route('user.test',[$obj->id,$test->id])}}">{{$test->name}}</a></td>
+                  </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
 
      
@@ -67,31 +90,6 @@
   </div> 
 
 
-  <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        This following action is permanent and it cannot be reverted.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
-        <form method="post" action="{{route($app->module.'.destroy',$obj->id)}}">
-        <input type="hidden" name="_method" value="DELETE">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        	<button type="submit" class="btn btn-danger">Delete Permanently</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 @endsection

@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('title', 'Test Instructions - '.$test->name)
+@section('description', 'These are the test instructions of the test '.$test->name)
+@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
+
 @section('content')
 <div  class="row ">
   <div class="col-md-12">

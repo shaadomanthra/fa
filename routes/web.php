@@ -36,6 +36,9 @@ Route::get('/admin/analytics', 'Admin\AdminController@analytics')->name('admin.a
 /* Admin Application Routes */
 Route::resource('/admin/test', 'Test\TestController')->middleware('auth');
 Route::get('/admin/test/{test}/view', 'Test\AttemptController@view')->middleware('auth')->name('test.view');
+Route::get('/admin/test/{test}/cache', 'Test\TestController@cache')->middleware('auth')->name('test.cache');
+Route::get('/admin/test/{test}/cache_delete', 'Test\TestController@cache_delete')->middleware('auth')->name('test.cache.delete');
+
 Route::resource('/admin/category', 'Test\CategoryController')->middleware('auth');
 Route::resource('/admin/tag', 'Test\TagController')->middleware('auth');
 Route::resource('/admin/test/{test}/section', 'Test\SectionController')->middleware('auth');
@@ -52,6 +55,8 @@ Route::resource('/admin/type', 'Test\TypeController')->middleware('auth');
 
 /* User Routes */
 Route::resource('/admin/user', 'User\UserController')->middleware('auth');
+Route::get('/admin/user/{user}/{test}','User\UserController@test')->middleware('auth')->name('user.test');
+Route::post('/admin/user/{user}/{test}','User\UserController@test')->middleware('auth')->name('user.test');
 
 /* Test Attempt Routes */
 Route::get('/test/{test}','Test\AttemptController@instructions')->middleware('auth')->name('test');

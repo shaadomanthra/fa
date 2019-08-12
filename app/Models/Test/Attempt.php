@@ -3,6 +3,7 @@
 namespace App\Models\Test;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Test\Test;
 
 class Attempt extends Model
 {
@@ -22,6 +23,12 @@ class Attempt extends Model
     public function test()
     {
         return $this->belongsTo('App\Models\Test\Test');
+    }
+
+    public function getTest($id)
+    {   
+        $test = Test::where('id',$id)->first();
+        return $test;
     }
 
     public function user()

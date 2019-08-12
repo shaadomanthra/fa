@@ -98,11 +98,8 @@ class TestController extends Controller
             /* merge the updated data in request */
             $request->merge(['description' => $text]);
 
-            
             /* create a new entry */
             $obj = $obj->create($request->all());
-
-            
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -111,7 +108,7 @@ class TestController extends Controller
            $error_code = $e->errorInfo[1];
             if($error_code == 1062){
                 flash('Some error in Creating the record')->error();
-                 return redirect()->back()->withInput();;
+                 return redirect()->back()->withInput();
             }
         }
     }
@@ -127,6 +124,12 @@ class TestController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
 
+        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+        if(file_exists($filename)){
+            $json = json_decode(file_get_contents($filename)); 
+            $obj->cache_updated_at = $json->updated_at;
+        }
+
         $app = $this;
         $app->test= $obj;
         if($obj)
@@ -135,6 +138,59 @@ class TestController extends Controller
         else
             abort(404);
     }
+
+    
+    public function cache($id)
+    {
+        $obj= Obj::where('id',$id)->first();
+        $this->authorize('update', $obj);
+
+        /* update in cache folder */
+        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+
+        if(file_exists($filename))
+            flash('cache is updated!')->success();
+        else
+            flash('cache is created!')->success();
+
+        $obj->updated_at = \Carbon\Carbon::now();
+        $obj->sections = $obj->sections;
+        $obj->testtype = $obj->testtype;
+        $obj->category = $obj->category;
+        foreach($obj->sections as $section){ 
+            $ids = $section->id ;
+            $obj->sections->$ids = $section->extracts;
+            foreach($obj->sections->$ids as $m=>$extract){
+                $obj->sections->$ids->mcq = $extract->mcq;
+                $obj->sections->$ids->fillup = $extract->fillup;
+            }
+                
+        }
+        file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+        
+        return redirect()->route($this->module.'.show',$id);
+    }
+
+    public function cache_delete($id)
+    {
+        $obj= Obj::where('id',$id)->first();
+        $this->authorize('update', $obj);
+
+        /* delete cache */
+        $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.$obj->slug.'.json'; 
+
+        if(file_exists($filename)){
+            unlink($filename);
+            flash('cache delete!')->error();
+        }
+        else{
+
+            flash('cache file not found!')->error();
+        }
+
+        return redirect()->route($this->module.'.show',$id);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

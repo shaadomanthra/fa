@@ -30,44 +30,38 @@ class AttemptController extends Controller
         $this->app      =   'test';
         $this->module   =   'test';
         if(request()->route('test')){
-            $this->test = Test::where('slug',request()->route('test'))->first();
+            $filename = '../cache/test/'.request()->getHost().'.'.$this->app.'.'.request()->route('test').'.json'; 
+            if(file_exists($filename)){
+              $this->test = json_decode(file_get_contents($filename));
+            }
+            else{
+
+              $this->test = Test::where('slug',request()->route('test'))->first();
+              $this->test->sections = $this->test->sections;
+              //load test and all the extra data
+              foreach($this->test->sections as $section){ 
+                  $ids = $section->id ;
+                  $this->test->sections->$ids = $section->extracts;
+                  foreach($this->test->sections->$ids as $m=>$extract){
+                      $this->test->sections->$ids->mcq = $extract->mcq;
+                      $this->test->sections->$ids->fillup = $extract->fillup;
+                  } 
+              }
+            }
+            
         } 
     }
 
    /* The default function for test */
    public function instructions($slug, Request $request){
-        $test = Test::where('slug',$slug)->first();
-        if(!$test)
-            abort('403','Test not Found ');
 
         $user = \auth::user();
-        $product = Product::where('slug',$request->get('product'))->first();
-        $grantaccess = $request->get('grantaccess');
+        $test = $this->test;
 
-        if(!$product)
-          abort('403','Product Not Defined');
-        if(!$test->group->products->find($product->id))
-          abort('403','Test is not a part of product');
+        //Run prechecks 
+        $this->precheck($request);
 
-        /* Authorization */
-        if(!$user->productAccess($product)){
-          if($grantaccess)
-          {
-            $order = new Order();
-            $order->grantaccess($product->id);
-
-          }else{
-            if($product->price==0)
-              return view('appl.product.product.freeaccess')
-                  ->with('test',$test)
-                  ->with('product',$product);
-            else
-              return view('appl.product.product.purchase')
-                  ->with('test',$test)
-                  ->with('product',$product);
-          }
-         
-        }
+        $product = $this->product;
 
         /* If Attempted show report */
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
@@ -88,32 +82,79 @@ class AttemptController extends Controller
                 ->with('player',true)
                 ->with('app',$this);
         }
-        
+   }
 
-        
-        
+   /* pre checks for the test */
+   public function precheck(Request $request){
+    
+    $user = \auth::user();
+    $test = $this->test;
+    if(!$test)
+      abort('403','Test not Found ');
+
+    $product_slug = $request->get('product');
+    if(!$product_slug)
+     abort('403','Product Not Defined');
+
+    /* Load product from cache else database */
+    $filename = '../cache/product/'.request()->getHost().'.'.$product_slug.'.json';
+
+    if(file_exists($filename)){
+      $this->product = json_decode(file_get_contents($filename));
+    }else{
+      $this->product = Product::where('slug',$request->get('product'))->first();
+    }
+
+    $product = $this->product;
+
+    /* check if test is a part of product */
+    $test_is_a_part_of_product = false;
+    foreach($product->groups as $group){
+      foreach($group->tests as $t){
+        if($t->id == $test->id)
+        {
+          $test_is_a_part_of_product = true;
+          break;
+        }
+      }
+    }
+
+    if(!$test_is_a_part_of_product)
+    abort('403','Test is not a part of product');
+
+   /* User Authorization for test */
+    $grantaccess = $request->get('grantaccess');
+    if(!$user->productAccess($product->id)){
+      if($grantaccess)
+      {
+        $order = new Order();
+        $order->grantaccess($product->id);
+
+      }else{
+        if($product->price==0)
+          return view('appl.product.product.freeaccess')
+        ->with('test',$test)
+        ->with('product',$product);
+        else
+          return view('appl.product.product.purchase')
+        ->with('test',$test)
+        ->with('product',$product);
+      }
+    }
 
    }
 
    /* Test Attempt Function */
    public function try($slug,Request $request){
-      $test = Test::where('slug',$slug)->first();
+      
+        $test = $this->test;
 
         $user = \auth::user();
-        $product = Product::where('slug',$request->get('product'))->first();
-        
-        if(!$product)
-          abort('403','Product Not Defined');
-        if(!$test->group->products->find($product->id))
-          abort('403','Test is not a part of product');
 
-        /* Authorization */
-        if(!$user->productAccess($product))
-          return view('appl.product.product.purchase')
-                  ->with('test',$test)
-                  ->with('product',$product);
+        $this->precheck($request);
+        $product = $this->product;
 
-      /* If Attempted show report */
+        /* If Attempted show report */
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
 
         if($attempt){
@@ -145,7 +186,7 @@ class AttemptController extends Controller
         }
       }
 
-      
+
       if($view == 'listening' || $view == 'grammar')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
@@ -181,7 +222,7 @@ class AttemptController extends Controller
 
    /* Test View Function - Here you cannot attempt test */
    public function view($slug,Request $request){
-      $test = Test::where('slug',$slug)->first();
+      $test = $this->test;
 
       $user = \auth::user();
       $product = Product::first();

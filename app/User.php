@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\DB;
+use App\Models\Test\Test;
 
 class User extends Authenticatable
 {
@@ -49,9 +51,18 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Product\Order');
     }
 
+    public function tests(){
+        $test_id = DB::table('attempts')
+                ->select('test_id')
+                ->where('user_id', $this->id)
+                ->orderBy('id','desc')
+                ->pluck('test_id')->toArray();
+        $tests = Test::whereIn('id',$test_id)->get();
+        return $tests;
+    }
 
     public function productAccess($product){
-        $order = $this->orders()->where('product_id',$product->id)->orderBy('id','desc')->first();
+        $order = $this->orders()->where('product_id',$product)->orderBy('id','desc')->first();
         if($order){
             if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
                 return true;

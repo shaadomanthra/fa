@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User as Obj;
+use App\Models\Test\Test;
+use App\Models\Test\Attempt;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
@@ -165,6 +167,36 @@ class UserController extends Controller
                  return redirect()->back()->withInput();
             }
         }
+    }
+
+
+    public function test($user_id,$test_id,Request $request){
+
+
+        $user = Obj::where('id',$user_id)->first();
+        $test = Test::where('id',$test_id)->first();
+        $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->get();
+        if($request->get('delete')){
+            foreach($attempt as $a){
+                $a->delete();
+            }
+            return redirect()->route($this->module.'.show',$user->id);
+        }
+        $type = strtolower($test->testtype);
+        $score =0;
+        if($type !='writing' && $type !='speaking' ){
+            foreach($attempt as $r){
+                if($r->accuracy==1)
+                  $score++;
+              }
+        }
+
+        return view('appl.'.$this->app.'.'.$this->module.'.test')
+                ->with('test',$test)
+                ->with('user',$user)
+                ->with('score',$score)
+                ->with('app',$this);
+
     }
 
     /**

@@ -125,6 +125,27 @@
         </div>
       </div>
 
+      <div class="bg-light p-4 rounded mb-4">
+        <h2>Test Cache</h2>
+        
+        @if(file_exists('../cache/test/'.request()->getHost().'.test.'.$obj->slug.'.json'))
+        <p> Awesome ! your test is cached.<br>
+        <small>Updated:  {{\Carbon\Carbon::parse($obj->cache_updated_at)->diffForHumans() }}</small></p>
+        <a href="{{ route('test.cache',$obj->id)}}">
+          <button class="btn btn-outline-success">Update Cache</button>
+        </a>
+        <a href="{{ route('test.cache.delete',$obj->id)}}">
+          <button class="btn btn-outline-danger">Delete Cache</button>
+        </a>
+        @else
+        <p>Cache can speedup performance by 20% so create one now.</p>
+        <a href="{{ route('test.cache',$obj->id)}}">
+          <button class="btn btn-outline-primary">Create Cache</button>
+        </a>
+        @endif
+        
+      </div>
+
     </div>
 
     <div class="col-12 col-md-3">
