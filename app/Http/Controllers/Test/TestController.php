@@ -20,6 +20,7 @@ class TestController extends Controller
     public function __construct(){
         $this->app      =   'test';
         $this->module   =   'test';
+        $this->cache_path =  '../storage/app/cache/test/';
     }
 
     /**
@@ -124,18 +125,11 @@ class TestController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
 
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache';
-
-        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = $this->cache_path.$this->app.'.'.$obj->slug.'.json'; 
         if(file_exists($filename)){
             $json = json_decode(file_get_contents($filename)); 
             $obj->cache_updated_at = $json->updated_at;
         }
-
- 
 
         $app = $this;
         $app->test= $obj;
@@ -152,13 +146,8 @@ class TestController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache';
-
         /* update in cache folder */
-        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = $this->cache_path.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename))
             flash('cache is updated!')->success();
@@ -188,20 +177,14 @@ class TestController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache';
-
         /* delete cache */
-        $filename = '../'.$folder.'/test/'.$this->app.'.'.$obj->slug.'.json'; 
+        $filename = $this->cache_path.$this->app.'.'.$obj->slug.'.json'; 
 
         if(file_exists($filename)){
             unlink($filename);
             flash('cache delete!')->error();
         }
         else{
-
             flash('cache file not found!')->error();
         }
 

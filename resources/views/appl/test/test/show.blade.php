@@ -134,7 +134,7 @@
       <div class="bg-light p-4 rounded mb-4">
         <h2>Test Cache</h2>
         
-        @if(file_exists('../cache/test/test.'.$obj->slug.'.json'))
+        @if(file_exists('../storage/app/cache/test/test.'.$obj->slug.'.json'))
         <p> Awesome ! your test is cached.<br>
         <small>Updated:  {{\Carbon\Carbon::parse($obj->cache_updated_at)->diffForHumans() }}</small></p>
         <a href="{{ route('test.cache',$obj->id)}}">
@@ -151,7 +151,7 @@
         @endif
         
       </div> 
-      
+
 
     </div>
 
