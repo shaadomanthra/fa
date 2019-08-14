@@ -43,9 +43,9 @@
          <div class="row mb-2">
             <div class="col-md-4"><b>Image</b></div>
             <div class="col-md-8">
-              @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
+              @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
               <div class="bg-light border  p-3 mb-3">
-                <img src="{{ asset('uploads/'.$obj->image)}}"  class="w-25 "/>
+                <img src="{{ asset('storage/'.$obj->image)}}"  class="w-25 "/>
               </div>
               <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
                  <input type="hidden" name="_method" value="PUT">

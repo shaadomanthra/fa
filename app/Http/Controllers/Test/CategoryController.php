@@ -73,7 +73,7 @@ class CategoryController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile('category', $request->file('file'));
+                $path = Storage::disk('public')->putFile('category', $request->file('file'));
                 $request->merge(['image' => $path]);
             }
 
@@ -151,8 +151,8 @@ class CategoryController extends Controller
              /* delete file request */
             if($request->get('deletefile')){
 
-                if(Storage::disk('uploads')->exists($obj->image)){
-                    Storage::disk('uploads')->delete($obj->image);
+                if(Storage::disk('public')->exists($obj->image)){
+                    Storage::disk('public')->delete($obj->image);
                 }
                 redirect()->route($this->module.'.show',[$id]);
             }
@@ -161,7 +161,7 @@ class CategoryController extends Controller
             /* If file is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile('category', $request->file('file'));
+                $path = Storage::disk('public')->putFile('category', $request->file('file'));
                 $request->merge(['image' => $path]);
             }
 
@@ -190,8 +190,8 @@ class CategoryController extends Controller
         $this->authorize('update', $obj);
 
         // remove file
-        if(Storage::disk('uploads')->exists($obj->image))
-            Storage::disk('uploads')->delete($obj->image);
+        if(Storage::disk('public')->exists($obj->image))
+            Storage::disk('public')->delete($obj->image);
         
         $obj->delete();
 

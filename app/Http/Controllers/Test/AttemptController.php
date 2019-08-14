@@ -122,6 +122,7 @@ class AttemptController extends Controller
     if(!$test_is_a_part_of_product)
     abort('403','Test is not a part of product');
 
+
    /* User Authorization for test */
     $grantaccess = $request->get('grantaccess');
     if(!$user->productAccess($product->id)){
@@ -131,14 +132,19 @@ class AttemptController extends Controller
         $order->grantaccess($product->id);
 
       }else{
+
         if($product->price==0)
           return view('appl.product.product.freeaccess')
         ->with('test',$test)
         ->with('product',$product);
-        else
-          return view('appl.product.product.purchase')
-        ->with('test',$test)
-        ->with('product',$product);
+        else{
+          
+          return view('appl.product.product.purchase')->with('test',$test)
+          ->with('product',$product);
+          dd('here');
+
+        }
+       
       }
     }
 

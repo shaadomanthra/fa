@@ -1,5 +1,31 @@
 [
     {
+        "id": 7,
+        "name": "PTE Mocks",
+        "slug": "pte_mocks",
+        "description": "<p>sample&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<\/p>",
+        "price": 500,
+        "status": 0,
+        "created_at": "2019-08-12 05:51:50",
+        "updated_at": "2019-08-12 05:51:50",
+        "image": null,
+        "details": "<p>more detials<\/p>",
+        "validity": 6
+    },
+    {
+        "id": 6,
+        "name": "PTE Mocks",
+        "slug": "pte-mocks",
+        "description": "<p>sample description<\/p>",
+        "price": 5000,
+        "status": 0,
+        "created_at": "2019-08-12 05:51:22",
+        "updated_at": "2019-08-12 05:51:22",
+        "image": null,
+        "details": "<p>more details page<\/p>",
+        "validity": 12
+    },
+    {
         "id": 5,
         "name": "IELTS FREE TEST",
         "slug": "ielts_free_test",
@@ -57,9 +83,9 @@
         "slug": "grammar-test",
         "description": "<p>This is the easiest way to improve your score. Avoid the most common mistakes test takers make. Focus only on what is important. Grammar books may now be thrown away!<\/p>",
         "price": 0,
-        "status": 1,
+        "status": 0,
         "created_at": "2019-07-25 11:49:28",
-        "updated_at": "2019-08-04 09:05:00",
+        "updated_at": "2019-08-12 05:52:12",
         "image": "product\/LDrPrxulbScuDsGLByiNDbBjIZiSlC92tqu7i8TB.png",
         "details": "<p>Tired of figuring out what a predicate or a subjunctive is?  These tests are designed to help you avoid the mistakes that cost you the score you want without suffering through the boring mechanics of grammar.<\/p>\r\n\r\n<p>\r\nQuestions in these tests are based on responses submitted by actual test takers!\r\n<\/p>\r\n<p>\r\nLet others\u2019 mistakes be your guiding light.\r\n<\/p>",
         "validity": 12
