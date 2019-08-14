@@ -299,7 +299,7 @@ class AttemptController extends Controller
       $test = Test::where('slug',$slug)->first();
       $user = \auth::user();
       $type = $request->get('type');
-      $product_slug = $request->get('product_slug');
+      $product_slug = $request->get('product');
       /* upload the file to server */
       if(isset($request->all()['file_'])){
           $file      = $request->all()['file_'];
