@@ -46,10 +46,10 @@
     <div class="h4  mb-3" style="color:#a1d5e8">Explore our <a href="{{ route('product.public')}}">
     <button class="btn btn-green btn-lg" style="">products</button>
     </a></div>
-    <a href="{{ route('product.view','oet_mock_test_pack')}}">
+    <a href="{{ route('product.view','oet-mock-test-pack')}}">
     <button class="btn btn-outline-light btn-sm mb-2 mr-1">OET MOCK TEST PACK</button>
     </a>
-    <a href="{{route('product.view','ielts_free_test')}}">
+    <a href="{{route('product.view','ielts-practice-test')}}">
     <button class="btn btn-outline-light btn-sm mb-2 mr-1">IELTS Practice Test</button>
     </a>
     <a href="{{route('product.view','grammar-test')}}">
