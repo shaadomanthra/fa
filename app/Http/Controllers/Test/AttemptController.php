@@ -29,13 +29,16 @@ class AttemptController extends Controller
    public function __construct(){
         $this->app      =   'test';
         $this->module   =   'test';
+        $this->cache_path   =   '../storage/app/cache/test/';
+        $this->cache_path_product   =   '../storage/app/cache/product/';
         if(request()->route('test')){
-            $filename = '../cache/test/'.$this->app.'.'.request()->route('test').'.json'; 
+
+            // update test from cache
+            $filename = $this->cache_path.$this->app.'.'.request()->route('test').'.json'; 
             if(file_exists($filename)){
               $this->test = json_decode(file_get_contents($filename));
             }
             else{
-
               $this->test = Test::where('slug',request()->route('test'))->first();
               $this->test->sections = $this->test->sections;
               //load test and all the extra data
@@ -47,8 +50,19 @@ class AttemptController extends Controller
                       $this->test->sections->$ids->fillup = $extract->fillup;
                   } 
               }
+
             }
-            
+
+            //update product from cache
+            $product_slug = request()->get('product');
+            if(!$product_slug)
+                abort('403','Product Not Defined');
+            $filename = $this->cache_path_product.$product_slug.'.json';
+            if(file_exists($filename)){
+              $this->product = json_decode(file_get_contents($filename));
+            }else{
+              $this->product = Product::where('slug',$request->get('product'))->first();
+            }
         } 
     }
 
@@ -57,11 +71,36 @@ class AttemptController extends Controller
 
         $user = \auth::user();
         $test = $this->test;
+        $product = $this->product;
 
         //Run prechecks 
         $this->precheck($request);
 
-        $product = $this->product;
+        /* User Authorization for test */
+        $grantaccess = $request->get('grantaccess');
+        if(!$user->productAccess($product->id)){
+          if($grantaccess)
+          {
+            $order = new Order();
+            $order->grantaccess($product->id);
+
+          }else{
+
+            if($product->price==0){
+              return view('appl.product.product.freeaccess')
+                      ->with('test',$test)
+                      ->with('product',$product);
+            }
+            else{
+              return view('appl.product.product.purchase')->with('test',$test)
+              ->with('product',$product);
+
+            }
+           
+          }
+        }
+
+        
 
         /* If Attempted show report */
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
@@ -96,15 +135,6 @@ class AttemptController extends Controller
     if(!$product_slug)
      abort('403','Product Not Defined');
 
-    /* Load product from cache else database */
-    $filename = '../cache/product/'.$product_slug.'.json';
-
-    if(file_exists($filename)){
-      $this->product = json_decode(file_get_contents($filename));
-    }else{
-      $this->product = Product::where('slug',$request->get('product'))->first();
-    }
-
     $product = $this->product;
 
     /* check if test is a part of product */
@@ -122,43 +152,18 @@ class AttemptController extends Controller
     if(!$test_is_a_part_of_product)
     abort('403','Test is not a part of product');
 
-
-   /* User Authorization for test */
-    $grantaccess = $request->get('grantaccess');
-    if(!$user->productAccess($product->id)){
-      if($grantaccess)
-      {
-        $order = new Order();
-        $order->grantaccess($product->id);
-
-      }else{
-
-        if($product->price==0)
-          return view('appl.product.product.freeaccess')
-        ->with('test',$test)
-        ->with('product',$product);
-        else{
-          
-          return view('appl.product.product.purchase')->with('test',$test)
-          ->with('product',$product);
-          dd('here');
-
-        }
-       
-      }
-    }
-
    }
 
    /* Test Attempt Function */
    public function try($slug,Request $request){
       
         $test = $this->test;
-
         $user = \auth::user();
-
-        $this->precheck($request);
         $product = $this->product;
+
+        /* Pre validation */
+        $this->precheck($request);
+        
 
         /* If Attempted show report */
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
@@ -494,10 +499,4 @@ class AttemptController extends Controller
           abort(403,'Test not attempted');
     }
 }
-
-
-
-
-
-
 

@@ -17,6 +17,7 @@ class ProductController extends Controller
     public function __construct(){
         $this->app      =   'product';
         $this->module   =   'product';
+        $this->cache_path =  '../storage/app/cache/product/';
     }
 
     /**
@@ -31,20 +32,19 @@ class ProductController extends Controller
         $search = $request->search;
         $item = $request->item;
 
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache';
 
         /* update in cache folder */
         if($request->refresh){
-            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
+            $filename = 'index.'.$this->app.'.'.$this->module.'.json';
+            $filepath = $this->cache_path.$filename;
+
             $objs = $obj->orderBy('created_at','desc')
                         ->get();  
-            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
             
             foreach($objs as $obj){ 
-                $filename = '../cache/product/'.$obj->slug.'.json';
+                $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
                 $obj->groups = $obj->groups;
                 foreach($obj->groups as $m=>$group){
                     $obj->groups->tests = $group->tests;
@@ -52,7 +52,7 @@ class ProductController extends Controller
                         $obj->groups->tests->testtype = $test->testtype;
                     }
                 }
-                file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
             }
            
             flash('Product Pages Cache Updated')->success();
@@ -82,20 +82,23 @@ class ProductController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache';
+        //cache file
+        $filename = 'index.'.$this->app.'.'.$this->module.'.json';
+        $filepath = $this->cache_path.$filename;
 
-        $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
         if(file_exists($filename) && !$search)
         {
             $objs = json_decode(file_get_contents($filename));
-        }else{
+        }elseif($search){
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->get();  
-            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+                    ->get(); 
+        }
+        else{
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->get(); 
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
         }
 
         $view = $search ? 'public_list': 'public';
@@ -145,7 +148,7 @@ class ProductController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile('product', $request->file('file'));
+                $path = Storage::disk('public')->putFile('product', $request->file('file'));
                 $request->merge(['image' => $path]);
             }
 
@@ -159,17 +162,17 @@ class ProductController extends Controller
                 $obj->groups()->attach($group);
             }
 
-            if(request()->getHost()=='project.test')
-            $folder = 'cache';
-            else
-            $folder = 'cache';
+            /* update cache file of this product */
+            $filename = $request->get('slug').'.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
 
-            /* update in cache folder */
-            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
+            /* update in cache folder main file */
+            $filename = 'index.'.$this->app.'.'.$this->module.'.json';
+            $filepath = $this->cache_path.$filename;
             $objs = $obj->orderBy('created_at','desc')
                         ->get(); 
-            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
-            
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -201,7 +204,8 @@ class ProductController extends Controller
     }
 
 
-    /** PUBLIC LISTING
+    /** 
+     * PUBLIC LISTING
      * Display the specified resource.
      *
      * @param  int  $id
@@ -209,14 +213,8 @@ class ProductController extends Controller
      */
     public function view($slug)
     {
-        //$obj = Obj::where('slug',$slug)->first();
-        if(request()->getHost()=='project.test')
-            $folder = 'cache';
-        else
-            $folder = 'cache'; 
-        
-
-        $filename = '../'.$folder.'/product/'.$slug.'.json';
+        $filename = $slug.'.json';
+        $filepath = $this->cache_path.$filename;
         if(file_exists($filename))
         {
             $obj = json_decode(file_get_contents($filename));
@@ -229,11 +227,14 @@ class ProductController extends Controller
                     $obj->groups->tests->testtype = $test->testtype;
                 }
             }
-            file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+            file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
         }
 
         if(\auth::user())
-            $obj->order = \auth::user()->orders()->where('product_id',$obj->id)->where('status',1)->orderBy('id','desc')->first();
+            $obj->order = \auth::user()->orders()
+                            ->where('product_id',$obj->id)
+                            ->where('status',1)
+                            ->orderBy('id','desc')->first();
         else
             $obj->order = null;
 
@@ -279,7 +280,6 @@ class ProductController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
-
             // change to uppercase
             if($request->get('name')){
                 $request->merge(['name' => strtoupper($request->get('name'))]);
@@ -288,8 +288,8 @@ class ProductController extends Controller
              /* delete file request */
             if($request->get('deletefile')){
 
-                if(Storage::disk('uploads')->exists($obj->image)){
-                    Storage::disk('uploads')->delete($obj->image);
+                if(Storage::disk('public')->exists($obj->image)){
+                    Storage::disk('public')->delete($obj->image);
                 }
                 redirect()->route($this->module.'.show',[$id]);
             }
@@ -298,7 +298,7 @@ class ProductController extends Controller
             /* If file is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile('product', $request->file('file'));
+                $path = Storage::disk('public')->putFile('product', $request->file('file'));
                 $request->merge(['image' => $path]);
             }
 
@@ -316,16 +316,18 @@ class ProductController extends Controller
 
             $obj->update($request->except(['groups','file'])); 
 
-            if(request()->getHost()=='project.test')
-            $folder = 'cache';
-            else
-            $folder = 'cache';
 
-            /* update in cache folder */
-            $filename = '../'.$folder.'/index.'.$this->app.'.'.$this->module.'.json';
+            /* update cache file of this product */
+            $filename = $obj->slug.'.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+
+            /* update in cache folder main file */
+            $filename = 'index.'.$this->app.'.'.$this->module.'.json';
+            $filepath = $this->cache_path.$filename;
             $objs = $obj->orderBy('created_at','desc')
-                        ->get();  
-            file_put_contents($filename, json_encode($objs,JSON_PRETTY_PRINT));
+                        ->get(); 
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
             
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
@@ -352,8 +354,8 @@ class ProductController extends Controller
         $this->authorize('update', $obj);
 
          // remove file
-        if(Storage::disk('uploads')->exists($obj->image))
-            Storage::disk('uploads')->delete($obj->image);
+        if(Storage::disk('public')->exists($obj->image))
+            Storage::disk('public')->delete($obj->image);
 
         $obj->delete();
 

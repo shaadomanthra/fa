@@ -42,7 +42,7 @@ return [
     */
 
     'disks' => [
-        
+
 
         'local' => [
             'driver' => 'local',
@@ -56,11 +56,14 @@ return [
             'visibility' => 'public',
         ],
         'uploads' => [
-        'driver' => 'local',
-        'url' => '/uploads',
-        'root'   => public_path() . '/uploads',
+            'driver' => 'local',
+            'root' => storage_path('app/uploads'),
         ],
-
+        'cache' => [
+            'driver' => 'local',
+            'root' => storage_path('app/cache'),
+            'visibility' => 'private',
+        ],
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

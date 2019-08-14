@@ -55,7 +55,7 @@
             </div>
             @if($obj->image)
             <div class="col-12  col-md-3">
-                <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100 d-none d-md-block">
+                <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 d-none d-md-block">
             </div>
             @endif
 

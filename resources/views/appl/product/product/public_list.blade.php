@@ -17,14 +17,14 @@
     <p class="card-text">
       <hr>
       <div class="row">
-        @if(\Storage::disk('uploads')->exists($obj->image) && $obj->image )
+        @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
         <div class="col-3 ">
-          <img src="{{ asset('uploads/'.$obj->image) }}" class="w-100 ">
+          <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 ">
         </div>
         @endif
         <div class="col">
             <p>
-              {{ substr(strip_tags($obj->description),0,200 )}}
+              {!! substr(strip_tags($obj->description),0,200 ) !!}
               @if(strlen(strip_tags($obj->description))>200) ...@endif</p>
           <a href="{{ route('product.view',$obj->slug)}}" class="btn  btn-outline-primary">Explore</a>
         </div>
