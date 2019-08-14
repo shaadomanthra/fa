@@ -75,8 +75,8 @@
             @if(count($obj->groups)>2) col-md-6 col-lg-3 @endif
              mb-3">
               <div class="card" >
-                @if(file_exists(public_path().'/uploads/'.$group->image) && $group->image)
-                   <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/uploads/'.$group->image)}})"> 
+                @if(\Storage::disk('public')->exists($group->image)  && $group->image)
+                   <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/storage/'.$group->image)}})"> 
 </div>
   @endif
   <div class="card-body">

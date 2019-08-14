@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title', $obj->name.' | Test Group | First Academy')
+@section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
+@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -43,9 +46,9 @@
           <div class="row mb-2">
             <div class="col-md-4"><b>Image</b></div>
             <div class="col-md-8">
-              @if(file_exists(public_path().'/uploads/'.$obj->image) && $obj->image)
+              @if(\Storage::disk('public')->exists($obj->image) && $obj->image)
               <div class="bg-light border p-3">
-              <img src="{{ asset(url('/').'/uploads/'.$obj->image)}}"  class="w-25 mb-3"/>
+              <img src="{{ asset('storage/'.$obj->image)}}"  class="w-25 mb-3"/>
               <form method="post" action="{{route($app->module.'.update',$obj->id)}}" >
                  <input type="hidden" name="_method" value="PUT">
                  <input type="hidden" name="deleteimage" value="1">

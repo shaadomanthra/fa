@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('meta.createedit')
 @section('content')
 
 @include('flash::message')

@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@section('title','My Orders - First Academy' )
+@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
 <nav aria-label="breadcrumb">

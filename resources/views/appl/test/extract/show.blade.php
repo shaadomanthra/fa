@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('meta.show')
 @section('content')
 
 <nav aria-label="breadcrumb">

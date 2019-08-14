@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title',$obj->name.' - First Academy' )
+@section('description', strip_tags($obj->description))
+@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET, '.$obj->name)
 @section('content')
 
 <nav aria-label="breadcrumb">

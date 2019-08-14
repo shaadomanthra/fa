@@ -75,7 +75,7 @@ class GroupController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile($this->module, $request->file('file'));
+                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
  
                 $request->merge(['image' => $path]);
             }
@@ -153,8 +153,8 @@ class GroupController extends Controller
             $obj = Obj::where('id',$id)->first();
 
             if($request->get('deleteimage')){
-               if(Storage::disk('uploads')->exists($obj->image))
-                    Storage::disk('uploads')->delete($obj->image);
+               if(Storage::disk('public')->exists($obj->image))
+                    Storage::disk('public')->delete($obj->image);
                 redirect()->route($this->module.'.show',[$id]);
             }
 
@@ -162,7 +162,7 @@ class GroupController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('uploads')->putFile($this->module, $request->file('file'));
+                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
  
                 $request->merge(['image' => $path]);
             }
@@ -196,8 +196,8 @@ class GroupController extends Controller
         $this->authorize('update', $obj);
 
         // remove file
-        if(Storage::disk('uploads')->delete($obj->image)){
-            Storage::disk('uploads')->delete($obj->image);
+        if(Storage::disk('public')->delete($obj->image)){
+            Storage::disk('public')->delete($obj->image);
         }
 
         $obj->delete();

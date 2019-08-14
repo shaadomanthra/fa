@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('meta.show')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -60,6 +61,7 @@
         </div>
       </div>
 
+      @if(count($obj->tests())>0)
        <div class="card ">
         <div class="card-body">
           <div class="table-responsive">
@@ -82,6 +84,7 @@
           </div>
         </div>
       </div>
+      @endif
 
     </div>
 
