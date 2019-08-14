@@ -8,20 +8,20 @@
 <div class="card-body p-4 ">
 
 <div class="row">
-	<div class="col-12 col-md-6 ">
-		
+	<div class="col-12 col-md-7 ">
+		<iframe class="w-100" height="300" frameborder="0" style="border:0"
+src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJx7TARMmQyzsR8BKHnJbVVh4&key=AIzaSyCdRZQkwLoQV_3BtOBWfJA93Thke_iza8Y" allowfullscreen></iframe>
 	</div>
 
-	<div class="col-12 col-md-6">
+	<div class="col-12 col-md-5">
 		<h1>Contact Us</h1><br>
-		<h3>Quedb Edtech Private Limited</h3>
-12-5-29/1, first floor<br>
-Beside Innova Childrens Hospital<br>
-Tarnaka - Moula Ali Road<br>
-South Lalaguda, Hyderabad <br>
-Telangana - 500017<br><br>
-Phone: +91 95151 25110<br>
-Email: founder@packetprep.com
+		<h3>First Academy</h3>
+707 - 708, Seventh floor<br>
+Pavani Prestige, <br>
+Ameerpet, Hyderabad,<br>
+Telengana, 500016 <br><br>
+Phone: +91 844 844 4535<br>
+Email: info@firstacademy.in<br>
 	</div>
 
 	

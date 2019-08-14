@@ -13,6 +13,7 @@
           <li><a class="text-muted" href="https://firstacademy.in/scores/">Scores</a></li>
           <li><a class="text-muted" href="https://firstacademy.in/reviews/">Reviews</a></li>
           <li><a class="text-muted" href="https://firstacademy.in/blog/">Blog</a></li>
+          <li><a class="text-muted" href="{{route('contact')}}">Contact</a></li>
           
         </ul>
       </div>
