@@ -6,7 +6,7 @@
 
 <div class="">
   <div class="row ">
-    <div class="col-12 col-md-6 col-lg-4">
+    <div class="col-12 col-sm-6 col-md-5 col-lg-4">
       <div class="card mb-4">
         <div class="bg-image" style="background-image: url({{asset('images/dashboard/bg2.jpg')}})"> 
         </div>
@@ -32,12 +32,12 @@
   </div>
 
   
-  <div class="col-12 col-md-6 col-lg-8">
+  <div class="col-12 col-sm-6 col-md-7 col-lg-8">
     <div class="row">
       <div class="col-12 col-md-6">
-       <div class="card mb-3 mb-md-0">
+       <div class="card mb-3 mb-md-0" style="background:rgb(205, 239, 255);border:1px solid #93c4da ;">
         <div class="card-header">
-          Speaking Evaluation
+          <b>Speaking Evaluation</b>
         </div>
         <div class="card-body">
           <p class="card-text">Get your speaking tasks evaluated by expert trainers.</p>
@@ -47,7 +47,7 @@
     </div>
 
     <div class="col-12 col-md-6">
-     <div class="card bg-light">
+     <div class="card " style="background:#fffbd6;border:1px solid #bbb89f;">
        <div class="card-header">
         Writing Evaluation
       </div>
