@@ -45,7 +45,7 @@ Route::get('/home', function () {
 })->name('home')->middleware('auth');
 
 // login routes
-Auth::routes(['verify' => true]);
+Auth::routes();
 
 //under construction page
 Route::get('/construction', function () {
@@ -115,6 +115,12 @@ Route::get('/privacy', function(){ return view('appl.pages.privacy');})->name('p
 Route::get('/refund', function(){ return view('appl.pages.refund');})->name('refund');
 Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->name('disclaimer');
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
+
+/* user verify routes */
+Route::get('/activation/mail', 'User\VerifyController@email_send')->name('email.sendcode');
+Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('email.verify');
+Route::get('/activation/phone', 'User\VerifyController@sms_send')->name('sms.sendcode');
+Route::get('/activation/phone/{token}', 'User\VerifyController@sms')->name('sms.verify');
 
 /* Sample Routes */
 Route::get('/listening', function(){

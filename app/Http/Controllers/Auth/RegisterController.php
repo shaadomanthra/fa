@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+use App\Mail\EmailActivation;
+
 use App\Mail\usercreate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
@@ -73,8 +75,12 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
-            'password' =>  Hash::make($data['password'])
+            'password' =>  Hash::make($data['password']),
+            'activation_token' => mt_rand(10000,99999),
+            'sms_token' => mt_rand(10000,99999)
         ]);
+
+         Mail::to($user->email)->send(new EmailActivation($user));
 
         return $user;
     }
