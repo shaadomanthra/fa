@@ -31,7 +31,7 @@
     </div>
 
     <div class="verify">
-      @if(\auth::user()->activation_token!=1)
+      @if(\auth::user()->activation_token && \auth::user()->activation_token!=1)
       <div class="border border-secondary p-3 rounded">
         <p>Your email verification is pending</p>
         <a href="{{ route('email.sendcode')}}">
