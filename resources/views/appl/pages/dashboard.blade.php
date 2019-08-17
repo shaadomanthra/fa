@@ -4,6 +4,14 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
+@if( \auth::user()->activation_token!=1 || \auth::user()->sms_token!=1)
+<div class="rounded p-4 mb-4" style="background: #98deb5; border:1px solid #39c072;"><h4 class="">Validate your account</h4>
+<p>Your account has not been validated yet. You are only a few steps away from complete access to our platform.</p>
+<a href="{{ route('activation')}}">
+<button class="btn btn-success">Validate Now</button>
+</a>
+</div>
+@endif
 <div class="">
   <div class="row ">
     <div class="col-12 col-sm-6 col-md-5 col-lg-4">
@@ -30,17 +38,6 @@
       
     </div>
 
-    <div class="verify">
-      @if(\auth::user()->activation_token && \auth::user()->activation_token!=1)
-      <div class="border border-secondary p-3 rounded">
-        <p>Your email verification is pending</p>
-        <a href="{{ route('email.sendcode')}}">
-        <button class="btn btn-primary btn-sm">Verify now</button>
-        </a>
-      </div>
-      @endif
-
-    </div>
   </div>
 
   

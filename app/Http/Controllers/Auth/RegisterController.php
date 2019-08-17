@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 use App\Mail\EmailActivation;
+use App\Mail\WelcomeMail;
 
 use App\Mail\usercreate;
 use Illuminate\Support\Facades\Mail;
@@ -77,9 +78,11 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'password' =>  Hash::make($data['password']),
             'activation_token' => mt_rand(10000,99999),
-            'sms_token' => mt_rand(10000,99999)
+            'sms_token' => mt_rand(1000,9999)
         ]);
 
+         $user->resend_sms($user->phone,$user->sms_token);
+         Mail::to($user->email)->send(new WelcomeMail($user));
          Mail::to($user->email)->send(new EmailActivation($user));
 
         return $user;
