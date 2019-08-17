@@ -91,10 +91,10 @@
                 <div class="row mb-2">
             <div class="col-md-4"><b>File</b></div>
             <div class="col-md-8">
-              @if(\Storage::disk('uploads')->exists($obj->file) && $obj->file )
+              @if(\Storage::disk('public')->exists($obj->file) && $obj->file )
               <div class="bg-light border mb-3">
                  <audio>
-                  <source src="{{ asset(\storage::disk('uploads')->url($obj->file))}}" type="audio/mp3">
+                  <source src="{{ asset(\storage::disk('public')->url($obj->file))}}" type="audio/mp3">
                   </audio>
               </div>
               <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >

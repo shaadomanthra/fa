@@ -6,7 +6,7 @@
 	</div>
 	<div class="">
 		<audio >
-		<source id="player"  src="{{ url('/').'/uploads/'.$test->file }}" type="audio/mp3">
+		<source id="player"  src="{{ url('/').'/storage/'.$test->file }}" type="audio/mp3">
 		</audio>
 	</div>
 </div>

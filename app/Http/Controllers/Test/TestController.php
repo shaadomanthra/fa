@@ -88,7 +88,7 @@ class TestController extends Controller
             /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];
-                $path = Storage::disk('uploads')->putFile('extracts', $request->file('file_'));
+                $path = Storage::disk('public')->putFile('extracts', $request->file('file_'));
                 $request->merge(['file' => $path]);
             }
 
@@ -236,15 +236,15 @@ class TestController extends Controller
 
             /* delete file request */
             if($request->get('deletefile')){
-                if(Storage::disk('uploads')->exists($obj->file))
-                    Storage::disk('uploads')->delete($obj->file);
+                if(Storage::disk('public')->exists($obj->file))
+                    Storage::disk('public')->delete($obj->file);
                 redirect()->route($this->module.'.show',[$id]);
             }
 
             /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];
-                $path = Storage::disk('uploads')->putFile('extracts', $request->file('file_'));
+                $path = Storage::disk('public')->putFile('extracts', $request->file('file_'));
                 $request->merge(['file' => $path]);
             }
 
@@ -283,8 +283,8 @@ class TestController extends Controller
         $this->authorize('update', $obj);
 
         // remove file
-        if(Storage::disk('uploads')->exists($obj->file))
-            Storage::disk('uploads')->delete($obj->file);
+        if(Storage::disk('public')->exists($obj->file))
+            Storage::disk('public')->delete($obj->file);
         
         $obj->delete();
 
