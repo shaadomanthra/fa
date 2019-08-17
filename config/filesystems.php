@@ -52,13 +52,13 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => url('/').'/storage',
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
-            'url' => url('/').'/storage/uploads/',
+            'url' => env('APP_URL').'/storage/uploads/',
             'visibility' => 'public',
         ],
         'cache' => [
