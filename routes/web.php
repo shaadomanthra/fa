@@ -16,10 +16,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/sms', function () {
-   
-});
-
 Route::get('/home', function () {
     return view('appl.pages.dashboard');
 })->name('home')->middleware('auth');
