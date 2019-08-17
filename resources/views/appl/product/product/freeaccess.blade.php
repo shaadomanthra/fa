@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 @section('title','Free Access - First Academy' )
-@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET)
+@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 <div class="bg-white">
 <div class="card-body p-4 ">
