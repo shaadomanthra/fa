@@ -20,7 +20,7 @@ if (! function_exists('summernote_imageupload')) {
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
 
-                    $base_folder = "../storage/app/public/images/";
+                    $base_folder = "/../storage/app/public/images/";
                     $image_name=  $user->id.'_'. time().'_'.$k.'_'.rand().'.png';
                     $temp_path = public_path() . $base_folder . 'temp_' . $image_name;
                     $path = public_path() . $base_folder . $image_name;
