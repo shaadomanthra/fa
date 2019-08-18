@@ -3,7 +3,7 @@
 <div class="bottom-wrap">
     <div class="pallete qshow mb-0 h5 pb-0">
     	<div class="row no-gutters">
-    		<div class="col-12 col-md-6 col-lg-9">
+    		<div class="col-12 col-md col-lg">
     			<div class="section rounded mr-md-1 mb-2 mb-md-0">
     				<span class="pallete-control"><i class="fa fa-th"></i> Questions  <span class="angle"><i class="fa fa-angle-double-down"></i></span></span>
                     
@@ -15,12 +15,12 @@
     		</div>
     		</div>
     		
-    		<div class="col-12 col-md-6 col-lg-3">
+    		<div class="col-12 col-md-6 col-lg-3 @if(count($test->sections)<2) d-none @endif">
     			<div class="section section2 rounded ml-md-1 ">
     				<span class="section-name"> SECTION <span class="section-number">1</span></span>
     				<span class="float-right">
     				<button type="button" class="button btn  btn-sm prev" style="display: none" data-id="0"><i class="fa fa-angle-left"></i> PREV
-</button>
+                    </button>
     					<button  type="button"class="button btn btn-sm next" data-id="2">NEXT <i class="fa fa-angle-right"></i></button>
                     </span>
     				
