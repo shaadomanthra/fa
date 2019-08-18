@@ -169,11 +169,13 @@ class TestController extends Controller
                 $obj->sections->$ids->fillup=$extract->fillup_order;
                 foreach($extract->mcq as $q){
                     if($q->qno)
+                        if($q->qno!=-1)
                         $qcount++;
 
                 }
                 foreach($extract->fillup as $q){
                     if($q->qno)
+                        if($q->qno!=-1)
                         $qcount++;
                 }
             }

@@ -54,10 +54,12 @@ class AttemptController extends Controller
                       $this->test->sections->$ids->fillup = $extract->fillup;
                       foreach($extract->mcq as $q){
                         if($q->qno)
+                          if($q->qno!=-1)
                           $this->test->qcount++;
                       }
                       foreach($extract->fillup as $q){
                         if($q->qno)
+                          if($q->qno!=-1)
                           $this->test->qcount++;
                       }
                   } 
