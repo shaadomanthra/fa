@@ -13,6 +13,7 @@
 				@else
 				<h3  class="text-primary">Verify your email id</h3>
 				<p>We have sent you an activation email, kindly click on the activation link to verify your email.</p>
+				<p>Sometimes email may land up in SPAM FOLDER. Kindly check spam floder before resending.</p>
 				<form method="post" action="{{ route('activation') }}" >
 
 				</form>

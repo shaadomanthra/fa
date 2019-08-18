@@ -81,7 +81,7 @@ class RegisterController extends Controller
             'sms_token' => mt_rand(1000,9999)
         ]);
 
-         $user->resend_sms($user->phone,$user->sms_token);
+         //$user->resend_sms($user->phone,$user->sms_token);
          Mail::to($user->email)->send(new WelcomeMail($user));
          Mail::to($user->email)->send(new EmailActivation($user));
 
