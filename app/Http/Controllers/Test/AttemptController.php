@@ -53,16 +53,19 @@ class AttemptController extends Controller
 
             }
 
-            //update product from cache
-            $product_slug = request()->get('product');
-            if(!$product_slug)
-                abort('403','Product Not Defined');
-            $filename = $this->cache_path_product.$product_slug.'.json';
-            if(file_exists($filename)){
-              $this->product = json_decode(file_get_contents($filename));
-            }else{
-              $this->product = Product::where('slug',$request->get('product'))->first();
+            if(!request()->is('admin/*')){
+              //update product from cache
+              $product_slug = request()->get('product');
+              if(!$product_slug)
+                  abort('403','Product Not Defined');
+              $filename = $this->cache_path_product.$product_slug.'.json';
+              if(file_exists($filename)){
+                $this->product = json_decode(file_get_contents($filename));
+              }else{
+                $this->product = Product::where('slug',$request->get('product'))->first();
+              }
             }
+            
         } 
     }
 
@@ -238,28 +241,15 @@ class AttemptController extends Controller
       $user = \auth::user();
       $product = Product::first();
     
-
-      $qcount = 0;
+      $qcount = $test->qcount;
 
       if(!$test->testtype)
           abort('403','Test Type not defined');
       else
         $view =  strtolower($test->testtype->name);
 
-      foreach($test->sections as $section){
-        foreach($section->extracts as $extract){
-          foreach($extract->mcq as $mcq){
-            if($mcq->qno)
-              $qcount++;
-          }
-          foreach($extract->fillup as $fillup){
-            if($fillup->qno)
-             $qcount++;
-          }
-        }
-      }
+      //dd($test);
 
-      
       if($view == 'listening' || $view == 'grammar')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)

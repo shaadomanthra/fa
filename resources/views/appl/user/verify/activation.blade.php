@@ -4,7 +4,7 @@
 
 @include('flash::message')
 <div class="row">
-	<div class="col-12 col-md-6">
+	<div class="col-12 col-md-12">
 		<div class="bg-white">
 			<div class="card-body p-4 ">
 				@if($user->activation_token==1)
@@ -34,6 +34,7 @@
 			</div>		
 		</div>
 	</div>
+	<!--
 	<div class="col-12 col-md-6">
 		<div class="bg-white">
 			<div class="card-body p-4 ">
@@ -65,6 +66,7 @@
 			</div>		
 		</div>
 	</div>
+-->
 </div>
 
 

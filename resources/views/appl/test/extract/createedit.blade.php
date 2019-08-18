@@ -54,6 +54,17 @@
         </textarea>
       </div>
 
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Layout</label>
+        <select class="form-control" name="layout">
+          <option value="default" @if(isset($obj)) @if($obj->layout == 'default') selected @endif @endif > Default </option>
+          <option value="ielts_paragraph" @if(isset($obj)) @if($obj->layout == 'ielts_paragraph') selected @endif @endif > IELTS Paragraph </option>
+          <option value="ielts_title" @if(isset($obj)) @if($obj->layout == 'ielts_title') selected @endif @endif > IELTS Title </option>
+          <option value="ielts_label" @if(isset($obj)) @if($obj->layout == 'ielts_label') selected @endif @endif > IELTS Label </option>
+          
+        </select>
+      </div>
+
 
         <input type="hidden" class="form-control" name="glance_time" id="formGroupExampleInput" value="0"
           >

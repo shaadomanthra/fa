@@ -13,6 +13,7 @@ class Extract extends Model
         'seek_time',
         'text',
         'glance_time',
+        'layout',
 
         // add all other fields
     ];
@@ -30,5 +31,15 @@ class Extract extends Model
     public function mcq()
     {
         return $this->hasMany('App\Models\Test\Mcq');
+    }
+
+    
+
+    public function fillup_order() {
+        return $this->fillup()->orderBy('sno','asc');
+    }
+
+    public function mcq_order() {
+        return $this->mcq()->orderBy('sno','asc');
     }
 }

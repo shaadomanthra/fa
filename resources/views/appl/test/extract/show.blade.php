@@ -61,6 +61,18 @@
             </div>
           </div>
 
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Layout</b></div>
+            <div class="col-md-8">
+              @if($obj->layout)
+                {{ $obj->layout}} 
+               @else
+                - NA -
+               @endif 
+           
+            </div>
+          </div>
+
            <div class="row mb-2">
             <div class="col-md-4"><b>Text</b></div>
             <div class="col-md-8">{!! $obj->text !!}</div>

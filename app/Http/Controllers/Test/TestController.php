@@ -154,20 +154,35 @@ class TestController extends Controller
         else
             flash('cache is created!')->success();
 
-        $obj->updated_at = \Carbon\Carbon::now();
-        $obj->sections = $obj->sections;
-        $obj->testtype = $obj->testtype;
-        $obj->category = $obj->category;
+        $test = Obj::where('id',$id)->first();
+        $test->updated_at = \Carbon\Carbon::now();
+        $test->sections = $obj->sections;
+        $test->testtype = $obj->testtype;
+        $test->category = $obj->category;
+
+        $qcount =0;
         foreach($obj->sections as $section){ 
             $ids = $section->id ;
             $obj->sections->$ids = $section->extracts;
             foreach($obj->sections->$ids as $m=>$extract){
-                $obj->sections->$ids->mcq = $extract->mcq;
-                $obj->sections->$ids->fillup = $extract->fillup;
+                $obj->sections->$ids->mcq =$extract->mcq_order;
+                $obj->sections->$ids->fillup=$extract->fillup_order;
+                foreach($extract->mcq as $q){
+                    if($q->qno)
+                        $qcount++;
+
+                }
+                foreach($extract->fillup as $q){
+                    if($q->qno)
+                        $qcount++;
+                }
             }
                 
         }
-        file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+        $test->qcount = $qcount;
+
+ 
+        file_put_contents($filename, json_encode($test,JSON_PRETTY_PRINT));
         
         return redirect()->route($this->module.'.show',$id);
     }
