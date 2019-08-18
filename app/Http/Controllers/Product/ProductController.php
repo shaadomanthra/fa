@@ -155,12 +155,14 @@ class ProductController extends Controller
             /* create a new entry */
             $obj->create($request->except(['groups','file']));
 
+            $obj = Obj::where('slug',$request->get('slug'))->first();
             // attach the tags
             $groups = $request->get('groups');
             if($groups)
             foreach($groups as $group){
                 $obj->groups()->attach($group);
             }
+
 
             /* update cache file of this product */
             $filename = $request->get('slug').'.json';
