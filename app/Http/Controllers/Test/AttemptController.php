@@ -359,6 +359,7 @@ class AttemptController extends Controller
               $result[$mcq->qno]['answer'] = $mcq->answer;
               $result[$mcq->qno]['response']= '';
               $result[$mcq->qno]['accuracy']= 2;
+              if($mcq->qno!=-1)
               if($mcq->qno){
                 $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->where('qno',$mcq->qno)->first();
                 if(!$attempt)
@@ -372,6 +373,7 @@ class AttemptController extends Controller
              $result[$fillup->qno]['answer'] = $fillup->answer;
              $result[$fillup->qno]['response']= '';
              $result[$fillup->qno]['accuracy']= 2;
+             if($fillup->qno!=-1)
              if($fillup->qno){
                 $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->where('qno',$fillup->qno)->first();
                 if(!$attempt)
