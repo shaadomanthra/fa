@@ -60,6 +60,14 @@
          </div>
       </div>
 
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Unlimited</label>
+        <select class="form-control" name="unlimited">
+          <option value="0" @if(isset($obj)) @if($obj->unlimited==0) selected @endif @endif >NO</option>
+          <option value="1" @if(isset($obj)) @if($obj->unlimited==1) selected @endif @endif >YES</option>
+        </select>
+      </div>
+
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">

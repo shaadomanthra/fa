@@ -11,6 +11,7 @@ class Coupon extends Model
         'expiry',
         'status',
         'user_id',
+        'unlimited',
         // add all other fields
     ];
 

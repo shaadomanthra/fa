@@ -74,14 +74,6 @@
           </div>
           
           <div class="row mb-2">
-            <div class="col-md-4"><b>Type</b></div>
-            <div class="col-md-8">@if($obj->type=='mcq')
-                    <span class="badge badge-success">MCQ</span>
-                  @elseif($obj->type=='fillup')
-                  <span class="badge badge-warning">Fill Up</span>
-                  @endif</div>
-          </div>
-          <div class="row mb-2">
             <div class="col-md-4"><b>Created At</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>

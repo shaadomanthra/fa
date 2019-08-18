@@ -6,6 +6,7 @@
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">Name </th>
+                <th scope="col">Slug</th>
                 <th scope="col">Status</th>
                 <th scope="col">Group</th>
                 <th scope="col">Created at</th>
@@ -21,6 +22,9 @@
                   </a>
                 </td>
                 <td>
+                  {{ $obj->slug }}
+                </td>
+                <td>
                   @if($obj->status==0)
                     <span class="badge badge-warning">Inactive</span>
                   @elseif($obj->status==1)
@@ -28,7 +32,11 @@
                   @endif
                 </td>
                 <td>
-                  
+                  @if($obj->group)
+                  <a href=" {{ route('group.show',$obj->group->id) }} ">
+                  {{ $obj->group->name }}
+                  </a>
+                  @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>

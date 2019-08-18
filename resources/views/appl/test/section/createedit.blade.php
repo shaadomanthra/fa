@@ -71,20 +71,10 @@
           >
       </div>
 
-   
-     
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Type</label>
-        <select class="form-control" name="type">
-          <option value="mcq" @if(isset($obj)) @if($obj->type=='mcq') selected @endif @endif >MCQ</option>
-          <option value="fillup" @if(isset($obj)) @if($obj->type=='fillup') selected @endif @endif >FILL UP</option>
-        </select>
-      </div>
-
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">
+        <input type="hidden" name="type" value="fillup">
       @endif
        <input type="hidden" name="test_id" value="{{ $app->test->id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">

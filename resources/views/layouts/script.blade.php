@@ -3,7 +3,10 @@
 <script src="{{asset('js/jquery.js')}}"></script>  
 <script src="{{asset('js/script.js')}}"></script>  
 <script src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
-<script src="{{asset('js/jquery.form.js')}}"></script>  
+<script src="{{asset('js/jquery.form.js')}}"></script> 
+<script src="{{asset('js/global.js')}}"></script>  
+
+
 <script>
     $(document).ready(function() {
             $('.summernote').summernote({
@@ -15,6 +18,7 @@
                 focus: true,
               });
           });
+
 </script>
 @elseif(isset($reading))
 <script src="{{asset('js/jquery.js')}}"></script>  
@@ -186,6 +190,7 @@
 <script src="{{asset('js/player.js')}}"></script>
 <script src="{{asset('js/jquery.js')}}"></script>  
 <script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('js/global.js')}}"></script>  
 
 <script>
     $(document).ready(function(){

@@ -34,7 +34,7 @@
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group">
-        <label for="formGroupExampleInput ">Qno</label>
+        <label for="formGroupExampleInput ">Qno  <span data-toggle="tooltip" title="Enter -1 for example (IELTS)" class="text-secondary"><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
         <input type="text" class="form-control" name="qno" id="formGroupExampleInput" placeholder="Enter the Question number" 
             @if($stub=='Create')
             value="{{ (old('qno')) ? old('qno') : '' }}"

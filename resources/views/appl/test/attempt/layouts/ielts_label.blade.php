@@ -1,7 +1,7 @@
 @if(!$f->prefix && !$f->suffix && !$f->answer )
 <div class="row question">
   <div class="col-12 " id="{{$f->qno}}">
-    <div class="card-text " ><b style="color:#795548">{{ $f->label}}</b>
+    <div class="card-text " ><b style="color:#125a61;font-family: Arial, Helvetica, sans-serif;">{{ $f->label}}</b>
     </div>
   </div>
 </div>

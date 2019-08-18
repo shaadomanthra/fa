@@ -58,7 +58,7 @@ class TestController extends Controller
 
         $types = Type::all();
         $categories = Category::where('status',1)->get();
-        $groups = Group::where('status',1)->get();
+        $groups = Group::where('status',1)->orderBy('id','desc')->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
@@ -220,7 +220,7 @@ class TestController extends Controller
 
         $types = Type::all();
         $categories = Category::where('status',1)->get();
-        $groups = Group::where('status',1)->get();
+        $groups = Group::where('status',1)->orderBy('id','desc')->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')

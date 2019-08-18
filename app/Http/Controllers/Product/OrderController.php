@@ -239,9 +239,11 @@ class OrderController extends Controller
               else{
                 $order->payment_mode = 'COUPON';
                 //update coupon
-                $coupon->status = 0;
-                $coupon->user_id = \auth::user()->id;
-                $coupon->save();
+                if(!$coupon->unlimited){
+                  $coupon->status = 0;
+                  $coupon->user_id = \auth::user()->id;
+                  $coupon->save();
+                }
                 $order->txn_id = $coupon->code;
               }
 

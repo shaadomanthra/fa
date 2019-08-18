@@ -6,7 +6,7 @@
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">Name </th>
-                <th scope="col">Type</th>
+                <th scope="col">Seek Time</th>
                 <th scope="col">Created at</th>
               </tr>
             </thead>
@@ -20,11 +20,8 @@
                   </a>
                 </td>
                 <td>
-                  @if($obj->type=='mcq')
-                    <span class="badge badge-success">{{ strtoupper($obj->type) }}</span>
-                  @elseif($obj->type=='fillup')
-                    <span class="badge badge-warning">{{ strtoupper($obj->type) }}</span>
-                  @endif
+                  {{ $obj->seek_time }} sec
+                  
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>

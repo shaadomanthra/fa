@@ -41,13 +41,25 @@ class AttemptController extends Controller
             else{
               $this->test = Test::where('slug',request()->route('test'))->first();
               $this->test->sections = $this->test->sections;
+              $this->test->testtype = $this->test->testtype;
+              $this->test->category = $this->test->category;
               //load test and all the extra data
+
+              $this->test->qcount = 0;
               foreach($this->test->sections as $section){ 
                   $ids = $section->id ;
                   $this->test->sections->$ids = $section->extracts;
                   foreach($this->test->sections->$ids as $m=>$extract){
                       $this->test->sections->$ids->mcq = $extract->mcq;
                       $this->test->sections->$ids->fillup = $extract->fillup;
+                      foreach($extract->mcq as $q){
+                        if($q->qno)
+                          $this->test->qcount++;
+                      }
+                      foreach($extract->fillup as $q){
+                        if($q->qno)
+                          $this->test->qcount++;
+                      }
                   } 
               }
 
@@ -118,7 +130,7 @@ class AttemptController extends Controller
               return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
             }
         }else{
-            return view('appl.test.attempt.instructions')
+            return view('appl.test.attempt.alerts.instructions')
                 ->with('test',$test)
                 ->with('product',$product)
                 ->with('player',true)
@@ -159,77 +171,61 @@ class AttemptController extends Controller
 
    /* Test Attempt Function */
    public function try($slug,Request $request){
-      
-        $test = $this->test;
-        $user = \auth::user();
-        $product = $this->product;
+    $test = $this->test;
+    $user = \auth::user();
+    $product = $this->product;
 
-        /* Pre validation */
-        $this->precheck($request);
-        
+    /* Pre validation */
+    $this->precheck($request);
 
-        /* If Attempted show report */
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+    /* If Attempted show report */
+    $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
 
-        if($attempt){
-            $testtype=  strtolower($test->testtype->name);
-
-            if($testtype=='listening' || $testtype == 'reading')
-            {
-              return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
-            }
-        }
-
-      $qcount = 0;
-
-      if(!$test->testtype)
-          abort('403','Test Type not defined');
-      else
-        $view =  strtolower($test->testtype->name);
-
-      foreach($test->sections as $section){
-        foreach($section->extracts as $extract){
-          foreach($extract->mcq as $mcq){
-            if($mcq->qno)
-              $qcount++;
-          }
-          foreach($extract->fillup as $fillup){
-            if($fillup->qno)
-             $qcount++;
-          }
-        }
+    if($attempt){
+      $testtype=  strtolower($test->testtype->name);
+      if($testtype=='listening' || $testtype == 'reading')
+      {
+        return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
       }
+    }
 
 
-      if($view == 'listening' || $view == 'grammar')
-        return view('appl.test.attempt.try_'.$view)
-                ->with('player',true)
-                ->with('try',true)
-                ->with('app',$this)
-                ->with('qcount',$qcount)
-                ->with('test',$test)
-                ->with('product',$product)
-                ->with('timer',true)
-                ->with('time',$test->test_time);
-      else if($view =='reading'){
-        return view('appl.test.attempt.try_'.$view)
-                ->with('try',true)
-                ->with('app',$this)
-                ->with('qcount',$qcount)
-                ->with('test',$test)
-                ->with('product',$product)
-                ->with('reading',1)
-                ->with('timer',true)
-                ->with('time',$test->test_time);
-      }
-      else{
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
-        return view('appl.test.attempt.try_'.$view)
-                  ->with('test',$test)
-                  ->with('product',$product)
-                  ->with('attempt',$attempt)
-                  ->with('player',1);
-      }
+    (isset($test->qcount))?$qcount = $test->qcount:$qcount=0;
+
+    if(!$test->testtype)
+      abort('403','Test Type not defined');
+    else
+      $view =  strtolower($test->testtype->name);
+
+   if($view == 'listening' || $view == 'grammar')
+    return view('appl.test.attempt.try_'.$view)
+            ->with('player',true)
+            ->with('try',true)
+            ->with('app',$this)
+            ->with('qcount',$qcount)
+            ->with('test',$test)
+            ->with('product',$product)
+            ->with('timer',true)
+            ->with('time',$test->test_time);
+   else if($view =='reading'){
+    return view('appl.test.attempt.try_'.$view)
+        ->with('try',true)
+        ->with('app',$this)
+        ->with('qcount',$qcount)
+        ->with('test',$test)
+        ->with('product',$product)
+        ->with('reading',1)
+        ->with('timer',true)
+        ->with('time',$test->test_time);
+    }
+   else{
+    $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+    return view('appl.test.attempt.try_'.$view)
+          ->with('test',$test)
+          ->with('product',$product)
+          ->with('attempt',$attempt)
+          ->with('player',1);
+    }
 
    }
 
@@ -241,7 +237,7 @@ class AttemptController extends Controller
       $user = \auth::user();
       $product = Product::first();
     
-      $qcount = $test->qcount;
+      (isset($test->qcount))?$qcount = $test->qcount:$qcount=0;
 
       if(!$test->testtype)
           abort('403','Test Type not defined');
@@ -299,13 +295,13 @@ class AttemptController extends Controller
           if($type=='audio')
           {
             if(!in_array($extension, ['mp3','wav','mkv']))
-              return view('appl.test.attempt.upload_error')->with('extension',$extension);
+              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension);
           }
           
           if($type=='doc')
           {
             if(!in_array($extension, ['doc','docx','rtf','pdf','txt']))
-              return view('appl.test.attempt.upload_error')->with('extension',$extension);
+              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension);
           }
           $filename  = $test->slug.'_'.$user->id.'.' . $extension;
           $path = Storage::disk('uploads')->putFileAs('response', $request->file('file_'), $filename);
@@ -460,7 +456,7 @@ class AttemptController extends Controller
       $band =0;
       
 
-      return view('appl.test.attempt.result')
+      return view('appl.test.attempt.alerts.result')
               ->with('result',$result)
               ->with('band',$band)
               ->with('score',$score);
@@ -481,7 +477,7 @@ class AttemptController extends Controller
 
         if($attempt)
         if($attempt->answer || Storage::disk('uploads')->exists('feedback/'.$attempt->id.'.pdf'))
-            return view('appl.'.$this->app.'.attempt.review')
+            return view('appl.'.$this->app.'.attempt.alerts.review')
                     ->with('attempt',$attempt)->with('test',$test);
         else
             abort(403,'No Review Found');
