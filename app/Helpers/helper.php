@@ -37,6 +37,7 @@ if (! function_exists('summernote_imageupload')) {
 
                     $img->removeAttribute('src');
                     $img->setAttribute('src', '/storage/images/'.$image_name);
+                    
                     $img->setAttribute('class', 'image');
                     $img->setAttribute('class', 'w-100');
                 }
