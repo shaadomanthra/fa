@@ -93,7 +93,7 @@ Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->n
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
 
 /* user verify routes */
-Route::get('/activation', 'User\VerifyController@activation')->name('activation');
+Route::get('/activation', 'User\VerifyController@activation')->name('activation')->middleware('auth');
 Route::post('/activation', 'User\VerifyController@activation')->name('activation');
 Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('email.verify');
 
