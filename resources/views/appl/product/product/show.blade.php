@@ -86,7 +86,7 @@
             <div class="col-md-8">
               @foreach($obj->groups as $group)
                 <a href="{{ route('group.show',$group->id)}}">
-                  {{$group->name }}
+                  {{$group->name }} ({{ $group->slug }})
                 </a><br>
               @endforeach
             </div>
