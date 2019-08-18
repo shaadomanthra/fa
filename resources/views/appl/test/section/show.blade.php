@@ -64,7 +64,7 @@
           <div class="row mb-2">
             <div class="col-md-4"><b>Seek Time</b></div>
             <div class="col-md-8">
-                @if($obj->seek_time)
+                @if($obj->seek_time || $obj->seek_time==0)
                 {{ $obj->seek_time}} sec
                @else
                 - NA -

@@ -76,6 +76,7 @@
         <input type="hidden" name="id" value="{{ $obj->id }}">
         <input type="hidden" name="type" value="fillup">
       @endif
+      <input type="hidden" name="type" value="fillup">
        <input type="hidden" name="test_id" value="{{ $app->test->id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-info">Save</button>
