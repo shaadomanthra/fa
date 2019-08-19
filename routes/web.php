@@ -91,6 +91,7 @@ Route::get('/privacy', function(){ return view('appl.pages.privacy');})->name('p
 Route::get('/refund', function(){ return view('appl.pages.refund');})->name('refund');
 Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->name('disclaimer');
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
+Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
 /* user verify routes */
 Route::get('/activation', 'User\VerifyController@activation')->name('activation')->middleware('auth');
