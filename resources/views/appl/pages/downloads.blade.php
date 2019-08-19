@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Privacy Policy | First Academy')
+@section('title', 'Free Downloads | First Academy')
 @section('description', 'Our free Material on GRE and IELTS is best in class. You can download pool of arguments, pool of topics, gre important words all for free.')
 @section('keywords', 'gre word list, gre important words, pool of arguments for gre,download pool of arguments, download pool of topics')
 @section('content')
