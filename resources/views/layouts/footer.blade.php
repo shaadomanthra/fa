@@ -42,6 +42,7 @@
       <div class="col-6 col-md">
         <h5>More</h5>
         <ul class="list-unstyled text-small">
+          <li><a class="text-muted" href="{{url('/downloads')}}">Downloads</a></li>
           <li><a class="text-muted" href="{{url('/terms')}}">Terms</a></li>
           <li><a class="text-muted" href="{{url('/privacy')}}">Privacy</a></li>
           <li><a class="text-muted" href="{{url('/refund')}}">Refund and Cancellation</a></li>
