@@ -29,7 +29,7 @@ class ProductPolicy
      */
     public function create(User $user)
     { 
-        $user->isAdmin();
+        return $user->isAdmin();
     }
 
 
@@ -42,7 +42,7 @@ class ProductPolicy
      */
     public function edit(User $user)
     { 
-       $user->isAdmin();
+       return $user->isAdmin();
     }
 
     /**
@@ -54,7 +54,7 @@ class ProductPolicy
      */
     public function update(User $user)
     { 
-        $user->isAdmin();
+        return $user->isAdmin();
     }
 
 
