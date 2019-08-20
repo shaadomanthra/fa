@@ -226,6 +226,7 @@ class AttemptController extends Controller
           ->with('test',$test)
           ->with('product',$product)
           ->with('attempt',$attempt)
+          ->with('editor',true)
           ->with('player',1);
     }
 
@@ -276,6 +277,7 @@ class AttemptController extends Controller
                   ->with('product',$product)
                   ->with('attempt',$attempt)
                   ->with('view',true)
+                  ->with('editor',true)
                   ->with('player',1);
       }
 
@@ -312,14 +314,18 @@ class AttemptController extends Controller
       $model = new Attempt();
       $model->user_id = $user->id;
       $model->qno = 1;
-      $model->response = $path;
+      if(!$request->get('response'))
+        $model->response = $path;
+      else
+        $model->response = $request->get('response');
       $model->test_id = $test->id;
       $model->save();
 
       //Mail notifaction to the administrator
+      if(!$request->get('response'))
       Mail::to(config('mail.report'))->send(new uploadfile($user,$filename));
 
-      flash('Successfully uploaded the file !')->success();
+      flash('Successfully submitted !')->success();
       return redirect()->route($this->module.'.try',['test'=>$this->test->slug,'product'=>$product_slug]);
    }
 

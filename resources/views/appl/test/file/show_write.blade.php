@@ -9,7 +9,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->response }}</li>
+    <li class="breadcrumb-item"> User Response</li>
   </ol>
 </nav>
 
@@ -40,26 +40,16 @@
       <div class="card mb-4">
         <div class="card-body">
           
-          @if($player)
+          
           <div class="row mb-2">
-            <div class="col-md-4"><b>File</b></div>
-            <div class="col-md-8">
-              <div class="border">
-              <audio >
-              <source id="player"  src="{{ url('/').'/uploads/'.$obj->response }}" type="audio/mp3">
-              </audio>
-            </div>
-            <a href="{{route($app->module.'.download',[$obj->id])}}" >
-                <button type="button" class="btn btn-sm btn-outline-secondary float-left mr-2 mt-3">Download Response</button>
-              </a>
-            </div>
+            <div class="col-md-4"><b>Response</b></div>
+            <div class="col-md-8"><div class="p-3 border mb-3 bg-light">{!! $obj->response !!}</div>
+          <a href="{{route($app->module.'.download',[$obj->id])}}" >
+                <button type="button" class="btn btn-sm btn-outline-primary float-left mr-2">Download Response</button>
+              </a></div>
+
           </div>
-          @else
-          <div class="row mb-2">
-            <div class="col-md-4"><b>File</b></div>
-            <div class="col-md-8">{{ $obj->response }}</div>
-          </div>
-          @endif
+          
           <div class="row mb-2">
             <div class="col-md-4"><b>Expert Feedback</b></div>
             <div class="col-md-8">
@@ -71,12 +61,11 @@
             </div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>PDF Document</b></div>
+            <div class="col-md-4"><b>PDF Doc</b></div>
             <div class="col-md-8">
-
-              @if(Storage::disk('uploads')->exists('feedback/'.$obj->id.'.pdf'))
+              @if(Storage::disk('uploads')->exists('feedback/feedback_'.$obj->id.'.pdf'))
               <div class="bg-light border  p-3 mb-3">
-                {{ $obj->id.'.pdf' }}
+                feedback_{{ $obj->id.'.pdf' }}
               </div>
               
               <a href="{{route($app->module.'.download',[$obj->id])}}?pdf=1" >

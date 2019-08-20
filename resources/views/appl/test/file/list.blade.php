@@ -17,7 +17,7 @@
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
                 <td>
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
-                  {{ $obj->response}}
+                  {{ $obj->user->name}} - {{ $obj->test->name }} Response
                   </a>
                 </td>
                 <td>

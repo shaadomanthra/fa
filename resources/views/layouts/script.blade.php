@@ -17,7 +17,35 @@
                 maxHeight: null,             // set maximum height of editor
                 focus: true,
               });
+
+            $('.summernote2').summernote({
+                placeholder: 'Hello ! Write something...',
+                tabsize: 2,
+                height: 200,                // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true,
+                toolbar: [],
+
+              });
           });
+
+      $(document).on("keyup", function(){
+        var text = $(".summernote2").summernote("code");
+        text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
+        var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
+        //Update Count value
+        $(".word-count").text(words);
+
+      });
+
+      function countWords(s){
+        s = s.replace(/(^\s*)|(\s*$)/gi,"");
+        s = s.replace(/[ ]{2,}/gi," ");
+        s = s.replace(/\n /,"\n");
+        return s.split(' ').length;
+      }
+      
 
 </script>
 @elseif(isset($reading))

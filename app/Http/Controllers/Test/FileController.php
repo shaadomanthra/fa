@@ -11,6 +11,7 @@ use App\User;
 
 use App\Mail\reviewnotify;
 use Illuminate\Support\Facades\Mail;
+use PDF;
 
 class FileController extends Controller
 {
@@ -85,15 +86,21 @@ class FileController extends Controller
 
         /* get extension and load player */
         $info = pathinfo('uploads/'.$obj->response);
-        $ext = $info['extension'];
+        if(isset($info['extension'])){
+            $ext = $info['extension'];
 
-        if(in_array($ext, ['mp3','wav','mkv'])){
-            return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this)->with('player',true);
+            if(in_array($ext, ['mp3','wav','mkv'])){
+                return view('appl.'.$this->app.'.'.$this->module.'.show')
+                        ->with('obj',$obj)->with('app',$this)->with('player',true);
+            }else{
+                return view('appl.'.$this->app.'.'.$this->module.'.show')
+                        ->with('obj',$obj)->with('app',$this)->with('player',false);
+            }  
         }else{
-            return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this)->with('player',false);
+            return view('appl.'.$this->app.'.'.$this->module.'.show_write')
+                        ->with('obj',$obj)->with('app',$this)->with('player',false);
         }
+        
         
      
             
@@ -116,16 +123,19 @@ class FileController extends Controller
 
         if($request->get('pdf')){
             // expert feedback document
-            $file = 'feedback/'.$id.'.pdf';
+            $file = 'feedback/feedback_'.$id.'.pdf';
         }
         else{
+            $file = 'response/response_'.$id.'.pdf';
+            $pdf = PDF::loadView('appl.test.file.pdf',compact('obj'));
+            $pdf->save('../storage/app/uploads/response/response_'.$obj->id.'.pdf'); 
             //user response file (audio or doc)
-            $file = $obj->response;
+            
         }
         
         
         if($obj)
-            return response()->download('uploads/'.$file);
+            return response()->download('../storage/app/uploads/'.$file);
         else
             abort(404);
     }
@@ -190,8 +200,8 @@ class FileController extends Controller
 
             /* delete file request */
             if($request->get('deletefile')){
-                if(Storage::disk('uploads')->exists('feedback/'.$obj->id.'.pdf'))
-                    Storage::disk('uploads')->delete('feedback/'.$obj->id.'.pdf');
+                if(Storage::disk('uploads')->exists('feedback/feedback_'.$obj->id.'.pdf'))
+                    Storage::disk('uploads')->delete('feedback/feedback_'.$obj->id.'.pdf');
                 redirect()->route($this->module.'.show',[$id]);
             }
 
@@ -204,7 +214,7 @@ class FileController extends Controller
                 if($extension!='pdf')
                     return abort('403','Only PDF Doc allowed');
 
-                $filename  = $obj->id.'.' . $extension;
+                $filename  = 'feedback_'.$obj->id.'.' . $extension;
 
                 $path = Storage::disk('uploads')->putFileAs('feedback', $request->file('file'),$filename);
             }
