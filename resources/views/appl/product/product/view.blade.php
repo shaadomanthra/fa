@@ -12,6 +12,9 @@
           <div class="row">
             <div class="col @if($obj->image) col-md-9 @endif">
                <h1 class="h1 mb-0"> {{ $obj->name }} 
+                @can('update',$obj)
+                <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                @endcan
           </h1>
           <p>
              {!! $obj->description !!} 
@@ -72,7 +75,8 @@
         @if($group->status)
           <div class="col-12 @if(count($obj->groups)==1) col-md-6 @endif
             @if(count($obj->groups)==2) col-md-6 col-lg-6 @endif
-            @if(count($obj->groups)>2) col-md-6 col-lg-3 @endif
+            @if(count($obj->groups)==3) col-md-6 col-lg-4 @endif
+            @if(count($obj->groups)>3) col-md-6 col-lg-3 @endif
              mb-3">
               <div class="card" >
                 @if(\Storage::disk('public')->exists($group->image)  && $group->image)
@@ -80,7 +84,9 @@
 </div>
   @endif
   <div class="card-body">
-    <h5 class="card-title">{{ $group->name}}</h5>
+    <h5 class="card-title">{{ $group->name}}  @can('update',$obj)
+                <a href="{{ route('group.edit',$group->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                @endcan</h5>
     <p class="card-text">{!! $group->description !!}</p>
     @foreach($group->tests as $test)
     @if($test->testtype)

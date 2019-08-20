@@ -69,7 +69,7 @@
       </div>
 
       <div class="form-group">
-        <label for="formGroupExampleInput ">Description</label>
+        <label for="formGroupExampleInput ">Description (visible on product listing & product page)</label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
             {{ (old('description')) ? old('description') : '' }}
@@ -80,7 +80,7 @@
       </div>
 
       <div class="form-group">
-        <label for="formGroupExampleInput ">Details</label>
+        <label for="formGroupExampleInput ">Details (visible only on product page)</label>
         <textarea class="form-control summernote" name="details"  rows="5">
             @if($stub=='Create')
             {{ (old('details')) ? old('details') : '' }}
