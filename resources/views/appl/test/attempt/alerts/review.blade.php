@@ -22,12 +22,14 @@
     <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
         <div class="">
+          <div class="bg-light p-3 border">
         @if(strip_tags($attempt->answer))
         {!! $attempt->answer !!}
         @endif
+      </div>
 
-        @if(\Storage::disk('uploads')->exists('feedback/'.$attempt->id.'.pdf'))
-          <h4 class="mb-4">Your Task Reponse - Evaluation is ready !</h4>
+        @if(Storage::disk('uploads')->exists('feedback/feedback_'.$attempt->id.'.pdf'))
+          <h4 class="mb-4 mt-5">Your Task Reponse - Evaluation is ready !</h4>
           <a href="{{route('file.download',[$attempt->id])}}?pdf=1">
           <button class="btn btn-success btn-lg"> Download the Evaluation</button>
           </a>

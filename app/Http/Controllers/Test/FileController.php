@@ -157,7 +157,7 @@ class FileController extends Controller
              //Mail notifaction to the user
              Mail::to($user->email)->send(new reviewnotify($user,$test));
 
-            return view('appl.'.$this->app.'.attempt.notify')->with('user',$user);
+            return view('appl.'.$this->app.'.attempt.alerts.notify')->with('user',$user);
         }
         else
             abort(404);

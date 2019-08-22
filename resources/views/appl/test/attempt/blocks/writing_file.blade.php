@@ -5,7 +5,7 @@
 </div>
 	<p>Good job ! Your  Writing task is submitted. Get it evaluated. </p>
 	@if($attempt->answer)
-	<a href="{{ route('test.review',$test->slug)}}">
+	<a href="{{ route('test.review',$test->slug)}}?product={{$product->slug}}">
 	<button class="btn btn-sm btn-success">Expert Review</button>
 	</a>
 	@else
