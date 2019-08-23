@@ -18,7 +18,11 @@
     <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light p-3 justify-content-between border mb-3">
-          <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }}({{$objs->total()}}) </a>
+          <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }}({{$objs->total()}}) 
+          @if(request()->get('coupon'))
+          <span class="badge badge-warning">{{ request()->get('coupon') }}</span>
+          @endif
+          </a>
 
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
             <div class="input-group ">

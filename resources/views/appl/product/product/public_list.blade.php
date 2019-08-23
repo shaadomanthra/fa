@@ -5,9 +5,7 @@
 <div class="card " >
   <div class="card-body">
     <h5 class="card-title">{{ $obj->name }}
-    @if($obj->price!=0)
-      <span class="float-right text-secondary"><i class="fa fa-rupee"></i> {{$obj->price}}</span>
-    @endif
+    
     </h5>
     @if($obj->price==0)
     <h6 class="card-subtitle mb-2 text-muted"><span class="badge badge-warning">Free</span></h6>

@@ -286,9 +286,18 @@ class OrderController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        $objs = $obj->where('order_id','LIKE',"%{$item}%")
+        if($request->get('coupon'))
+        {
+          $coupon = strtoupper($request->get('coupon'));
+          $objs = $obj->where('txn_id',$coupon)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records')); 
+        }else{
+            $objs = $obj->where('order_id','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+        }
+          
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)

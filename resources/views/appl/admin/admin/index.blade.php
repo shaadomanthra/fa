@@ -4,8 +4,32 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 <div class="container">
-    <div class="row ">
-        <div class="col-6 col-md-3 col-lg-2">
+    <div class="row">
+        <div class="col-12 col-md-4 col-lg-4">
+            <div class="bg-primary text-light  rounded p-4 mb-4">
+                <h3>Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
+                <hr>
+                @foreach($data['users'] as $k=>$user)
+                <div class="mb-2">{{$user->name}} <span class="float-right ">{{ $user->created_at->diffForHumans()}}</span></div>
+                @if($k==4)
+                    @break
+                @endif
+                @endforeach
+                
+
+                <a href="{{ route('user.index')}}"><button class="btn btn-outline-light btn-sm mt-3">view all</button></a>
+            </div>
+
+            <div class="bg-secondary text-light rounded p-4 mb-4">
+                <h3 class="mb-0">FA5Y9 <Span class="float-right ">{{ $data['coupon']->count() }}</Span></h3>
+
+                <a href="{{ route('order.index')}}?coupon=FA5Y9"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>
+                
+            </div>
+        </div>
+        <div class="col-12 col-md-8 col-lg-8">
+                <div class="row ">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('category.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -16,7 +40,7 @@
             </a>
         </div>
 
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('type.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -28,7 +52,7 @@
         </div>
 
         
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('group.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -38,7 +62,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('tag.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -48,7 +72,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('test.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -58,7 +82,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('product.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -68,7 +92,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('order.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -78,7 +102,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('user.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -89,7 +113,7 @@
             </a>
         </div>
 
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('coupon.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -111,7 +135,7 @@
             </a>
         </div>
         -->
-         <div class="col-6 col-md-3 col-lg-2">
+         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('admin.analytics') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -121,7 +145,7 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-2">
+        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('file.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
@@ -133,5 +157,9 @@
         </div>
 
     </div>
+
+        </div>
+    </div>
+
 </div>
 @endsection

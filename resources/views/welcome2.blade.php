@@ -44,13 +44,13 @@
 
     <div class="p-5"></div>
     <div class="h4  mb-3" style="color:#a1d5e8">Explore our <a href="{{ route('product.public')}}">
-    <button class="btn btn-green btn-lg" style="">products</button>
+    <button class="btn btn-green btn-lg" style="">Tests</button>
     </a></div>
     <a href="{{ route('product.view','oet-mock-test-pack')}}">
     <button class="btn btn-outline-light btn-sm mb-2 mr-1">OET MOCK TEST PACK</button>
     </a>
-    <a href="{{route('product.view','ielts-practice-test')}}">
-    <button class="btn btn-outline-light btn-sm mb-2 mr-1">IELTS Practice Test</button>
+    <a href="{{route('product.view','ielts-short-test')}}">
+    <button class="btn btn-outline-light btn-sm mb-2 mr-1">IELTS Short  Test</button>
     </a>
     <a href="{{route('product.view','grammar-test')}}">
     <button class="btn btn-outline-light btn-sm mb-2 mr-1">Grammar Test</button>

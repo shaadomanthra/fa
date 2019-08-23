@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Test as Obj;
 use App\Models\Admin\Admin;
+use App\User;
+use App\Models\Product\Coupon;
 
 class AdminController extends Controller
 {
@@ -17,7 +19,10 @@ class AdminController extends Controller
     public function index(Obj $obj)
     {
         $this->authorize('view', $obj);
-        return view('appl.admin.admin.index');
+        $data['users'] = User::orderBy('id','desc')->get();
+        $data['coupon'] = Coupon::where('code','FA5Y9')->first();
+        
+        return view('appl.admin.admin.index')->with('data',$data);
     }
 
     public function analytics(Obj $obj){

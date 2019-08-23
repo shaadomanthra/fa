@@ -3,6 +3,7 @@
 namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product\Order;
 
 class Coupon extends Model
 {
@@ -18,5 +19,10 @@ class Coupon extends Model
     public function products()
     {
         return $this->belongsToMany('App\Models\Product\Product');
+    }
+
+    public function count()
+    {
+        return Order::where('txn_id',$this->code)->count();
     }
 }

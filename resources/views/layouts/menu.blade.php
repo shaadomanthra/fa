@@ -18,7 +18,7 @@
                 <!-- Authentication Links -->
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
+                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Tests</a>
                 </li>
                 @else
 
@@ -27,7 +27,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
+                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Tests</a>
                 </li>
                 @endguest
                 @guest

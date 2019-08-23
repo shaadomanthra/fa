@@ -54,6 +54,20 @@
             </div>
           </div>
           @endif
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Usage</b></div>
+            <div class="col-md-8">{{$obj->count() }}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Unlimited</b></div>
+            <div class="col-md-8">@if($obj->unlimited==0)
+                    <span class="badge badge-warning">No</span>
+                  @else
+                    <span class="badge badge-secondary">YES</span>
+                  @endif</div>
+          </div>
          
          <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>
