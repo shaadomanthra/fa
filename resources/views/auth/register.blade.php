@@ -5,8 +5,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-<form class=" bg-white border rounded p-4" method="POST" action="{{ route('register') }}">
+<div class="col-12 col-lg-10"> 
+<div class="bg-white border rounded p-4 p-md-5">
+<div class="row">
+    <div class="col-12 col-md-6">
+<form class=" " method="POST" action="{{ route('register') }}">
     @csrf
 
     <h1>Register</h1>
@@ -71,24 +74,7 @@
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="re-enter password" required autocomplete="new-password">
         </div>
     </div>
-    <div class="checkbox ml-5">
-        <label>
-            <input class="form-check-input" type="checkbox" name="terms" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
-            <label class="form-check-label" for="terms">
-                I accept <a href="{{ route('terms')}}">Terms</a> and <a href="{{ route('privacy')}}">Privacy</a> Rules
-            </label>
-        </label>
-    </div>
-    <div class="checkbox mb-3 ml-3">
-        <label>
-            <input class="form-check-input" type="checkbox" name="emailss" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-            <label class="form-check-label" for="emails">
-                Send me promotional emails
-            </label>
-        </label>
-    </div>
 
     <div class="form-group row text-md-left">
         <div class="col-md-4 col-form-label text-md-left">&nbsp;
@@ -100,7 +86,16 @@
         </div>
     </div>
 </form>
-        </div>
+    </div>
+    <div class="col-12 col-md-6 ">
+        <img src="{{ asset('images/general/signup-image.jpg')}}" class="mt-5 mt-md-3 p-3 w-100" />
+    </div>
+
+</div>
+</div>
+</div>
+
+
     </div>
 </div>
 @endsection
