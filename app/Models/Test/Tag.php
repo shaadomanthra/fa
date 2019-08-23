@@ -19,7 +19,7 @@ class Tag extends Model
 
     public function mcq()
     {
-        return $this->belongsToMany('App\Models\Test\mcq');
+        return $this->belongsToMany('App\Models\Test\Mcq');
     }
 
 }
