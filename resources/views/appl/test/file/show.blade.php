@@ -47,7 +47,7 @@
             <div class="col-md-8">
               <div class="border">
               <audio >
-              <source id="player"  src="{{ url('/').'/uploads/'.$obj->response }}" type="audio/mp3">
+              <source id="player"  src="{{ url('/').'/storage/'.$obj->response }}" type="audio/mp3">
               </audio>
             </div>
             <a href="{{route($app->module.'.download',[$obj->id])}}" >
