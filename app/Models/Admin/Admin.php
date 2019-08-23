@@ -86,6 +86,6 @@ class Admin extends Model
     	return Product::count();
     }
     public function couponCount(){
-    	return Coupon::count();
+    	return count(Coupon::all());
     }
 }
