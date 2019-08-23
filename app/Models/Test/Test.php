@@ -21,6 +21,8 @@ class Test extends Model
         // add all other fields
     ];
 
+    
+
     public function testtype()
     {
         return $this->belongsTo('App\Models\Test\Type','type_id');

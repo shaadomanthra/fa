@@ -23,7 +23,10 @@
                   </a>
                 </td>
                 <td>
+                  <a href=" {{ route('user.show',$obj->user->id) }} ">
+                  
                 {{ $obj->user->name }} 
+               </a>
                 </td>
                 <td>
                 {{ $obj->product->name }} 

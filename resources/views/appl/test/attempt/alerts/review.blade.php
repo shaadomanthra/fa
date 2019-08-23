@@ -28,7 +28,7 @@
         @endif
       </div>
 
-        @if(Storage::disk('uploads')->exists('feedback/feedback_'.$attempt->id.'.pdf'))
+        @if(Storage::disk('public')->exists('feedback/feedback_'.$attempt->id.'.pdf'))
           <h4 class="mb-4 mt-5">Your Task Reponse - Evaluation is ready !</h4>
           <a href="{{route('file.download',[$attempt->id])}}?pdf=1">
           <button class="btn btn-success btn-lg"> Download the Evaluation</button>

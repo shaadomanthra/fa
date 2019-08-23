@@ -37,11 +37,26 @@ class FileController extends Controller
 
         $search = $request->search;
         $item = $request->item;
-        $tests = Test::whereIn('type_id',[3,4])->pluck('id');
+        if($request->get('type')=='speaking'){
+            $tests = Test::whereIn('type_id',[4])->pluck('id');
+            $objs = $obj->where('response','LIKE',"%{$item}%")
+                    ->whereIn('test_id',$tests)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));
+        }else if($request->get('type')=='writing'){
+            $tests = Test::whereIn('type_id',[3])->pluck('id');
         $objs = $obj->where('response','LIKE',"%{$item}%")
                     ->whereIn('test_id',$tests)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records'));
+        }else{
+            $tests = Test::whereIn('type_id',[3,4])->pluck('id');
+            $objs = $obj->where('response','LIKE',"%{$item}%")
+                    ->whereIn('test_id',$tests)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));
+        }
+           
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
@@ -85,11 +100,12 @@ class FileController extends Controller
             abort(404);
 
         /* get extension and load player */
-        $info = pathinfo('uploads/'.$obj->response);
+        $info = pathinfo(Storage::url($obj->response));
+
         if(isset($info['extension'])){
             $ext = $info['extension'];
 
-            if(in_array($ext, ['mp3','wav','mkv'])){
+            if(in_array($ext, ['mp3','wav','mkv','mp4','aac','3gp','ogg','mpga'])){
                 return view('appl.'.$this->app.'.'.$this->module.'.show')
                         ->with('obj',$obj)->with('app',$this)->with('player',true);
             }else{
@@ -100,11 +116,6 @@ class FileController extends Controller
             return view('appl.'.$this->app.'.'.$this->module.'.show_write')
                         ->with('obj',$obj)->with('app',$this)->with('player',false);
         }
-        
-        
-     
-            
-        
             
     }
 
@@ -121,21 +132,36 @@ class FileController extends Controller
         $obj = Obj::where('id',$id)->first();
         $this->authorize('view', $obj);
 
-        if($request->get('pdf')){
-            // expert feedback document
-            $file = 'feedback/feedback_'.$id.'.pdf';
-        }
-        else{
-            $file = 'response/response_'.$id.'.pdf';
-            $pdf = PDF::loadView('appl.test.file.pdf',compact('obj'));
-            $pdf->save('../storage/app/uploads/response/response_'.$obj->id.'.pdf'); 
-            //user response file (audio or doc)
-            
-        }
+        $info = pathinfo(Storage::url($obj->response));
+
         
+        if(isset($info['extension'])){
+            $ext = $info['extension'];
+
+            if($request->get('pdf')){
+                $file = 'feedback/feedback_'.$id.'.pdf';
+
+            }
+            else if(in_array($ext, ['mp3','wav','mkv','mp4','aac','3gp','ogg','mpga'])){
+                    $file = $obj->response;
+            }else{
+               
+            }  
+        }else{
+             if($request->get('pdf')){
+            // expert feedback document
+                    $file = 'feedback/feedback_'.$id.'.pdf';
+                }
+                else{
+                    $file = 'response/response_'.$id.'.pdf';
+                    $pdf = PDF::loadView('appl.test.file.pdf',compact('obj'));
+                    $pdf->save('../storage/app/public/response/response_'.$obj->id.'.pdf'); 
+                    //user response file (audio or doc)  
+                }
+        }
         
         if($obj)
-            return response()->download('../storage/app/uploads/'.$file);
+            return response()->download('../storage/app/public/'.$file);
         else
             abort(404);
     }
@@ -200,8 +226,8 @@ class FileController extends Controller
 
             /* delete file request */
             if($request->get('deletefile')){
-                if(Storage::disk('uploads')->exists('feedback/feedback_'.$obj->id.'.pdf'))
-                    Storage::disk('uploads')->delete('feedback/feedback_'.$obj->id.'.pdf');
+                if(Storage::disk('public')->exists('feedback/feedback_'.$obj->id.'.pdf'))
+                    Storage::disk('public')->delete('feedback/feedback_'.$obj->id.'.pdf');
                 redirect()->route($this->module.'.show',[$id]);
             }
 
@@ -216,7 +242,7 @@ class FileController extends Controller
 
                 $filename  = 'feedback_'.$obj->id.'.' . $extension;
 
-                $path = Storage::disk('uploads')->putFileAs('feedback', $request->file('file'),$filename);
+                $path = Storage::disk('public')->putFileAs('feedback', $request->file('file'),$filename);
             }
 
             $obj->save();
@@ -245,8 +271,8 @@ class FileController extends Controller
         $this->authorize('update', $obj);
 
         // remove file
-        if(Storage::disk('uploads')->exists($obj->file))
-            Storage::disk('uploads')->delete($obj->file);
+        if(Storage::disk('public')->exists($obj->file))
+            Storage::disk('public')->delete($obj->file);
         
         $obj->delete();
 

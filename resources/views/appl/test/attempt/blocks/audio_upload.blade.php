@@ -10,5 +10,5 @@
 		<input type="hidden" name="product" value="{{$product->slug}}">
 		<button class="btn btn-success mb-4" type="submit">Upload</button>
 	</form>
-	<div class="text-secondary">*Only the following file types are supported: mp3, wav, mkv</div>
+	<div class="text-secondary">*Only the following file types are supported: mp3, wav, mkv, mp4, aac, 3gp, ogg, mpga</div>
 </div>

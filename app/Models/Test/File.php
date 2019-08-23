@@ -3,6 +3,7 @@
 namespace App\Models\Test;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product\Product;
 
 class File extends Model
 {
@@ -27,4 +28,6 @@ class File extends Model
     {
         return $this->belongsTo('App\Models\Test\Mcq');
     }
+
+    
 }

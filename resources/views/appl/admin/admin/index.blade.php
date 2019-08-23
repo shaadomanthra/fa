@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-12 col-md-4 col-lg-4">
             <div class="bg-primary text-light  rounded p-4 mb-4">
-                <h3>Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
+                <h3><i class="fa fa-user"></i> Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
                 <hr>
                 @foreach($data['users'] as $k=>$user)
-                <div class="mb-2">{{$user->name}} <span class="float-right ">{{ $user->created_at->diffForHumans()}}</span></div>
+                <div class="mb-2">{{$user->name}} <span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
                 @if($k==4)
                     @break
                 @endif
@@ -21,7 +21,7 @@
             </div>
 
             <div class="bg-secondary text-light rounded p-4 mb-4">
-                <h3 class="mb-0">FA5Y9 <Span class="float-right ">{{ $data['coupon']->count() }}</Span></h3>
+                <h3 class="mb-0"><i class="fa fa-tag"></i> FA5Y9 <Span class="float-right ">{{ $data['coupon']->count() }}</Span></h3>
 
                 <a href="{{ route('order.index')}}?coupon=FA5Y9"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>
                 
@@ -146,11 +146,22 @@
             </a>
         </div>
         <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('file.index') }}">
+            <a href="{{ route('file.index') }}?type=speaking">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
-                    <img src="{{ asset('images/admin/folder.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Files</div>
+                    <img src="{{ asset('images/admin/speaking.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Speaking files</div>
+                </div>
+            </div>
+            </a>
+        </div>
+
+        <div class="col-6 col-md-3 col-lg-3">
+            <a href="{{ route('file.index') }}?type=writing">
+            <div class="border bg-light p-4 rounded mb-4">
+                <div>
+                    <img src="{{ asset('images/admin/writing.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Writing files</div>
                 </div>
             </div>
             </a>

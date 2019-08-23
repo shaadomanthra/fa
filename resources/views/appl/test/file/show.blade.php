@@ -28,6 +28,7 @@
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}&product={{$obj->test->group->products()->first()->slug}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i></a>
               <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
@@ -70,13 +71,12 @@
               @endif
             </div>
           </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>PDF Document</b></div>
+         <div class="row mb-2">
+            <div class="col-md-4"><b>PDF Doc</b></div>
             <div class="col-md-8">
-
-              @if(Storage::disk('uploads')->exists('feedback/'.$obj->id.'.pdf'))
+              @if(Storage::disk('public')->exists('feedback/feedback_'.$obj->id.'.pdf'))
               <div class="bg-light border  p-3 mb-3">
-                {{ $obj->id.'.pdf' }}
+                feedback_{{ $obj->id.'.pdf' }}
               </div>
               
               <a href="{{route($app->module.'.download',[$obj->id])}}?pdf=1" >

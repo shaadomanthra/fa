@@ -220,15 +220,24 @@ class AttemptController extends Controller
         ->with('timer',true)
         ->with('time',$test->test_time);
     }
-   else{
-    $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
-    return view('appl.test.attempt.try_'.$view)
-          ->with('test',$test)
-          ->with('product',$product)
-          ->with('attempt',$attempt)
-          ->with('editor',true)
-          ->with('player',1);
-    }
+   elseif($view =='writing'){
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        return view('appl.test.attempt.try_'.$view)
+                  ->with('test',$test)
+                  ->with('product',$product)
+                  ->with('attempt',$attempt)
+                  ->with('view',true)
+                  ->with('editor',true);
+      }
+      else{
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        return view('appl.test.attempt.try_'.$view)
+                  ->with('test',$test)
+                  ->with('product',$product)
+                  ->with('attempt',$attempt)
+                  ->with('view',true)
+                  ->with('player',1);
+      }
 
    }
 
@@ -270,6 +279,15 @@ class AttemptController extends Controller
                 ->with('view',true)
                 ->with('time',$test->test_time);
       }
+      elseif($view =='writing'){
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        return view('appl.test.attempt.try_'.$view)
+                  ->with('test',$test)
+                  ->with('product',$product)
+                  ->with('attempt',$attempt)
+                  ->with('view',true)
+                  ->with('editor',true);
+      }
       else{
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
@@ -277,7 +295,6 @@ class AttemptController extends Controller
                   ->with('product',$product)
                   ->with('attempt',$attempt)
                   ->with('view',true)
-                  ->with('editor',true)
                   ->with('player',1);
       }
 
@@ -287,6 +304,7 @@ class AttemptController extends Controller
    /* Function to upload files in server */
    public function upload($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
+
       $user = \auth::user();
       $type = $request->get('type');
       $product_slug = $request->get('product');
@@ -298,17 +316,17 @@ class AttemptController extends Controller
           /* file type validation */
           if($type=='audio')
           {
-            if(!in_array($extension, ['mp3','wav','mkv']))
-              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension);
+            if(!in_array($extension, ['mp3','wav','mkv','mp4','aac','3gp','ogg','mpga']))
+              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension)->with('test',$test);
           }
           
           if($type=='doc')
           {
             if(!in_array($extension, ['doc','docx','rtf','pdf','txt']))
-              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension);
+              return view('appl.test.attempt.alerts.upload_error')->with('extension',$extension)->with('test',$test);
           }
           $filename  = $test->slug.'_'.$user->id.'.' . $extension;
-          $path = Storage::disk('uploads')->putFileAs('response', $request->file('file_'), $filename);
+          $path = Storage::disk('public')->putFileAs('response', $request->file('file_'), $filename);
       }
 
       $model = new Attempt();
@@ -340,8 +358,8 @@ class AttemptController extends Controller
 
       // remove file
       if($attempt){
-        if(Storage::disk('uploads')->exists($attempt->response))
-        Storage::disk('uploads')->delete($attempt->response);
+        if(Storage::disk('public')->exists($attempt->response))
+        Storage::disk('public')->delete($attempt->response);
         $attempt->delete();
       }
       
@@ -482,11 +500,15 @@ class AttemptController extends Controller
      */
     public function review($slug,Request $request)
     {
+        if($request->get('user_id'))
+          $user_id = $request->get('user_id');
+        else
+          $user_id = \auth::user()->id;
         $test = Test::where('slug',$slug)->first();
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+        $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user_id)->first();
 
         if($attempt)
-        if($attempt->answer || Storage::disk('uploads')->exists('feedback/'.$attempt->id.'.pdf'))
+        if($attempt->answer || Storage::disk('public')->exists('feedback/'.$attempt->id.'.pdf'))
             return view('appl.'.$this->app.'.attempt.alerts.review')
                     ->with('attempt',$attempt)->with('test',$test);
         else

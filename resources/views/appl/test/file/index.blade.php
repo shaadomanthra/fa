@@ -18,7 +18,13 @@
     <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
-          <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }} </a>
+          <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }}s 
+          @if(request()->get('type')=='speaking')
+            - Speaking
+          @elseif(request()->get('type')=='writing')
+            -  Writing
+          @endif
+           </a>
 
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
 
