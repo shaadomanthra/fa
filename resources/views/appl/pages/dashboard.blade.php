@@ -50,7 +50,7 @@
         </div>
         <div class="card-body">
           <p class="card-text">Get your speaking tasks evaluated by expert trainers.</p>
-          <a href="{{ route('product.view','writing-evaluation')}}" class="btn btn-outline-secondary">more details</a>
+          <a href="{{ route('product.view','speaking-evaluation')}}" class="btn btn-outline-secondary">more details</a>
         </div>
       </div>
     </div>

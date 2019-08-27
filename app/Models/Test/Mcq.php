@@ -8,13 +8,20 @@ class Mcq extends Model
 {
     protected $fillable = [
         'test_id',
+        'section_id',
         'extract_id',
         'question',
         'a',
         'b',
         'c',
         'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
         'answer',
+        'layout',
         'qno',
         'sno',
         // add all other fields
