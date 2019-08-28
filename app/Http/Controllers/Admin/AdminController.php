@@ -9,6 +9,9 @@ use App\Models\Admin\Admin;
 use App\User;
 use App\Models\Product\Coupon;
 
+use App\Mail\contactmessage;
+use Illuminate\Support\Facades\Mail;
+
 class AdminController extends Controller
 {
     /**
@@ -35,6 +38,14 @@ class AdminController extends Controller
         $data['product_count'] = $admin->productCount();
         $data['coupon_count'] = $admin->couponCount();
         return view('appl.admin.admin.analytics')->with('data',$data);
+    }
+
+    public function contact(Request $r){
+        
+        
+
+        Mail::to(config('mail.report'))->send(new contactmessage($r));
+        return view('appl.admin.admin.contactmessage');
     }
 
 
