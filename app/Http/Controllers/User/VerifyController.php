@@ -110,7 +110,8 @@ class VerifyController extends Controller
     		$message = 'Invalid email verification code';
     		flash($message)->error();
     	}
-        return redirect()->route('activation');
+        return view('appl.user.verify.message')
+                ->with('message',$message);
     }
 
     /**
