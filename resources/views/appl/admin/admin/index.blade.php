@@ -10,7 +10,7 @@
                 <h3><i class="fa fa-user"></i> Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
                 <hr>
                 @foreach($data['users'] as $k=>$user)
-                <div class="mb-2">{{$user->name}} <span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
+                <div class="mb-2"><a href="{{ route('user.show',$user->id) }}" class="text-white">{{$user->name}} </a><span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
                 @if($k==4)
                     @break
                 @endif

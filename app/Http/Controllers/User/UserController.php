@@ -214,7 +214,6 @@ class UserController extends Controller
         Order::where('user_id',$obj->id)->delete();
         Attempt::where('user_id',$obj->id)->delete();
         
-        
         $obj->delete();
 
         flash('('.$this->app.'/'.$this->module.') item  Successfully deleted!')->success();
