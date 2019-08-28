@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\User as Obj;
 use App\Models\Test\Test;
 use App\Models\Test\Attempt;
+use App\Models\Product\Order;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
@@ -209,6 +210,10 @@ class UserController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
+
+        Order::where('user_id',$obj->id)->delete();
+        Attempt::where('user_id',$obj->id)->delete();
+        
         
         $obj->delete();
 

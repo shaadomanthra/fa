@@ -52,6 +52,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Product\Order');
     }
 
+    public function attempts(){
+        return $this->hasMany('App\Models\Test\Attempt');
+
+    }
     public function tests(){
         $test_id = DB::table('attempts')
                 ->select('test_id')
