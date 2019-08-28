@@ -4,9 +4,9 @@
 
 @include('flash::message')
 <div class="row">
-	<div class="col-12 col-md-12">
+	<div class="col-12 col-md-6">
 		<div class="bg-white">
-			<div class="card-body p-4 ">
+			<div class="card-body p-4 mb-4 mb-md-0">
 				@if($user->activation_token==1)
 				<h1 >Email Verified </h1>
 				<p>Your email address ({{$user->email}}) is verified.</p>
