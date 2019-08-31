@@ -8,13 +8,14 @@
     <div class="bg-white rounded border p-4 mb-3">
     <div class="row">
       <div class="col-12 col-md-2">
-        <img src="{{ asset('images/general/review.png') }}" class="w-100" />
+        <img src="{{ asset('images/general/review.png') }}" class="w-25 d-block d-md-none mb-4 " />
+        <img src="{{ asset('images/general/review.png') }}" class="d-none d-md-block w-100" />
       </div>
       <div class="col-12 col-md-10">
         <div class="pl-md-3 pt-md-3">
         <h2>Expert Review</h2>
-        Test Name : {{ $test->name }} <br>
-        User : {{ $user->name }}
+        Test Name : <span class="text-info">{{ $test->name }}</span> <br>
+        User : <span class="text-info">{{ $user->name }}</span>
       </div>
       </div>
     </div>
