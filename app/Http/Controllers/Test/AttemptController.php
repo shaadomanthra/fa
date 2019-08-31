@@ -13,6 +13,7 @@ use App\Models\Test\Type;
 use App\Models\Test\Attempt;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
+use App\User;
 
 use App\Mail\uploadfile;
 use Illuminate\Support\Facades\Mail;
@@ -511,11 +512,15 @@ class AttemptController extends Controller
         $test = Test::where('slug',$slug)->first();
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user_id)->first();
 
+        $user = User::find($user_id);
+
         
         if($attempt)
         if($attempt->answer || Storage::disk('public')->exists('feedback/feedback_'.$attempt->id.'.pdf'))
             return view('appl.'.$this->app.'.attempt.alerts.review')
-                    ->with('attempt',$attempt)->with('test',$test);
+                    ->with('attempt',$attempt)
+                    ->with('test',$test)
+                    ->with('user',$user);
         else
             abort(403,'No Review Found');
         else

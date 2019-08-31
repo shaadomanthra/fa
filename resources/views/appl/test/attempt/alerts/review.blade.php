@@ -14,7 +14,7 @@
         <div class="pl-md-3 pt-md-3">
         <h2>Expert Review</h2>
         Test Name : {{ $test->name }} <br>
-        User : {{ \auth::user()->name }}
+        User : {{ $user->name }}
       </div>
       </div>
     </div>
