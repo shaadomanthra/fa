@@ -110,12 +110,14 @@ class Attempt extends Model
             $band = 4;
         else if($score>=8 && $score <=10)
             $band = 3.5;
-        else if($score>=6 && $score <=7)
+        else if($score>=5 && $score <=7)
             $band = 3;
-        else if($score>=4 && $score <=5)
+        else if($score==3 && $score ==4)
             $band = 2.5;
-        else if($score>=2 && $score <=3)
+        else if($score==2 )
             $band = 2;
+        else if($score==1)
+            $band = 1;
         else
             $band =0;
         return $band;
