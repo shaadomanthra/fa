@@ -479,13 +479,21 @@ class AttemptController extends Controller
           $score++;
       }
 
+      $band =0;
       $type = strtolower($test->testtype->name);
+      //dd($test->category);
+      if(strtoupper($test->category->name)=='IELTS'){
       if($type=='listening' || $type=='reading'){
         $function_name = $type.'_band';
         $attempt = new Attempt;
-        $band = $attempt->$function_name($score);
-      }else
-      $band =0;
+        if($test->total==20)
+          $s = $score*2;
+        else
+          $s = $score;
+        $band = $attempt->$function_name($s);
+      }
+      }
+      
       
 
       return view('appl.test.attempt.alerts.result')

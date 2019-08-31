@@ -84,7 +84,7 @@ class Attempt extends Model
 
     }
 
-        public function listening_band($score){
+    public function listening_band($score){
 
         if($score==39 || $score ==40)
             $band = 9;
