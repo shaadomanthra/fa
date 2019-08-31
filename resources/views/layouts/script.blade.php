@@ -298,6 +298,7 @@
         }else{
           $(this).removeClass('td_answered');
           $('.'+$id+'_'+$option).prop("checked", false);
+          
         }
     });
 </script>

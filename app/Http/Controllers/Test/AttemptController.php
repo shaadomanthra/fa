@@ -488,6 +488,8 @@ class AttemptController extends Controller
         $attempt = new Attempt;
         if($test->total==20)
           $s = $score*2;
+        elseif($test->total==12 || $test->total==13 || $test->total==14)
+          $s = $score*3;
         else
           $s = $score;
         $band = $attempt->$function_name($s);
