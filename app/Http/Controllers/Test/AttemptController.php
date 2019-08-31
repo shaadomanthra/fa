@@ -507,11 +507,13 @@ class AttemptController extends Controller
           $user_id = $request->get('user_id');
         else
           $user_id = \auth::user()->id;
+
         $test = Test::where('slug',$slug)->first();
         $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user_id)->first();
 
+        
         if($attempt)
-        if($attempt->answer || Storage::disk('public')->exists('feedback/'.$attempt->id.'.pdf'))
+        if($attempt->answer || Storage::disk('public')->exists('feedback/feedback_'.$attempt->id.'.pdf'))
             return view('appl.'.$this->app.'.attempt.alerts.review')
                     ->with('attempt',$attempt)->with('test',$test);
         else

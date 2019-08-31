@@ -176,6 +176,7 @@ class FileController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
         $test  = Test::where('id',$obj->test_id)->first();
+
         $this->authorize('view', $obj);
         $user = User::where('id',$obj->user_id)->first();
         if($obj){
