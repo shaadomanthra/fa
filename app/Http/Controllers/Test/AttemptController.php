@@ -199,10 +199,11 @@ class AttemptController extends Controller
     else
       $view =  strtolower($test->testtype->name);
 
-   if($view == 'listening' || $view == 'grammar')
+   if($view == 'listening' || $view == 'grammar' || $view == 'gre')
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
+            ->with('gre',true)
             ->with('app',$this)
             ->with('qcount',$qcount)
             ->with('test',$test)
@@ -256,12 +257,13 @@ class AttemptController extends Controller
       else
         $view =  strtolower($test->testtype->name);
 
-      //dd($test);
+      
 
-      if($view == 'listening' || $view == 'grammar')
+      if($view == 'listening' || $view == 'grammar' || $view == 'gre')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
                 ->with('try',true)
+                ->with('gre',true)
                 ->with('app',$this)
                 ->with('qcount',$qcount)
                 ->with('test',$test)
@@ -293,6 +295,7 @@ class AttemptController extends Controller
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
+                  ->with('app',$this)
                   ->with('attempt',$attempt)
                   ->with('view',true)
                   ->with('player',1);

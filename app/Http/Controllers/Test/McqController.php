@@ -69,7 +69,7 @@ class McqController extends Controller
             $this->sno = 1;
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
-         $tags = Tag::all();
+        $tags = Tag::all();
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
@@ -98,9 +98,15 @@ class McqController extends Controller
             $c= summernote_imageupload($user,$request->get('c'));
             $d= summernote_imageupload($user,$request->get('d'));
             
-            /* merge the updated data in request */
-            $request->merge(['question' => Strip_tags($question),'a' => Strip_tags($a),'b' => Strip_tags($b),'c' => Strip_tags($c),'d' => Strip_tags($d)]);
+            // for multi answer
+            $answers = $request->get('answers');
+            if($answers){
+                $answer = implode(', ', $answers);
+                /* merge the updated data in request */
+                $request->merge(['answer'=>$answer]);
+            }
             
+
             /* create a new entry */
             $obj = $obj->create($request->except(['tags']));
 
@@ -110,6 +116,8 @@ class McqController extends Controller
             foreach($tags as $tag){
                 $obj->tags()->attach($tag);
             }
+
+            
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index',[$this->test->id]);
@@ -190,8 +198,13 @@ class McqController extends Controller
             $c= summernote_imageupload($user,$request->get('c'));
             $d= summernote_imageupload($user,$request->get('d'));
             
-            /* merge the updated data in request */
-            $request->merge(['question' => Strip_tags($question),'a' => Strip_tags($a),'b' => Strip_tags($b),'c' => Strip_tags($c),'d' => Strip_tags($d)]);
+            // for multi answer
+            $answers = $request->get('answers');
+            if($answers){
+                $answer = implode(', ', $answers);
+                /* merge the updated data in request */
+                $request->merge(['answer'=>$answer]);
+            }
 
             $tags = $request->get('tags');
             if($tags){

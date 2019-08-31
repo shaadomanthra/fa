@@ -41,6 +41,14 @@
       <div class="card mb-4">
         <div class="card-body">
           
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Question</b></div>
+            <div class="col-md-8">
+              <div class="p-3 border mb-3 bg-light">
+                {!! $obj->test->description !!}</div>
+            </div>
+
+          </div>
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Response</b></div>

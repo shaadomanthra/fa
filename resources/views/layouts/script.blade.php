@@ -45,7 +45,6 @@
         s = s.replace(/\n /,"\n");
         return s.split(' ').length;
       }
-      
 
 </script>
 @elseif(isset($reading))
@@ -58,7 +57,7 @@
     var nav = $('.navbar').height();
     var bottom = $('.bottom-qno').height();
     var h = height-nav-70;
-    console.log(h);
+
     if(width<768)
     $('.panel').css('height',h/2);
     else
@@ -234,69 +233,6 @@
             document.querySelector(selector).addEventListener(type, callback, false);
           }
 
-
-/*
-@if(isset($test))
-@foreach($test->sections as $s=>$section)
- on('.load_s{{$s}}', 'click', () => { 
-    const load = document.querySelector('.load_s{{$s}}');
-    if(player.source==load.dataset.file){
-        player.togglePlay();
-}else{
-    console.log(player.source);
-    $('.trackname').html('{{$section->name}}');
-    player.source = {
-    type: 'audio',
-    sources: [
-        {
-            src: load.dataset.file,
-            type: 'audio/mp3',
-        },
-    ],
-    };
-    player.togglePlay();
-}
-});
-@foreach($section->extracts as $k =>$extract)
- on('.load_{{$s.$k}}', 'click', () => { 
-    const load = document.querySelector('.load_{{$s.$k}}');
-    if(player.source==load.dataset.file){
-        player.togglePlay();
-}else{
-    console.log(player.source);
-    $('.trackname').html('{{$extract->name}}');
-    player.source = {
-    type: 'audio',
-    sources: [
-        {
-            src: load.dataset.file,
-            type: 'audio/mp3',
-        },
-    ],
-    };
-    player.togglePlay();
-}
-    
-    
-
-  });
- @endforeach
- @endforeach
- @endif
-
-
-  on('.play2', 'click', () => { 
-    alert($(this).data('seek'));
-    player.stop();
-    player.forward(10);
-    player.play();
-  });
-
-  // Pause
-  on('.pause', 'click', () => { 
-    player.pause();
-  });
-*/
         $(".play").click(function() {
             $seek = $(this).data('seek');
             player.stop();
@@ -337,15 +273,34 @@
             }else{
                 $(id).removeClass('answered');
             }
-        });
-
-         
-        
+        });  
 
     });     
 </script>
 @else
 <script src="{{asset('js/script.js')}}"></script>  
+@endif
+
+@if(isset($gre))
+<script>
+    $(".td_option").click(function() {
+        $id = $(this).data('id');
+        $option = $(this).data('option');
+        $group = $(this).data('group');
+
+        if(!$(this).hasClass('td_answered'))
+        {
+          $('.td_'+$id+'_'+$group).removeClass('td_answered');
+          $('.'+$id+'_'+$group).prop("checked",false);
+          $('.'+$id+'_'+$option).prop("checked", true);
+          $(this).addClass('td_answered');
+          $('.s'+$id).addClass('answered');
+        }else{
+          $(this).removeClass('td_answered');
+          $('.'+$id+'_'+$option).prop("checked", false);
+        }
+    });
+</script>
 @endif
 
 @if(isset($timer))

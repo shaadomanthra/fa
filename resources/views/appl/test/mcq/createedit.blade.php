@@ -47,6 +47,8 @@
       
       <div class="form-group">
         <label for="formGroupExampleInput ">Question</label>
+        
+        @if($app->test->testtype->name != "GRE")
         <input type="text" class="form-control" name="question" id="formGroupExampleInput" placeholder="" 
              @if($stub=='Create')
             value="{{ (old('question')) ? old('question') : '' }}"
@@ -54,6 +56,15 @@
             value="{{ $obj->question }}"
             @endif
           >
+        @else
+        <textarea class="form-control summernote" name="question"  rows="5">
+            @if($stub=='Create')
+            {{ (old('question')) ? old('question') : '' }}
+            @else
+            {{ $obj->question }}
+            @endif
+        </textarea>
+        @endif
       </div>
       <div class="form-group">
         <label for="formGroupExampleInput ">Option A</label>
@@ -96,6 +107,91 @@
           >
       </div>
 
+      @if($app->test->testtype->name =='GRE')
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option E</label>
+        <input type="text" class="form-control" name="e" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('e')) ? old('e') : '' }}"
+            @else
+            value="{{ $obj->e }}"
+            @endif
+          >
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option F</label>
+        <input type="text" class="form-control" name="f" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('f')) ? old('f') : '' }}"
+            @else
+            value="{{ $obj->f }}"
+            @endif
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option G</label>
+        <input type="text" class="form-control" name="g" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('g')) ? old('g') : '' }}"
+            @else
+            value="{{ $obj->g }}"
+            @endif
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option H</label>
+        <input type="text" class="form-control" name="h" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('h')) ? old('h') : '' }}"
+            @else
+            value="{{ $obj->h }}"
+            @endif
+          >
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option I</label>
+        <input type="text" class="form-control" name="i" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('i')) ? old('i') : '' }}"
+            @else
+            value="{{ $obj->i }}"
+            @endif
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput">Answers</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach(['a','b','c','d','e','f','g','h','i'] as $ans)
+          <div class="col-12 col-md-1">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="answers[]" value="{{strtoupper($ans)}}" id="defaultCheck1" @if(strpos($obj->answer,strtoupper($ans))!==FALSE) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ strtoupper($ans) }}
+            </label>
+          </div>
+          </div>
+          @endforeach
+         </div>
+         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Layout</label>
+        <select class="form-control" name="layout">
+          <option value="gre1" @if(isset($obj)) @if($obj->layout=='gre1') selected @endif @endif >Gre 1 Blank</option>
+          <option value="gre2" @if(isset($obj)) @if($obj->layout=='gre2') selected @endif @endif >Gre 2 Blanks</option>
+          <option value="gre3" @if(isset($obj)) @if($obj->layout=='gre3') selected @endif @endif >Gre 3 Blanks</option>
+          <option value="gre_maq" @if(isset($obj)) @if($obj->layout=='gre_maq') selected @endif @endif >Gre Multi Answer</option>
+        </select>
+      </div>
+
+      @else
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Answer</label>
         <select class="form-control" name="answer">
@@ -105,6 +201,10 @@
           <option value="D" @if(isset($obj)) @if($obj->answer=='D') selected @endif @endif >D</option>
         </select>
       </div>
+
+
+
+      @endif
 
        <div class="form-group">
         <label for="formGroupExampleInput">Tags</label>

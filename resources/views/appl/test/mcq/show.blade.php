@@ -55,6 +55,34 @@
             <div class="col-md-4"><b>Option D</b></div>
             <div class="col-md-8">{!! $obj->d !!}</div>
           </div>
+          @if($app->test->testtype->name =='GRE')
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Option E</b></div>
+            <div class="col-md-8">{!! $obj->e !!}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Option F</b></div>
+            <div class="col-md-8">{!! $obj->f !!}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Option G</b></div>
+            <div class="col-md-8">{!! $obj->g !!}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Option H</b></div>
+            <div class="col-md-8">{!! $obj->h !!}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Option I</b></div>
+            <div class="col-md-8">{!! $obj->i !!}</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Layout</b></div>
+            <div class="col-md-8">{!! $obj->layout !!}</div>
+          </div>
+
+          @endif
           <div class="row mb-2">
             <div class="col-md-4"><b>Test</b></div>
             <div class="col-md-8">
