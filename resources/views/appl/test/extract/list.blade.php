@@ -20,7 +20,9 @@
                   </a>
                 </td>
                 <td>
+                  @if($obj->section)
                   {{ $obj->section->name }}
+                  @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>
