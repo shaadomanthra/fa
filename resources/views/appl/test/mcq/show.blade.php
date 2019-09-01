@@ -91,14 +91,34 @@
               </a>
             </div>
           </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Section</b></div>
+            <div class="col-md-8">
+              @if($obj->section_id)
+              <a href="{{ route('section.show',[$obj->test->id,$obj->section->id]) }}">
+                {{ $obj->section->name }}
+              </a>
+              @else
+              - None -
+              @endif
+            </div>
+          </div>
+
          <div class="row mb-2">
             <div class="col-md-4"><b>Extract</b></div>
             <div class="col-md-8">
+              @if($obj->extract_id)
               <a href="{{ route('extract.show',[$obj->test->id,$obj->extract->id]) }}">
                 {{ $obj->extract->name }}
               </a>
+              @else
+              - None -
+              @endif
             </div>
           </div>
+
+          
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Answer</b></div>
@@ -134,7 +154,7 @@
           @endif
           
           <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
+            <div class="col-md-4"><b>Created </b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
         </div>

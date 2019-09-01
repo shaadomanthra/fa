@@ -298,8 +298,23 @@
         }else{
           $(this).removeClass('td_answered');
           $('.'+$id+'_'+$option).prop("checked", false);
-          
+          var options = ["A","B","C","D",'E',"F","G","H","I"];
+          $isChecked = false;
+          options.forEach(function(item, index, arr){
+              if($('.'+$id+'_'+item).prop("checked"))
+                $isChecked = true;
+          });
+          if(!$isChecked)
+            $('.s'+$id).removeClass('answered');
         }
+    });
+
+    $('.sentence').on('click',function(){
+      $id = $(this).data('id');
+      $('.sentence_'+$id).removeClass('sentence_selected');
+      $(this).addClass('sentence_selected');
+      $('.sentence_textarea').html($(this).text().trim());
+      $('.sentence_input').val($(this).text().trim());
     });
 </script>
 @endif

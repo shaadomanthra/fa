@@ -53,11 +53,22 @@
         <input type="text" class="form-control" name="test_" id="formGroupExampleInput" value="{{$app->test->name}}" disabled>
       </div>
 
+       <div class="form-group">
+        <label for="formGroupExampleInput ">Section</label>
+        <select class="form-control" name="section_id">
+          <option value="" @if(isset($obj)) @if(!$obj->section_id) selected @endif @endif >- None -</option>
+          @foreach($sections as $section)
+          <option value="{{$section->id}}" @if(isset($obj)) @if($obj->section_id == $section->id) selected  @endif @endif  >{{ $section->name }}</option>
+          @endforeach
+        </select>
+      </div>
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Extract</label>
         <select class="form-control" name="extract_id">
+          <option value="" @if(isset($obj)) @if(!$obj->extract_id) selected @endif @endif >- None -</option>
           @foreach($extracts as $extract)
-          <option value="{{$extract->id}}" @if(isset($obj)) @if($obj->extract_id == $extract->id) selected @else @if(request()->session()->get('extract_id')) @if(request()->session()->get('extract_id') == $extract->id) selected @endif @endif @endif  @endif >{{ $extract->name }}</option>
+          <option value="{{$extract->id}}" @if(isset($obj)) @if($obj->extract_id == $extract->id) selected  @endif  @endif >{{ $extract->name }}</option>
           @endforeach
         </select>
       </div>
@@ -103,6 +114,14 @@
             value = "{{ $obj->suffix }}"
             @endif
         >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Layout</label>
+        <select class="form-control" name="layout">
+          <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif >- None -</option>
+          <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
+        </select>
       </div>
 
 

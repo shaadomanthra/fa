@@ -40,6 +40,6 @@ class Extract extends Model
     }
 
     public function mcq_order() {
-        return $this->mcq()->orderBy('sno','asc');
+        return $this->mcq()->orderBy('qno','asc');
     }
 }

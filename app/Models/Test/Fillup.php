@@ -9,12 +9,14 @@ class Fillup extends Model
     protected $fillable = [
         'test_id',
     	'extract_id',
+        'section_id',
         'label',
         'prefix',
         'answer',
         'suffix',
         'qno',
         'sno',
+        'layout',
         // add all other fields
     ];
 

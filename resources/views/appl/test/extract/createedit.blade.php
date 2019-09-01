@@ -61,6 +61,7 @@
           <option value="ielts_paragraph" @if(isset($obj)) @if($obj->layout == 'ielts_paragraph') selected @endif @endif > IELTS Paragraph </option>
           <option value="ielts_number" @if(isset($obj)) @if($obj->layout == 'ielts_number') selected @endif @endif > IELTS Number </option>
           <option value="ielts_label" @if(isset($obj)) @if($obj->layout == 'ielts_label') selected @endif @endif > IELTS Label </option>
+          <option value="gre_selection" @if(isset($obj)) @if($obj->layout == 'gre_selection') selected @endif @endif > GRE Selection </option>
           
         </select>
       </div>

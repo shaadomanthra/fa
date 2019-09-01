@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Fillup as Obj;
 use App\Models\Test\Extract;
+use App\Models\Test\Section;
 use App\Models\Test\Tag;
 use App\Models\Test\Test;
 
@@ -72,12 +73,14 @@ class FillupController extends Controller
             $this->sno = 1;
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+        $sections = Section::where('test_id',$this->test->id)->get();
         $tags = Tag::all();
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('sections',$sections)
                 ->with('tags',$tags)
                 ->with('app',$this);
     }
@@ -148,6 +151,7 @@ class FillupController extends Controller
         $this->authorize('update', $obj);
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
+        $sections = Section::where('test_id',$this->test->id)->get();
         $tags = Tag::all();
 
         if($obj)
@@ -156,6 +160,7 @@ class FillupController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('extracts',$extracts)
+                ->with('sections',$sections)
                 ->with('tags',$tags)
                 ->with('app',$this);
         else

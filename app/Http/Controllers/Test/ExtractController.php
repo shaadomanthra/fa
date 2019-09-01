@@ -94,6 +94,21 @@ class ExtractController extends Controller
             $user = \auth::user();
             /* upload images if any */
             $text = summernote_imageupload($user,$request->get('text'));
+
+            if($request->get('layout')=='gre_selection'){
+                    $pieces = explode('.',strip_tags($text));
+                    
+                    $str ='';
+                    foreach($pieces as $p){
+                        if($p!="\n" && $p!="\r" && $p!="\r\n" && $p!="\n\r" && $p)
+
+                        $str = $str.'<span class="sentence sentence_'.$obj->id.'" data-id="'.$obj->id.'">'.$p.'.</span>';
+                    }
+                    $text = $str;
+                
+                }
+
+
             
             /* merge the updated data in request */
             $request->merge(['text' => $text]);
@@ -195,6 +210,21 @@ class ExtractController extends Controller
                 /* upload images if any */
                 $text = summernote_imageupload($user,$request->get('text'));
                 
+
+                if($request->get('layout')=='gre_selection'){
+                    $pieces = explode('.',strip_tags($text));
+                    
+                    $str ='';
+                    foreach($pieces as $p){
+                        if($p!="\n" && $p!="\r" && $p!="\r\n" && $p!="\n\r" && $p)
+
+                        $str = $str.'<span class="sentence sentence_'.$obj->id.'" data-id="'.$obj->id.'">'.$p.'.</span>';
+                    }
+                    $text = $str;
+                
+                }
+
+
                 /* merge the updated data in request */
                 $request->merge(['text' => $text]);
             }

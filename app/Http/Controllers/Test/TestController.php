@@ -34,16 +34,67 @@ class TestController extends Controller
 
         $search = $request->search;
         $item = $request->item;
-        
+
         $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records')); 
+
+        if($request->get('refresh')){
+            foreach($objs as $obj)
+                $this->cache_refresh($obj->id);
+            flash('cache is updated!')->success();
+        }
+        
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
                 ->with('app',$this);
+    }
+
+    public function cache_refresh($id){
+        $obj= Obj::where('id',$id)->first();
+        /* update in cache folder */
+        $filename = $this->cache_path.$this->app.'.'.$obj->slug.'.json'; 
+
+        $test = Obj::where('id',$id)->first();
+        $test->updated_at = \Carbon\Carbon::now();
+        $test->sections = $obj->sections;
+
+        $test->mcq_order = $obj->mcq_order;
+        $test->fillup_order = $obj->fillup_order;
+        $test->testtype = $obj->testtype;
+        $test->category = $obj->category;
+
+
+        $test->qcount =0;
+        foreach($obj->sections as $i=>$section){ 
+            $ids = $section->id ;
+            $obj->sections[$i]->mcq_order =$section->mcq_order;
+            $obj->sections[$i]->fillup_order =$section->fillup_order;
+            $obj->sections->$ids = $section->extracts;
+            foreach($obj->sections->$ids as $m=>$extract){
+                $obj->sections->$ids->mcq =$extract->mcq_order;
+                $obj->sections->$ids->fillup=$extract->fillup_order;
+            }
+                
+        }
+
+        foreach($test->mcq_order as $q){
+            if($q->qno)
+              if($q->qno!=-1)
+                  $test->qcount++;
+          }
+          foreach($test->fillup_order as $q){
+            if($q->qno)
+              if($q->qno!=-1)
+                  $test->qcount++;
+          }
+
+
+ 
+        file_put_contents($filename, json_encode($test,JSON_PRETTY_PRINT));
     }
 
     /**
@@ -157,32 +208,38 @@ class TestController extends Controller
         $test = Obj::where('id',$id)->first();
         $test->updated_at = \Carbon\Carbon::now();
         $test->sections = $obj->sections;
+
+        $test->mcq_order = $obj->mcq_order;
+        $test->fillup_order = $obj->fillup_order;
         $test->testtype = $obj->testtype;
         $test->category = $obj->category;
 
-        $qcount =0;
-        foreach($obj->sections as $section){ 
+
+        $test->qcount =0;
+        foreach($obj->sections as $i=>$section){ 
             $ids = $section->id ;
+            $obj->sections[$i]->mcq_order =$section->mcq_order;
+            $obj->sections[$i]->fillup_order =$section->fillup_order;
             $obj->sections->$ids = $section->extracts;
             foreach($obj->sections->$ids as $m=>$extract){
                 $obj->sections->$ids->mcq =$extract->mcq_order;
                 $obj->sections->$ids->fillup=$extract->fillup_order;
-                foreach($extract->mcq as $q){
-                    if($q->qno)
-                        if($q->qno!=-1)
-                        $qcount++;
-
-                }
-                foreach($extract->fillup as $q){
-                    if($q->qno)
-                        if($q->qno!=-1)
-                        $qcount++;
-                }
             }
                 
         }
-        $test->qcount = $qcount;
 
+        foreach($test->mcq_order as $q){
+            if($q->qno)
+              if($q->qno!=-1)
+                  $test->qcount++;
+          }
+          foreach($test->fillup_order as $q){
+            if($q->qno)
+              if($q->qno!=-1)
+                  $test->qcount++;
+          }
+
+          
  
         file_put_contents($filename, json_encode($test,JSON_PRETTY_PRINT));
         

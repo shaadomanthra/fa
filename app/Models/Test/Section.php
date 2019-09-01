@@ -26,4 +26,22 @@ class Section extends Model
         return $this->hasMany('App\Models\Test\Extract');
     }
 
+    public function mcq()
+    {
+        return $this->hasMany('App\Models\Test\Mcq');
+    }
+
+    public function fillup()
+    {
+        return $this->hasMany('App\Models\Test\Fillup');
+    }
+
+    public function fillup_order() {
+        return $this->fillup()->orderBy('sno','asc');
+    }
+
+    public function mcq_order() {
+        return $this->mcq()->orderBy('qno','asc');
+    }
+
 }

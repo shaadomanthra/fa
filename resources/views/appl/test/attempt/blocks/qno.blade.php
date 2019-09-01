@@ -29,7 +29,7 @@
 @endif
 </h5>
 <div class="qdata mt-4">
-<div class="row no-gutters" style="height:150px;overflow: scroll">
+<div class="row no-gutters" style="max-height:150px;overflow: scroll">
 @for($i=1;$i <= $qcount; $i++ ) 
 <div class="col-2">
 <div class="box pr-2 pb-2 text-center">

@@ -42,28 +42,33 @@ class AttemptController extends Controller
             else{
               $this->test = Test::where('slug',request()->route('test'))->first();
               $this->test->sections = $this->test->sections;
+              $this->test->mcq_order = $this->test->mcq_order;
+              $this->test->fillup_order = $this->test->fillup_order;
               $this->test->testtype = $this->test->testtype;
               $this->test->category = $this->test->category;
               //load test and all the extra data
-
               $this->test->qcount = 0;
+              if(!$this->test->qcount){
+                  foreach($this->test->mcq_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                  foreach($this->test->fillup_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                
+              }
               foreach($this->test->sections as $section){ 
                   $ids = $section->id ;
                   $this->test->sections->$ids = $section->extracts;
                   foreach($this->test->sections->$ids as $m=>$extract){
-                      $this->test->sections->$ids->mcq = $extract->mcq;
-                      $this->test->sections->$ids->fillup = $extract->fillup;
-                      foreach($extract->mcq as $q){
-                        if($q->qno)
-                          if($q->qno!=-1)
-                          $this->test->qcount++;
-                      }
-                      foreach($extract->fillup as $q){
-                        if($q->qno)
-                          if($q->qno!=-1)
-                          $this->test->qcount++;
-                      }
-                  } 
+                      $this->test->sections->$ids->mcq =$extract->mcq_order;
+                      $this->test->sections->$ids->fillup=$extract->fillup_order;
+                  }
+                      
               }
 
             }
@@ -193,7 +198,7 @@ class AttemptController extends Controller
     }
 
 
-    (isset($test->qcount))?$qcount = $test->qcount:$qcount=0;
+    (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
 
     if(!$test->testtype)
       abort('403','Test Type not defined');
@@ -251,15 +256,15 @@ class AttemptController extends Controller
       $user = \auth::user();
       $product = Product::first();
     
-      (isset($test->qcount))?$qcount = $test->qcount:$qcount=0;
+      (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
+
 
       if(!$test->testtype)
           abort('403','Test Type not defined');
       else
         $view =  strtolower($test->testtype->name);
 
-      
-
+  
       if($view == 'listening' || $view == 'grammar' || $view == 'gre')
         return view('appl.test.attempt.try_'.$view)
                 ->with('player',true)
@@ -376,79 +381,77 @@ class AttemptController extends Controller
       
       $result = array();
       $score =0;
-      $test = Test::where('slug',$slug)->first();
+      $test = $this->test;
+      if(!isset($test->product))
       $product = Product::where('slug',$request->get('product'))->first();
+      else
+      $product = $test->product;
+
       $user = \auth::user();
-      foreach($test->sections as $section){
-        foreach($section->extracts as $extract){
-          foreach($extract->mcq as $mcq){
-              $result[$mcq->qno]['id']=$mcq->id;
-              $result[$mcq->qno]['type']='mcq';
-              $result[$mcq->qno]['answer'] = $mcq->answer;
-              $result[$mcq->qno]['response']= '';
-              $result[$mcq->qno]['accuracy']= 2;
-              if($mcq->qno!=-1)
-              if($mcq->qno){
-                $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->where('qno',$mcq->qno)->first();
-                if(!$attempt)
-                  Attempt::create(['test_id'=>$test->id,'user_id'=>$user->id,'mcq_id'=>$mcq->id,'qno'=>$mcq->qno,'answer'=>$mcq->answer,'response'=>'','accuracy'=>2]);
-              }
-              
-          }
-          foreach($extract->fillup as $fillup){
-             $result[$fillup->qno]['id']=$fillup->id;
-             $result[$fillup->qno]['type']='fillup';
-             $result[$fillup->qno]['answer'] = $fillup->answer;
-             $result[$fillup->qno]['response']= '';
-             $result[$fillup->qno]['accuracy']= 2;
-             if($fillup->qno!=-1)
-             if($fillup->qno){
-                $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->where('qno',$fillup->qno)->first();
-                if(!$attempt)
-                   Attempt::create(['test_id'=>$test->id,'user_id'=>$user->id,'fillup_id'=>$fillup->id,'qno'=>$fillup->qno,'answer'=>$fillup->answer,'response'=>'','accuracy'=>2]);
-             }
-             
-          }
-          
+
+      foreach($test->mcq_order as $mcq){
+        if($mcq->qno && $mcq->qno!=-1){
+          $result[$mcq->qno]['id']=$mcq->id;
+          $result[$mcq->qno]['type']='mcq';
+          $result[$mcq->qno]['answer'] = $mcq->answer;
+          $result[$mcq->qno]['response']= '';
+          $result[$mcq->qno]['accuracy']= 2;
         }
       }
 
+      foreach($test->fillup_order as $fillup){
+          if($fillup->qno && $fillup->qno!=-1){
+            $result[$fillup->qno]['id']=$fillup->id;
+            $result[$fillup->qno]['type']='fillup';
+            $result[$fillup->qno]['answer'] = $fillup->answer;
+            $result[$fillup->qno]['response']= '';
+            $result[$fillup->qno]['accuracy']= 2;
+          }
+          
+      }
+
+
       foreach($request->except(['test_id','user_id','_token','product']) as $qno=>$resp){
-
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->where('qno',$qno)->first();
-        if(!$attempt)
-          $attempt = new Attempt();
-
+        
+        $attempt = new Attempt();
         $attempt->test_id = $test->id;
         $attempt->user_id = $user->id;
 
         if(isset($result[$qno]))
         {
           $attempt->qno = $qno;
-          if($result[$qno]['type']=='mcq')
-          $attempt->mcq_id = $result[$qno]['id'];
-          else
-          $attempt->fillup_id = $result[$qno]['id'];
-
-          $result[$qno]['response'] = $resp;
-          $attempt->response = $resp;
+          if(is_array($resp))
+            $attempt->response = implode(",",$resp);
+          else 
+            $attempt->response = $resp;
           $attempt->answer = $result[$qno]['answer'];
-          if($this->compare($result[$qno]['answer'],$resp)){
-            $attempt->accuracy =1;
-            $score++;
-            $result[$qno]['accuracy'] = 1;
-          }elseif($resp == NULL){
+          if($result[$qno]['type']=='mcq'){
+            $attempt->mcq_id = $result[$qno]['id'];
+            if($this->matchOptions($result[$qno]['answer'],$resp)){
+              $attempt->accuracy =1;
+            }elseif($resp == NULL){
+
+            }
+            else{
+              $attempt->accuracy =0;
+            }
 
           }
           else{
-            $attempt->accuracy =0;
-            $result[$qno]['accuracy'] = 0;
-          }
-             
+            $attempt->fillup_id = $result[$qno]['id'];
 
+            if($this->compare($result[$qno]['answer'],$resp)){
+              $attempt->accuracy =1;
+            }elseif($resp == NULL){
+
+            }
+            else{
+              $attempt->accuracy =0;
+            }
+
+          }  
         }
         $attempt->save();
-
       }
       return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
    }
@@ -460,11 +463,36 @@ class AttemptController extends Controller
       foreach($pieces as $p){
         $p = strtoupper(str_replace(' ', '', $p));
         $response = strtoupper(str_replace(' ', '', $response));
-        //echo $p.' '.$response."<br>";
         if($p == $response)
           $match = true;
       }
       return $match;
+   }
+
+   /* Function to compare the answer with response */
+   public function matchOptions($answer,$response){
+      $answers = explode(",",$answer);
+      /* multi answer if response is array */
+      if(is_array($response)){
+
+        if(count($answers) == count($response)){
+          foreach($response as $resp){
+            if(strpos($answer, $resp) !== FALSE){
+              
+            }else{
+                return false;
+            }
+          }
+          return true;
+        }
+        
+      }else{
+        $answer = strtoupper(str_replace(' ', '', $answer));
+        $response = strtoupper(str_replace(' ', '', $response));
+        if($answer==$response)
+          return true;
+      }
+      return false;
    }
 
    /* Function to display the analysis of the test */

@@ -42,5 +42,27 @@ class Test extends Model
     {
         return $this->belongsTo('App\Models\Test\Group');
     }
+
+    public function fillup()
+    {
+        return $this->hasMany('App\Models\Test\Fillup');
+    }
+
+    public function mcq()
+    {
+        return $this->hasMany('App\Models\Test\Mcq');
+    }
+
+    public function fillup_order() {
+        return $this->fillup()->orderBy('sno','asc');
+    }
+
+    public function mcq_order() {
+        return $this->mcq()->orderBy('qno','asc');
+    }
+
+    public function quescount(){
+        return $this->fillup()->count() + $this->mcq()->count(); 
+    }
     
 }

@@ -127,5 +127,8 @@
  .answered{
         background: #57b392;
     }
-.td_answered{ background:#e6e9ec; }
+.td_answered{ background:#e6e9ec;cursor:pointer; }
+.td_option{cursor: pointer;}
+.sentence{ cursor: pointer; }
+.sentence_selected{ background:yellow;padding:2px 5px; }
 
