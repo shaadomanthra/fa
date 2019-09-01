@@ -211,15 +211,34 @@ class TestController extends Controller
 
         $test->mcq_order = $obj->mcq_order;
         $test->fillup_order = $obj->fillup_order;
+
+        foreach($obj->mcq_order as $e => $f){
+            if($f->extract)
+                $obj->mcq_order[$e]->extract = $f->extract;
+        }
+        foreach($obj->fillup_order as $e => $f){
+            if($f->extract)
+                $obj->fillup_order[$e]->extract = $f->extract;
+        }
+
         $test->testtype = $obj->testtype;
         $test->category = $obj->category;
-
 
         $test->qcount =0;
         foreach($obj->sections as $i=>$section){ 
             $ids = $section->id ;
             $obj->sections[$i]->mcq_order =$section->mcq_order;
             $obj->sections[$i]->fillup_order =$section->fillup_order;
+
+            foreach($obj->sections[$i]->mcq_order as $e => $f){
+                if($f->extract)
+                    $obj->sections[$i]->mcq_order[$e]->extract = $f->extract;
+            }
+            foreach($obj->sections[$i]->fillup_order as $e => $f){
+                if($f->extract)
+                    $obj->sections[$i]->fillup_order[$e]->extract = $f->extract;
+            }
+
             $obj->sections->$ids = $section->extracts;
             foreach($obj->sections->$ids as $m=>$extract){
                 $obj->sections->$ids->mcq =$extract->mcq_order;
@@ -232,17 +251,14 @@ class TestController extends Controller
             if($q->qno)
               if($q->qno!=-1)
                   $test->qcount++;
-          }
-          foreach($test->fillup_order as $q){
+        }
+        foreach($test->fillup_order as $q){
             if($q->qno)
               if($q->qno!=-1)
                   $test->qcount++;
-          }
-
-          
+        }
  
         file_put_contents($filename, json_encode($test,JSON_PRETTY_PRINT));
-        
         return redirect()->route($this->module.'.show',$id);
     }
 

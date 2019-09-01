@@ -38,12 +38,12 @@
 @foreach($test->sections as $se=>$section)
 
 @foreach($section->extracts as $extract)
-	@foreach($extract->mcq as $m)
+	@foreach($extract->mcq_order as $m)
 <div class="bottom-box  text-center">
 <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
 </div>
 	@endforeach
-	@foreach($extract->fillup as $m)
+	@foreach($extract->fillup_order as $m)
 <div class="bottom-box  text-center">
 <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
 </div>

@@ -7,7 +7,7 @@
                 <th scope="col">Sno</th>
                 <th scope="col">Label  </th>
                 <th scope="col">Prefix/Answer/Suffix</th>
-                <th scope="col">Extract</th>
+                <th scope="col">Extract/Section</th>
               </tr>
             </thead>
             <tbody>
@@ -23,9 +23,17 @@
                   @if($obj->answer) <u><i >({{$obj->qno}}) {{$obj->answer }}</i> </u> @endif
                   @if($obj->suffix ){{$obj->suffix }}  @endif </td>
                 <td class="w-25">
+                   @if($obj->extract_id)
+                  Extract :<br>
                   <a href="{{ route('extract.show',[$app->test->id,$obj->extract->id]) }}">
                   {{ $obj->extract->name }}
                   </a>
+                  @elseif($obj->section_id)
+                  Section: <br>
+                   <a href="{{ route('section.show',[$app->test->id,$obj->section->id]) }}">
+                  {{ $obj->section->name }}
+                  </a>
+                  @endif
                 </td>
               </tr>
               @endforeach      

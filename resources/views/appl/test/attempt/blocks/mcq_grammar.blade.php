@@ -1,5 +1,5 @@
-@foreach($section->mcq_order as $k=>$m)
-@if($k!=0)<hr>@endif
+@foreach($test->mcq_order as $k=>$m)
+@if($k!=0)<div class="mb-1 p-1"></div>@endif
 
 @if(isset($m->extract))
 
@@ -11,12 +11,6 @@
 
 @endif
 
-
-
-@if($m->layout == 'gre1')
-
-  <div class="border p-3 rounded mb-4 text-secondary">Select one answer choice for the blank. Fill in the blank in such a way that it best completes the text. </div>
-@endif
 <div class="mb-3">
   <div class="row">
         <div class="col-4 col-md-3 col-lg-2">

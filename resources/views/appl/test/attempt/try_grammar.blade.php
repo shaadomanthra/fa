@@ -9,9 +9,17 @@
     <div class="row">
         <div class="col-12 col-md-8 col-lg-8">
             
-            @foreach($test->sections as $s=>$section)
-                @include('appl.test.attempt.blocks.section_grammar')
-            @endforeach
+            <div class="mb-3">
+                <div class="bg-white border-top p-4">
+                @if(count($test->mcq_order)!=0)
+                    @include('appl.test.attempt.blocks.mcq_grammar')
+                @endif
+
+                @if(count($test->fillup_order)!=0)
+                    @include('appl.test.attempt.blocks.fillup_grammar')
+                @endif
+                </div>
+            </div>
 
         </div>
         <div class="col-12 col-md-4 col-lg-4">
