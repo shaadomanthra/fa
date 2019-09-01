@@ -43,9 +43,13 @@
           <div class="row mb-2">
             <div class="col-md-4"><b>Section</b></div>
             <div class="col-md-8">
+              @if($obj->section)
               <a href="{{ route('section.show',[$app->test->id,$obj->section->id]) }}">
                 {{ $obj->section->name }}
               </a>
+              @else
+              - NA -
+              @endif
             </div>
           </div>
          

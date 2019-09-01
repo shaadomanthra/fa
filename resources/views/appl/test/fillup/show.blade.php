@@ -63,9 +63,14 @@
          <div class="row mb-2">
             <div class="col-md-4"><b>Extract</b></div>
             <div class="col-md-8">
+              @if($obj->extract)
               <a href="{{ route('extract.show',[$obj->test->id,$obj->extract->id]) }}">
                 {{ $obj->extract->name }}
               </a>
+              @else
+              - NA -
+
+              @endif
             </div>
           </div>
 

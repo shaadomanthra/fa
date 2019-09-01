@@ -1,8 +1,7 @@
 @foreach($section->mcq_order as $k=>$m)
-@if($k!=0)<hr>@endif
+
 
 @if(isset($m->extract))
-
   <div class="option rounded p-4 border mb-4">
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
     {!!$m->extract->text !!}</div>
@@ -11,11 +10,19 @@
 
 @endif
 
-
-
-@if($m->layout == 'gre1')
-
+@if(!$m->layout)
+<div class="border p-3 rounded mb-4 text-secondary">Select one answer choice from the given options. </div>
+@elseif($m->layout == 'gre1')
   <div class="border p-3 rounded mb-4 text-secondary">Select one answer choice for the blank. Fill in the blank in such a way that it best completes the text. </div>
+@elseif($m->layout == 'gre2' || $m->layout == 'gre3')  
+<div class="border p-3 rounded mb-4 text-secondary">
+ For each blank, select an answer choice from the corresponding column of choices. Fill all blanks in such a way that they best complete the text. 
+</div>
+@elseif($m->layout == 'gre_maq')  
+<div class="border p-3 rounded mb-4 text-secondary">
+For the following question, select the one or more answer choices that, when inserted into the sentence, fit the meaning of the sentence as a whole and yield complete sentences that are similar in meaning. 
+</div>
+@elseif($m->layout == 'no_instruction')  
 @endif
 <div class="mb-3">
   <div class="row">
@@ -27,7 +34,7 @@
       </div>
   </div>
 
-@if(!$m->layout)
+@if(!$m->layout || $m->layout=='no_instruction')
 
 <table class="table table-bordered mt-2 @if(strlen($m->a)>30) w-100 @else w-50 @endif" >
   @if($m->a)

@@ -115,9 +115,9 @@ class AttemptController extends Controller
                       ->with('product',$product);
             }
             else{
-              return view('appl.product.product.purchase')->with('test',$test)
-              ->with('product',$product);
-
+              return view('appl.product.product.purchase')
+                      ->with('test',$test)
+                      ->with('product',$product);
             }
            
           }
@@ -138,6 +138,9 @@ class AttemptController extends Controller
               return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
             }
         }else{
+            if(!strip_tags($test->instructions))
+                return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
+            else  
             return view('appl.test.attempt.alerts.instructions')
                 ->with('test',$test)
                 ->with('product',$product)

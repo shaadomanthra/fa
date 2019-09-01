@@ -59,15 +59,7 @@
       <div class="form-group">
         <label for="formGroupExampleInput ">Question</label>
         
-        @if($app->test->testtype->name != "GRE")
-        <input type="text" class="form-control" name="question" id="formGroupExampleInput" placeholder="" 
-             @if($stub=='Create')
-            value="{{ (old('question')) ? old('question') : '' }}"
-            @else
-            value="{{ $obj->question }}"
-            @endif
-          >
-        @else
+        @if($app->test->testtype->name == "GRE" || $app->test->testtype->name == "GRAMMAR")
         <textarea class="form-control summernote" name="question"  rows="5">
             @if($stub=='Create')
             {{ (old('question')) ? old('question') : '' }}
@@ -75,6 +67,15 @@
             {{ $obj->question }}
             @endif
         </textarea>
+        @else
+        <input type="text" class="form-control" name="question" id="formGroupExampleInput" placeholder="" 
+             @if($stub=='Create')
+            value="{{ (old('question')) ? old('question') : '' }}"
+            @else
+            value="{{ $obj->question }}"
+            @endif
+          >
+        
         @endif
       </div>
       <div class="form-group">
@@ -118,7 +119,7 @@
           >
       </div>
 
-      @if($app->test->testtype->name =='GRE')
+      @if($app->test->testtype->name = "GRE" ||$app->test->testtype->name == "GRAMMAR")
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Option E</label>
@@ -195,6 +196,7 @@
         <label for="formGroupExampleInput ">Layout</label>
         <select class="form-control" name="layout">
           <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif >- None -</option>
+          <option value="no_instruction" @if(isset($obj)) @if($obj->layout=='no_instruction') selected @endif @endif >No instruction</option>
           <option value="gre1" @if(isset($obj)) @if($obj->layout=='gre1') selected @endif @endif >Gre 1 Blank</option>
           <option value="gre2" @if(isset($obj)) @if($obj->layout=='gre2') selected @endif @endif >Gre 2 Blanks</option>
           <option value="gre3" @if(isset($obj)) @if($obj->layout=='gre3') selected @endif @endif >Gre 3 Blanks</option>

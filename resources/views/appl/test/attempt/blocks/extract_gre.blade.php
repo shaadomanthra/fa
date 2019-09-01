@@ -5,11 +5,11 @@
 	<div class="instructions">{!!$extract->text!!}</div>
 	@endif
 	<hr>
-	@if(count($extract->mcq)!=0)
+	@if(count($extract->mcq_order)!=0)
 		@include('appl.test.attempt.blocks.mcq_gre')
 	@endif
 	
-	@if(count($extract->fillup)!=0)
+	@if(count($extract->fillup_order)!=0)
 		@include('appl.test.attempt.blocks.fillup')
 	@endif
 	</div>

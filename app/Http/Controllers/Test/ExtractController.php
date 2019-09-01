@@ -58,11 +58,6 @@ class ExtractController extends Controller
 
         $sections = Section::where('test_id',$this->test->id)->get();
 
-        if(!count($sections)){
-            echo ("Kindly Create Sections to proceed");
-            exit();
-        }
-
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)

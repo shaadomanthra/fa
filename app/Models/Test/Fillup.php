@@ -25,6 +25,11 @@ class Fillup extends Model
         return $this->belongsTo('App\Models\Test\Test');
     }
 
+    public function section()
+    {
+        return $this->belongsTo('App\Models\Test\Section');
+    }
+    
     public function extract()
     {
         return $this->belongsTo('App\Models\Test\Extract');

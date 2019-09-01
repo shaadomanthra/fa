@@ -136,6 +136,13 @@ class TestController extends Controller
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
             }
 
+            $test = Obj::where('slug',$request->get('slug'))->first();
+
+            if($test){
+                flash('Test slug duplication - change slug')->error();
+                 return redirect()->back()->withInput();
+            }
+
             /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];

@@ -30,6 +30,7 @@
       </div>
       
      
+     @if(count($sections))
 
        <div class="form-group">
         <label for="formGroupExampleInput ">Section</label>
@@ -39,6 +40,7 @@
           @endforeach
         </select>
       </div>
+      @endif
 
         
 

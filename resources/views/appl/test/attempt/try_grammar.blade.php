@@ -10,6 +10,12 @@
         <div class="col-12 col-md-8 col-lg-8">
             
             <div class="mb-3">
+                <div class="part">
+                <h3><i class="fa fa-clone"></i> {{ $test->name}}</h3>
+                @if(strip_tags($test->description))
+                <p>{!! $test->description !!}</p>
+                @endif
+                </div>
                 <div class="bg-white border-top p-4">
                 @if(count($test->mcq_order)!=0)
                     @include('appl.test.attempt.blocks.mcq_grammar')

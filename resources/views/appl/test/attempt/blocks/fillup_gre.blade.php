@@ -1,7 +1,7 @@
 
 
 
-    @foreach($section->fillup_order as $f)
+@foreach($section->fillup_order as $f)
 
     @if(isset($f->extract))
   <div class="option rounded p-4 border mb-4">
@@ -11,7 +11,7 @@
     <input type="hidden" name="{{$f->qno}}" value=""/>
 @endif
 
-      @if($f->layout=='gre_sentence' && $f->qno==-1)
+      @if($f->layout=='gre_sentence')
         @include('appl.test.attempt.layouts.gre_sentence') 
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
