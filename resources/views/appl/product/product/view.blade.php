@@ -91,7 +91,7 @@
     @foreach($group->tests as $test)
     @if($test->testtype)
     @if($test->status)
-    <a href="{{ route('test',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->testtype->name}}</a>
+    <a href="{{ route('test',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
     @endif
     @endif
     @endforeach
