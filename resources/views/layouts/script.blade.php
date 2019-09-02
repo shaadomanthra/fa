@@ -311,10 +311,12 @@
 
     $('.sentence').on('click',function(){
       $id = $(this).data('id');
+      var sno = '.s'+$(this).data('id');
       $('.sentence_'+$id).removeClass('sentence_selected');
       $(this).addClass('sentence_selected');
       $('.sentence_textarea').html($(this).text().trim());
       $('.sentence_input').val($(this).text().trim());
+      $(sno).addClass('answered');
     });
 </script>
 @endif

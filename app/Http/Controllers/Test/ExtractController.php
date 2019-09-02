@@ -100,8 +100,7 @@ class ExtractController extends Controller
                         $str = $str.'<span class="sentence sentence_'.$obj->id.'" data-id="'.$obj->id.'">'.$p.'.</span>';
                     }
                     $text = $str;
-                
-                }
+            }
 
 
             

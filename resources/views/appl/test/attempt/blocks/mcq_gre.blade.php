@@ -7,7 +7,6 @@
     {!!$m->extract->text !!}</div>
     <span class="d-none sentence_holder" data-qno="{{$m->qno}}"></span>
     <input type="hidden" name="{{$m->qno}}" value=""/>
-
 @endif
 
 @if(!$m->layout)

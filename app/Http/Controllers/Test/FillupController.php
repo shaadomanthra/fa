@@ -101,11 +101,16 @@ class FillupController extends Controller
             $obj = $obj->create($request->except(['tags']));
 
             // attach the tags
-
             $tags = $request->get('tags');
             if($tags)
             foreach($tags as $tag){
                 $obj->tags()->attach($tag);
+            }
+
+            //update extract
+            if($request->get('extract_id'))
+            {
+                $obj->extract->extract_update($obj->id);
             }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
@@ -192,8 +197,16 @@ class FillupController extends Controller
                 $obj->tags()->detach();
             }
 
+            //update extract
+            if($request->get('extract_id'))
+            {
+                $obj->extract->extract_update($obj->id);
+            }
+
+
             $obj = $obj->update($request->except(['tags'])); 
 
+            
             
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();

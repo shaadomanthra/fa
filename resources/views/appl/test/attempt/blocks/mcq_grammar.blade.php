@@ -2,13 +2,11 @@
 @if($k!=0)<div class="mb-1 p-1"></div>@endif
 
 @if(isset($m->extract))
-
   <div class="option rounded p-4 border mb-4">
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
     {!!$m->extract->text !!}</div>
     <span class="d-none sentence_holder" data-qno="{{$m->qno}}"></span>
     <input type="hidden" name="{{$m->qno}}" value=""/>
-
 @endif
 
 @if(!$m->layout)

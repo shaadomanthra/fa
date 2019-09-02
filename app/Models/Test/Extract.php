@@ -42,4 +42,23 @@ class Extract extends Model
     public function mcq_order() {
         return $this->mcq()->orderBy('qno','asc');
     }
+
+    public function extract_update($id){
+        $text = $this->text;
+
+        if(request()->get('layout')=='gre_sentence'){
+                    $pieces = explode('.',strip_tags($text));
+                    
+                    $str ='';
+                    foreach($pieces as $p){
+                        if($p!="\n" && $p!="\r" && $p!="\r\n" && $p!="\n\r" && $p)
+
+                        $str = $str.'<span class="sentence sentence_'.$id.'" data-id="'.$id.'">'.$p.'.</span>';
+                    }
+                    $text = $str;
+        $this->text = $text;
+        $this->save();
+        }
+        
+    }
 }

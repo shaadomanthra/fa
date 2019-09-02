@@ -121,6 +121,11 @@ class McqController extends Controller
             }
 
             
+            //update extract
+            if($request->get('extract_id'))
+            {
+                $obj->extract->extract_update($obj->id);
+            }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index',[$this->test->id]);
@@ -221,7 +226,16 @@ class McqController extends Controller
                 $obj->tags()->detach();
             }
 
+            //update extract
+            if($request->get('extract_id'))
+            {
+                $obj->extract->extract_update($obj->id);
+            }
+
             $obj = $obj->update($request->all()); 
+
+           
+
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',[$test_id,$id]);
         }
