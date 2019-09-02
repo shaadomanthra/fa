@@ -320,6 +320,7 @@
 @endif
 
 @if(isset($timer))
+@if(isset($questions))
 <script>
 // Set the date we're counting down to
 @if(!isset($time))
@@ -370,4 +371,5 @@ function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
 }
 </script>
+@endif
 @endif
