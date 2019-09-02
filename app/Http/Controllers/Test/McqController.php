@@ -124,7 +124,7 @@ class McqController extends Controller
             //update extract
             if($request->get('extract_id'))
             {
-                $obj->extract->extract_update($obj->id);
+                $obj->extract->extract_update($obj->qno);
             }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
@@ -229,7 +229,7 @@ class McqController extends Controller
             //update extract
             if($request->get('extract_id'))
             {
-                $obj->extract->extract_update($obj->id);
+                $obj->extract->extract_update($obj->qno);
             }
 
             $obj = $obj->update($request->all()); 
