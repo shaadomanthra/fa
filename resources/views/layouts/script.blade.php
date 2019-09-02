@@ -320,13 +320,11 @@
 @endif
 
 @if(isset($timer))
-@if(isset($questions))
+@if($time)
 <script>
 // Set the date we're counting down to
-@if(!isset($time))
-var countDownDate = addMinutes(new Date(),{{ count($questions) }});
-@else
-var countDownDate = addMinutes(new Date(),{{ ($time) }});
+@if(isset($time))
+  var countDownDate = addMinutes(new Date(),{{ ($time) }});
 @endif
 
 // Update the count down every 1 second
