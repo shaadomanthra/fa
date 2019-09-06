@@ -350,8 +350,10 @@ class AttemptController extends Controller
         if($request->get('question')){
           $question = strip_tags($request->get('question'));
           $question = '<div class="question">'.$question.'</div><hr>';
-        }
-        $model->response = $question.$request->get('response');
+          $model->response = $question.$request->get('response');
+        }else
+          $model->response = $request->get('response');
+        
 
       }
       $model->test_id = $test->id;
