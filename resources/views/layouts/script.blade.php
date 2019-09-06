@@ -16,6 +16,13 @@
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
                 focus: true,
+                callbacks: {
+        onPaste: function (e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+            e.preventDefault();
+            document.execCommand('insertText', false, bufferText);
+        }
+    }
               });
 
             $('.summernote2').summernote({
@@ -26,6 +33,13 @@
                 maxHeight: null,             // set maximum height of editor
                 focus: true,
                 toolbar: [],
+                callbacks: {
+        onPaste: function (e) {
+            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+            e.preventDefault();
+            document.execCommand('insertText', false, bufferText);
+        }
+    }
 
               });
           });

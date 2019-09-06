@@ -113,12 +113,12 @@
                 <td>
                   @if($obj->extract_id)
                   Extract :<br>
-                  <a href="{{ route('extract.show',[$app->test->id,$obj->extract->id]) }}">
+                  <a href="{{ route('extract.show',[$app->test->id,$obj->extract_id]) }}">
                   {{ $obj->extract->name }}
                   </a>
                   @elseif($obj->section_id)
                   Section: <br>
-                   <a href="{{ route('section.show',[$app->test->id,$obj->section->id]) }}">
+                   <a href="{{ route('section.show',[$app->test->id,$obj->section_id]) }}">
                   {{ $obj->section->name }}
                   </a>
                   @endif

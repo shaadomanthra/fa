@@ -154,7 +154,7 @@ class FileController extends Controller
                 }
                 else{
                     $file = 'response/response_'.$id.'.pdf';
-                    $pdf = PDF::loadView('appl.test.file.pdf',compact('obj'));
+                    $pdf = PDF::loadView('appl.test.file.pdf2',compact('obj'));
                     $pdf->save('../storage/app/public/response/response_'.$obj->id.'.pdf'); 
                     //user response file (audio or doc)  
                 }
