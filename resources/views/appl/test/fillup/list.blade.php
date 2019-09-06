@@ -26,7 +26,9 @@
                   @if($obj->extract_id)
                   Extract :<br>
                   <a href="{{ route('extract.show',[$app->test->id,$obj->extract_id]) }}">
+                  @if(isset($obj->extract))
                   {{ $obj->extract->name }}
+                  @endif
                   </a>
                   @elseif($obj->section_id)
 
