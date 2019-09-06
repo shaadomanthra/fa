@@ -15,6 +15,7 @@
                 margin-left: 2cm;
                 margin-right: 2cm;
                 margin-bottom: 2cm;
+                font-family: Arial, Helvetica, sans-serif;font-size:18px;
             }
 
 
@@ -27,9 +28,12 @@
                 height: 2cm;
 
                 /** Extra personal styles **/
-                background-color: #eee;
+                background-color: #f8f8f8;
                 color: #1f70ab;
-                text-align: center;
+                text-align: left;
+                padding-left:30px;
+                padding-right: 30px;
+                font-family:  sans-serif;font-size:18px;
                 line-height: 1.5cm;
             }
 
@@ -45,7 +49,7 @@
             	line-height: 70px;
             }
 
-            .head{padding:20px;background:#f8f8f8;margin-bottom:30px; font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height: 25px;}
+            .head{padding:20px;background:#f8f8f8;margin-bottom:30px; font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height: 25px;border:1px solid #eee;}
             .bord{ border: 1px solid #eee; padding:20px; }
 
         </style>
@@ -53,11 +57,17 @@
     <body>
         <main>
             <div class="head">
-            <div><span class="" >Name: </span>{{$obj->user->name }}</div>
-            <div><span class="" >Test: </span>{{$obj->test->name }}</div>
+            <div style="padding-bottom: 10px"><span class="" >Name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>{{$obj->user->name }}</div>
+            <div><span class="" >Test date: &nbsp;&nbsp;&nbsp;&nbsp;</span>{{ date("F j, Y, g:i a",strtotime($obj->created_at))}}</div>
             </div>
-			<div class="">Question</div>
+            @if(strlen(strip_tags($obj->test->description))>0)
+			<div class=""><b>Question</b></div>
+			{!!  preg_replace("/<img[^>]+\>/i", "", $obj->test->description);  !!}
+			<hr>
+			<div class=""><b>Response</b></div>
+			@endif
            <div class="response">{!! $obj->response !!}</div>
         </main>
+
     </body>
 </html>

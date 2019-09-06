@@ -203,11 +203,7 @@ class FillupController extends Controller
                 $obj->extract->extract_update($obj->qno);
             }
 
-
             $obj = $obj->update($request->except(['tags'])); 
-
-            
-            
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',[$test_id,$id]);

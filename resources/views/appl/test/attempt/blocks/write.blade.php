@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('attempt.upload',$test->slug) }}" enctype="multipart/form-data">
+
 <h3 >Write your response in the textbox below.</h3>
 <div class="mb-4  mt-3 bg-light p-4 border">
 	
@@ -37,4 +37,3 @@
     </div>
   </div>
 </div>
-</form>

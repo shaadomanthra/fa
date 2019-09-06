@@ -1,4 +1,4 @@
-<div class="rounded p-4 mb-4" style="border: 1px solid silver">
+<div class="rounded p-4 mb-4" style="">
 	<h4 class="mb-3 text-primary">Your Response </h4>
 	<div class="bg-light border rounded p-3 mb-3">
 	{!! $attempt->response !!}

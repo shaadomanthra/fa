@@ -346,9 +346,17 @@ class AttemptController extends Controller
       $model->qno = 1;
       if(!$request->get('response'))
         $model->response = $path;
-      else
-        $model->response = $request->get('response');
+      else{
+        if($request->get('question')){
+          $question = strip_tags($request->get('question'));
+          $question = '<div class="question">'.$question.'</div><hr>';
+        }
+        $model->response = $question.$request->get('response');
+
+      }
       $model->test_id = $test->id;
+
+
       $model->save();
 
       //Mail notifaction to the administrator

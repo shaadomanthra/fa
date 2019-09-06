@@ -41,6 +41,7 @@
       <div class="card mb-4">
         <div class="card-body">
           
+          @if(strlen(strip_tags($obj->test->description))>0)
           <div class="row mb-2">
             <div class="col-md-4"><b>Question</b></div>
             <div class="col-md-8">
@@ -49,6 +50,7 @@
             </div>
 
           </div>
+          @endif
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Response</b></div>
