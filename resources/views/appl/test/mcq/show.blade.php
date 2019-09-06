@@ -109,8 +109,10 @@
             <div class="col-md-4"><b>Extract</b></div>
             <div class="col-md-8">
               @if($obj->extract_id)
-              <a href="{{ route('extract.show',[$obj->test->id,$obj->extract->id]) }}">
-                {{ $obj->extract->name }}
+              <a href="{{ route('extract.show',[$obj->test->id,$obj->extract_id]) }}">
+                @if(isset($obj->extract))
+                  {{ $obj->extract->name }}
+                  @endif
               </a>
               @else
               - None -
