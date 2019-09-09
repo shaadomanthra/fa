@@ -45,10 +45,23 @@ class FileController extends Controller
                     ->paginate(config('global.no_of_records'));
         }else if($request->get('type')=='writing'){
             $tests = Test::whereIn('type_id',[3])->pluck('id');
-        $objs = $obj->where('response','LIKE',"%{$item}%")
+            
+                    if($item){
+                        $objs = $obj->whereHas('user', function ($query) use ($item){
+                            $query->where('name', 'like', '%'.$item.'%');
+                        })
+                        ->with(['user' => function($query) use ($item){
+                            $query->where('name', 'like', '%'.$item.'%');
+                        }])->orderBy('created_at','desc')
+                        ->whereIn('test_id',$tests)->paginate(config('global.no_of_records'));
+                        
+                    }else{
+                        $objs = $obj->where('response','LIKE',"%{$item}%")
                     ->whereIn('test_id',$tests)
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));
+                    }
+                    
         }else{
             $tests = Test::whereIn('type_id',[3,4])->pluck('id');
             $objs = $obj->where('response','LIKE',"%{$item}%")
