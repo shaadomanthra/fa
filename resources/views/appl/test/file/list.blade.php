@@ -6,9 +6,8 @@
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">File </th>
-                <th scope="col">Test</th>
-                <th scope="col">User</th>
-                <th scope="col">Created at</th>
+                <th scope="col">Feedback</th>
+                <th scope="col">Created </th>
               </tr>
             </thead>
             <tbody>
@@ -17,14 +16,15 @@
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
                 <td>
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
-                  {{ $obj->user->name}} - {{ $obj->test->name }} Response
+                  {{ $obj->user->name}} - {{ $obj->test->name }} - Response
                   </a>
                 </td>
                 <td>
-                  {{ $obj->test->name }}
-                </td>
-                <td>
-                  {{ $obj->user->name }}
+                  @if($obj->answer || Storage::disk('public')->exists('feedback/feedback_'.$obj->id.'.pdf'))
+                    <span class="badge badge-success">Reviewed</span>
+                  @else
+                    <span class="badge badge-secondary">Open</span>
+                  @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>

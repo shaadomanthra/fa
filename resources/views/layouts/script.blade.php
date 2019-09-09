@@ -26,22 +26,45 @@
               });
 
             $('.summernote2').summernote({
-                placeholder: 'Hello ! Write something...',
-                tabsize: 2,
-                height: 200,                // set editor height
+              placeholder: 'Enter your response ... ',
+              tabsize: 2,
+                height: 300,                // set editor height
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
                 focus: true,
                 toolbar: [],
                 callbacks: {
-        onPaste: function (e) {
-            var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
-            e.preventDefault();
-            document.execCommand('insertText', false, bufferText);
-        }
-    }
+                  onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
+                  }
+                }
 
               });
+
+            $('.summernote3').summernote({
+              placeholder: 'Enter the question...',
+              tabsize: 2,
+                height: 200,                // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true,
+                toolbar: [
+                  ['font', ['bold', 'italic', 'underline', 'clear']],
+                  ['insert', [ 'picture' ]],
+                  ['view', ['fullscreen']],
+                ],
+                callbacks: {
+                  onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
+                  }
+                }
+
+              });
+
           });
 
       $(document).on("keyup", function(){

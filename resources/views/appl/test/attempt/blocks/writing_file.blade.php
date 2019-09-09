@@ -10,7 +10,7 @@
 	</a>
 	@else
 	<a href="{{ route('product.view','writing-evaluation')}}">
-	<button class="btn btn-sm btn-outline-primary">Expert Evaluation</button>
+	<button type="button" class="btn btn-sm btn-outline-primary">Expert Evaluation</button>
 	</a>
 	@endif
 </div>

@@ -8,6 +8,9 @@
             @page {
                 margin: 0cm 0cm;
             }
+            .page-break {
+			    page-break-after: always;
+			}
 
             /** Define now the real margins of every page in the PDF **/
             body {
@@ -21,33 +24,28 @@
 
             /** Define the footer rules **/
             footer {
-                position: fixed; 
-                bottom: 0cm; 
-                left: 0cm; 
-                right: 0cm;
-                height: 2cm;
-
-                /** Extra personal styles **/
-                background-color: #f8f8f8;
-                color: #1f70ab;
-                text-align: left;
-                padding-left:30px;
-                padding-right: 30px;
-                font-family:  sans-serif;font-size:18px;
+                margin-top: 30px;
+                font-family:  sans-serif;
+                font-size:18px;
                 line-height: 1.5cm;
             }
 
             hr{ 
-              height: 1px;
-              color: red;
-              background-color: #eee;
-              border: 1px solid silver;
+              height: 0.5px;
+              color: #eee;
+              background: #eee;
             }
             .response{
             	font-family: Arial, Helvetica, sans-serif;
             	font-size:18px;
             	line-height: 70px;
             }
+            .question{
+            	font-family: Arial, Helvetica, sans-serif;
+            	font-size:18px;
+            	line-height: 30px;
+            }
+            .w-100{ width:100%; }
 
             .head{padding:20px;background:#f8f8f8;margin-bottom:30px; font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height: 25px;border:1px solid #eee;}
             .bord{ border: 1px solid #eee; padding:20px; }
@@ -61,13 +59,24 @@
             <div><span class="" >Test date: &nbsp;&nbsp;&nbsp;&nbsp;</span>{{ date("F j, Y, g:i a",strtotime($obj->created_at))}}</div>
             </div>
             @if(strlen(strip_tags($obj->test->description))>0)
-			<div class=""><b>Question</b></div>
-			{!!  preg_replace("/<img[^>]+\>/i", "", $obj->test->description);  !!}
+			<div class="question"><h4>Question</h4>
+			{!!  $obj->test->description  !!}
+			</div>
 			<hr>
 			<div class=""><b>Response</b></div>
 			@endif
-           <div class="response">{!! $obj->response !!}</div>
+           <div class="">{!! $obj->response !!}</div>
         </main>
+        <div class="page-break"></div>
+        <footer>
+        	<div class="head">
+        	<br>
+        	<img src="{{ asset('/images/logo.png')}}" width="200px" > 
+        	<p>We have been the most awarded training centre offering the best coaching for exams like the GRE, PTE, OET, and IELTS for almost two decades. With University of Cambridge certified trainers, you can assured of the highest levels of training. </p>
+        	<hr>
+        	<p>Are you aiming high score? <br>Access our industry best practice material at <br><a href="https://prep.firstacademy.in">prep.firstacademy.in</a></p>
+        	</div>
+        </footer>
 
     </body>
 </html>
