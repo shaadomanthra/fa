@@ -253,7 +253,7 @@
 @elseif(isset($player))
 <script src="{{asset('js/player.js')}}"></script>
 <script src="{{asset('js/jquery.js')}}"></script>  
-<script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
 <script src="{{asset('js/global.js')}}"></script>  
 
 <script>

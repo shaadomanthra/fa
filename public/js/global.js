@@ -20,3 +20,7 @@ $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
   $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
   });
+
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+});
