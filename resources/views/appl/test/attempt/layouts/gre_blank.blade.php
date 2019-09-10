@@ -2,7 +2,7 @@
 <div class="row question ">
   @if($f->label)
   <div class="col-12 " id="{{$f->qno}}">
-    <div class="card-text " ><b>{{ $f->label}}</b>
+    <div class="card-text " ><b>{!! $f->label !!}</b>
     </div>
   </div>
   @endif
