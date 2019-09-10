@@ -13,6 +13,8 @@
 
       @if($f->layout=='gre_sentence')
         @include('appl.test.attempt.layouts.gre_sentence') 
+      @elseif($f->layout=='cloze_test')
+        @include('appl.test.attempt.layouts.cloze_test') 
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   

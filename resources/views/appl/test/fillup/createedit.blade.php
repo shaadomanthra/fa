@@ -115,12 +115,13 @@
             @endif
         >
       </div>
-
       <div class="form-group">
-        <label for="formGroupExampleInput ">Layout</label>
+        <label for="formGroupExampleInput ">Layout </label>
         <select class="form-control" name="layout">
           <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif >- None -</option>
+          <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Cloze Test</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
+
         </select>
       </div>
 

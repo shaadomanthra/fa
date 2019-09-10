@@ -102,6 +102,10 @@
             <div class="col-md-4"><b>Sno</b></div>
             <div class="col-md-8">{{ $obj->sno }}</div>
           </div>
+           <div class="row mb-2">
+            <div class="col-md-4"><b>Layout</b></div>
+            <div class="col-md-8">{{ $obj->layout }}</div>
+          </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Created At</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>

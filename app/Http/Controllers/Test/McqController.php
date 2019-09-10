@@ -124,6 +124,7 @@ class McqController extends Controller
             //update extract
             if($request->get('extract_id'))
             {
+                if($obj->extract)
                 $obj->extract->extract_update($obj->qno);
             }
 
