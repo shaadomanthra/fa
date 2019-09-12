@@ -145,8 +145,8 @@
                 <a href="{{ route('test.edit',$test->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                 @endcan</h5>
     <p class="card-text">
-      {{ substr(strip_tags($obj->details),0,200) }}
-      @if(strlen(strip_tags($obj->details))>200)
+      {{ substr(strip_tags($test->details),0,200) }}
+      @if(strlen(strip_tags($test->details))>200)
       ...
       @endif
     </p>
