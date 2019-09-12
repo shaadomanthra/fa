@@ -80,7 +80,7 @@ class User extends Authenticatable
     }
 
     public function attempt($id){
-        $attempt = Attempt::where('test_id',$id)->first();
+        $attempt = Attempt::where('test_id',$id)->where('user_id',$this->id)->first();
         if($attempt){
             return true;
         }else
