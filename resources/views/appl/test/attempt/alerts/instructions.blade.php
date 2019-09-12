@@ -18,7 +18,7 @@
       <div class="mb-3 " style="font-size: 18px;">
         {!! $test->instructions !!}
       </div>
-      @if(isset($product))
+      @if(isset($product->slug))
       <a href="{{ route('test.try',$test->slug)}}?product={{$product->slug}}">
         <button class="btn btn-primary btn-lg"> Start Test</button>
       </a>
