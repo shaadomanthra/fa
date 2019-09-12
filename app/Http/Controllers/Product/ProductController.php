@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product as Obj;
 use App\Models\Test\Group;
+use App\Models\Test\Test;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -121,12 +122,14 @@ class ProductController extends Controller
         $this->authorize('create', $obj);
 
         $groups  = Group::where('status',1)->get();
+        $tests  = Test::where('status',1)->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('groups',$groups)
+                ->with('tests',$tests)
                 ->with('app',$this);
     }
 
@@ -153,7 +156,7 @@ class ProductController extends Controller
             }
 
             /* create a new entry */
-            $obj->create($request->except(['groups','file']));
+            $obj->create($request->except(['groups','file','tests']));
 
             $obj = Obj::where('slug',$request->get('slug'))->first();
             // attach the tags
@@ -163,6 +166,12 @@ class ProductController extends Controller
                 $obj->groups()->attach($group);
             }
 
+            // attach the tags
+            $tests = $request->get('tests');
+            if($tests)
+            foreach($tests as $test){
+                $obj->tests()->attach($test);
+            }
 
             /* update cache file of this product */
             $filename = $request->get('slug').'.json';
@@ -258,6 +267,7 @@ class ProductController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
         $groups  = Group::where('status',1)->get();
+        $tests  = Test::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -265,6 +275,7 @@ class ProductController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('groups',$groups)
+                 ->with('tests',$tests)
                 ->with('app',$this);
         else
             abort(404);
@@ -316,7 +327,18 @@ class ProductController extends Controller
             	$obj->groups()->detach();
             }
 
-            $obj->update($request->except(['groups','file'])); 
+
+            $tests = $request->get('tests');
+            if($tests){
+                $obj->tests()->detach();
+                foreach($tests as $test){
+                $obj->tests()->attach($test);
+                }
+            }else{
+                $obj->tests()->detach();
+            }
+
+            $obj->update($request->except(['groups','file','tests'])); 
 
 
             /* update cache file of this product */

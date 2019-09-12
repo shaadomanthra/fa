@@ -41,6 +41,7 @@ class AttemptController extends Controller
             }
             else{
               $this->test = Test::where('slug',request()->route('test'))->first();
+
               $this->test->sections = $this->test->sections;
               $this->test->mcq_order = $this->test->mcq_order;
               $this->test->fillup_order = $this->test->fillup_order;
@@ -77,39 +78,59 @@ class AttemptController extends Controller
               //update product from cache
               $product_slug = request()->get('product');
               if(!$product_slug)
-                  abort('403','Product Not Defined');
-              $filename = $this->cache_path_product.$product_slug.'.json';
-              if(file_exists($filename)){
-                $this->product = json_decode(file_get_contents($filename));
-              }else{
-                $this->product = Product::where('slug',$request->get('product'))->first();
-              }
+                  $this->product = '';
+              else{
+                $filename = $this->cache_path_product.$product_slug.'.json';
+                if(file_exists($filename)){
+                  $this->product = json_decode(file_get_contents($filename));
+                }else{
+                  $this->product = Product::where('slug',$request->get('product'))->first();
+                }
+
+              }                  
             }
             
         } 
     }
 
-   /* The default function for test */
+   
+
+   /* The instructions page for test */
    public function instructions($slug, Request $request){
 
         $user = \auth::user();
         $test = $this->test;
         $product = $this->product;
 
+        $product_id = $test_id = null;
+
+        if($product){
+          $id = $product->id;
+          $product_id = $id;
+          $validity = $product->validity;
+          $price = $product->price;
+        }
+        else{
+          $id = $test->id;
+          $test_id = $id;
+          $validity = $test->validity;
+          $price = $test->price;
+        }
+
         //Run prechecks 
         $this->precheck($request);
 
         /* User Authorization for test */
         $grantaccess = $request->get('grantaccess');
-        if(!$user->productAccess($product->id)){
+        if(!$user->testAccess($id)){
           if($grantaccess)
           {
             $order = new Order();
-            $order->grantaccess($product->id);
+            $order->grantaccess($product_id,$test_id,$validity);
 
           }else{
 
-            if($product->price==0){
+            if($price==0){
               return view('appl.product.product.freeaccess')
                       ->with('test',$test)
                       ->with('product',$product);
@@ -133,15 +154,26 @@ class AttemptController extends Controller
 
             if($testtype=='writing' || $testtype == 'speaking')
             {
-              return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
+              if($product)
+                return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
+              else
+                return redirect()->route('test.try',['test'=>$this->test->slug]);
             }else{
-              return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+              if($product)
+                return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+              else
+                return redirect()->route('test.analysis',['test'=>$this->test->slug]);
             }
         }else{
-            if(!strip_tags($test->instructions))
+            if(!strip_tags($test->instructions)){
+              if($product)
                 return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
+              else
+                return redirect()->route('test.try',['test'=>$this->test->slug]);
+
+            } 
             else  
-            return view('appl.test.attempt.alerts.instructions')
+              return view('appl.test.attempt.alerts.instructions')
                 ->with('test',$test)
                 ->with('product',$product)
                 ->with('player',true)
@@ -152,32 +184,9 @@ class AttemptController extends Controller
    /* pre checks for the test */
    public function precheck(Request $request){
     
-    $user = \auth::user();
     $test = $this->test;
     if(!$test)
       abort('403','Test not Found ');
-
-    $product_slug = $request->get('product');
-    if(!$product_slug)
-     abort('403','Product Not Defined');
-
-    $product = $this->product;
-
-    /* check if test is a part of product */
-    $test_is_a_part_of_product = false;
-    foreach($product->groups as $group){
-      foreach($group->tests as $t){
-        if($t->id == $test->id)
-        {
-          $test_is_a_part_of_product = true;
-          break;
-        }
-      }
-    }
-
-    if(!$test_is_a_part_of_product)
-    abort('403','Test is not a part of product');
-
    }
 
    /* Test Attempt Function */
@@ -196,7 +205,10 @@ class AttemptController extends Controller
       $testtype=  strtolower($test->testtype->name);
       if($testtype=='listening' || $testtype == 'reading')
       {
+        if($product)
         return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+        else
+         return redirect()->route('test.analysis',['test'=>$this->test->slug]); 
       }
     }
 
@@ -464,7 +476,11 @@ class AttemptController extends Controller
         }
         $attempt->save();
       }
+
+      if($product)
       return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+      else
+      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
    }
 
    /* Function to compare the answer with response */
@@ -535,15 +551,12 @@ class AttemptController extends Controller
       }
       }
       
-      
-
       return view('appl.test.attempt.alerts.result')
               ->with('result',$result)
+              ->with('test',$test)
               ->with('band',$band)
               ->with('score',$score);
    }
-
-
 
    /**
      * Display the specified resource.

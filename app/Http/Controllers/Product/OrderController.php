@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Instamojo as Instamojo;
 use App\Models\Product\Product;
+use App\Models\Test\Test;
 use App\Models\Product\Order;
 use App\Models\Product\Coupon;
 use App\User;
@@ -30,13 +31,12 @@ class OrderController extends Controller
      */
     public function checkout($slug,Request $request){
         $product = Product::where('slug',$slug)->first();
+        $test = Test::where('slug',$slug)->first();
         if($product){
-          if(!$product)
-            return view('appl.product.order.checkout_invalid');
-          else{
               return view('appl.product.order.checkout')->with('product',$product);
-          }
-
+        }
+        if($test){
+              return view('appl.product.order.checkout')->with('test',$test);
         }
     }
 
@@ -58,8 +58,6 @@ class OrderController extends Controller
           if($response['status']=='Completed')
           { 
             $order = Order::where('order_id',$id)->first();
-            $user = User::where('id',$order->user_id)->first();
-            $product = Product::where('id',$order->product_id)->first();
 
             $order->payment_mode = $response['payments'][0]['instrument_type'];
             $order->bank_txn_id = $response['payments'][0]['payment_id'];
@@ -109,22 +107,33 @@ class OrderController extends Controller
                 abort('403','Transaction ammount cannot be < Rs.10');
 
             $user = \auth::user();
-            $o = Order::where('product_id',$request->get('product_id'))
-                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
-            $product = Product::where('id',$request->get('product_id'))->first();
+           
 
-
-            if($o)
-            if($o->status == 1 ){
-              if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
-                return view('appl.product.order.checkout_denail')->with('order',$o);
-              $rebuy = true;
+            if($request->get('product_id')){
+              $product = Product::where('id',$request->get('product_id'))->first();
+              $validity = $product->validity;
+              $purpose = $product->name;
             }
+            else
+              $product = null;
+
+            if($request->get('test_id')){
+              $test = Test::where('id',$request->get('test_id'))->first();
+              $validity = $test->validity;
+              $purpose = $test->name;
+            }
+            else
+              $test = null;
+
+
+
+
+            
             
               
             $response = $api->paymentRequestCreate(array(
                   "buyer_name" => $user->name,
-                  "purpose" => strip_tags($product->name),
+                  "purpose" => strip_tags($purpose),
                   "amount" =>  $request->txn_amount,
                   "send_email" => false,
                   "email" => $user->email,
@@ -153,10 +162,11 @@ class OrderController extends Controller
 
               $order->user_id = $user->id;
               $order->txn_amount = $request->txn_amount;
-              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($validity*31).' days'));
               $order->expiry = $valid_till;
               $order->status=0;
               $order->product_id = $request->get('product_id');
+              $order->test_id = $request->get('test_id');
 
               
                //dd($order);
@@ -180,18 +190,26 @@ class OrderController extends Controller
             
 
             $user = \auth::user();
-            $o = Order::where('product_id',$request->get('product_id'))
-                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
-            $product = Product::where('id',$request->get('product_id'))->first();
+           
+
+            if($request->get('product_id')){
+              $product = Product::where('id',$request->get('product_id'))->first();
+              $validity = $product->validity;
+            }
+            else
+              $product = null;
+
+            if($request->get('test_id')){
+              $test = Test::where('id',$request->get('test_id'))->first();
+              $validity = $test->validity;
+            }
+            else
+              $test = null;
+
             $coupon = Coupon::where('code',strtoupper($request->get('coupon')))->first();
 
 
-            if($o)
-            if($o->status == 1 ){
-              if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
-                return view('appl.product.order.checkout_denail')->with('order',$o);
-              $rebuy = true;
-            }
+            
 
             if(!$coupon && $request->get('coupon')!='FREE'){
                 $m = "Invalid Coupon Code";
@@ -200,7 +218,14 @@ class OrderController extends Controller
             }else{
 
               if($request->get('coupon')=='FREE'){
+                  if($product)
                   if($product->price !=0){
+                    $m = "You cannot access this course";
+                    return view('appl.product.order.checkout_coupon')->with('message',$m);
+                  } 
+
+                  if($test)
+                  if($test->price !=0){
                     $m = "You cannot access this course";
                     return view('appl.product.order.checkout_coupon')->with('message',$m);
                   } 
@@ -211,10 +236,19 @@ class OrderController extends Controller
                  return view('appl.product.order.checkout_coupon')->with('message',$m); 
                 }
                 
-                if(!$coupon->products()->where('id',$product->id)->first()){
+                if($product){
+                    if(!$coupon->products()->where('id',$product->id)->first()){
                     $m = "Restricted Access - This Copoun cannot be used for this product";
                     return view('appl.product.order.checkout_coupon')->with('message',$m);
+                  }
+                }else{
+                  if(!$coupon->tests()->where('id',$test->id)->first()){
+                    $m = "Restricted Access - This Copoun cannot be used for this test";
+                    return view('appl.product.order.checkout_coupon')->with('message',$m);
                 }
+                }
+                
+
               }
             }
 
@@ -249,8 +283,9 @@ class OrderController extends Controller
 
               
               $order->product_id = $request->get('product_id');
+              $order->test_id = $request->get('test_id');
 
-              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($validity*31).' days'));
               $order->expiry = $valid_till;
               
                //dd($order);

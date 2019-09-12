@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Coupon as Obj;
 use App\Models\Product\Product;
+use App\Models\Test\Test;
 
 class CouponController extends Controller
 {
@@ -52,6 +53,7 @@ class CouponController extends Controller
         $this->authorize('create', $obj);
 
         $products  = Product::where('status',1)->get();
+        $tests  = Test::where('status',1)->get();
 
         $obj->code = strtoupper(\str_random(5));
         $obj->expiry = date("Y-m-d H:i:s",strtotime("+6 month"));
@@ -61,6 +63,7 @@ class CouponController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('products',$products)
+                ->with('tests',$tests)
                 ->with('app',$this);
     }
 
@@ -79,8 +82,16 @@ class CouponController extends Controller
 
             // attach the products
             $products = $request->get('products');
+            if($products)
             foreach($products as $product){
                 $obj->products()->attach($product);
+            }
+
+            // attach the test
+            $tests = $request->get('tests');
+            if($tests)
+            foreach($tests as $test){
+                $obj->tests()->attach($test);
             }
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
@@ -124,6 +135,7 @@ class CouponController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
         $products  = Product::where('status',1)->get();
+        $tests  = Test::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -131,6 +143,7 @@ class CouponController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('products',$products)
+                ->with('tests',$tests)
                 ->with('app',$this);
         else
             abort(404);
@@ -160,6 +173,17 @@ class CouponController extends Controller
                 }
             }else{
                 $obj->products()->detach();
+            }
+
+            // attach the tags
+            $tests = $request->get('tests');
+            if($tests){
+                $obj->tests()->detach();
+                foreach($tests as $test){
+                $obj->tests()->attach($test);
+                }
+            }else{
+                $obj->tests()->detach();
             }
 
             $obj = $obj->update($request->except(['products'])); 

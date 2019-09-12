@@ -7,7 +7,7 @@
 		</div>
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<input type="hidden" name="type" value="audio">
-		<input type="hidden" name="product" value="{{$product->slug}}">
+		<input type="hidden" name="product" value="@if($product){{ $product->slug }} @endif">
 		<button class="btn btn-success mb-4" type="submit">Upload</button>
 	</form>
 	<div class="text-secondary">*Only the following file types are supported: mp3, wav, mkv, mp4, aac, 3gp, ogg, mpga</div>

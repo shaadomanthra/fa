@@ -60,6 +60,27 @@
          </div>
       </div>
 
+
+      <div class="form-group">
+        <label for="formGroupExampleInput">Tests</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach($tests as $test)
+          @if($test->status==1)
+          <div class="col-12 col-md-3">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="tests[]" value="{{$test->id}}" id="defaultCheck1" @if($obj->tests->contains($test->id))) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ $test->name }}
+            </label>
+          </div>
+          </div>
+          @endif
+          @endforeach
+         </div>
+         </div>
+      </div>
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Unlimited</label>
         <select class="form-control" name="unlimited">

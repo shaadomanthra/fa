@@ -18,9 +18,14 @@ class Product extends Model
         // add all other fields
     ];
 
-     public function groups()
+    public function groups()
     {
         return $this->belongsToMany('App\Models\Test\Group');
+    }
+
+    public function tests()
+    {
+        return $this->belongsToMany('App\Models\Test\Test');
     }
 
     public function order($user=null){

@@ -25,6 +25,7 @@
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="public"><i class="fa fa-globe"></i></a>
               <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="view"><i class="fa fa-eye"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
@@ -76,7 +77,10 @@
           </div>
           @endif
 
-
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Details</b></div>
+            <div class="col-md-8">{!! $obj->details !!}</div>
+          </div>
 
            <div class="row mb-2">
             <div class="col-md-4"><b>Instructions</b></div>
@@ -88,8 +92,8 @@
             <div class="col-md-8">{!! $obj->description !!}</div>
           </div>
 
-                <div class="row mb-2">
-            <div class="col-md-4"><b>File</b></div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Audio File</b></div>
             <div class="col-md-8">
               @if(\Storage::disk('public')->exists($obj->file) && $obj->file )
               <div class="bg-light border mb-3">
@@ -104,7 +108,26 @@
                 <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
               </form>
               @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
+               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> audio file path not found </span>
+              @endif
+            </div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Image</b></div>
+            <div class="col-md-8">
+              @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+              <div class="bg-light border mb-3">
+                 <img src="{{ asset(\storage::disk('public')->url($obj->image))}}" class="w-100"/>
+              </div>
+              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
+                 <input type="hidden" name="_method" value="PUT">
+                 <input type="hidden" name="deleteimage" value="1">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete Image</button>
+              </form>
+              @else
+               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> image  path not found </span>
               @endif
             </div>
           </div>
@@ -118,6 +141,23 @@
             <div class="col-md-4"><b>Test Time</b></div>
             <div class="col-md-8">{{ $obj->test_time }} min</div>
           </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Price</b></div>
+            <div class="col-md-8">
+              @if($obj->price===0)
+                <span class="text-secondary">FREE</span>
+              @elseif($obj->price)
+                <i class="fa fa-rupee"></i> {{ $obj->price }} 
+              @else
+               -
+              @endif
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Validity</b></div>
+            <div class="col-md-8">{{ $obj->validity }} months</div>
+          </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>
             <div class="col-md-8">@if($obj->status==0)
@@ -128,7 +168,7 @@
           </div>
           
           <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
+            <div class="col-md-4"><b>Created </b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
         </div>

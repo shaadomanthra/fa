@@ -69,9 +69,18 @@
         </select>
       </div>
 
-      <input type="hidden" class="form-control" name="description" id="formGroupExampleInput" value=""
-          >
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Details</label>
+        <textarea class="form-control summernote" name="details"  rows="5">
+            @if($stub=='Create')
+            {{ (old('details')) ? old('details') : '' }}
+            @else
+            {{ $obj->details }}
+            @endif
+        </textarea>
+      </div>
       
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Instructions</label>
         <textarea class="form-control summernote" name="instructions"  rows="5">
@@ -98,8 +107,14 @@
       </div>
 
       <div class="form-group">
-        <label for="formGroupExampleInput ">File</label>
+        <label for="formGroupExampleInput ">Audio File</label>
         <input type="file" class="form-control" name="file_" id="formGroupExampleInput" 
+          >
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Image</label>
+        <input type="file" class="form-control" name="file" id="formGroupExampleInput" 
           >
       </div>
 
@@ -125,7 +140,27 @@
           >
       </div>
 
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Price</label>
+        <input type="text" class="form-control" name="price" id="formGroupExampleInput" placeholder="Enter the price in rupees" 
+            @if($stub=='Create')
+            value="{{ (old('price')) ? old('price') : '' }}"
+            @else
+            value = "{{ $obj->price }}"
+            @endif
+          >
+      </div>
      
+     <div class="form-group">
+        <label for="formGroupExampleInput ">Validity (months)</label>
+        <input type="text" class="form-control" name="validity" id="formGroupExampleInput"  
+            @if($stub=='Create')
+            value="{{ (old('validity')) ? old('validity') : '6' }}"
+            @else
+            value = "{{ $obj->validity }}"
+            @endif
+          >
+      </div>
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Status</label>

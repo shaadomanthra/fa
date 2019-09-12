@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Test\Test;
+use App\Models\Test\Attempt;
 
 class User extends Authenticatable
 {
@@ -66,13 +67,22 @@ class User extends Authenticatable
         return $tests;
     }
 
-    public function productAccess($product){
-        $order = $this->orders()->where('product_id',$product)->orderBy('id','desc')->first();
+    public function testAccess($id){
+        $order = $this->orders()->where('product_id',$id)->orWhere('test_id',$id)->orderBy('id','desc')->first();
         if($order){
             if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
                 return true;
             else
                 return false;
+        }else
+            return false;
+        
+    }
+
+    public function attempt($id){
+        $attempt = Attempt::where('test_id',$id)->first();
+        if($attempt){
+            return true;
         }else
             return false;
         

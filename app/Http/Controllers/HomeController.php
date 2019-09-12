@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Test\Test;
+use App\Models\Test\Category;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $view = 'welcome3';
+        $tests = Test::where('status',1)->orderBy('id','desc')->limit(18)->get();
+        return view($view)
+                ->with('tests',$tests);
     }
 }

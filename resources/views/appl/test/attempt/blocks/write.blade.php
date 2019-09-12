@@ -30,7 +30,7 @@
         
         
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-		<input type="hidden" name="product" value="{{$product->slug}}">
+		<input type="hidden" name="product" value="@if($product){{ $product->slug }} @endif">
         	<button type="submit" class="btn btn-success">Confirm Submission</button>
         
       </div>

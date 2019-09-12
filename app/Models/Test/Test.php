@@ -17,11 +17,13 @@ class Test extends Model
         'test_time',
         'status',
         'group_id',
+        'price',
+        'details',
+        'image',
         'type_id',
+        'validity',
         // add all other fields
     ];
-
-    
 
     public function testtype()
     {
@@ -43,6 +45,11 @@ class Test extends Model
         return $this->belongsTo('App\Models\Test\Group');
     }
 
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product\Product');
+    }
+
     public function fillup()
     {
         return $this->hasMany('App\Models\Test\Fillup');
@@ -51,6 +58,22 @@ class Test extends Model
     public function mcq()
     {
         return $this->hasMany('App\Models\Test\Mcq');
+    }
+
+    public function order($user=null)
+    {
+
+        if(!$user)
+            return null;
+
+        $orders = $user->orders()->whereIn('product_id',$this->products->pluck('id')->toArray())->orWhere('test_id',$this->id)->orderBy('id','desc')->get();
+
+        foreach($orders as $order){
+            if($order->status){
+                return $order;
+            }
+        }
+        return null;
     }
 
     public function fillup_order() {

@@ -1,13 +1,13 @@
 
 @if(isset($editor))
-<script src="{{asset('js/jquery.js')}}"></script>  
-<script src="{{asset('js/script.js')}}"></script>  
-<script src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
-<script src="{{asset('js/jquery.form.js')}}"></script> 
-<script src="{{asset('js/global.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
+<script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
+<script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
 
 
-<script>
+<script type="application/javascript">
     $(document).ready(function() {
             $('.summernote').summernote({
                 placeholder: 'Hello ! Write something...',
@@ -85,9 +85,9 @@
 
 </script>
 @elseif(isset($reading))
-<script src="{{asset('js/jquery.js')}}"></script>  
-<script src="{{asset('js/script.js')}}"></script>  
-<script>
+<script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js')}}"></script>  
+<script type="application/javascript">
     $( document ).ready(function() {
     var height = $( window ).height();
     var width = $( window ).width();
@@ -251,12 +251,12 @@
 });
 </script>
 @elseif(isset($player))
-<script src="{{asset('js/player.js')}}"></script>
-<script src="{{asset('js/jquery.js')}}"></script>  
-<script src="{{asset('js/bootstrap.bundle.js')}}"></script>
-<script src="{{asset('js/global.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/player.js')}}"></script>
+<script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/bootstrap.bundle.js')}}"></script>
+<script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
 
-<script>
+<script type="application/javascript">
     $(document).ready(function(){
         const controls = [// Restart playback
         'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'pip', 'airplay', 'fullscreen',]
@@ -315,11 +315,11 @@
     });     
 </script>
 @else
-<script src="{{asset('js/script.js')}}"></script>  
+<script src="{{asset('js/script.js')}}" type="application/javascript"></script>  
 @endif
 
 @if(isset($gre))
-<script>
+<script type="application/javascript">
     $(".td_option").click(function() {
         $id = $(this).data('id');
         $option = $(this).data('option');
@@ -360,7 +360,7 @@
 
 @if(isset($timer))
 @if($time)
-<script>
+<script type="application/javascript">
 // Set the date we're counting down to
 @if(isset($time))
   var countDownDate = addMinutes(new Date(),{{ ($time) }});

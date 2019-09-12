@@ -123,7 +123,7 @@
                 <tr class="bg-light">
                   <th scope="col">#</th>
                   <th scope="col" class="w-25">Order ID</th>
-                  <th scope="col" >Product</th>
+                  <th scope="col" >Product/Test</th>
                   <th scope="col" >Coupon</th>
                 </tr>
               </thead>
@@ -132,7 +132,13 @@
                   <tr>
                       <td>{{$k+1}}</td>
                       <td><a href="{{ route('order.show',[$order->id])}}">{{$order->order_id}}</a></td>
-                      <td>{{$order->product->name}}</td>
+                      <td>
+                        @if($order->test_id)
+                        {{$order->test->name}}
+                        @else
+                        {{$order->product->name}}
+                        @endif
+                      </td>
                       <td>{{(strlen($order->txn_id)<7 && $order->txn_id)? $order->txn_id : '-'}}</td>
                   </tr>
                 @endforeach

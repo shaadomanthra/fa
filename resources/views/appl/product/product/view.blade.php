@@ -24,9 +24,32 @@
           </p>
           @if(\auth::user())
             @if($obj->order)
-            <div class="border p-3 rounded ">
-              <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $obj->order->created_at->diffForHumans()}}</span>
-            </div>
+              @if(strtotime($obj->order->expiry) > strtotime(date('Y-m-d')))
+              <div class="border p-3 rounded ">
+                <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $obj->order->created_at->diffForHumans()}}</span>
+              </div>
+              @else
+              <div class="border p-3 rounded mb-3">
+                <i class="fa fa-times-circle text-danger"></i> Your service is Expired
+              </div>
+
+              @if($obj->price !=0)
+              <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
+              <a href="{{ route('product.checkout',$obj->slug) }}">
+              <button class="btn btn-lg btn-success">Buy Now</button>
+              </a>
+              @else
+                <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
+              <form method="post" action="{{ route('product.order')}}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+               <input type="hidden" name="txn_amount" value="0">
+              <input  type="hidden" name="product_id"  value="{{ $obj->id }}">
+              <input  type="hidden" name="coupon"  value="FREE">
+              <button class="btn btn-lg btn-success" type="submit">Access Now</button>
+              </form>
+              @endif
+
+              @endif
             @else
               @if($obj->price !=0)
               <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
@@ -91,7 +114,7 @@
     @foreach($group->tests as $test)
     @if($test->testtype)
     @if($test->status)
-    <a href="{{ route('test',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
+    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
     @endif
     @endif
     @endforeach

@@ -13,9 +13,17 @@
 	<hr>
 In case of any query contact the adminstrator, the contact details are mentioned in this <a href="#">link</a></p>
 
+@if($order->product_id)
 <a href="{{ route('product.view',$order->product->slug) }}">
 <button class="btn btn-outline-primary btn-lg"> View Product</button>
 </a>
+@elseif($order->test_id)
+<a href="{{ route('test',$order->test->slug) }}">
+<button class="btn btn-outline-primary btn-lg"> View Test</button>
+</a>
+@endif
+
+
 
 </div>
 </div>

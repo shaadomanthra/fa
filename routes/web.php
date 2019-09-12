@@ -11,10 +11,11 @@
 |
 */
 
+
 Route::get('/', function () {
     return view('welcome2');
 });
-
+Route::get('/layout2', 'HomeController@index')->name('root');
 
 Route::get('/home', function () {
     return view('appl.pages.dashboard');
@@ -59,7 +60,9 @@ Route::get('/admin/user/{user}/{test}','User\UserController@test')->middleware('
 Route::post('/admin/user/{user}/{test}','User\UserController@test')->middleware('auth')->name('user.test');
 
 /* Test Attempt Routes */
-Route::get('/test/{test}','Test\AttemptController@instructions')->middleware('auth')->name('test');
+Route::get('/test/','Test\TestController@public')->name('tests');
+Route::get('/test/{test}','Test\TestController@details')->name('test');
+Route::get('/test/{test}/instructions','Test\AttemptController@instructions')->middleware('auth')->name('test.instructions');
 Route::get('/test/{test}/try','Test\AttemptController@try')->middleware('auth')->name('test.try');
 Route::post('/test/{test}/try','Test\AttemptController@store')->name('attempt.store');
 Route::post('/test/{test}/upload','Test\AttemptController@upload')->name('attempt.upload');

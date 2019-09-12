@@ -26,16 +26,18 @@ class Order extends Model
         return $this->belongsTo('App\Models\Product\Product');
     }
 
+    public function test(){
+        return $this->belongsTo('App\Models\Test\Test');
+    }
+
+
     public function user(){
         return $this->belongsTo('App\User');
     }
 
-    public function grantaccess($product_id){
+    public function grantaccess($product_id,$test_id,$validity){
         $user = \auth::user();
-        $o = $this->where('product_id',$product_id)
-                  ->where('user_id',$user->id)->orderBy('id','desc')->first();
-        $product = Product::where('id',$product_id)->first();
-
+        
         $this->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
 
         $o_check = $this->where('order_id',$this->order_id)->first();
@@ -52,7 +54,8 @@ class Order extends Model
         $this->txn_id = '';
         $this->payment_mode = 'FREE';
         $this->product_id = $product_id;
-        $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($product->validity*31).' days'));
+        $this->test_id = $test_id;
+        $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($validity*31).' days'));
         $this->expiry = $valid_till;
               
         $this->save();

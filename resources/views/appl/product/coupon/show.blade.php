@@ -55,6 +55,19 @@
           </div>
           @endif
 
+          @if(count($obj->tests))
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Tests</b></div>
+            <div class="col-md-8">
+              @foreach($obj->tests as $test)
+                <a href="{{ route('test',$test->slug)}}">
+                  {{$test->name }}
+                </a><br>
+              @endforeach
+            </div>
+          </div>
+          @endif
+
           <div class="row mb-2">
             <div class="col-md-4"><b>Usage</b></div>
             <div class="col-md-8">{{$obj->count() }}</div>

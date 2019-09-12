@@ -6,7 +6,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Order ID</th>
-                <th scope="col">Product</th>
+                <th scope="col">Tests</th>
                 <th scope="col">Type</th>
                 <th scope="col">Status</th>
                 <th scope="col">Created At</th>
@@ -22,13 +22,25 @@
                   </a>
                 </td>
                 <td>
+                @if($obj->test_id)
+                {{ $obj->test->name }} 
+                @else
                 {{ $obj->product->name }} 
+                @endif
                 </td>
                 <td>
-                  @if($obj->product->price==0)
-                    <span class="badge badge-secondary">Free</span>
-                  @else
+                  @if($obj->test_id)
+                    @if($obj->test->price==0)
+                    <span class="badge badge-warning">Free</span>
+                    @else
                     <span class="badge badge-primary">Premium</span>
+                    @endif
+                  @else
+                    @if($obj->product->price==0)
+                    <span class="badge badge-warning">Free</span>
+                    @else
+                    <span class="badge badge-primary">Premium</span>
+                    @endif
                   @endif
                 </td>
                 

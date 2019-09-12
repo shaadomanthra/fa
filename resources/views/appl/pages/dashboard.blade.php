@@ -78,7 +78,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Product</th>
+          <th scope="col">Tests</th>
           <th scope="col">Type</th>
           <th scope="col">Valid Till</th>
           <th scope="col">Status</th>
@@ -88,13 +88,27 @@
         @foreach(auth::user()->orders as $k=>$order)
         <tr>
           <th scope="row">{{ $k+1}}</th>
-          <td><a href="{{ route('product.view',$order->product->slug) }}">{{$order->product->name}}</a></td>
           <td>
-            @if($order->product->price==0)
-            <span class="badge badge-warning">Free</span>
+            @if($order->test_id)
+            <a href="{{ route('test',$order->test->slug) }}">{{$order->test->name}}</a></td>
             @else
-            <span class="badge badge-primary">Premium</span>
+            <a href="{{ route('product.view',$order->product->slug) }}">{{$order->product->name}}</a></td>
             @endif
+          <td>
+            @if($order->test_id)
+              @if($order->test->price==0)
+              <span class="badge badge-warning">Free</span>
+              @else
+              <span class="badge badge-primary">Premium</span>
+              @endif
+            @else
+              @if($order->product->price==0)
+              <span class="badge badge-warning">Free</span>
+              @else
+              <span class="badge badge-primary">Premium</span>
+              @endif
+            @endif
+            
           </td>
           <td>{{date('d M Y', strtotime($order->expiry))}}</td>
           <td> 

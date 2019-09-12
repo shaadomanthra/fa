@@ -23,6 +23,19 @@ class TestController extends Controller
         $this->cache_path =  '../storage/app/cache/test/';
     }
 
+     /* The public view page for test */
+   public function details($slug,Request $request){
+        $obj = Obj::where('slug',$slug)->first();
+
+        if(!$obj)
+            abort('404');
+        
+        return view('appl.test.test.details')
+                ->with('test',$obj)
+                ->with('obj',$obj);
+
+   }
+
     /**
      * Display a listing of the resource.
      *
@@ -50,6 +63,65 @@ class TestController extends Controller
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
+
+    public function public(Obj $obj,Request $request)
+    {
+
+        $search = $request->search;
+        $item = $request->item;
+        $category = $request->category;
+        $type = $request->type;
+        $category_id = null;
+        if($category)
+        {
+            $cate = Category::where('slug',$category)->first();
+            $category_id = $cate->id;
+            if($type=='free')
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('category_id',$category_id)
+                    ->where('price',0)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else if($type=='premium')
+             $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('category_id',$category_id)
+                    ->where('price','!=',0)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));    
+            else
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('category_id',$category_id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));   
+        }else{
+            if($type=='free')
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('price',0)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else if($type=='premium')
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('price','!=',0)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
+            $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+        }
+
+        
+        $categories = Category::where('status',1)->get();
+        
+        $view = $search ? 'public_list': 'public_index';
+
+        return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('categories',$categories)
                 ->with('app',$this);
     }
 
@@ -148,6 +220,14 @@ class TestController extends Controller
                 $file      = $request->all()['file_'];
                 $path = Storage::disk('public')->putFile('extracts', $request->file('file_'));
                 $request->merge(['file' => $path]);
+            }
+
+            /* If image is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
+ 
+                $request->merge(['image' => $path]);
             }
 
             $user = \auth::user();
@@ -345,6 +425,21 @@ class TestController extends Controller
                 $request->merge(['file' => $path]);
             }
 
+             /* delete image request */
+            if($request->get('deleteimage')){
+                if(Storage::disk('public')->exists($obj->image))
+                    Storage::disk('public')->delete($obj->image);
+                redirect()->route($this->module.'.show',[$id]);
+            }
+
+            /* If image is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
+ 
+                $request->merge(['image' => $path]);
+            }
+
             if($request->get('description')){
                 $user = \auth::user();
                 /* upload images if any */
@@ -382,6 +477,11 @@ class TestController extends Controller
         // remove file
         if(Storage::disk('public')->exists($obj->file))
             Storage::disk('public')->delete($obj->file);
+
+        // remove image
+        if(Storage::disk('public')->delete($obj->image)){
+            Storage::disk('public')->delete($obj->image);
+        }
         
         $obj->delete();
 

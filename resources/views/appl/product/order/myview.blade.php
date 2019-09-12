@@ -32,11 +32,18 @@
             <div class="col-md-8">{{ $obj->order_id }}</div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Product </b></div>
+            <div class="col-md-4"><b>Test </b></div>
             <div class="col-md-8">
-              <a href="{{ route('product.view',$obj->product->slug) }}">
-                {{ $obj->product->name }}
+              
+              @if($obj->test_id)
+              <a href="{{ route('test',$obj->test->slug) }}">
+                {{ $obj->test->name }} 
               </a>
+                @else
+                <a href="{{ route('product.view',$obj->product->slug) }}">
+                {{ $obj->product->name }} 
+              </a>
+                @endif
             </div>
           </div>
            <div class="row mb-2">
