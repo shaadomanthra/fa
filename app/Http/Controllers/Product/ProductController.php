@@ -47,6 +47,7 @@ class ProductController extends Controller
                 $filename = $obj->slug.'.json';
                 $filepath = $this->cache_path.$filename;
                 $obj->groups = $obj->groups;
+                $obj->tests = $obj->tests;
                 foreach($obj->groups as $m=>$group){
                     $obj->groups->tests = $group->tests;
                     foreach($obj->groups->tests as $test){

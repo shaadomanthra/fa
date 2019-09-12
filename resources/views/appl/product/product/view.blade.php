@@ -125,6 +125,39 @@
           @endforeach
 
       </div>
+
+            <div class="row">
+        @foreach($obj->tests as $test)
+
+        @if($test->status)
+          <div class="col-12 @if(count($obj->tests)==1) col-md-6 @endif
+            @if(count($obj->tests)==2) col-md-6 col-lg-6 @endif
+            @if(count($obj->tests)==3) col-md-6 col-lg-4 @endif
+            @if(count($obj->tests)>3) col-md-6 col-lg-3 @endif
+             mb-3">
+              <div class="card" >
+                @if(\Storage::disk('public')->exists($test->image)  && $test->image)
+                   <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/storage/'.$test->image)}})"> 
+</div>
+  @endif
+  <div class="card-body">
+    <h5 class="card-title">{{ $test->name}}  @can('update',$obj)
+                <a href="{{ route('test.edit',$test->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                @endcan</h5>
+    <p class="card-text">{!! $test->details !!}</p>
+
+    @if($test->status)
+    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
+    @endif
+
+  </div>
+</div>
+          </div>
+          @endif
+          @endforeach
+
+      </div>
+
     </div>
   </div> 
 @endsection

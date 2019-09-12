@@ -25,17 +25,15 @@
             <div class="border p-3 rounded mb-3">
               <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $order->created_at->diffForHumans()}}</span>
             </div>
-
-            @if(!\auth::user()->attempt($obj->id))
-              <a href="{{ route('test.try',$obj->slug) }}">
-                <button class="btn btn-lg btn-success">Try Now</button>
-              </a>
-            @else
-              <a href="{{ route('test.analysis',$obj->slug) }}">
-                <button class="btn btn-lg btn-outline-primary"><i class="fa fa-bar-chart"></i> Test Report</button>
-              </a>
-            @endif
-
+              @if(!\auth::user()->attempt($obj->id))
+                <a href="{{ route('test.try',$obj->slug) }}">
+                  <button class="btn btn-lg btn-success">Try Now</button>
+                </a>
+              @else
+                <a href="{{ route('test.analysis',$obj->slug) }}">
+                  <button class="btn btn-lg btn-outline-primary"><i class="fa fa-bar-chart"></i> Test Report</button>
+                </a>
+              @endif
             @else
               @if($obj->price !=0)
               <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
