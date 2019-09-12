@@ -46,7 +46,7 @@
           @endif</h5>
           
 			    <div class="mt-2">
-			    <a href="{{ route('test',$test->slug)}}" class="btn btn-success">view</a>
+			    <a href="{{ route('test',$test->slug)}}" class="btn btn-outline-secondary">view</a>
         </div>
 			  </div>
 			</div>

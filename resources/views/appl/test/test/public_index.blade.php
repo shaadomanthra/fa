@@ -8,7 +8,7 @@
 
 @include('flash::message')
 <div  class="row ">
-  <div class="col-12 col-md-10">
+  <div class="col-12 col-md-9 cpl-lg-10">
     <nav class="navbar navbar-light  p-4 rounded justify-content-between  mb-4" style="background:#e8ecef;border:1px solid #cfd5da;">
           <a class=" h2 mb-3 mb-md-0"><i class="fa fa-cubes"></i> Tests @if(request()->get('category')) - {{ strtoupper(request()->get('category'))}} @endif</a>
           <form class="form-inline" method="GET" action="{{ route('tests') }}">
@@ -30,7 +30,7 @@
      </div>
    </div>
  </div>
- <div class="col-12 col-md-2">
+ <div class="col-12 col-md-3 col-lg-2">
   <div class=" border rounded bg-light mb-4">
       <h5 class="mb-0 p-3">Category</h5>
     <div class="list-group ">
