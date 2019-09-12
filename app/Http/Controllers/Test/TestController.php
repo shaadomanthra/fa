@@ -222,13 +222,21 @@ class TestController extends Controller
                 $request->merge(['file' => $path]);
             }
 
+           
+
+
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
- 
-                $request->merge(['image' => $path]);
+                $filename = $request->get('slug').'.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('file'),$filename);
+                $request->merge(['image' => $path_]);
             }
+
+            $sizes = [300,600,900,1200];
+            if($path_)
+            foreach($sizes as $s)
+                image_resize($path_,$s);
 
             $user = \auth::user();
             /* upload images if any */
@@ -435,10 +443,15 @@ class TestController extends Controller
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
-                $path = Storage::disk('public')->putFile($this->module, $request->file('file'));
- 
-                $request->merge(['image' => $path]);
+                $filename = $request->get('slug').'.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('file'),$filename);
+                $request->merge(['image' => $path_]);
             }
+
+            $sizes = [300,600,900,1200];
+            if($path_)
+            foreach($sizes as $s)
+                image_resize($path_,$s);
 
             if($request->get('description')){
                 $user = \auth::user();
