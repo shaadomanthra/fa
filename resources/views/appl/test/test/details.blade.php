@@ -46,13 +46,9 @@
 
               @else
                 <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
-              <form method="post" action="{{ route('product.order')}}">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="txn_amount" value="0">
-              <input  type="hidden" name="test_id"  value="{{ $obj->id }}">
-              <input  type="hidden" name="coupon"  value="FREE">
-              <button class="btn btn-lg btn-success" type="submit">Access Now</button>
-              </form>
+              <a href="{{ route('test.instructions',$obj->slug) }}?grantaccess=1">
+              <button class="btn btn-lg btn-success" type="button">Access Now</button>
+              </a>
               @endif
             @endif
           @else
@@ -70,7 +66,7 @@
             @if($obj->image)
             <div class="col-12  col-md-4">
                 
-              
+
                          <picture >
   <source srcset="{{ asset('/storage/test/'.$test->slug.'_300.webp') }} 320w,
              {{ asset('/storage/test/'.$test->slug.'_600.webp') }}  480w,
