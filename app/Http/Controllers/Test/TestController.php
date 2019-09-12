@@ -234,7 +234,7 @@ class TestController extends Controller
             }
 
             $sizes = [300,600,900,1200];
-            if($path_)
+            if(isset($path_))
             foreach($sizes as $s)
                 image_resize($path_,$s);
 
@@ -449,7 +449,7 @@ class TestController extends Controller
             }
 
             $sizes = [300,600,900,1200];
-            if($path_)
+             if(isset($path_))
             foreach($sizes as $s)
                 image_resize($path_,$s);
 
