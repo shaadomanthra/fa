@@ -152,7 +152,7 @@
     </p>
 
     @if($test->status)
-    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
+    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">Take Test</a>
     @endif
 
   </div>
