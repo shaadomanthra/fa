@@ -58,6 +58,9 @@
             </a>
             @else
               <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
+              <a href="{{ route('test.instructions',$obj->slug) }}?grantaccess=1">
+              <button class="btn btn-lg btn-success" type="button">Access Now</button>
+              </a>
             @endif
 
           @endif
