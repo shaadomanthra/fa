@@ -33,7 +33,7 @@
 </style>
 </head>
 <body style="background-color: white">
-    <div id="app">
+    <div >
         @include('layouts.menu')
         <main class="">
             @yield('content')
