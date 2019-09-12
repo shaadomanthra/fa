@@ -38,7 +38,13 @@
        @endif
        </h5>
        
-    
+    <p class="card-text">
+      
+      {{ substr(strip_tags($obj->details),0,200) }}
+      @if(strlen(strip_tags($obj->details))>200)
+      ...
+      @endif
+    </p>
     <div class="mt-3">
     <a href="{{ route('test',$obj->slug)}}" class="btn btn-success btn-lg mb-1">view</a>
   </div>

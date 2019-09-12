@@ -144,7 +144,12 @@
     <h5 class="card-title">{{ $test->name}}  @can('update',$obj)
                 <a href="{{ route('test.edit',$test->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                 @endcan</h5>
-    <p class="card-text">{!! $test->details !!}</p>
+    <p class="card-text">
+      {{ substr(strip_tags($obj->details),0,200) }}
+      @if(strlen(strip_tags($obj->details))>200)
+      ...
+      @endif
+    </p>
 
     @if($test->status)
     <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
