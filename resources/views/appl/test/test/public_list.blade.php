@@ -15,7 +15,12 @@
        @else
        <span class="badge badge-primary">PREMIUM</span>
        @endif
-    <p class="card-text">{!! $obj->details !!}</p>
+    <p class="card-text">
+      {{ substr(strip_tags($obj->details),0,200) }}
+      @if(strlen(strip_tags($obj->details))>200 )
+      ...
+      @endif
+    </p>
 
     <a href="{{ route('test',$obj->slug)}}" class="btn btn-outline-secondary mb-1">view</a>
 

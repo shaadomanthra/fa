@@ -69,7 +69,7 @@
             </div>
             @if($obj->image)
             <div class="col-12  col-md-4">
-                <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 d-none d-md-block">
+                <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 d-none d-md-block img-thumbnail">
             </div>
             @endif
 
