@@ -152,7 +152,15 @@
     </p>
 
     @if($test->status)
-    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">Take Test</a>
+    @if(\auth::user())
+      @if(!\auth::user()->attempt($test->id))
+      <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-primary mb-1"><i class="fa fa-paper-plane"></i> Take Test</a>
+      @else
+      <a href="{{ route('test.analysis',$test->slug)}}?product={{$obj->slug}}" class="btn btn-secondary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
+      @endif
+    @else
+      <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-primary mb-1"><i class="fa fa-paper-plane"></i> Take Test</a>
+    @endif
     @endif
 
   </div>
