@@ -15,12 +15,12 @@
         </div>
 			  @endif
 			  <div class="card-body">
-			    <h5 class="card-title">{{ $test->name }}</h5>
-          @if($test->price)
+			    <h5 class="card-title">{{ $test->name }} @if($test->price)
           <span class="badge badge-primary">PREMIUM</span>
           @else
           <span class="badge badge-warning">FREE</span>
-          @endif
+          @endif</h5>
+          
 			    <div class="mt-2">
 			    <a href="{{ route('test',$test->slug)}}" class="btn btn-success">view</a>
         </div>

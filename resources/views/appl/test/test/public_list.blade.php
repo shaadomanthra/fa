@@ -8,16 +8,17 @@
 </div>
   @endif
   <div class="card-body">
-    <h5 class="card-title">{{ $obj->name}} 
-       </h5>
-       @if(!$obj->price)
+    <h5 class="card-title">{{ $obj->name}} @if(!$obj->price)
        <span class="badge badge-warning">FREE</span>
        @else
        <span class="badge badge-primary">PREMIUM</span>
        @endif
+       </h5>
+       
     
-
+    <div class="mt-3">
     <a href="{{ route('test',$obj->slug)}}" class="btn btn-outline-secondary mb-1">view</a>
+  </div>
 
   </div>
 </div>
