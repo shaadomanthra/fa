@@ -85,7 +85,7 @@
         </tr>
       </thead>
       <tbody>
-        @foreach(auth::user()->orders as $k=>$order)
+        @foreach(auth::user()->orders()->where('status',1)->get() as $k=>$order)
         <tr>
           <th scope="row">{{ $k+1}}</th>
           <td>
