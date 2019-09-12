@@ -226,10 +226,10 @@ class TestController extends Controller
 
 
             /* If image is given upload and store path */
-            if(isset($request->all()['file'])){
-                $file      = $request->all()['file'];
+            if(isset($request->all()['image_'])){
+                $file      = $request->all()['image_'];
                 $filename = $request->get('slug').'.'.$file->getClientOriginalExtension();
-                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('file'),$filename);
+                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('image_'),$filename);
                 $request->merge(['image' => $path_]);
             }
 
@@ -429,6 +429,7 @@ class TestController extends Controller
             /* If file is given upload and store path */
             if(isset($request->all()['file_'])){
                 $file      = $request->all()['file_'];
+
                 $path = Storage::disk('public')->putFile('extracts', $request->file('file_'));
                 $request->merge(['file' => $path]);
             }
@@ -441,11 +442,14 @@ class TestController extends Controller
             }
 
             /* If image is given upload and store path */
-            if(isset($request->all()['file'])){
-                $file      = $request->all()['file'];
+            if(isset($request->all()['image_'])){
+
+                $file      = $request->all()['image_'];
+
                 $filename = $request->get('slug').'.'.$file->getClientOriginalExtension();
-                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('file'),$filename);
+                $path_ = Storage::disk('public')->putFileAs($this->module, $request->file('image_'),$filename);
                 $request->merge(['image' => $path_]);
+
             }
 
             $sizes = [300,600,900,1200];
@@ -462,8 +466,12 @@ class TestController extends Controller
                 $request->merge(['description' => $text]);
             }
 
-            
+            if(isset($request->all()['file_'])){
             $obj = $obj->update($request->all()); 
+            }else{
+              $obj = $obj->update($request->except(['file']));  
+            }
+
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);
         }

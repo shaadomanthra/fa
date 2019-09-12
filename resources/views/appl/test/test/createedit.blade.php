@@ -114,7 +114,7 @@
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Image</label>
-        <input type="file" class="form-control" name="file" id="formGroupExampleInput" 
+        <input type="file" class="form-control" name="image_" id="formGroupExampleInput" 
           >
       </div>
 
