@@ -40,7 +40,7 @@
        
     
     <div class="mt-3">
-    <a href="{{ route('test',$obj->slug)}}" class="btn btn-outline-secondary mb-1">view</a>
+    <a href="{{ route('test',$obj->slug)}}" class="btn btn-primary btn-lg mb-1">view</a>
   </div>
 
   </div>
