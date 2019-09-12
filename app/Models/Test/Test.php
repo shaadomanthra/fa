@@ -66,16 +66,20 @@ class Test extends Model
         if(!$user)
             return null;
 
-        $orders = $user->orders()->whereIn('product_id',$this->products->pluck('id')->toArray())->orWhere('test_id',$this->id)->orderBy('id','desc')->get();
-        var_dump($user->orders);
-        echo "<br><br>";
-        dd($orders);
+        $orders = $user->orders()->whereIn('product_id',$this->products->pluck('id')->toArray())->orderBy('id','desc')->get();
+        
 
+        if($orders)
         foreach($orders as $order){
             if($order->status){
                 return $order;
             }
         }
+        $order = $user->orders()->where('test_id',$this->id)->orderBy('id','desc')->first();
+        if($order){
+            return $order;
+        }
+
         return null;
     }
 
