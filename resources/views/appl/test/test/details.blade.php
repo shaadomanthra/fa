@@ -7,8 +7,8 @@
 <div  class="row ">
   <div class="col-md-12">
    
-   <div class="card  mb-4" >
-        <div class="card-body p-5">
+   <div class="card  mb-0 mb-lg-4" >
+        <div class="card-body p-4 p-md-5">
           <div class="row">
             <div class="col @if($obj->image) col-md-8 @endif">
                <h1 class="h1 mb-0"> {{ $obj->name }} 

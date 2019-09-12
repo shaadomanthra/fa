@@ -10,7 +10,9 @@
   			<div class="col-12 col-md-6 col-lg-4">
   			<div class="card mb-4" >
   				@if(\Storage::disk('public')->exists($test->image) && $test->image )
-			  <img src="{{ asset('storage/'.$test->image)}}" class="card-img-top" alt="...">
+			  
+        <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/storage/'.$test->image)}})" alt="{{$test->name}}"> 
+        </div>
 			  @endif
 			  <div class="card-body">
 			    <h5 class="card-title">{{ $test->name }}</h5>
@@ -19,8 +21,9 @@
           @else
           <span class="badge badge-warning">FREE</span>
           @endif
-			    <p class="card-text">{!! substr(strip_tags($test->details),0,200) !!}</p>
+			    <div class="mt-2">
 			    <a href="{{ route('test',$test->slug)}}" class="btn btn-success">view</a>
+        </div>
 			  </div>
 			</div>
 			</div>
