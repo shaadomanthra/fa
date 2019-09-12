@@ -68,13 +68,20 @@ class User extends Authenticatable
     }
 
     public function testAccess($id){
-        $order = $this->orders()->where('product_id',$id)->orWhere('test_id',$id)->orderBy('id','desc')->first();
+        $order = $this->orders()->where('product_id',$id)->orderBy('id','desc')->first();
+        $order2 = $this->orders()->where('test_id',$id)->orderBy('id','desc')->first();
         if($order){
             if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
                 return true;
             else
                 return false;
-        }else
+        }elseif($order2){
+            if(strtotime($order2->expiry) > strtotime(date('Y-m-d')))
+                return true;
+            else
+                return false;
+        }
+        else
             return false;
         
     }
