@@ -67,7 +67,9 @@ class Test extends Model
             return null;
 
         $orders = $user->orders()->whereIn('product_id',$this->products->pluck('id')->toArray())->orWhere('test_id',$this->id)->orderBy('id','desc')->get();
-        dd($user);
+        var_dump($user->orders);
+        echo "<br><br>";
+        dd($orders);
 
         foreach($orders as $order){
             if($order->status){
