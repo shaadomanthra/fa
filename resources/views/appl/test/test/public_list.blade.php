@@ -27,7 +27,7 @@
             (max-width: 480px) 440px,
             (max-width: 720px) 800px
             1200px"
-      src="{{ asset('/storage/test/'.$obj->slug.'_600.jpg') }} " class="w-100 d-print-none" alt="{{  $obj->name }}">
+      src="{{ asset('/storage/test/'.$obj->slug.'_300.jpg') }} " class="w-100 d-print-none" alt="{{  $obj->name }}">
 </picture>
   @endif
   <div class="card-body">

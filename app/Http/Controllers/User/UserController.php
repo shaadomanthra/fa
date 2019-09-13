@@ -84,12 +84,15 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
             'status'=>$request->get('status'),
+            'activation_token'=>1,
+            'sms_token' => mt_rand(1000,9999),
             'password' =>  Hash::make($password),
         	]);
 
            $user['password_string'] = $password;
            //send password on mail
         	Mail::to($user->email)->send(new usercreate($user));
+            $user->resend_sms($user->phone,$user->sms_token);
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
