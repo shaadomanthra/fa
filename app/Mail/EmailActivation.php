@@ -29,6 +29,6 @@ class EmailActivation extends Mailable
      */
     public function build()
     {
-        return $this->subject('Please verify your email address')->markdown('mail.emailactivation');
+        return $this->subject('Welcome - please verify your email!')->markdown('mail.emailactivation');
     }
 }
