@@ -7,7 +7,7 @@
 <div  class="row ">
   <div class="col-12 col-md-12">
     <nav class="navbar navbar-light  p-4 rounded justify-content-between  mb-4" style="background:#e8ecef;border:1px solid #cfd5da;">
-          <a class=" h2 mb-3 mb-md-0"><i class="fa fa-cubes"></i> Tests </a>
+          <a class=" h2 mb-3 mb-md-0"><i class="fa fa-cubes"></i> Products </a>
           <form class="form-inline" method="GET" action="{{ route($app->module.'.public') }}">
             <div class="input-group input-group-lg">
               <div class="input-group-prepend">

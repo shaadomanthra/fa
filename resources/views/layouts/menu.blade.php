@@ -16,20 +16,22 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ml-auto">
                 <!-- Authentication Links -->
-                @guest
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Tests</a>
-                </li>
-                @else
 
+                @auth
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-home"></i> Dashboard</a>
                 </li>
+                @endauth
 
+                
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Tests</a>
+                    <a class="nav-link" href="{{ url('/test') }}"><i class="fa fa-check-square-o"></i> Tests</a>
                 </li>
-                @endguest
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
+                </li>
+
+                
                 @guest
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}"><i class="fa fa-sign-in"></i> {{ __('Login') }}</a>
