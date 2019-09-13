@@ -80,18 +80,7 @@
             <div class="col-md-4"><b>Details</b></div>
             <div class="col-md-8">{!! $obj->details !!}</div>
           </div>
-          @if(count($obj->groups))
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Test Groups</b></div>
-            <div class="col-md-8">
-              @foreach($obj->groups as $group)
-                <a href="{{ route('group.show',$group->id)}}">
-                  {{$group->name }} ({{ $group->slug }})
-                </a><br>
-              @endforeach
-            </div>
-          </div>
-          @endif
+          
 
           @if(count($obj->tests))
           <div class="row mb-2">
