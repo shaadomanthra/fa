@@ -1,4 +1,5 @@
 @if(count($objs)!=0)
+<div class="row">
 @foreach($objs as $obj)
 @if($obj->status)
 <div class="col-12 col-md-6 col-lg-4 mb-4">
@@ -31,7 +32,8 @@
 </picture>
   @endif
   <div class="card-body">
-    <h5 class="card-title">{{ $obj->name}} @if(!$obj->price)
+    <h5 class="card-title">{{ $obj->name}} 
+       @if(!$obj->price)
        <span class="badge badge-warning">FREE</span>
        @else
        <span class="badge badge-primary">PREMIUM</span>
@@ -39,12 +41,12 @@
        </h5>
        
     <p class="card-text">
-      
       {{ substr(strip_tags($obj->details),0,200) }}
       @if(strlen(strip_tags($obj->details))>200)
       ...
       @endif
     </p>
+    
     <div class="mt-3">
     <a href="{{ route('test',$obj->slug)}}" class="btn btn-success btn-lg mb-1">view</a>
   </div>
@@ -54,10 +56,17 @@
 </div>
 @endif
 @endforeach
+</div>
+<nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif">
+        {{$objs->appends(request()->except(['page','search']))->links()  }}
+</nav>
+
 @else
 <div class="container">
 <div class="card card-body bg-light">
-  No obj found
+  No test found
 </div>
 </div>
 @endif
+
+ 

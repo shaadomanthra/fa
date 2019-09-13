@@ -127,7 +127,7 @@
       </div>
 
             <div class="row">
-        @foreach($obj->tests as $test)
+        @foreach($obj->tests()->orderBy('name','asc')->get() as $test)
 
         @if($test->status)
           <div class="col-12 @if(count($obj->tests)==1) col-md-6 @endif

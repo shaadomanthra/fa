@@ -23,7 +23,7 @@
         </nav>
     <div class="">
       <div class=" ">
-        <div id="search-items" class="row">
+        <div id="search-items" class="">
          @include('appl.'.$app->app.'.'.$app->module.'.public_list')
        </div>
 

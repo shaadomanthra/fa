@@ -84,33 +84,33 @@ class TestController extends Controller
                     ->where('category_id',$category_id)
                     ->where('price',0)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records')); 
+                    ->paginate(18);
             else if($type=='premium')
              $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('category_id',$category_id)
                     ->where('price','!=',0)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));    
+                    ->paginate(18);  
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('category_id',$category_id)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(18);   
         }else{
             if($type=='free')
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('price',0)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records')); 
+                    ->paginate(18); 
             else if($type=='premium')
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('price','!=',0)
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records')); 
+                    ->paginate(18); 
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records')); 
+                    ->paginate(18); 
         }
 
         

@@ -14,8 +14,7 @@
 </nav>
 
 @include('flash::message')
-
-  <div class="row">
+    <div class="row">
 
     <div class="col-md-12">
       <div class="card bg-light mb-3">
@@ -28,9 +27,11 @@
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}&product={{$obj->test->group->products()->first()->slug}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i></a>
+
+              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i></a>
               <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
+
             </span>
             @endcan
           </p>
