@@ -290,6 +290,7 @@ class AttemptController extends Controller
                 ->with('test',$test)
                 ->with('product',$product)
                 ->with('view',true)
+                ->with('timer',true)
                 ->with('time',$test->test_time);
       else if($view =='reading'){
         return view('appl.test.attempt.try_'.$view)
@@ -300,6 +301,7 @@ class AttemptController extends Controller
                 ->with('product',$product)
                 ->with('reading',1)
                 ->with('view',true)
+                ->with('timer',true)
                 ->with('time',$test->test_time);
       }
       elseif($view =='writing'){
