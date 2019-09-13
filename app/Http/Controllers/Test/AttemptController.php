@@ -415,6 +415,7 @@ class AttemptController extends Controller
       foreach($test->mcq_order as $mcq){
         if($mcq->qno && $mcq->qno!=-1){
           $result[$mcq->qno]['id']=$mcq->id;
+          $result[$mcq->qno]['qno']=$mcq->qno;
           $result[$mcq->qno]['type']='mcq';
           $result[$mcq->qno]['answer'] = $mcq->answer;
           $result[$mcq->qno]['response']= '';
@@ -425,6 +426,7 @@ class AttemptController extends Controller
       foreach($test->fillup_order as $fillup){
           if($fillup->qno && $fillup->qno!=-1){
             $result[$fillup->qno]['id']=$fillup->id;
+            $result[$fillup->qno]['qno']=$fillup->qno;
             $result[$fillup->qno]['type']='fillup';
             $result[$fillup->qno]['answer'] = $fillup->answer;
             $result[$fillup->qno]['response']= '';
@@ -452,11 +454,14 @@ class AttemptController extends Controller
             $attempt->mcq_id = $result[$qno]['id'];
             if($this->matchOptions($result[$qno]['answer'],$resp)){
               $attempt->accuracy =1;
+              $result[$qno]['accuracy'] = 1; 
+              $score++;
             }elseif($resp == NULL){
 
             }
             else{
               $attempt->accuracy =0;
+              $result[$qno]['accuracy'] = 0; 
             }
 
           }
@@ -465,16 +470,49 @@ class AttemptController extends Controller
 
             if($this->compare($result[$qno]['answer'],$resp)){
               $attempt->accuracy =1;
+              $result[$qno]['accuracy'] = 1; 
+              $score++;
             }elseif($resp == NULL){
 
             }
             else{
               $attempt->accuracy =0;
+              $result[$qno]['accuracy'] = 0; 
             }
 
           }  
         }
-        $attempt->save();
+
+        if(!$request->get('admin'))
+          $attempt->save();
+      }
+
+      /* for admin submit we wont store the result */
+      if($request->get('admin')){
+
+        $band =0;
+        $type = strtolower($test->testtype->name);
+        if(strtoupper($test->category->name)=='IELTS'){
+        if($type=='listening' || $type=='reading'){
+          $function_name = $type.'_band';
+          $attempt = new Attempt;
+          if($test->marks)
+          $s = $score * (int)(40/$test->marks);
+          else
+          $s = $score;
+          $band = $attempt->$function_name($s);
+
+          }
+        }
+
+        ksort($result);
+
+         return view('appl.test.attempt.alerts.result')
+              ->with('result',$result)
+              ->with('test',$test)
+              ->with('band',$band)
+              ->with('admin',1)
+              ->with('score',$score);
       }
 
       if($product)
@@ -522,6 +560,8 @@ class AttemptController extends Controller
       return false;
    }
 
+   
+
    /* Function to display the analysis of the test */
    public function analysis($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
@@ -536,15 +576,12 @@ class AttemptController extends Controller
 
       $band =0;
       $type = strtolower($test->testtype->name);
-      //dd($test->category);
       if(strtoupper($test->category->name)=='IELTS'){
       if($type=='listening' || $type=='reading'){
         $function_name = $type.'_band';
         $attempt = new Attempt;
-        if($test->total==20)
-          $s = $score*2;
-        elseif($test->total==12 || $test->total==13 || $test->total==14)
-          $s = $score*3;
+        if($test->marks)
+          $s = $score * (int)(40/$test->marks);
         else
           $s = $score;
         $band = $attempt->$function_name($s);

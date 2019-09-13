@@ -60,14 +60,7 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Group</label>
-        <select class="form-control" name="group_id">
-          @foreach($groups as $group)
-          <option value="{{$group->id}}" @if(isset($obj)) @if($obj->group_id == $group->id) selected @endif @endif >{{ $group->name }} ({{ $group->slug}})</option>
-          @endforeach
-        </select>
-      </div>
+      
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Details</label>

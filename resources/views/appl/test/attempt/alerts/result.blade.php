@@ -3,6 +3,7 @@
 @section('description', 'Result page of Test')
 @section('keywords', 'result page of test, first academy')
 @section('content')
+
 <div class="">
   <div class="row">
     <div class="col-12">
@@ -12,7 +13,13 @@
             <h3 class="text-center text-md-left mb-md-4 mt-2  p-4">
               <i class="fa fa-bar-chart"></i> Test Report
               <br>
-              @if(request()->get('product'))
+              @if(isset($admin))
+              <a href="{{ route('test.show',$test->id)}}">
+                <button class="btn btn-sm btn-outline-primary mt-3 ">
+                  <i class="fa fa-angle-left"></i> back to Test</button>
+              </a>
+              
+              @elseif(request()->get('product'))
               <a href="{{ route('product.view',request()->get('product'))}}">
                 <button class="btn btn-sm btn-outline-primary mt-3 ">
                   <i class="fa fa-angle-left"></i> back to Product</button>

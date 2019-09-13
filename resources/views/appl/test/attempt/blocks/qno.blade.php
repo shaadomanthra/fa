@@ -14,19 +14,17 @@
 <div class="mt-3">
 	<span class="answered-spot"><i class="fa fa-circle "></i> </span>Answered &nbsp;<span class="unanswered"> <i class="fa fa-circle "></i> </span>Unanswered
 	</div>
-@if(!isset($view))
-<button class="btn btn-outline-light mt-4" type="button" data-toggle="modal" data-target="#exampleModal">Submit Test</button>
+<button class="btn btn-warning  mt-4" type="button" data-toggle="modal" data-target="#exampleModal">Submit Test</button>
 
-@endif
 </div>
 </div>
 
 <div class="d-block d-sm-none " style="position:fixed;bottom:0;left:0;right:0;z-index:10">
 <div class=" p-4  sidebar ">
 <h5 class="mb-0 qshow"><i class="fa fa-th"></i> Questions <span class="angle"><i class="fa fa-angle-double-up"></i></span></span>  <span class="badge badge-warning" id="timer"></span>
-@if(!isset($view))
-<button class="btn btn-outline-light btn-sm float-right" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
-@endif
+
+<button class="btn btn-warning btn-sm float-right" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
+
 </h5>
 <div class="qdata mt-4">
 <div class="row no-gutters" style="max-height:150px;overflow: scroll">

@@ -82,7 +82,6 @@ class RegisterController extends Controller
         ]);
 
          $user->resend_sms($user->phone,$user->sms_token);
-         Mail::to($user->email)->send(new WelcomeMail($user));
          Mail::to($user->email)->send(new EmailActivation($user));
 
         return $user;

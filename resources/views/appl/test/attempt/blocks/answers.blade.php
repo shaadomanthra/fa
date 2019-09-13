@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     @foreach($result as $qno => $item)
-    @if($item->qno)
+    @if(isset($item->qno))
     <tr>
       <th scope="row">{{ $item->qno}}</th>
       <td>{{ $item->answer}}</td>
@@ -21,6 +21,19 @@
         <span class="text-danger"><i class="fa fa-times-circle"></i></span>
       @endif</td>
     </tr>
+    @elseif(isset($item['qno']))
+    <tr>
+      <th scope="row">{{ $item['qno']}}</th>
+      <td>{{ $item['answer']}}</td>
+      <td>@if($item['accuracy']==1) 
+        <span class="text-success"><i class="fa fa-check-circle"></i></span>
+      @elseif($item['accuracy']==2) 
+       <span class="text-danger"><i class="fa fa-times-circle"></i></span> 
+      @else 
+        <span class="text-danger"><i class="fa fa-times-circle"></i></span>
+      @endif</td>
+    </tr>
+
     @endif
     @endforeach
   </tbody>

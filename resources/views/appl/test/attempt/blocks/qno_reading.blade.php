@@ -4,15 +4,32 @@
     <div class="pallete qshow mb-0 h5 pb-0">
     	<div class="row no-gutters">
     		<div class="col-12 col-md col-lg">
-    			<div class="section rounded mr-md-1 mb-2 mb-md-0">
-    				<span class="pallete-control"><i class="fa fa-th"></i> Questions  <span class="angle"><i class="fa fa-angle-double-down"></i></span></span>
+                <div class="section rounded mr-md-1 mb-2 mb-md-0">
+                <div class="row">
+                    <div class="col-6 col-md-4">
+                        <span class="pallete-control"><i class="fa fa-th"></i> Questions  <span class="angle"><i class="fa fa-angle-double-down"></i></span></span>
+                    </div>
+
+                    <div class="col-2 col-md-4">
+                       <span class="badge badge-warning float-right " id="timer"></span>
+        <span class="badge badge-warning float-center d-none" id="timer2">00:00</span>
+                    </div>
+
+                    <div class="col-4 col-md-4">
+                        <div class="mr-2">
+                        @if(!isset($view))
+                 <button type="button" class="btn btn-warning btn-sm ml-2 btn-block mr-2" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
+                 @else
+                 <button type="button" class="btn btn-warning btn-sm ml-2 btn-block mr-2" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
+                 @endif
+                    </div>
+                    </div>
+
                     
-    				@if(!isset($view))
-			     <button type="button" class="btn btn-outline-light btn-sm ml-2" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
-			     @endif
-    			<span class="badge badge-warning float-right " id="timer"></span>
-    	<span class="badge badge-warning float-center d-none" id="timer2">00:00</span>
-    		</div>
+                </div>
+
+                </div>
+    			
     		</div>
     		
     		<div class="col-12 col-md-6 col-lg-3 @if(count($test->sections)<2) d-none @endif">

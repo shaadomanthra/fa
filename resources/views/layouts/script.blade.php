@@ -95,10 +95,19 @@
     var bottom = $('.bottom-qno').height();
     var h = height-nav-70;
 
-    if(width<768)
-    $('.panel').css('height',h/2);
-    else
-    $('.panel').css('height',h);
+    if(width<400){
+       $('.rightpanel').css('height',h/2);
+        $('.leftpanel').css('height',h/4);
+
+    }
+    else if(width<768){
+       $('.rightpanel').css('height',3*h/4);
+        $('.leftpanel').css('height',h/4);
+    }
+    else{
+         $('.panel').css('height',h);
+    }
+   
 
     $('.pallete-control').on('click',function(){
         var height = $( window ).height();

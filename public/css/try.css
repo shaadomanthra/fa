@@ -93,7 +93,7 @@
 }
 
     /* Reading */
-.panel{ overflow:auto; min-height:300px; }
+.panel{ overflow:auto; min-height:200px; }
 .leftpanel{ background: #fffbe6; font-size:18px; }
 .leftpanel b{ color:#b3a454;font-size:18px; }
 .rightpanel{background: #fff;font-size:18px; }

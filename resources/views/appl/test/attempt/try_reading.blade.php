@@ -32,6 +32,9 @@
             </div>
         </div>
 
+        @if(isset($view))
+        <input type="hidden" name="admin" value="1">
+        @endif
         <input type="hidden" name="test_id" value="{{ $app->test->id }}">
         <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
         <input type="hidden" name="product" value="@if($product){{ $product->slug }} @endif">
