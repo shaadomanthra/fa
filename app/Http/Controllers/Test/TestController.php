@@ -75,6 +75,7 @@ class TestController extends Controller
         $category = $request->category;
         $type = $request->type;
         $category_id = null;
+        $categories = Category::where('status',1)->get();
         if($category)
         {
             $cate = Category::where('slug',$category)->first();
@@ -82,39 +83,45 @@ class TestController extends Controller
             if($type=='free')
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('category_id',$category_id)
+                    ->where('status',1)
                     ->where('price',0)
                     ->orderBy('created_at','desc')
                     ->paginate(18);
             else if($type=='premium')
              $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('status',1)
                     ->where('category_id',$category_id)
                     ->where('price','!=',0)
                     ->orderBy('created_at','desc')
                     ->paginate(18);  
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('status',1)
                     ->where('category_id',$category_id)
                     ->orderBy('created_at','desc')
                     ->paginate(18);   
         }else{
             if($type=='free')
             $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('status',1)
                     ->where('price',0)
                     ->orderBy('created_at','desc')
                     ->paginate(18); 
             else if($type=='premium')
             $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('status',1)
                     ->where('price','!=',0)
                     ->orderBy('created_at','desc')
                     ->paginate(18); 
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->where('status',1)
                     ->orderBy('created_at','desc')
                     ->paginate(18); 
         }
 
+
         
-        $categories = Category::where('status',1)->get();
         
         $view = $search ? 'public_list': 'public_index';
 
