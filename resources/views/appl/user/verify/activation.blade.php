@@ -51,7 +51,7 @@
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<button class="btn btn-primary" type="submit">Verify</button>
 					<a href="{{ route('activation') }}?resend_sms=1">
-					<button class="btn btn-warning" type="button">Resent Code</button>
+					<button class="btn btn-warning" type="button">Resend Code</button>
 				</a>
 				</form>
 				<div class="p-4 mt-4 border rounded bg-light">
