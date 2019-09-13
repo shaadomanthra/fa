@@ -146,7 +146,7 @@ class ProductController extends Controller
             
             // update slug with name if its empty
             if(!$request->get('slug')){
-                $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
+                $request->merge(['slug' => strtolower(str_replace(' ','-',$request->get('name')))]);
             }
 
             /* If image is given upload and store path */
