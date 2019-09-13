@@ -30,9 +30,11 @@
                   <button class="btn btn-lg btn-success">Try Now</button>
                 </a>
               @else
-                <a href="{{ route('test.analysis',$obj->slug) }}">
-                  <button class="btn btn-lg btn-outline-primary"><i class="fa fa-bar-chart"></i> Test Report</button>
-                </a>
+                @if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
+                <a href="{{ route('test.try',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-eye"></i> View Response</a>
+                @else
+                <a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
+                @endif
               @endif
             @else
               @if($obj->price !=0)
