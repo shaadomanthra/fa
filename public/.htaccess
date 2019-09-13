@@ -18,9 +18,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-</IfModule>
 
-ExpiresActive on
+    ExpiresActive on
 
 # Perhaps better to whitelist expires rules? Perhaps.
  ExpiresDefault      "access plus 1 month"
@@ -69,6 +68,11 @@ ExpiresActive on
  ExpiresByType application/javascript "access plus 1 year"
  ExpiresByType text/javascript "access plus 1 year"
 
+ 
+</IfModule>
+
  <IfModule mod_headers.c>
     Header append Cache-Control "public"
  </IfModule>
+
+
