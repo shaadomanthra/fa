@@ -58,8 +58,6 @@
       
       <div class="form-group">
         <label for="formGroupExampleInput ">Question</label>
-        
-        @if($app->test->testtype->name == "GRE" || $app->test->testtype->name == "GRAMMAR")
         <textarea class="form-control summernote" name="question"  rows="5">
             @if($stub=='Create')
             {{ (old('question')) ? old('question') : '' }}
@@ -67,16 +65,6 @@
             {{ $obj->question }}
             @endif
         </textarea>
-        @else
-        <input type="text" class="form-control" name="question" id="formGroupExampleInput" placeholder="" 
-             @if($stub=='Create')
-            value="{{ (old('question')) ? old('question') : '' }}"
-            @else
-            value="{{ $obj->question }}"
-            @endif
-          >
-        
-        @endif
       </div>
 
       @foreach(['a','b','c','d','e','f','g','h','i'] as $opt)
