@@ -97,8 +97,11 @@ class FillupController extends Controller
           
             $request->session()->put('extract_id', $request->get('extract_id'));
 
+            
+
             /* create a new entry */
             $obj = $obj->create($request->except(['tags']));
+
 
             // attach the tags
             $tags = $request->get('tags');
@@ -124,6 +127,10 @@ class FillupController extends Controller
             }
         }
     }
+
+
+
+
 
     /**
      * Display the specified resource.

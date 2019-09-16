@@ -24,7 +24,7 @@
                     @else
                     <span >(A)</span>
                     @endif
-                    {{ $obj->a }}
+                    {!! $obj->a !!}
                   </div>
                   <div>
                     @if(strpos($obj->answer, 'B') !== FALSE)
@@ -32,7 +32,7 @@
                     @else
                     <span >(B)</span>
                     @endif
-                    {{ $obj->b }}
+                    {!! $obj->b !!}
                   </div>
                   <div>
                     @if(strpos($obj->answer, 'C') !== FALSE)
@@ -40,7 +40,7 @@
                     @else
                     <span >(C)</span>
                     @endif
-                    {{ $obj->c }}
+                    {!! $obj->c !!}
                   </div>
 
                   @if($obj->d)
@@ -50,7 +50,7 @@
                     @else
                     <span >(D)</span>
                     @endif
-                    {{ $obj->d }}
+                    {!! $obj->d !!}
                   </div>
                   @endif
 
@@ -61,7 +61,7 @@
                     @else
                     <span >(E)</span>
                     @endif
-                    {{ $obj->e }}
+                    {!! $obj->e !!}
                   </div>
                   @endif
 
@@ -72,7 +72,7 @@
                     @else
                     <span >(F)</span>
                     @endif
-                    {{ $obj->f }}
+                    {!! $obj->f !!}
                   </div>
                   @endif
 
@@ -83,7 +83,7 @@
                     @else
                     <span >(G)</span>
                     @endif
-                    {{ $obj->g }}
+                    {!! $obj->g !!}
                   </div>
                   @endif
 
@@ -94,7 +94,7 @@
                     @else
                     <span >(H)</span>
                     @endif
-                    {{ $obj->h }}
+                    {!! $obj->h !!}
                   </div>
                   @endif
 
@@ -105,7 +105,7 @@
                     @else
                     <span >(I)</span>
                     @endif
-                    {{ $obj->i }}
+                    {!! $obj->i !!}
                   </div>
                   @endif
 

@@ -94,12 +94,9 @@ class McqController extends Controller
             $user = \auth::user();
 
             $request->session()->put('extract_id', $request->get('extract_id'));
-            /* upload images if any */
-            $question = summernote_imageupload($user,$request->get('question'));
-            $a = summernote_imageupload($user,$request->get('a'));
-            $b = summernote_imageupload($user,$request->get('b'));
-            $c= summernote_imageupload($user,$request->get('c'));
-            $d= summernote_imageupload($user,$request->get('d'));
+            
+            $this->imageupdater($request);
+            
             
             // for multi answer
             $answers = $request->get('answers');
@@ -138,6 +135,19 @@ class McqController extends Controller
                  return redirect()->back()->withInput();;
             }
         }
+    }
+
+    public function imageupdater($request){
+
+        $user = \auth::user();
+        $options =['question','a','b','c','d','e','f','g','h','i'];
+        foreach($options as $opt){
+            $text = $request->get($opt);
+            if(preg_match('/<img/', $text))
+                $text = summernote_imageupload($user,$text);
+            $request->merge([$opt=>$text]);
+        }
+        
     }
 
     /**

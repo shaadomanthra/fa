@@ -78,101 +78,21 @@
         
         @endif
       </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option A</label>
-        <input type="text" class="form-control" name="a" id="formGroupExampleInput" placeholder="" 
-             @if($stub=='Create')
-            value="{{ (old('a')) ? old('a') : '' }}"
-            @else
-            value="{{ $obj->a }}"
-            @endif
-          >
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option B</label>
-        <input type="text" class="form-control" name="b" id="formGroupExampleInput" placeholder="" 
-            @if($stub=='Create')
-            value="{{ (old('b')) ? old('b') : '' }}"
-            @else
-            value="{{ $obj->b }}"
-            @endif
-          >
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option C</label>
-        <input type="text" class="form-control" name="c" id="formGroupExampleInput" placeholder="" 
-            @if($stub=='Create')
-            value="{{ (old('c')) ? old('c') : '' }}"
-            @else
-            value="{{ $obj->c }}"
-            @endif
-          >
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option D</label>
-        <input type="text" class="form-control" name="d" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('d')) ? old('d') : '' }}"
-            @else
-            value="{{ $obj->d }}"
-            @endif
-          >
-      </div>
 
-      @if($app->test->testtype->name = "GRE" ||$app->test->testtype->name == "GRAMMAR")
+      @foreach(['a','b','c','d','e','f','g','h','i'] as $opt)
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option {{ strtoupper($opt)}}</label>
+        <textarea class="form-control summernote" name="{{$opt}}"  rows="5">
+            @if($stub=='Create')
+            {{ (old($opt)) ? old($opt) : '' }}
+            @else
+            {{ $obj->$opt }}
+            @endif
+        </textarea>
+      </div>
+      @endforeach
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option E</label>
-        <input type="text" class="form-control" name="e" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('e')) ? old('e') : '' }}"
-            @else
-            value="{{ $obj->e }}"
-            @endif
-          >
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option F</label>
-        <input type="text" class="form-control" name="f" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('f')) ? old('f') : '' }}"
-            @else
-            value="{{ $obj->f }}"
-            @endif
-          >
-      </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option G</label>
-        <input type="text" class="form-control" name="g" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('g')) ? old('g') : '' }}"
-            @else
-            value="{{ $obj->g }}"
-            @endif
-          >
-      </div>
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option H</label>
-        <input type="text" class="form-control" name="h" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('h')) ? old('h') : '' }}"
-            @else
-            value="{{ $obj->h }}"
-            @endif
-          >
-      </div>
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Option I</label>
-        <input type="text" class="form-control" name="i" id="formGroupExampleInput"  
-            @if($stub=='Create')
-            value="{{ (old('i')) ? old('i') : '' }}"
-            @else
-            value="{{ $obj->i }}"
-            @endif
-          >
-      </div>
+      
 
       <div class="form-group">
         <label for="formGroupExampleInput">Answers</label>
@@ -205,21 +125,7 @@
         </select>
       </div>
 
-      @else
-
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Answer</label>
-        <select class="form-control" name="answer">
-          <option value="A" @if(isset($obj)) @if($obj->answer=='A') selected @endif @endif >A</option>
-          <option value="B" @if(isset($obj)) @if($obj->answer=='B') selected @endif @endif >B</option>
-          <option value="C" @if(isset($obj)) @if($obj->answer=='C') selected @endif @endif >C</option>
-          <option value="D" @if(isset($obj)) @if($obj->answer=='D') selected @endif @endif >D</option>
-        </select>
-      </div>
-
-
-
-      @endif
+      
 
        <div class="form-group">
         <label for="formGroupExampleInput">Tags</label>
