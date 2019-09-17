@@ -20,7 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','phone','lastlogin_at','status',
-        'activation_token','sms_token',
+        'activation_token','sms_token','user_id','idno','admin','auto_password',
     ];
 
     /**
@@ -49,6 +49,12 @@ class User extends Authenticatable
             return false;
     }
 
+    public function referral($id)
+    {
+        $user = $this->find($id);
+        return $user;
+    }
+
     public function orders(){
         return $this->hasMany('App\Models\Product\Order');
     }
@@ -57,6 +63,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Test\Attempt');
 
     }
+
     public function tests(){
         $test_id = DB::table('attempts')
                 ->select('test_id')
@@ -93,6 +100,20 @@ class User extends Authenticatable
         }else
             return false;
         
+    }
+
+    public function testscore($user_id,$test_id){
+        $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->get();
+        $score =0;
+        
+        foreach($attempt as $r){
+                if($r->accuracy==1)
+                  $score++;
+        }
+        if($score)
+        return $score;
+        else
+            return '-';
     }
 
 

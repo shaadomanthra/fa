@@ -40,6 +40,9 @@ class UserController extends Controller
         $item = $request->item;
         
         $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->orWhere('email','LIKE',"%{$item}%")
+                    ->orWhere('idno','LIKE',"%{$item}%")
+                    ->orWhere('phone','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));   
         $view = $search ? 'list': 'index';
@@ -78,21 +81,33 @@ class UserController extends Controller
         try{
             
             $password = strtoupper(Str::random(5));
+
+            if (!filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+                flash('Invalid Email')->error();
+                return redirect()->back()->withInput();;
+            }
+
+            if (strlen($request->get('phone'))<10) {
+                flash('Invalid phone number (less than 10 digits)')->error();
+                return redirect()->back()->withInput();;
+            }
             /* create a new entry */
            $user= $obj->create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
             'status'=>$request->get('status'),
+            'idno'=>strtoupper($request->get('idno')),
+            'user_id'=>\auth::user()->id,
             'activation_token'=>1,
-            'sms_token' => mt_rand(1000,9999),
+            'sms_token' => 1,
             'password' =>  Hash::make($password),
+            'auto_password'=> $password,
         	]);
 
-           $user['password_string'] = $password;
-           //send password on mail
+            $user['password_string'] = $password;
+            //send password on mail
         	Mail::to($user->email)->send(new usercreate($user));
-            $user->resend_sms($user->phone,$user->sms_token);
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -101,7 +116,7 @@ class UserController extends Controller
            $error_code = $e->errorInfo[1];
             if($error_code == 1062){
                 flash('Some error in Creating the record')->error();
-                 return redirect()->back()->withInput();;
+                 return redirect()->back()->withInput();
             }
         }
     }

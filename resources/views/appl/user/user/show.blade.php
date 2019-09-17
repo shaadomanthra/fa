@@ -34,6 +34,10 @@
       <div class="card mb-4">
         <div class="card-body">
           <div class="row mb-2">
+            <div class="col-md-4"><b>ID number</b></div>
+            <div class="col-md-8">@if($obj->idno){{ $obj->idno }}@else - @endif </div>
+          </div>
+          <div class="row mb-2">
             <div class="col-md-4"><b>Name</b></div>
             <div class="col-md-8">{{ $obj->name }}</div>
           </div>
@@ -60,6 +64,16 @@
               @endif
             </div>
           </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Auto Password</b></div>
+            <div class="col-md-8">@if($obj->auto_password)
+              {{$obj->auto_password }}
+              @else
+              -
+              @endif
+            </div>
+          </div>
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>
@@ -69,6 +83,35 @@
                     <span class="badge badge-success">Active</span>
                   @endif</div>
           </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Role</b></div>
+            <div class="col-md-8">
+
+              <span class="badge badge-secondary">
+              @if($obj->admin==0)
+              User
+              @elseif($obj->admin==1)
+              Administrator
+              @elseif($obj->admin==2)
+              Employee
+              @endif
+              </span>
+            </div>
+          </div>
+
+          @if($obj->user_id)
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Referral</b></div>
+            <div class="col-md-8">
+              @if($obj->user_id)
+              <a href="{{route('user.show',$obj->user_id)}}">
+                  {{ $obj->referral($obj->user_id)->name }}
+              </a>
+              @endif
+            </div>
+          </div>
+          @endif
+
           <div class="row mb-2">
             <div class="col-md-4"><b>Created At</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
@@ -80,76 +123,27 @@
         </div>
       </div>
 
-      <div class="row">
-      @if(count($obj->tests())>0)
-      <div class="col-12 col-md-4">
-       <div class="card ">
-        <div class="card-body">
-          <div class="card-title">
-          <h3>Tests</h3>
-        </div>
-          <div class="table-responsive">
-            <table class="table table-striped mb-0 border">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Test</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($obj->tests() as $k=>$test)
-                  <tr>
-                      <td>{{$k+1}}</td>
-                      <td><a href="{{ route('user.test',[$obj->id,$test->id])}}">{{$test->name}}</a></td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      </div>
-      @endif
-      @if(count($obj->orders)>0)
-        <div class="col-12 col-md">
-       <div class="card ">
-        <div class="card-body">
-          <div class="card-title">
-          <h3>Orders</h3>
-        </div>
-          <div class="table-responsive">
-            <table class="table table-bordered mb-0 border">
-              <thead>
-                <tr class="bg-light">
-                  <th scope="col">#</th>
-                  <th scope="col" class="w-25">Order ID</th>
-                  <th scope="col" >Product/Test</th>
-                  <th scope="col" >Coupon</th>
-                </tr>
-              </thead>
-              <tbody>
-                @foreach($obj->orders as $k=>$order)
-                  <tr>
-                      <td>{{$k+1}}</td>
-                      <td><a href="{{ route('order.show',[$order->id])}}">{{$order->order_id}}</a></td>
-                      <td>
-                        @if($order->test_id)
-                        {{$order->test->name}}
-                        @else
-                        {{$order->product->name}}
-                        @endif
-                      </td>
-                      <td>{{(strlen($order->txn_id)<7 && $order->txn_id)? $order->txn_id : '-'}}</td>
-                  </tr>
-                @endforeach
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      </div>
-      @endif
-    </div>
+
+<div class="bg-white border p-3 rounded">
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Products/Tests</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Usage</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active mt-4" id="home" role="tabpanel" aria-labelledby="home-tab">
+     @include('appl.'.$app->app.'.'.$app->module.'.products')
+  </div>
+
+  <div class="tab-pane fade mt-4" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+     @include('appl.'.$app->app.'.'.$app->module.'.tests')
+  </div>
+</div>
+</div>
+      
 
 
     </div>

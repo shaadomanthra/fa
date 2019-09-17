@@ -5,19 +5,31 @@
             <thead>
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
+                <th scope="col">ID </th>
                 <th scope="col">Name </th>
+                <th scope="col">Email </th>
+                <th scope="col">Phone </th>
                 <th scope="col">Status</th>
-                <th scope="col">Created at</th>
+                <th scope="col">Created </th>
               </tr>
             </thead>
             <tbody>
               @foreach($objs as $key=>$obj)  
               <tr>
-                <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
+                <td scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</td>
+                <td>
+                  {{ $obj->idno }}
+                </td>
                 <td>
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
                   {{ $obj->name }}
                   </a>
+                </td>
+                <td>
+                  {{ $obj->email }}
+                </td>
+                <td>
+                  {{ $obj->phone }}
                 </td>
                 <td>
                   @if($obj->status==0)
