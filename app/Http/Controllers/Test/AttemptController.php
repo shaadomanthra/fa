@@ -153,6 +153,11 @@ class AttemptController extends Controller
 
         }else
         {
+          if($price!=0){
+              return view('appl.product.product.purchase')
+                        ->with('test',$test)
+                        ->with('product',$product);
+          }
           $attempt =null;
         }
         
@@ -205,16 +210,49 @@ class AttemptController extends Controller
    /* Test Attempt Function */
    public function try($slug,Request $request){
     $test = $this->test;
-    
-    if(\auth::user())
-      $user = \auth::user();
-    else
-      $user = null;
-
     $product = $this->product;
+
+    $product_id = $test_id = null;
+
+        if($product){
+          $id = $product->id;
+          $product_id = $id;
+          $validity = $product->validity;
+          $price = $product->price;
+        }
+        else{
+          $id = $test->id;
+          $test_id = $id;
+          $validity = $test->validity;
+          $price = $test->price;
+        }
+    
+    if(\auth::user()){
+      $user = \auth::user();
+      if(!$user->testAccess($id)){
+         if($price!=0){
+                return view('appl.product.product.purchase')
+                        ->with('test',$test)
+                        ->with('product',$product);
+          }
+      }
+    }
+    else{
+      if($price!=0){
+          return view('appl.product.product.purchase')
+                        ->with('test',$test)
+                        ->with('product',$product);
+          }
+
+      $user = null;
+    }
+
+    
 
     /* Pre validation */
     $this->precheck($request);
+
+
 
     /* If Attempted show report */
     if($user)

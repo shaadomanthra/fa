@@ -65,7 +65,6 @@
 			{!!  $obj->test->description  !!}
 			</div>
 			<hr>
-			<div class=""><b>Response</b></div>
 			@endif
            <div class="">{!! $obj->response !!}</div>
         </main>
