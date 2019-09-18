@@ -250,7 +250,7 @@ class AttemptController extends Controller
             ->with('qcount',$qcount)
             ->with('test',$test)
             ->with('product',$product)
-            ->with('timer',true)
+            ->with('timer',$user)
             ->with('time',$test->test_time);
    else if($view =='reading'){
     return view('appl.test.attempt.try_'.$view)
@@ -260,7 +260,7 @@ class AttemptController extends Controller
         ->with('test',$test)
         ->with('product',$product)
         ->with('reading',1)
-        ->with('timer',true)
+        ->with('timer',$user)
         ->with('time',$test->test_time);
     }
    elseif($view =='writing'){
@@ -297,6 +297,12 @@ class AttemptController extends Controller
           abort('403','Test Type not defined');
       else
         $view =  strtolower($test->testtype->name);
+
+       /* If Attempted show report */
+      if($user)
+      $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+      else
+        $attempt = null;
 
   
       if($view == 'listening' || $view == 'grammar' || $view == 'gre')
