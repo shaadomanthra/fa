@@ -36,11 +36,27 @@
 
      
       <div class="card mb-4">
+        @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+        <img src="{{ asset(\storage::disk('public')->url($obj->image))}}" class="w-100"/>
+        @endif
         <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
-          </div>
+          <h3>Details
+
+            @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+              
+              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
+                 <input type="hidden" name="_method" value="PUT">
+                 <input type="hidden" name="deleteimage" value="1">
+                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete Image</button>
+              </form>
+              @endif
+
+          </h3>
+          {!! $obj->details !!}
+        </div>
+        <div class="card-body">
+          
           <div class="row mb-2">
             <div class="col-md-4"><b>Slug</b></div>
             <div class="col-md-8">{{ $obj->slug }}</div>
@@ -67,10 +83,6 @@
           @endif
 
 
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Details</b></div>
-            <div class="col-md-8">{!! $obj->details !!}</div>
-          </div>
 
            <div class="row mb-2">
             <div class="col-md-4"><b>Instructions</b></div>
@@ -103,24 +115,6 @@
             </div>
           </div>
 
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Image</b></div>
-            <div class="col-md-8">
-              @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-              <div class="bg-light border mb-3">
-                 <img src="{{ asset(\storage::disk('public')->url($obj->image))}}" class="w-100"/>
-              </div>
-              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deleteimage" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete Image</button>
-              </form>
-              @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> image  path not found </span>
-              @endif
-            </div>
-          </div>
 
           
           <div class="row mb-2">

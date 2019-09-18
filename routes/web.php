@@ -12,11 +12,11 @@
 */
 
 
-Route::get('/', function () {
-    return view('welcome2');
-});
+/*Route::get('/', function () {
+    return view('welcome');
+});*/
 Route::get('/layout2', 'HomeController@index')->name('root');
-Route::get('/layout3', 'HomeController@welcome')->name('root2');
+Route::get('/', 'HomeController@welcome');
 
 Route::get('/home', function () {
     return view('appl.pages.dashboard');

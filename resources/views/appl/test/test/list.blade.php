@@ -8,7 +8,7 @@
                 <th scope="col">Name </th>
                 <th scope="col">Slug</th>
                 <th scope="col">Status</th>
-                <th scope="col">Group</th>
+                <th scope="col">Product</th>
                 <th scope="col">Created at</th>
               </tr>
             </thead>
@@ -32,9 +32,9 @@
                   @endif
                 </td>
                 <td>
-                  @if($obj->group)
-                  <a href=" {{ route('group.show',$obj->group->id) }} ">
-                  {{ $obj->group->name }}
+                  @if($obj->product)
+                  <a href=" {{ route('product.show',$obj->product->id) }} ">
+                  {{ $obj->product->name }}
                   </a>
                   @endif
                 </td>
