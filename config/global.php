@@ -12,5 +12,5 @@ return [
     |
     */
 
-    'no_of_records' => '40'
+    'no_of_records' => '36'
 ];
