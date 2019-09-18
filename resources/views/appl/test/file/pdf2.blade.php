@@ -46,6 +46,8 @@
             	line-height: 30px;
             }
             .w-100{ width:100%; }
+            .w-50{ width:50%; }
+            .w-25{ width:25%; }
 
             .head{padding:20px;background:#f8f8f8;margin-bottom:30px; font-family: Arial, Helvetica, sans-serif;font-size:18px;line-height: 25px;border:1px solid #eee;}
             .bord{ border: 1px solid #eee; padding:20px; }
