@@ -32,7 +32,7 @@
 					
 					<h5 class="card-title">
 						<a href="{{ route('test',$test->slug) }}">{{$test->name}}</a>
-						<span class="badge badge-success float-right">Active</span>
+						
 					</h5>
 					<h6 class="card-subtitle mb-2 text-muted">
 						<span class="">Valid Till - {{date('d M Y', strtotime($order->expiry))}}</span>
