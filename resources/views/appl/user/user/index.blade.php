@@ -23,9 +23,11 @@
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
 
             @can('create',$obj)
+            @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
             <a href="{{route($app->module.'.create')}}">
               <button type="button" class="btn btn-outline-success my-2 my-sm-2 mr-sm-3">Create {{ ucfirst($app->module) }}</button>
             </a>
+            @endif
             @endcan
             <div class="input-group ">
               <div class="input-group-prepend">

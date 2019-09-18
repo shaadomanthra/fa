@@ -73,6 +73,7 @@
           <option value="0" @if(isset($obj)) @if($obj->admin===0) selected @endif @endif >User</option>
           <option value="1" @if(isset($obj)) @if($obj->admin==1) selected @endif  @endif >Administrator</option>
           <option value="2" @if(isset($obj)) @if($obj->admin===2) selected @endif @endif >Employee</option>
+          <option value="3" @if(isset($obj)) @if($obj->admin===3) selected @endif @endif >Tele Caller</option>
         </select>
       </div>
      @endif

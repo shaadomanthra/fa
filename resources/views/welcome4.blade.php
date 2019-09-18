@@ -51,30 +51,25 @@
   <div class="p-3"></div>
 <div  class="row ">
   <div class="col-12 col-md-9 col-lg-10">
-    <nav class="navbar navbar-light  p-4 rounded justify-content-between  mb-4" style="background:#e8ecef;border:1px solid #cfd5da;">
-          <a class=" h2 mb-3 mb-md-0"><i class="fa fa-cubes"></i> Tests @if(request()->get('category')) - {{ strtoupper(request()->get('category'))}} @endif</a>
-          <form class="form-inline" method="GET" action="{{ route('tests') }}">
-            <div class="input-group input-group-lg">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><i class="fa fa-search"></i></div>
-              </div>
-              <input class="form-control " id="search" name="item" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
-              value="{{Request::get('item')?Request::get('item'):'' }}">
-            </div>
-          </form>
-        </nav>
+    
     <div class="">
       <div class=" ">
         <div id="search-items" class="">
          @include('appl.'.$app->app.'.'.$app->module.'.public_list')
        </div>
-
      </div>
    </div>
  </div>
  <div class="col-12 col-md-3 col-lg-2">
+  <form class="form-inline" method="GET" action="{{ route('tests') }}">
+            <div class="input-group input-group-lg mb-4">
+              
+              <input class="form-control " id="search" name="item" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
+              value="{{Request::get('item')?Request::get('item'):'' }}">
+            </div>
+          </form>
+
   <div class=" border rounded bg-light mb-4">
-      <h5 class="mb-0 p-3">Category</h5>
     <div class="list-group ">
     <a href="{{ request()->fullUrlWithQuery(['category' => '']) }}" class="list-group-item list-group-item-action list-group-item-warning @if(!request()->get('category'))active @endif">
       All Tests
@@ -90,7 +85,6 @@
   </div>
 
     <div class=" border rounded bg-light">
-      <h5 class="mb-0 p-3">Type</h5>
       <div class="list-group list">
 
     <a href="{{ request()->fullUrlWithQuery(['type' => ''])  }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='')active @endif">
