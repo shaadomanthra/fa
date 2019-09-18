@@ -64,7 +64,7 @@
 @else
 <div class="container">
 <div class="card card-body bg-light">
-  No test found
+  No tests found
 </div>
 </div>
 @endif
