@@ -24,7 +24,9 @@
           <p class="h2 mb-0"><i class="fa fa-th "></i> {{$user->name}} - {{ $test->name }}  
 
             <span class="btn-group float-right" role="group" aria-label="Basic example">
+            @if(\auth::user()->admin==1)
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
+            @endif
             </span>
             
           </p>

@@ -211,7 +211,7 @@ class UserController extends Controller
 
             if(!$products)
                 $products = [];
-            
+
             $tst = Test::where('status',1)->get();
             $prd = Product::where('status',1)->get();
 
@@ -287,7 +287,7 @@ class UserController extends Controller
                   $score++;
               }
         }
-
+        
         return view('appl.'.$this->app.'.'.$this->module.'.test')
                 ->with('test',$test)
                 ->with('user',$user)
