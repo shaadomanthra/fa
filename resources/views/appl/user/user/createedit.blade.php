@@ -77,6 +77,49 @@
       </div>
      @endif
 
+
+     <div class="form-group">
+        <label for="formGroupExampleInput">Tests</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach($tests as $test)
+          @if($test->status==1)
+          <div class="col-12 col-md-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="tests[]" value="{{$test->id}}" id="defaultCheck1" @if($obj->hasTest($test->id))) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ $test->name }} ({{ $test->slug }})
+            </label>
+          </div>
+          </div>
+          @endif
+          @endforeach
+         </div>
+         </div>
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput">Products</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach($products as $product)
+          @if($product->status==1)
+          <div class="col-12 col-md-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="products[]" value="{{$product->id}}" id="defaultCheck1" @if($obj->hasProduct($product->id))) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ $product->name }} ({{ $product->slug }})
+            </label>
+          </div>
+          </div>
+          @endif
+          @endforeach
+         </div>
+         </div>
+      </div>
+      
+      
+
      
 
       <div class="form-group">

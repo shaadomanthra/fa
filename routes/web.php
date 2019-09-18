@@ -63,8 +63,8 @@ Route::post('/admin/user/{user}/{test}','User\UserController@test')->middleware(
 /* Test Attempt Routes */
 Route::get('/test/','Test\TestController@public')->name('tests');
 Route::get('/test/{test}','Test\TestController@details')->name('test');
-Route::get('/test/{test}/instructions','Test\AttemptController@instructions')->middleware('auth')->name('test.instructions');
-Route::get('/test/{test}/try','Test\AttemptController@try')->middleware('auth')->name('test.try');
+Route::get('/test/{test}/instructions','Test\AttemptController@instructions')->name('test.instructions');
+Route::get('/test/{test}/try','Test\AttemptController@try')->name('test.try');
 Route::post('/test/{test}/try','Test\AttemptController@store')->name('attempt.store');
 Route::post('/test/{test}/upload','Test\AttemptController@upload')->name('attempt.upload');
 Route::get('/test/{test}/delete','Test\AttemptController@file_delete')->name('attempt.delete');

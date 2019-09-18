@@ -69,69 +69,12 @@
 
 </div>
 
+@if(auth::user()->orders()->where('status',1)->count()!=0)
+  @include('appl.pages.blocks.tests')
+@endif
 
-<div class="bg-white border p-4 rounded mt-4">
-  <h3 class="mb-4">My Products <a href="{{ route('myorders') }}"><button class="btn btn-outline-primary btn-sm float-right">My Orders</button></a></h3>
-  @if(count(auth::user()->orders)!=0)    
-  <div class="rounded table-responsive">
-    <table class="table table-striped mb-0 border">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Tests</th>
-          <th scope="col">Type</th>
-          <th scope="col">Valid Till</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach(auth::user()->orders()->where('status',1)->get() as $k=>$order)
-        <tr>
-          <th scope="row">{{ $k+1}}</th>
-          <td>
-            @if($order->test_id)
-            <a href="{{ route('test',$order->test->slug) }}">{{$order->test->name}}</a></td>
-            @else
-            <a href="{{ route('product.view',$order->product->slug) }}">{{$order->product->name}}</a></td>
-            @endif
-          <td>
-            @if($order->test_id)
-              @if($order->test->price==0)
-              <span class="badge badge-warning">Free</span>
-              @else
-              <span class="badge badge-primary">Premium</span>
-              @endif
-            @else
-              @if($order->product->price==0)
-              <span class="badge badge-warning">Free</span>
-              @else
-              <span class="badge badge-primary">Premium</span>
-              @endif
-            @endif
-            
-          </td>
-          <td>{{date('d M Y', strtotime($order->expiry))}}</td>
-          <td> 
-            @if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
-            <span class="badge badge-success">Active</span>
-            @else
-            <span class="badge badge-danger">Expired</span>
-            @endif
-          </td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-  @else
-  <div class="p-4 rounded border">No Products Purchased</div>
-  @endif
 
 </div>
-
-</div>
-
-
 
 </div>
 </div>

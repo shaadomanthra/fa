@@ -124,25 +124,8 @@
       </div>
 
 
-<div class="bg-white border p-3 rounded">
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Products/Tests</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Usage</a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-  <div class="tab-pane fade show active mt-4" id="home" role="tabpanel" aria-labelledby="home-tab">
-     @include('appl.'.$app->app.'.'.$app->module.'.products')
-  </div>
+@include('appl.'.$app->app.'.'.$app->module.'.products')
 
-  <div class="tab-pane fade mt-4" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-     @include('appl.'.$app->app.'.'.$app->module.'.tests')
-  </div>
-</div>
-</div>
       
 
 

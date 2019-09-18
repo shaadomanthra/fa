@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\DB;
 use App\Models\Test\Test;
+use App\Models\Product\Product;
+use App\Models\Product\Order;
 use App\Models\Test\Attempt;
 
 class User extends Authenticatable
@@ -64,6 +66,43 @@ class User extends Authenticatable
 
     }
 
+    public function create_order($user_id,$referral_name,$product_id,$test_id,$validity){
+        $order = new Order();
+        $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+
+        $o_check = Order::where('order_id',$order->order_id)->first();
+        while($o_check){
+            $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+            $o_check = Order::where('order_id',$order->order_id)->first();
+            if(!$o_check)
+              break;
+        }
+
+        $order->user_id = $user_id;
+        $order->txn_amount = 0;
+        $order->status=1;
+        $order->txn_id = '';
+        $order->payment_mode = 'REFERRAL';
+        $order->txn_id = $referral_name;
+
+        $order->product_id = $product_id;
+        $order->test_id = $test_id;
+
+        $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($validity*31).' days'));
+        $order->expiry = $valid_till;
+        $order->save();
+    }
+
+    public function hasTest($test_id){
+        $order = $this->orders()->where('test_id',$test_id)->orderBy('id','desc')->first();
+        return $order;
+    }
+
+    public function hasProduct($product_id){
+        $order = $this->orders()->where('product_id',$product_id)->orderBy('id','desc')->first();
+        return $order;
+    }
+
     public function tests(){
         $test_id = DB::table('attempts')
                 ->select('test_id')
@@ -113,7 +152,7 @@ class User extends Authenticatable
         if($score)
         return $score;
         else
-            return '-';
+            return null;
     }
 
 

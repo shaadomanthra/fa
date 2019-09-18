@@ -8,6 +8,7 @@ use App\User as Obj;
 use App\Models\Test\Test;
 use App\Models\Test\Attempt;
 use App\Models\Product\Order;
+use App\Models\Product\Product;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
@@ -62,10 +63,14 @@ class UserController extends Controller
     {
         $obj = new Obj();
         $this->authorize('create', $obj);
+        $tests = Test::where('status',1)->get();
+        $products = Product::where('status',1)->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
+                ->with('tests',$tests)
+                ->with('products',$products)
                 ->with('editor',true)
                 ->with('app',$this);
     }
@@ -109,6 +114,22 @@ class UserController extends Controller
             //send password on mail
         	Mail::to($user->email)->send(new usercreate($user));
 
+            $referral_name = \auth::user()->name;
+            // attach tests and products
+            $tests = $request->get('tests');
+            if($tests)
+            foreach($tests as $t){
+                $test = Test::where('id',$t)->first();
+                $user->create_order($user->id,$referral_name,null,$t,$test->validity);
+            }
+
+            $products = $request->get('products');
+            if($products)
+            foreach($products as $p){
+                $product = Product::where('id',$p)->first();
+                $user->create_order($user->id,$referral_name,$p,null,$product->validity);
+            }
+
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
         }
@@ -149,11 +170,15 @@ class UserController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
+        $tests = Test::where('status',1)->get();
+        $products = Product::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Update')
                 ->with('obj',$obj)
+                ->with('tests',$tests)
+                ->with('products',$products)
                 ->with('editor',true)
                 ->with('app',$this);
         else
@@ -174,7 +199,60 @@ class UserController extends Controller
 
             $this->authorize('update', $obj);
             
-            $obj = $obj->update($request->all()); 
+            $obj->update($request->all()); 
+
+            $referral_name = \auth::user()->name;
+            // attach tests and products
+            $tests = $request->get('tests');
+            $products = $request->get('products');
+
+            if(!$tests)
+                $tests = [];
+
+            if(!$products)
+                $products = [];
+            
+            $tst = Test::where('status',1)->get();
+            $prd = Product::where('status',1)->get();
+
+            foreach($tst as $ts){
+                if($obj->hasTest($ts->id))
+                {   
+                    if(!in_array($ts->id, $tests)){
+                      $order = $obj->orders()->where('test_id',$ts->id)->orderBy('id','desc')->first();
+                      $order->delete();  
+                    }
+                    
+                }
+            }
+
+            foreach($prd as $pd){
+                if($obj->hasProduct($pd->id))
+                {   
+                    if(!in_array($pd->id, $products)){
+                      $order = $obj->orders()->where('product_id',$pd->id)->orderBy('id','desc')->first();
+                      $order->delete();  
+                    }
+                    
+                }
+            }
+
+            if($tests)
+            foreach($tests as $t){
+                $test = Test::where('id',$t)->first();
+                if(!$obj->hasTest($t))
+                    $obj->create_order($obj->id,$referral_name,null,$t,$test->validity);
+
+            }
+
+            
+            if($products)
+            foreach($products as $p){
+                $product = Product::where('id',$p)->first();
+                if(!$obj->hasProduct($p))
+                $obj->create_order($obj->id,$referral_name,$p,null,$product->validity);
+            }
+
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);

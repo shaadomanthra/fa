@@ -47,9 +47,16 @@
 
               @else
                 <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
+              @auth
               <a href="{{ route('test.instructions',$obj->slug) }}?grantaccess=1">
               <button class="btn btn-lg btn-success" type="button">Access Now</button>
               </a>
+              @else
+              <a href="{{ route('test.instructions',$obj->slug) }}">
+              <button class="btn btn-lg btn-success" type="button">Try Now</button>
+              </a>
+              @endauth
+              
               @endif
             @endif
           @else
@@ -60,9 +67,16 @@
             </a>
             @else
               <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
+
+               @auth
               <a href="{{ route('test.instructions',$obj->slug) }}?grantaccess=1">
               <button class="btn btn-lg btn-success" type="button">Access Now</button>
               </a>
+              @else
+              <a href="{{ route('test.instructions',$obj->slug) }}">
+              <button class="btn btn-lg btn-success" type="button">Try Now</button>
+              </a>
+              @endauth
             @endif
 
           @endif

@@ -12,7 +12,7 @@
                   <th scope="col" >Product/Test</th>
                   <th scope="col" class="w-25">Order ID</th>
                   
-                  <th scope="col" >Coupon</th>
+                  <th scope="col" >Coupon / Referral</th>
                 </tr>
               </thead>
               <tbody>
@@ -21,14 +21,27 @@
                       <td>{{$k+1}}</td>
                       <td>
                         @if($order->test_id)
-                        {{$order->test->name}}
+                        <a href="{{ route('user.test',[$obj->id,$order->test->id])}}">
+                        {{$order->test->name}}  @if($obj->testscore($obj->id,$order->test->id))
+                              - Score : {{ $obj->testscore($obj->id,$order->test->id) }} 
+                              @endif
+                      </a>
                         @else
                         {{$order->product->name}}
+                        <ul>
+                          @foreach($order->product->tests as $test)
+                            <li><a href="{{ route('user.test',[$obj->id,$test->id])}}">{{ $test->name }}
+                              
+                            </a>@if($obj->testscore($obj->id,$test->id))
+                              - Score : {{ $obj->testscore($obj->id,$test->id) }} 
+                              @endif</li>
+                          @endforeach
+                        </ul>
                         @endif
                       </td>
                       <td><a href="{{ route('order.show',[$order->id])}}">{{$order->order_id}}</a></td>
                       
-                      <td>{{(strlen($order->txn_id)<7 && $order->txn_id)? $order->txn_id : '-'}}</td>
+                      <td>{{$order->txn_id}}</td>
                   </tr>
                 @endforeach
               </tbody>

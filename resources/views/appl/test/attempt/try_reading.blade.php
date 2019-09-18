@@ -36,7 +36,10 @@
         <input type="hidden" name="admin" value="1">
         @endif
         <input type="hidden" name="test_id" value="{{ $app->test->id }}">
-        <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
+        <input type="hidden" name="user_id" value="@if(\auth::user())
+            {{ \auth::user()->id }}
+            @endif
+            ">
         <input type="hidden" name="product" value="@if($product){{ $product->slug }} @endif">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         @include('appl.test.attempt.blocks.qno_reading')

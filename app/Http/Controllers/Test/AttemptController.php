@@ -98,7 +98,11 @@ class AttemptController extends Controller
    /* The instructions page for test */
    public function instructions($slug, Request $request){
 
+        if(\auth::user())
         $user = \auth::user();
+        else
+          $user = null;
+
         $test = $this->test;
         $product = $this->product;
 
@@ -122,32 +126,41 @@ class AttemptController extends Controller
 
         /* User Authorization for test */
         $grantaccess = $request->get('grantaccess');
-        if(!$user->testAccess($id)){
-          if($grantaccess)
-          {
-            $order = new Order();
-            $order->grantaccess($product_id,$test_id,$validity);
+        if($user){
+          if(!$user->testAccess($id)){
+            if($grantaccess)
+            {
+              $order = new Order();
+              $order->grantaccess($product_id,$test_id,$validity);
 
-          }else{
+            }else{
 
-            if($price==0){
-              return view('appl.product.product.freeaccess')
-                      ->with('test',$test)
-                      ->with('product',$product);
+              if($price==0){
+                return view('appl.product.product.freeaccess')
+                        ->with('test',$this->test)
+                        ->with('product',$this->product);
+              }
+              else{
+                return view('appl.product.product.purchase')
+                        ->with('test',$test)
+                        ->with('product',$product);
+              }
+             
             }
-            else{
-              return view('appl.product.product.purchase')
-                      ->with('test',$test)
-                      ->with('product',$product);
-            }
-           
           }
+
+          $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+
+        }else
+        {
+          $attempt =null;
         }
+        
 
         
 
         /* If Attempted show report */
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+        
 
         if($attempt){
             $testtype=  strtolower($test->testtype->name);
@@ -192,14 +205,22 @@ class AttemptController extends Controller
    /* Test Attempt Function */
    public function try($slug,Request $request){
     $test = $this->test;
-    $user = \auth::user();
+    
+    if(\auth::user())
+      $user = \auth::user();
+    else
+      $user = null;
+
     $product = $this->product;
 
     /* Pre validation */
     $this->precheck($request);
 
     /* If Attempted show report */
+    if($user)
     $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+    else
+      $attempt = null;
 
     if($attempt){
       $testtype=  strtolower($test->testtype->name);
@@ -243,7 +264,6 @@ class AttemptController extends Controller
         ->with('time',$test->test_time);
     }
    elseif($view =='writing'){
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
@@ -252,7 +272,6 @@ class AttemptController extends Controller
                   ->with('editor',true);
       }
       else{
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
@@ -305,7 +324,6 @@ class AttemptController extends Controller
                 ->with('time',$test->test_time);
       }
       elseif($view =='writing'){
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
@@ -314,7 +332,6 @@ class AttemptController extends Controller
                   ->with('editor',true);
       }
       else{
-        $attempt = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)

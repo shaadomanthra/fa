@@ -53,16 +53,6 @@
 
         
         <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('group.index') }}">
-            <div class="border bg-light p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/group.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Test Groups</div>
-                </div>
-            </div>
-            </a>
-        </div>
-        <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('tag.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
                 <div>
