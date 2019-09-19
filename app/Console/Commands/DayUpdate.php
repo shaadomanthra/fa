@@ -41,7 +41,7 @@ class DayUpdate extends Command
      */
     public function handle()
     {
-       $user = User::where('email','admin@firstacademy.com')->first();
+       $user = User::where('email','packetcode@gmail.com')->first();
        Mail::to($user->email)->send(new WelcomeMail($user));
        $this->info('Hourly Update has been send successfully');
     }
