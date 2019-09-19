@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\File as Obj;
 use App\Models\Test\Test ;
+use App\Models\Test\Writing ;
 use Illuminate\Support\Facades\Storage;
 use App\User;
 
@@ -106,6 +107,7 @@ class FileController extends Controller
     public function show($id)
     {
         $obj = Obj::where('id',$id)->first();
+        $writing = Writing::where('attempt_id',$id)->first();
 
         $this->authorize('view', $obj);
 
@@ -127,7 +129,8 @@ class FileController extends Controller
             }  
         }else{
             return view('appl.'.$this->app.'.'.$this->module.'.show_write')
-                        ->with('obj',$obj)->with('app',$this)->with('player',false);
+                        ->with('obj',$obj)->with('app',$this)
+                        ->with('player',false)->with('writing',$writing);
         }
             
     }
@@ -185,19 +188,32 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function notify($id)
+    public function notify($id,Request $request)
     {
         $obj = Obj::where('id',$id)->first();
         $test  = Test::where('id',$obj->test_id)->first();
+        $time = $request->get('time');
 
         $this->authorize('view', $obj);
         $user = User::where('id',$obj->user_id)->first();
         if($obj){
 
              //Mail notifaction to the user
+            if(!$time)
              Mail::to($user->email)->send(new reviewnotify($user,$test));
+            else{
 
-            return view('appl.'.$this->app.'.attempt.alerts.notify')->with('user',$user);
+                $writing = Writing::where('attempt_id',$id)->first();
+                if(!$writing)
+                $writing = new Writing();
+                $writing->attempt_id = $id;
+                $writing->notify = $time;
+
+                $writing->save();
+
+            }
+
+            return view('appl.'.$this->app.'.attempt.alerts.notify')->with('user',$user)->with('time',$time);
         }
         else
             abort(404);
@@ -223,6 +239,55 @@ class FileController extends Controller
                 ->with('app',$this);
         else
             abort(404);
+    }
+
+    /* assigin writing faculty */
+    public function assign($id)
+    {
+        $obj= Obj::where('id',$id)->first();
+        $this->authorize('update', $obj);
+        $users = User::where('admin',4)->get();
+        $writing = Writing::where('attempt_id',$id)->first();
+
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.assign')
+                ->with('stub','Update')
+                ->with('obj',$obj)
+                ->with('users',$users)
+                ->with('writing',$writing)
+                ->with('editor',true)
+                ->with('app',$this);
+        else
+            abort(404);
+    }
+
+    /* assign writing update */
+    public function assignupdate(Request $request, $id)
+    {
+        try{
+            $obj = Obj::where('id',$id)->first();
+            $writing = Writing::where('attempt_id',$id)->first();
+            if(!$writing)
+            $writing = new Writing();
+
+
+            $writing->attempt_id = $id;
+            $writing->user_id = $request->get('user_id');
+            $writing->notify = ($request->get('notify'))? $request->get('notify') : 0;
+
+            $writing->save();
+
+            
+            flash('Faculty Assigned')->success();
+            return redirect()->route($this->module.'.show',$id);
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                 flash('Some error in updating the record')->error();
+                 return redirect()->back()->withInput();
+            }
+        }
     }
 
     /**

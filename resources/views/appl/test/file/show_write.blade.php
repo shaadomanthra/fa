@@ -19,24 +19,58 @@
     <div class="col-md-12">
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-file-o "></i> {{ $obj->test->name }} - {{ $obj->user->name }} 
-
-            <a href="{{ route('review.notify',$obj->id)}}">
-          <button class="btn btn-sm btn-outline-primary"><i class="fa fa-envelope"></i> Notify User</button>
-          </a>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <h2><i class="fa fa-file-o "></i> {{ $obj->test->name }} - {{ $obj->user->name }} </h2>
+            </div>
+            <div class="col-12 col-md-6">
+                   <div class="btn-group">
+ 
+</div>
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i> Edit</a>
+             
+             <div class="btn-group" role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Notify
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a href="{{ route('review.notify',$obj->id)}}" class="dropdown-item">Now</a>
+      <a href="{{ route('review.notify',$obj->id)}}?time=14" class="dropdown-item">Schedule - 14:00 </a>
+      <a href="{{ route('review.notify',$obj->id)}}?time=20" class="dropdown-item">Schedule - 20:00</a>
+    </div>
+  </div>
 
-              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i> Review</a>
-              <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i> Download</a>
-              <a href="#" class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i> Delete</a>
+            
+   <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-primary " data-tooltip="tooltip" data-placement="top" title="Edit"> Add Feedback</a>
+
+              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary " data-tooltip="tooltip" data-placement="top" title="review"> Review</a>
+              <a href="{{ route('file.assign',$obj->id) }}" class="btn btn-outline-secondary " data-tooltip="tooltip" data-placement="top" title="review"> Assign</a>
+              
+              <a href="#" class="btn btn-outline-secondary " data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" > Delete</a>
 
             </span>
             @endcan
-          </p>
+          
         </div>
       </div>
+            </div>
+          </div>
+          
+
+     @if($writing)
+     @if($writing->user_id)
+     <div class="alert alert-primary alert-important" role="alert">
+      This task is assigned to <b>{{ $writing->user->name }}</b>
+      </div>
+      @endif
+     @if($writing->notify)
+     <div class="alert alert-warning alert-important" role="alert">
+      Notification scheduled for <b>{{ $writing->notify }}:00 </b>
+      </div>
+     @endif
+     @endif      
+     
 
      
       <div class="card mb-4">

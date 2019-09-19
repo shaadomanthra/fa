@@ -48,6 +48,8 @@ Route::resource('/admin/test/{test}/fillup', 'Test\FillupController')->middlewar
 Route::resource('/admin/file', 'Test\FileController')->middleware('auth');
 Route::get('/admin/{file}/download','Test\FileController@download')->name('file.download');
 Route::get('/admin/{file}/notify','Test\FileController@notify')->name('review.notify');
+Route::get('/admin/{file}/assign','Test\FileController@assign')->name('file.assign');
+Route::post('/admin/{file}/assign','Test\FileController@assignupdate')->name('file.assign');
 
 Route::resource('/admin/group', 'Test\GroupController')->middleware('auth');
 Route::resource('/admin/type', 'Test\TypeController')->middleware('auth');

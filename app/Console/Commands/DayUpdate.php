@@ -5,7 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\User;
 
-use App\Mail\WelcomeMail;
+use App\Models\Test\Writing;
+use App\Mail\reviewnotify;
 use Illuminate\Support\Facades\Mail;
 
 class DayUpdate extends Command
@@ -41,8 +42,20 @@ class DayUpdate extends Command
      */
     public function handle()
     {
-       $user = User::where('email','packetcode@gmail.com')->first();
-       Mail::to($user->email)->send(new WelcomeMail($user));
-       $this->info('Hourly Update has been send successfully');
+       $writings = Writing::where('notify','!=',0)->get();
+       foreach($writing as $w){
+            $h = date('H');
+            if($w->notify==$h)
+            {
+                $test = $w->attempt->test;
+                $user = $w->user;
+                Mail::to($user->email)->send(new reviewnotify($user,$test));
+                $w->notify = 0;
+                $w->status = 1;
+                $w->save();
+                $this->info('Hourly Update has been send successfully');
+            }
+       }
+       
     }
 }

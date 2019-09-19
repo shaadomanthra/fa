@@ -98,6 +98,10 @@
               Administrator
               @elseif($obj->admin==2)
               Employee
+              @elseif($obj->admin==4)
+              Faculty
+              @elseif($obj->admin==3)
+              Telecaller
               @endif
               </span>
             </div>
