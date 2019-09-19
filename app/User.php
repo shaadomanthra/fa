@@ -114,22 +114,32 @@ class User extends Authenticatable
     }
 
     public function testAccess($id){
-        $order = $this->orders()->where('product_id',$id)->orderBy('id','desc')->first();
-        $order2 = $this->orders()->where('test_id',$id)->orderBy('id','desc')->first();
+        $order = $this->orders()->where('test_id',$id)->orderBy('id','desc')->first();
+        
         if($order){
-            if(strtotime($order->expiry) > strtotime(date('Y-m-d')))
+            if(strtotime($order->expiry) < strtotime(date('Y-m-d'))){
+                $test = Test::where('id',$id)->first();
+                $products = $test->products->pluck('id')->toArray();
+                $orders = $this->orders()->whereIn('product_id',$products)->orderBy('id','desc')->get();
+                foreach($orders as $o){
+                    if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                        return true;
+                }
+            }else{
                 return true;
-            else
-                return false;
-        }elseif($order2){
+            }
+        }
+
+        $order2 = $this->orders()->where('product_id',$id)->orderBy('id','desc')->first();
+
+        if($order2){
             if(strtotime($order2->expiry) > strtotime(date('Y-m-d')))
                 return true;
             else
                 return false;
         }
-        else
-            return false;
         
+        return false;
     }
 
     public function attempt($id){

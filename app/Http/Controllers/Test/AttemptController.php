@@ -214,21 +214,21 @@ class AttemptController extends Controller
 
     $product_id = $test_id = null;
 
-        if($product){
-          $id = $product->id;
-          $product_id = $id;
-          $validity = $product->validity;
-          $price = $product->price;
-        }
-        else{
+        if($test){
           $id = $test->id;
           $test_id = $id;
-          $validity = $test->validity;
           $price = $test->price;
+        }
+        else{
+          $id = $product->id;
+          $product_id = $id;
+          $price = $product->price;
         }
     
     if(\auth::user()){
       $user = \auth::user();
+      
+
       if(!$user->testAccess($id)){
          if($price!=0){
                 return view('appl.product.product.purchase')

@@ -143,7 +143,7 @@ class FileController extends Controller
     public function download($id,Request $request)
     {
         $obj = Obj::where('id',$id)->first();
-        $this->authorize('view', $obj);
+   
 
         $info = pathinfo(Storage::url($obj->response));
 
