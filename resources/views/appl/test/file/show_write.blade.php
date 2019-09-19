@@ -26,11 +26,11 @@
           </a>
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i> Edit</a>
 
-              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i></a>
-              <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i></a>
-              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
+              <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="review"><i class="fa fa-eye"></i> Review</a>
+              <a href="{{ route($app->module.'.download',$obj->id) }}" class="btn btn-outline-secondary btn-lg" data-tooltip="tooltip" data-placement="top" title="Download"><i class="fa fa-download"></i> Download</a>
+              <a href="#" class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i> Delete</a>
 
             </span>
             @endcan
@@ -57,7 +57,7 @@
             <div class="col-md-4"><b>Response</b></div>
             <div class="col-md-8"><div class="p-3 border mb-3 bg-light">{!! $obj->response !!}</div>
           <a href="{{route($app->module.'.download',[$obj->id])}}" >
-                <button type="button" class="btn btn-sm btn-outline-primary float-left mr-2">Download Response</button>
+                <button type="button" class="btn btn btn-primary float-left mr-2 mb-2">Download Response</button>
               </a></div>
 
           </div>
@@ -81,14 +81,14 @@
               </div>
               
               <a href="{{route($app->module.'.download',[$obj->id])}}?pdf=1" >
-                <button type="button" class="btn btn-sm btn-outline-success float-left mr-2">Download Feedback</button>
+                <button type="button" class="btn  btn-success float-left mr-2">Download Feedback</button>
               </a>
               
               <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" class = "form-inline" role = "form">
                  <input type="hidden" name="_method" value="PUT">
                  <input type="hidden" name="deletefile" value="1">
                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger ml-2">Delete Feedback</button>
+                <button type="submit" class="btn btn-danger ml-2">Delete Feedback</button>
               </form>
               @else
                <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
