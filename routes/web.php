@@ -18,9 +18,7 @@
 Route::get('/layout2', 'HomeController@index')->name('root');
 Route::get('/', 'HomeController@welcome');
 
-Route::get('/home', function () {
-    return view('appl.pages.dashboard');
-})->name('home')->middleware('auth');
+Route::get('/home', 'HomeController@dashboard')->name('home')->middleware('auth');
 
 // login routes
 Auth::routes();

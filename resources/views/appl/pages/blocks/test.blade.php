@@ -35,7 +35,7 @@
 						
 					</h5>
 					<h6 class="card-subtitle mb-2 text-muted">
-						<span class="">Valid Till - {{date('d M Y', strtotime($order->expiry))}}</span>
+						<span class="">Valid Till - {{date('d M Y', strtotime($test->expiry))}}</span>
 					</h6>
 					
 
@@ -46,9 +46,9 @@
 					</a>
 					@else
 					@if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
-					<a href="{{ route('test.try',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-eye"></i> View Response</a>
+					<a href="{{ route('test.try',$test->slug)}}" class="btn btn-primary mb-1"><i class="fa fa-eye"></i> View Response</a>
 					@else
-					<a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
+					<a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-primary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
 					@endif
 					@endif
 					</div>

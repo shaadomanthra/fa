@@ -99,4 +99,42 @@ class HomeController extends Controller
                 ->with('categories',$categories)
                 ->with('app',$this);
     }
+
+    public function dashboard(Request $request){
+        $orders = \auth::user()->orders()->where('status',1)->get();
+
+        $test_ids = array();
+        $tests=array();
+
+        $i=0;
+        foreach($orders as $o){
+
+            if($o->test_id){
+                if(!in_array($o->test_id, $test_ids)){
+                    $o->test->expiry = $o->expiry;
+                    $tests[$i] = $o->test;
+                            $i++;
+                    array_push($test_ids, $o->test_id);
+                }
+            }
+            
+            if($o->product_id){
+                if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                {
+                    foreach($o->product->tests as $t){
+                        if(!in_array($t->id, $test_ids)){
+                            $t->expiry = $o->expiry;
+                            $tests[$i] = $t;
+                            $i++;
+                            array_push($test_ids, $t->id);
+                        }
+                        
+                    }
+                }
+
+            }    
+        }
+        return view('appl.pages.dashboard')
+                ->with('tests',$tests);
+    }
 }
