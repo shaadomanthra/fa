@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('hour:update')
-                    ->twiceDaily(10, 13);
+        $schedule->command('day:update')
+                    ->everyMinute();
     }
 
     /**

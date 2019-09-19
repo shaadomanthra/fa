@@ -1,6 +1,6 @@
 
 @component('mail::message')
-# Hi {{$user['name']}}!, <br>
+# Hi {{$user['name']}}! <br>
 
 Greetings from First Academy!
 
