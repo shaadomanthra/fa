@@ -50,6 +50,7 @@ class McqController extends Controller
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('try',true)
                 ->with('app',$this);
     }
 
@@ -163,7 +164,7 @@ class McqController extends Controller
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('app',$this)->with('try',true);
         else
             abort(404);
     }
