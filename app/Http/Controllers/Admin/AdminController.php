@@ -48,7 +48,8 @@ class AdminController extends Controller
     }
 
     public function notify(Request $r){
-        
+         
+         
         Mail::to(config('mail.report'))->send(new  ErrorReport($r));
         echo "Successfully reported to administrator.";
     }
