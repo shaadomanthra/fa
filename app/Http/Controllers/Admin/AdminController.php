@@ -6,12 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Test as Obj;
 use App\Models\Admin\Admin;
-use App\User;
 use App\Models\Product\Coupon;
 
 use App\Mail\contactmessage;
 use App\Mail\ErrorReport;
+
 use Illuminate\Support\Facades\Mail;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -25,7 +26,6 @@ class AdminController extends Controller
         $this->authorize('view', $obj);
         $data['users'] = User::orderBy('id','desc')->get();
         $data['coupon'] = Coupon::where('code','FA5Y9')->first();
-        
         return view('appl.admin.admin.index')->with('data',$data);
     }
 
@@ -41,15 +41,16 @@ class AdminController extends Controller
         return view('appl.admin.admin.analytics')->with('data',$data);
     }
 
+
     public function contact(Request $r){
         
         Mail::to(config('mail.report'))->send(new contactmessage($r));
         return view('appl.admin.admin.contactmessage');
     }
 
+    
     public function notify(Request $r){
-         
-         
+        
         Mail::to(config('mail.report'))->send(new  ErrorReport($r));
         echo "Successfully reported to administrator.";
     }
