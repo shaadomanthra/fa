@@ -419,3 +419,27 @@ function addMinutes(date, minutes) {
 </script>
 @endif
 @endif
+
+<script>
+
+  $(function(){
+    $('.btn-error-report').on('click',function(e){
+      e.preventDefault();
+      $('.spinner-border').show();
+      $name = $('input[name="name"]').val();
+      $email = $('input[name="email"]').val();
+      $qno = $('input[name="qno"]').val();
+      $details = $.trim($(".details").val());
+      $_token =  $('input[name="_token"]').val();
+      $url = $('input[name="url"]').val();
+
+      
+      
+      $.post( $url, {'name':$name,'email':$email,'qno':$qno,'details':$details,'_token':$_token},function( data ) {
+        $( ".modal-body" ).html( data );
+      });
+      
+    });
+      
+  });
+</script>

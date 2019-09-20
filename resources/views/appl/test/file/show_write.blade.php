@@ -8,7 +8,7 @@
   <ol class="breadcrumb border bg-light">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
-    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
+    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}?type=writing">{{ ucfirst($app->module) }}</a></li>
     <li class="breadcrumb-item"> User Response</li>
   </ol>
 </nav>
@@ -42,13 +42,14 @@
   </div>
 
             
-   <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-primary " data-tooltip="tooltip" data-placement="top" title="Edit"> Add Feedback</a>
+   <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-primary " data-tooltip="tooltip" data-placement="top" title="Edit"> Edit</a>
 
               <a href="{{ route('test.review',$obj->test->slug) }}?user_id={{$obj->user->id}}" class="btn btn-outline-secondary " data-tooltip="tooltip" data-placement="top" title="review"> Review</a>
+              @if(\auth::user()->admin!=4)
               <a href="{{ route('file.assign',$obj->id) }}" class="btn btn-outline-secondary " data-tooltip="tooltip" data-placement="top" title="review"> Assign</a>
               
               <a href="#" class="btn btn-outline-secondary " data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" > Delete</a>
-
+              @endif
             </span>
             @endcan
           

@@ -36,6 +36,11 @@ class Attempt extends Model
         return $this->belongsTo('App\User');
     }
 
+    public function writing()
+    {
+        return $this->hasOne('App\Models\Test\Writing');
+    }
+
     public function fillup()
     {
         return $this->belongsTo('App\Models\Test\Fillup');

@@ -32,6 +32,7 @@ Route::get('/construction', function () {
 Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('auth');
 Route::get('/admin/analytics', 'Admin\AdminController@analytics')->name('admin.analytics')->middleware('auth');
 Route::post('/admin/contact', 'Admin\AdminController@contact')->name('admin.contact');
+Route::post('/admin/notify', 'Admin\AdminController@notify')->name('admin.notify');
 
 /* Admin Application Routes */
 Route::resource('/admin/test', 'Test\TestController')->middleware('auth');

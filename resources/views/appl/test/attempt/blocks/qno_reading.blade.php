@@ -11,8 +11,10 @@
                     </div>
 
                     <div class="col-2 col-md-4">
+
                        <span class="badge badge-warning float-right " id="timer"></span>
         <span class="badge badge-warning float-center d-none" id="timer2">00:00</span>
+
                     </div>
 
                     <div class="col-4 col-md-4">
@@ -32,9 +34,10 @@
     			
     		</div>
     		
-    		<div class="col-12 col-md-6 col-lg-3 @if(count($test->sections)<2) d-none @endif">
+    		<div class="col-12 col-md-6 col-lg-4 @if(count($test->sections)<2) d-none @endif">
     			<div class="section section2 rounded ml-md-1 ">
     				<span class="section-name"> SECTION <span class="section-number">1</span></span>
+                   <i class="fa fa-exclamation-triangle section-name" data-toggle="modal" data-target="#exampleModal2" style="cursor:pointer"></i>
     				<span class="float-right">
     				<button type="button" class="button btn  btn-sm prev" style="display: none" data-id="0"><i class="fa fa-angle-left"></i> PREV
                     </button>

@@ -5,6 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        @if(\auth::user()->admin!=4)
         <div class="col-12 col-md-4 col-lg-4">
             <div class="bg-primary text-light  rounded p-4 mb-4">
                 <h3><i class="fa fa-user"></i> Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
@@ -27,6 +28,7 @@
                 
             </div>
         </div>
+        @endif
         <div class="col-12 col-md-8 col-lg-8">
                 <div class="row ">
         @if(\auth::user()->admin==1)
@@ -85,6 +87,7 @@
         </div>
         @endif
 
+        @if(\auth::user()->admin!=4)
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('order.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
@@ -105,6 +108,7 @@
             </div>
             </a>
         </div>
+        @endif
 
         @if(\auth::user()->admin==1)
         <div class="col-6 col-md-3 col-lg-3">
@@ -138,6 +142,9 @@
             </div>
             </a>
         </div>
+        @endif
+
+        @if(\auth::user()->admin==4 ||\auth::user()->admin==1)
 
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('file.index') }}?type=writing">

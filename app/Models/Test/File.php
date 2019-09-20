@@ -24,6 +24,7 @@ class File extends Model
         return $this->belongsTo('App\Models\Test\Fillup');
     }
     
+    
     public function mcq()
     {
         return $this->belongsTo('App\Models\Test\Mcq');

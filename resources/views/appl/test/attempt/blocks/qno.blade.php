@@ -16,6 +16,7 @@
 	</div>
 <button class="btn btn-warning  mt-4" type="button" data-toggle="modal" data-target="#exampleModal">Submit Test</button>
 
+<button class="btn btn-outline-light mt-4" type="button" data-toggle="modal" data-target="#exampleModal2">Report Error</button>
 </div>
 </div>
 
@@ -23,7 +24,9 @@
 <div class=" p-4  sidebar ">
 <h5 class="mb-0 qshow"><i class="fa fa-th"></i> Questions <span class="angle"><i class="fa fa-angle-double-up"></i></span></span>  <span class="badge badge-warning" id="timer"></span>
 
+<button class="btn btn-outline-light  btn-sm float-right ml-2" type="button" data-toggle="modal" data-target="#exampleModal2">Report</button>
 <button class="btn btn-warning btn-sm float-right" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
+
 
 </h5>
 <div class="qdata mt-4">

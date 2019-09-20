@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Test;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\File as Obj;
+use App\Models\Test\Attempt as Obj2;
 use App\Models\Test\Test ;
 use App\Models\Test\Writing ;
 use Illuminate\Support\Facades\Storage;
@@ -30,13 +31,14 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Obj $obj,Request $request)
+    public function index(Obj $obj,Obj2 $obj2,Request $request)
     {
 
 
         $this->authorize('view', $obj);
 
         $search = $request->search;
+
         $item = $request->item;
         if($request->get('type')=='speaking'){
             $tests = Test::whereIn('type_id',[4])->pluck('id');
@@ -45,10 +47,17 @@ class FileController extends Controller
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));
         }else if($request->get('type')=='writing'){
-            $tests = Test::whereIn('type_id',[3])->pluck('id');
-            
-                    if($item){
-                        $objs = $obj->whereHas('user', function ($query) use ($item){
+            if(\auth::user()->admin==4)
+            {
+                $tests = [];
+                $attempt_ids = Writing::where('user_id',\auth::user()->id)->pluck('attempt_id');
+                $objs = Obj2::whereIn('id',$attempt_ids)->paginate(config('global.no_of_records'));
+
+            }
+            else{
+                $tests = Test::whereIn('type_id',[3])->pluck('id');
+                 if($item){
+                        $objs = $obj2->whereHas('user', function ($query) use ($item){
                             $query->where('name', 'like', '%'.$item.'%');
                         })
                         ->with(['user' => function($query) use ($item){
@@ -57,11 +66,19 @@ class FileController extends Controller
                         ->whereIn('test_id',$tests)->paginate(config('global.no_of_records'));
                         
                     }else{
-                        $objs = $obj->where('response','LIKE',"%{$item}%")
+                        $objs = $obj2
                     ->whereIn('test_id',$tests)
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));
+                  
                     }
+            }
+
+            //$tests = Test::whereIn('type_id',[3])->pluck('id');
+            
+            
+                   
+
                     
         }else{
             $tests = Test::whereIn('type_id',[3,4])->pluck('id');
@@ -324,7 +341,14 @@ class FileController extends Controller
                 $path = Storage::disk('public')->putFileAs('feedback', $request->file('file'),$filename);
             }
 
-            
+            //update writing notifier
+            $writing = Writing::where('attempt_id',$id)->first();
+            if(!$writing)
+            $writing = new Writing();
+            $writing->attempt_id = $id;
+            $writing->user_id = \auth::user()->id;
+            $writing->save();
+
 
             $obj->save();
             

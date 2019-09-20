@@ -10,6 +10,7 @@ use App\User;
 use App\Models\Product\Coupon;
 
 use App\Mail\contactmessage;
+use App\Mail\ErrorReport;
 use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
@@ -42,10 +43,14 @@ class AdminController extends Controller
 
     public function contact(Request $r){
         
-        
-
         Mail::to(config('mail.report'))->send(new contactmessage($r));
         return view('appl.admin.admin.contactmessage');
+    }
+
+    public function notify(Request $r){
+        
+        Mail::to(config('mail.report'))->send(new  ErrorReport($r));
+        echo "Successfully reported to administrator.";
     }
 
 

@@ -7,6 +7,7 @@
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">File </th>
                 <th scope="col">Feedback</th>
+                <th scope="col">Assigned To</th>
                 <th scope="col">Created </th>
               </tr>
             </thead>
@@ -25,6 +26,12 @@
                   @else
                     <span class="badge badge-secondary">Open</span>
                   @endif
+                </td>
+                <td>@if($obj->writing)
+                      @if($obj->writing->user)
+                        {{ $obj->writing->user->name }}
+                      @endif
+                    @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
               </tr>
