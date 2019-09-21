@@ -34,11 +34,13 @@
 						<a href="{{ route('test',$test->slug) }}">{{$test->name}}</a>
 						
 					</h5>
+					@auth
 					<h6 class="card-subtitle mb-2 text-muted">
 						<span class="">Valid Till - {{date('d M Y', strtotime($test->expiry))}}</span>
 					</h6>
+					@endauth
 					
-
+					@auth
 					<div class="mt-3">
 					@if(!\auth::user()->attempt($test->id))
 					<a href="{{ route('test.try',$test->slug) }}">
@@ -52,6 +54,11 @@
 					@endif
 					@endif
 					</div>
+					@else
+					<a href="{{ route('test.try',$test->slug) }}">
+						<button class="btn btn-lg btn-success">Try Now</button>
+					</a>
+					@endauth
 
 				</div>
 			</div>
