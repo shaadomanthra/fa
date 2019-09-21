@@ -1,7 +1,7 @@
 @component('mail::message')
 # Hi First Academy! <br>
 
-{{$form['name'] }}has filled a request form in the website prep.firstacademy.in
+{{$form['name'] }} has submitted a request form in the website prep.firstacademy.in
 <hr>
 Name : {{$form['name']}}<br>
 Email : {{$form['email']}}<br>
