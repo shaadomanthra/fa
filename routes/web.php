@@ -54,7 +54,9 @@ Route::post('/admin/{file}/assign','Test\FileController@assignupdate')->name('fi
 
 Route::resource('/admin/group', 'Test\GroupController')->middleware('auth');
 Route::resource('/admin/type', 'Test\TypeController')->middleware('auth');
-
+Route::resource('/admin/form', 'Admin\FormController')->middleware('auth');
+Route::get('/request-form','Admin\FormController@request')->name('form.request');
+Route::post('/request-form','Admin\FormController@save')->name('form.save');
 
 /* User Routes */
 Route::resource('/admin/user', 'User\UserController')->middleware('auth');

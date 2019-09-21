@@ -87,7 +87,8 @@ return [
     'username' => env('MAIL_USERNAME'),
 
     'password' => env('MAIL_PASSWORD'),
-    'report' => env('MAIL_REPORT'),
+    'report' => env('MAIL_REPORT','packetcode@gmail.com'),
+    'report2' => env('MAIL_REPORT2','info@firstacademy.in'),
 
     /*
     |--------------------------------------------------------------------------

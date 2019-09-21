@@ -1,4 +1,4 @@
-<div class="col-12 col-md-6 col-lg-4"> 
+
 			<div class="card mb-4 ">
 				@if(\Storage::disk('public')->exists($test->image)  && $test->image)
                 <picture>
@@ -55,4 +55,3 @@
 
 				</div>
 			</div>
-		</div>
