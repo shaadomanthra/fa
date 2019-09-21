@@ -29,7 +29,9 @@
           >
       </div>
       
-      <div class="form-group">
+      <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
         <label for="formGroupExampleInput ">Email</label>
         <input type="email" class="form-control" name="email" id="formGroupExampleInput" placeholder="Enter you email address" 
             @if($stub=='Create')
@@ -39,8 +41,9 @@
             @endif
           >
       </div>
-
-      <div class="form-group">
+        </div>
+        <div class="col-12 col-md-6">
+              <div class="form-group">
         <label for="formGroupExampleInput ">Phone number</label>
         <input type="number" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter your phone number (10 digits)" 
             @if($stub=='Create')
@@ -50,8 +53,12 @@
             @endif
           >
       </div>
+        </div>
+      </div>
 
-      <div class="form-group">
+      <div class="row">
+        <div class="col-12 col-md-6">
+            <div class="form-group">
         <label for="formGroupExampleInput ">College (optional)</label>
         <input type="text" class="form-control" name="college" id="formGroupExampleInput" placeholder="Enter your college name" 
             @if($stub=='Create')
@@ -61,7 +68,9 @@
             @endif
           >
       </div>
-
+        </div>
+        <div class="col-12 col-md-6">
+             
       <div class="form-group">
         <label for="formGroupExampleInput ">Year of passing (optional)</label>
         <input type="text" class="form-control" name="year" id="formGroupExampleInput" placeholder="Enter the year of passing" 
@@ -72,6 +81,14 @@
             @endif
           >
       </div>
+        </div>
+      </div>
+      
+
+    
+
+      
+      <div class="border bg-light p-3 mb-3"> 
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Subject</label>
@@ -87,11 +104,12 @@
       </div>
 
       <div class="form-group">
-        <label for="formGroupExampleInput ">Description (optional)</label><br>
-        <small class="text-secondary">Enter the extra details you want to let us know.</small>
+        <label for="formGroupExampleInput ">Description (optional)</label>
+        <small class="text-secondary float-right">Enter the extra details you want to let us know.</small>
          <textarea class="form-control " name="description"  rows="3">@if($stub=='Create'){{ (old('description')) ? old('description') : '' }}@else{{ $obj->description }}@endif</textarea>
 
       </div>
+    </div>
 
 
       @if($stub=='Update')
