@@ -364,6 +364,20 @@
       $('.sentence_input').val($(this).text().trim());
       $(sno).addClass('answered');
     });
+
+    /* show/hide time */
+    $('.hide_time').on('click',function(){
+        $('#timer').toggle();
+        if($('#timer').is(':visible'))
+        {
+            $('.hide_time').html('<i class="fa fa-minus-circle"></i> Hide Time');
+        }else{
+            $('.hide_time').html('<i class="fa fa-clock-o"></i> Show Time');
+        }
+    });
+
+    /* Review Button */
+
 </script>
 @endif
 

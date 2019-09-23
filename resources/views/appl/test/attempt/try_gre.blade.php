@@ -13,7 +13,7 @@
         </div>
         
     </div>
-    @include('appl.test.attempt.blocks.modal')
+    @include('appl.test.attempt.blocks.gremodal')
     </form>
 </div>
 @endsection

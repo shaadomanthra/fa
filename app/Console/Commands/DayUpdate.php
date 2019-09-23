@@ -46,7 +46,7 @@ class DayUpdate extends Command
         
        $writings = Writing::where('notify','!=',0)->get();
 
-       foreach($writing as $w){
+       foreach($writings as $w){
             $h = date('H');
             $w->user_id = $h;
             if($w->notify==$h)
