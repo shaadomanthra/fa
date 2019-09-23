@@ -42,15 +42,13 @@ class DayUpdate extends Command
      */
     public function handle()
     {
-        $first = Writing::where('notify','!=',0)->first();
-        $first->notify=0;
-        $first->status = 1;
-        $first->save();
+
         
        $writings = Writing::where('notify','!=',0)->get();
 
        foreach($writing as $w){
             $h = date('H');
+            $w->user_id = $h;
             if($w->notify==$h)
             {
                 $test = $w->attempt->test;
@@ -61,7 +59,13 @@ class DayUpdate extends Command
                 $w->save();
                 $this->info('Hourly Update has been send successfully');
             }
+            $w->save();
        }
+
+        $first = Writing::where('notify','!=',0)->first();
+        $first->notify = 0;
+        $first->status = date('H');
+        $first->save();
        
     }
 }

@@ -3,35 +3,17 @@
 @section('description', 'The Test page of '.$test->name)
 @section('keywords', 'practice tests, '.$test->name)
 @section('content')
-
 <div class="container" style="padding-left:0px;padding-right:0px;">
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
-
     <div class="row">
-        <div class="col-12 col-md-8 col-lg-8">
-            
+        <div class="col-12 ">
             @foreach($test->sections as $s=>$section)
-                @include('appl.test.attempt.blocks.section_gre')
+                @include('appl.test.attempt.blocks.screen_gre')
             @endforeach
-
-        </div>
-        <div class="col-12 col-md-4 col-lg-4">
-            @if(isset($view))
-            <input type="hidden" name="admin" value="1">
-            @endif
-            <input type="hidden" name="test_id" value="{{ $app->test->id }}">
-            <input type="hidden" name="user_id" value="@if(\auth::user())
-            {{ \auth::user()->id }}
-            @endif
-            ">
-            <input type="hidden" name="product" value="@if($product){{ $product->slug }} @endif">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            @include('appl.test.attempt.blocks.qno')
         </div>
         
     </div>
     @include('appl.test.attempt.blocks.modal')
     </form>
 </div>
-
 @endsection
