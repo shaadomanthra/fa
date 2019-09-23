@@ -43,7 +43,7 @@
     @endguest
 
     <div class="p-5"></div>
-    <div class="h4  mb-3" style="color:#a1d5e8">Explore our <a href="{{ route('product.public')}}">
+    <div class="h4  mb-3" style="color:#a1d5e8">Explore our <a href="{{ route('tests')}}">
     <button class="btn btn-green btn-lg" style="">Tests</button>
     </a></div>
     <a href="{{ route('product.view','oet-mock-test-pack')}}">

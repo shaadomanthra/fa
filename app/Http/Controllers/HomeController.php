@@ -24,10 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $view = 'welcome3';
+        $view = 'welcome2';
         $tests = Test::where('status',1)->orderBy('id','desc')->limit(18)->get();
         return view($view)
                 ->with('tests',$tests);
+    }
+
+    public function welcome2()
+    {
+        $view = 'welcome2';
+        
+        return view($view);
     }
 
      public function welcome(Request $request)

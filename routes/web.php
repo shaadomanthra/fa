@@ -16,7 +16,7 @@
     return view('welcome');
 });*/
 Route::get('/layout2', 'HomeController@index')->name('root');
-Route::get('/', 'HomeController@welcome');
+Route::get('/', 'HomeController@welcome2');
 
 Route::get('/home', 'HomeController@dashboard')->name('home')->middleware('auth');
 
