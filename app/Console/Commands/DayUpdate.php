@@ -42,7 +42,13 @@ class DayUpdate extends Command
      */
     public function handle()
     {
+        $first = Writing::where('notify','!=',0)->first();
+        $first->notify=0;
+        $first->status = 1;
+        $first->save();
+        
        $writings = Writing::where('notify','!=',0)->get();
+
        foreach($writing as $w){
             $h = date('H');
             if($w->notify==$h)

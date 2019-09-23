@@ -10,6 +10,4 @@ College : {{$form['college']}}<br>
 Year of Passing : {{$form['year']}}<br>
 Subject : {{$form['subject']}}<br>
 Description : {{$form['description']}}<br>
-
-
 @endcomponent
