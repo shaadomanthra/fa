@@ -36,8 +36,8 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
       <a href="{{ route('review.notify',$obj->id)}}" class="dropdown-item">Now</a>
-      <a href="{{ route('review.notify',$obj->id)}}?time=14" class="dropdown-item">Schedule - 14:00 </a>
-      <a href="{{ route('review.notify',$obj->id)}}?time=20" class="dropdown-item">Schedule - 20:00</a>
+      <a href="{{ route('review.notify',$obj->id)}}?time=14" class="dropdown-item">Schedule - 14:30 </a>
+      <a href="{{ route('review.notify',$obj->id)}}?time=20" class="dropdown-item">Schedule - 20:30</a>
     </div>
   </div>
 
@@ -67,7 +67,7 @@
       @endif
      @if($writing->notify)
      <div class="alert alert-warning alert-important" role="alert">
-      Notification scheduled for <b>{{ $writing->notify }}:00 </b>
+      Notification scheduled for <b>{{ $writing->notify }}:30 </b>
       </div>
      @endif
      @endif      

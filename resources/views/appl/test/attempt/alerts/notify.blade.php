@@ -5,7 +5,7 @@
 		<h1 class="text-primary"><i class="fa fa-check-circle"></i> Email Notify</h1>
 		<hr>
 		@if($time)
-		<p> Test review notification email is scheduled for {{$time}}:00 to {{$user->name }} ({{$user->email}})  </p>
+		<p> Test review notification email is scheduled for {{$time}}:30 to {{$user->name }} ({{$user->email}})  </p>
 		@else
 		<p> Test review notification email is sent to {{$user->name }} ({{$user->email}})  </p>
 		@endif
