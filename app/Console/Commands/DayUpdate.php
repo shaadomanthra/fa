@@ -44,13 +44,13 @@ class DayUpdate extends Command
     {
        $writings = Writing::where('notify','!=',0)->get();
        foreach($writings as $w){
-            $h = date('H');
-            $w->status =10;
+            $h = date('H')+5;
+            $w->status =$h;
             $w->save();
-            if($w->notify==($h+5))
+            if($w->notify==$h)
             {
                 $test = $w->attempt->test;
-                $user = $w->user;
+                $user = $w->attempt->user;
                 Mail::to($user->email)->send(new reviewnotify($user,$test));
                 $w->notify = 0;
                 $w->status = 1;
