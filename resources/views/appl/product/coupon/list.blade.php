@@ -21,7 +21,9 @@
                   </a>
                 </td>
                 <td>
+                <a href="{{ route('order.index')}}?coupon={{$obj->code}}">
                  {{ $obj->count() }}
+                </a>
                 </td>
                 <td>
                   @if($obj->status==0)

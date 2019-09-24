@@ -29,6 +29,7 @@ class CouponPolicy
      */
     public function create(User $user)
     { 
+        if($user->admin==1)
         return true;
     }
 
@@ -42,6 +43,7 @@ class CouponPolicy
      */
     public function edit(User $user)
     { 
+       if($user->admin==1)
        return true;
     }
 
@@ -54,12 +56,13 @@ class CouponPolicy
      */
     public function update(User $user)
     { 
+        if($user->admin==1)
         return true;
     }
 
 
     public function before($user, $ability)
-    {
+    {   if($user->admin==1)
         return true;
     }
 }

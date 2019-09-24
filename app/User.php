@@ -45,7 +45,7 @@ class User extends Authenticatable
 
 
     public function isAdmin(){
-        if($this->admin==1)
+        if(in_array($this->admin,[1,2,3,4]))
             return true;
         else
             return false;

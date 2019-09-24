@@ -9,14 +9,14 @@ class FormPolicy
 {
     use HandlesAuthorization;
 
-     /**
+      /**
      * Create a new policy instance.
      *
      * @return void
      */
      public function view(User $user)
     {
-        return $user->isAdmin();
+        return true;
     }
 
 
@@ -29,6 +29,7 @@ class FormPolicy
      */
     public function create(User $user)
     { 
+        if($user->admin==1)
         return true;
     }
 
@@ -42,7 +43,8 @@ class FormPolicy
      */
     public function edit(User $user)
     { 
-       return $user->isAdmin();
+       if($user->admin==1)
+       return true;
     }
 
     /**
@@ -54,12 +56,14 @@ class FormPolicy
      */
     public function update(User $user)
     { 
-        return $user->isAdmin();
+        if($user->admin==1)
+        return true;
     }
 
 
     public function before($user, $ability)
-    {
-        return $user->isAdmin();
+    {   if($user->admin==1)
+        return true;
     }
+
 }

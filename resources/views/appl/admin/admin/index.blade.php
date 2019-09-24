@@ -119,9 +119,6 @@
             </div>
             </a>
         </div>
-        @endif
-
-        @if(\auth::user()->admin==1)
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('coupon.index') }}">
             <div class="border bg-light p-4 rounded mb-4">
@@ -132,6 +129,10 @@
             </div>
             </a>
         </div>
+        @endif
+
+        @if(\auth::user()->admin==1)
+        
        
          <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('admin.analytics') }}">

@@ -29,7 +29,8 @@ class ProductPolicy
      */
     public function create(User $user)
     { 
-        return $user->isAdmin();
+        if($user->admin==1)
+        return true;
     }
 
 
@@ -42,7 +43,8 @@ class ProductPolicy
      */
     public function edit(User $user)
     { 
-       return $user->isAdmin();
+       if($user->admin==1)
+       return true;
     }
 
     /**
@@ -54,7 +56,14 @@ class ProductPolicy
      */
     public function update(User $user)
     { 
-        return $user->isAdmin();
+        if($user->admin==1)
+        return true;
+    }
+
+
+    public function before($user, $ability)
+    {   if($user->admin==1)
+        return true;
     }
 
 

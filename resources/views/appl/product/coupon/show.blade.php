@@ -70,7 +70,7 @@
 
           <div class="row mb-2">
             <div class="col-md-4"><b>Usage</b></div>
-            <div class="col-md-8">{{$obj->count() }}</div>
+            <div class="col-md-8"><a href="{{ route('order.index')}}?coupon={{$obj->code}}">{{$obj->count() }}</a></div>
           </div>
 
           <div class="row mb-2">
