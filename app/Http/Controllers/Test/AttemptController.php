@@ -497,8 +497,8 @@ class AttemptController extends Controller
           
       }
 
-
-      foreach($request->except(['test_id','user_id','_token','product']) as $qno=>$resp){
+      
+      foreach($request->except(['test_id','user_id','_token','product','qno','name','email','details','url']) as $qno=>$resp){
         
         $attempt = new Attempt();
         $attempt->test_id = $test->id;
