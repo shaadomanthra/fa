@@ -45,8 +45,6 @@ class DayUpdate extends Command
        $writings = Writing::where('notify','!=',0)->get();
        foreach($writings as $w){
             $h = date('H')+5;
-            $w->status =$h;
-            $w->save();
             if($w->notify==$h)
             {
                 $test = $w->attempt->test;
