@@ -45,6 +45,7 @@ class DayUpdate extends Command
        $writings = Writing::where('notify','!=',0)->get();
        foreach($writings as $w){
             $h = date('H');
+            $w->status =10;
             if($w->notify==($h+5))
             {
                 $test = $w->attempt->test;
@@ -55,6 +56,7 @@ class DayUpdate extends Command
                 $w->save();
                 $this->info('Hourly Update has been send successfully');
             }
+            $w->save();
        }
        
     }
