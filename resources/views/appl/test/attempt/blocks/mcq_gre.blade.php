@@ -1,6 +1,6 @@
 @foreach($section->mcq_order as $k=>$m)
 
-
+<div class="qblock greblock_{{$m->qno}}" data-qno="{{$m->qno}}" data-mark="0" data-section="{{$s+1}}" data-sno="{{$k+1}}" data-qcount="{{(count($section->mcq_order)+count($section->fillup_order))}}" @if($m->qno!=1)style="display:none"@endif>
 @if(isset($m->extract))
   <div class="option rounded p-4 border mb-4">
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
@@ -26,7 +26,7 @@ For the following question, select the one or more answer choices that, when ins
 <div class="mb-3">
   <div class="row">
         <div class="col-4 col-md-3 col-lg-2">
-          <div id="{{$m->qno}}" class="qno">{{$m->qno}}</div>
+          <div id="{{$m->qno}}" class="qno">{{$k+1}}</div>
       </div>
       <div class="col-12 col-md-9 col-lg-10">
           <div class="question">{!! $m->question !!}</div>
@@ -276,5 +276,6 @@ For the following question, select the one or more answer choices that, when ins
  
 </table>
 @endif
-</div>            
+</div>   
+</div>         
 @endforeach

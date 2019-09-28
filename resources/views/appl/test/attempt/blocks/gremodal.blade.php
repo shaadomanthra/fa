@@ -1,63 +1,28 @@
 @auth
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<div class="modal fade" id="test_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Section Submission</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Test Submission</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        The following section will be submitted.
+        The following test will be submitted. The action is permanent and it cannot be reverted.
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" class="btn btn-success">Confirm Submission</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="review" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Review</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Number</th>
-      <th scope="col">Status</th>
-      <th scope="col">Marked</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for($i=1;$i<9;$i++)
-    <tr>
-      <th scope="row">{{$i}}</th>
-      <td id="r{{$i}}">Not Answered</td>
-      <td id="m{{$i}}"><i class="fa fa-check-circle"></i></td>
-    </tr>
-    @endfor
-  </tbody>
-</table>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
 @else
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="test_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -121,6 +86,67 @@
   <span class="sr-only">Loading...</span>
 </div>
       </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@foreach($test->sections as $s=>$section)
+<div class="modal fade" id="review_{{$s+1}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Review - Section {{$s+1}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Number</th>
+      <th scope="col">Status</th>
+      <th scope="col">Marked</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach($section->mcq_order as $k=>$m)
+    <tr>
+      <th scope="row">{{$k+1}}</th>
+      <td class="r_{{$s+1}}_{{$m->qno}}"><span class="badge badge-secondary">Not answered</span></td>
+      <td class="m_{{$s+1}}_{{$m->qno}}"></td>
+    </tr>
+    @endforeach
+  </tbody>
+</table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+@endforeach
+
+<div class="modal fade" id="section_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Section Submission</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        The following section will be submitted. After submission you cannot review or update your responses.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-success btn-submit-section">Submit</button>
       </div>
     </div>
   </div>

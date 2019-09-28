@@ -278,7 +278,18 @@ class AttemptController extends Controller
     else
       $view =  strtolower($test->testtype->name);
 
-   if($view == 'listening' || $view == 'grammar' || $view == 'gre')
+   if($view == 'listening' || $view == 'grammar' )
+    return view('appl.test.attempt.try_'.$view)
+            ->with('player',true)
+            ->with('try',true)
+            ->with('grammar',true)
+            ->with('app',$this)
+            ->with('qcount',$qcount)
+            ->with('test',$test)
+            ->with('product',$product)
+            ->with('timer',$user)
+            ->with('time',$test->test_time);
+    else if($view == 'gre')
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
@@ -342,18 +353,28 @@ class AttemptController extends Controller
         $attempt = null;
 
   
-      if($view == 'listening' || $view == 'grammar' || $view == 'gre')
-        return view('appl.test.attempt.try_'.$view)
-                ->with('player',true)
-                ->with('try',true)
-                ->with('gre',true)
-                ->with('app',$this)
-                ->with('qcount',$qcount)
-                ->with('test',$test)
-                ->with('product',$product)
-                ->with('view',true)
-                ->with('timer',true)
-                ->with('time',$test->test_time);
+    if($view == 'listening' || $view == 'grammar' )
+    return view('appl.test.attempt.try_'.$view)
+            ->with('player',true)
+            ->with('try',true)
+            ->with('grammar',true)
+            ->with('app',$this)
+            ->with('qcount',$qcount)
+            ->with('test',$test)
+            ->with('product',$product)
+            ->with('timer',$user)
+            ->with('time',$test->test_time);
+    else if($view == 'gre')
+    return view('appl.test.attempt.try_'.$view)
+            ->with('player',true)
+            ->with('try',true)
+            ->with('gre',true)
+            ->with('app',$this)
+            ->with('qcount',$qcount)
+            ->with('test',$test)
+            ->with('product',$product)
+            ->with('timer',$user)
+            ->with('time',$test->test_time);
       else if($view =='reading'){
         return view('appl.test.attempt.try_'.$view)
                 ->with('try',true)

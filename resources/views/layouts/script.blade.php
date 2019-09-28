@@ -327,7 +327,7 @@
 <script src="{{asset('js/script.js')}}" type="application/javascript"></script>  
 @endif
 
-@if(isset($gre))
+@if(isset($grammar))
 <script type="application/javascript">
     $(".td_option").click(function() {
         $id = $(this).data('id');
@@ -365,6 +365,53 @@
       $(sno).addClass('answered');
     });
 
+</script>
+@endif
+@if(isset($gre))
+<script type="application/javascript">
+    $(".td_option").click(function() {
+        $id = $(this).data('id');
+        $qno = $id;
+        $group = $(this).data('group');
+        $option = $(this).data('option');
+        $section = $('.greblock_'+$id).data('section');
+        $sno = $('.greblock_'+$id).data('sno');
+
+        if(!$(this).hasClass('td_answered'))
+        {
+          $('.td_'+$id+'_'+$group).removeClass('td_answered');
+          $('.'+$id+'_'+$group).prop("checked",false);
+          $('.'+$id+'_'+$option).prop("checked", true);
+          $(this).addClass('td_answered');
+          $('.s'+$id).addClass('answered');
+          $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
+
+        }else{
+          $(this).removeClass('td_answered');
+          $('.'+$id+'_'+$option).prop("checked", false);
+          var options = ["A","B","C","D",'E',"F","G","H","I"];
+          $isChecked = false;
+          options.forEach(function(item, index, arr){
+              if($('.'+$id+'_'+item).prop("checked"))
+                $isChecked = true;
+          });
+          if(!$isChecked){
+            $('.s'+$id).removeClass('answered');
+            $('.r_'+$section+'_'+$qno).html('<span class="badge badge-secondary">Not answered</span>');
+          }
+        }
+    });
+
+    $('.sentence').on('click',function(){
+      $id = $(this).data('id');
+      var sno = '.s'+$(this).data('id');
+      $('.sentence_'+$id).removeClass('sentence_selected');
+      $(this).addClass('sentence_selected');
+      $('.sentence_textarea').html($(this).text().trim());
+      $('.sentence_input').val($(this).text().trim());
+      $(sno).addClass('answered');
+    });
+
     /* show/hide time */
     $('.hide_time').on('click',function(){
         $('#timer').toggle();
@@ -377,6 +424,186 @@
     });
 
     /* Review Button */
+    $('.gre_prev').on('click',function(){
+        $qno = $(this).data('qno');
+        $sec_current = $('.gre_mark').data('section');
+        $section = $('.greblock_'+$qno).data('section');
+        $sno = $('.greblock_'+$qno).data('sno');
+        $mark = $('.greblock_'+$qno).data('mark');
+
+        if($sec_current == $section){
+        if($qno){
+            $('.gre_qno').html($sno);
+           $('.gre_section').html($section);
+            $review = '#review_'+$section;
+            $('.gre_review').data('target',$review);
+
+            $('.qblock').hide();
+            $('.greblock_'+$qno).show();
+
+            $qno = $qno - 1;
+            //update the navbar
+            if($('.greblock_'+$qno).length){
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',$qno);
+              $('.gre_mark').data('qno',$qno+1);
+              if($('.gre_next').data('qno'))
+                $('.gre_next').removeClass('disabled');
+            }
+            else{
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',0);
+              $('.gre_mark').data('qno',$qno+1);
+              $(this).addClass('disabled');
+            }
+
+            $('.gre_mark').data('section',$section);
+            if($mark==0){
+              $('.gre_mark').data('mark',0);
+              $('.mark-icon').html('<i class="fa fa-square-o "></i>');
+            }else{
+              $('.gre_mark').data('mark',1);
+              $('.mark-icon').html('<i class="fa fa-check-square-o "></i>');
+            }
+        }
+        }else{
+            $('.gre_prev').addClass('disabled');
+        }
+    });
+
+
+    $('.gre_next').on('click',function(e){
+        $qno = $(this).data('qno');
+        $sec_current = $('.gre_mark').data('section');
+        $section = $('.greblock_'+$qno).data('section');
+        $sno = $('.greblock_'+$qno).data('sno');
+        $mark = $('.greblock_'+$qno).data('mark');
+
+        if($sec_current!=$section){
+          $('#section_submit').modal();
+          e.preventDefault();
+        }else{
+           if($qno){
+              $('.gre_qno').html($sno);
+              $('.gre_section').html($section);
+              $review = '#review_'+$section;
+              $('.gre_review').data('target',$review);
+              
+
+              $('.qblock').hide();
+              $('.greblock_'+$qno).show();
+               $qno = $qno +1;
+              //update the navbar
+              if($('.greblock_'+$qno).length){
+                $('.gre_prev').data('qno',($qno-2));
+                $('.gre_next').data('qno',$qno);
+                $('.gre_mark').data('qno',$qno-1);
+                if($qno-2!=0)
+                $('.gre_prev').removeClass('disabled');
+              }
+              else{
+                $('.gre_prev').data('qno',($qno-2));
+
+                $('.gre_next').data('qno',0);
+                $('.gre_mark').data('qno',$qno);
+                $(this).addClass('disabled');
+              }
+
+              $('.gre_mark').data('section',$section);
+              if($mark==0){
+                $('.gre_mark').data('mark',0);
+                $('.mark-icon').html('<i class="fa fa-square-o "></i>');
+              }else{
+                $('.gre_mark').data('mark',1);
+                $('.mark-icon').html('<i class="fa fa-check-square-o "></i>');
+              }
+          }
+
+        }
+
+       
+    });
+
+    $('.btn-submit-section').on('click',function(e){
+        $section = $('.gre_mark').data('section')+1;
+        $qno = $('.section_data_'+$section).data('qno');
+        $sno = $('.greblock_'+$qno).data('sno');
+        $mark = $('.greblock_'+$qno).data('mark');
+        $('.gre_prev').addClass('disabled');
+        $('#section_submit').modal('toggle'); 
+        if($qno){
+              $('.gre_qno').html($sno);
+              $('.gre_section').html($section);
+              $review = '#review_'+$section;
+              $('.gre_review').data('target',$review);
+              
+
+              $('.qblock').hide();
+              $('.greblock_'+$qno).show();
+               $qno = $qno +1;
+              //update the navbar
+              if($('.greblock_'+$qno).length){
+                $('.gre_prev').data('qno',($qno-2));
+                $('.gre_next').data('qno',$qno);
+                $('.gre_mark').data('qno',$qno-1);
+                
+              }
+              else{
+                $('.gre_prev').data('qno',($qno-2));
+                $('.gre_next').data('qno',0);
+                $('.gre_mark').data('qno',$qno);
+                $(this).addClass('disabled');
+              }
+
+              $('.gre_mark').data('section',$section);
+              if($mark==0){
+                $('.gre_mark').data('mark',0);
+                $('.mark-icon').html('<i class="fa fa-square-o "></i>');
+              }else{
+                $('.gre_mark').data('mark',1);
+                $('.mark-icon').html('<i class="fa fa-check-square-o "></i>');
+              }
+          }
+    });
+
+    $('.gre_mark').on('click',function(){
+        $mark = $(this).data('mark');
+        $qno = $(this).data('qno');
+        $section = $(this).data('section');
+
+        if($mark==1){
+          $('.gre_mark').data('mark',0);
+          $('.gre_mark').data('mark',0);
+          $('.m_'+$section+'_'+$qno).html('');
+          $('.mark-icon').html('<i class="fa fa-square-o "></i>');
+
+        }else{
+          $('.gre_mark').data('mark',1);
+          $('.greblock_'+$qno).data('mark',1);
+
+          $('.m_'+$section+'_'+$qno).html('<i class="fa fa-check-circle"></i>');
+          $('.mark-icon').html('<i class="fa fa-check-square-o "></i>');
+        }
+    });
+
+
+    $('.gre_review').on('click',function(e){
+      
+      $section = $('.gre_mark').data('section');
+      $review = '#review_'+$section;
+  
+      $($review).modal();
+      e.preventDefault();
+    });
+
+    $('.gre_exit_section').on('click',function(e){
+      $section = $('.gre_mark').data('section')+1;
+      if($('.section_data_'+$section).length)
+        $('#section_submit').modal();
+      else
+        $('#test_submit').modal();
+      e.preventDefault();
+    });
 
 </script>
 @endif
