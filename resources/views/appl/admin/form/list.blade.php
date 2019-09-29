@@ -6,6 +6,7 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Name </th>
+                <th scope="col">Subject</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Created</th>
@@ -20,6 +21,9 @@
                   {{ $obj->name }}
                   </a>
                   
+                </td>
+                <td>
+                  {{ $obj->subject }}
                 </td>
                 <td>
                   {{ $obj->email }}
