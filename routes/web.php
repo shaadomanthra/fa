@@ -108,6 +108,11 @@ Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('ema
 
 Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify');
 
+/* learners club */
+Route::get('/learnersclub', function(){
+    return view('appl.pages.lclub');
+})->name('listening');
+
 /* Sample Routes */
 Route::get('/listening', function(){
     return view('appl.pages.listening');

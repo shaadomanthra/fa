@@ -412,6 +412,11 @@ class AttemptController extends Controller
    public function upload($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
 
+      if($request->get('accept')&& !$request->get('response'))
+      {
+        flash('Response cannot be empty!')->error();
+        return redirect()->back()->withInput();
+      }
       $user = \auth::user();
       $type = $request->get('type');
       $product_slug = $request->get('product');
@@ -440,6 +445,7 @@ class AttemptController extends Controller
       $model->user_id = $user->id;
       $model->qno = 1;
       if(!$request->get('response'))
+
         $model->response = $path;
       else{
         if($request->get('question')){

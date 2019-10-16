@@ -76,6 +76,15 @@
 
       });
 
+        $('#write').submit(function() {
+              if ($('input[name=accept]:checkbox').is(':checked')) {
+
+              } else {
+                  alert('Please select the checkbox to accept the terms.');
+                  return false;
+              }
+        });
+
       function countWords(s){
         s = s.replace(/(^\s*)|(\s*$)/gi,"");
         s = s.replace(/[ ]{2,}/gi," ");

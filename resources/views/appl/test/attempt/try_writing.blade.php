@@ -4,7 +4,7 @@
 @section('keywords', 'practice tests, '.$test->name)
 
 @section('content')
-<form method="post" action="{{ route('attempt.upload',$test->slug) }}" enctype="multipart/form-data">
+<form method="post" action="{{ route('attempt.upload',$test->slug) }}" enctype="multipart/form-data" id="write">
 <div class="" style="padding-left:0px;padding-right:0px;">
 
 <div class="bg-white rounded ">
