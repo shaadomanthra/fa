@@ -278,7 +278,7 @@ class AttemptController extends Controller
     else
       $view =  strtolower($test->testtype->name);
 
-   if($view == 'listening' || $view == 'grammar' )
+   if($view == 'listening' || $view == 'grammar' || $view ='english')
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
@@ -353,7 +353,7 @@ class AttemptController extends Controller
         $attempt = null;
 
   
-    if($view == 'listening' || $view == 'grammar' )
+    if($view == 'listening' || $view == 'grammar' || $view ='english' )
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
