@@ -316,24 +316,24 @@ For the following question, enter your answer as as a fraction in the given inpu
 
 @if($m->layout == 'gre_numeric')
 <h5><b> Enter your answer</b></h5>
-  <input class='input {{$m->qno}} form-control w-25' type="text" name="{{$m->qno}}"  data-id="{{$m->qno}}" value=""/>
+  <input class='input_ {{$m->qno}} form-control w-25' type="text" name="{{$m->qno}}"  data-id="{{$m->qno}}" value=""/>
 @endif
 
 @if($m->layout == 'gre_fraction')
 <div class="mt-4">
   <h5><b>Enter your answer in fraction format</b></h5>
-  <input class='input {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px"/>
+  <input class='input_ {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px"/>
   <div style="display:block;clear: both;">
 <hr style="width:50px;float: left;clear: both;" >
 </div>
-  <input class='input {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px;clear: both;"/>
+  <input class='input_ {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px;clear: both;"/>
 </div>
 @endif
 
 @if($m->layout == 'gre_sentence')
 <div class="mt-4">
-  <input type="hidden" class="fill input sentence_input" name="{{$m->qno}}" data-id="{{$m->qno}}" >
-    <textarea class="form-control sentence_textarea" rows="3" disabled></textarea> 
+  <input type="hidden" class="fill input_ sentence_input sentence_input_{{$m->qno}}" name="{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$s+1}}">
+    <textarea class="form-control sentence_textarea input_" rows="3" disabled></textarea> 
 </div>
 @endif
 

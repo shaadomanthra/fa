@@ -378,6 +378,24 @@
 @endif
 @if(isset($gre))
 <script type="application/javascript">
+
+    $('.input_').on('input',function(e){
+            var value = $(this).val();
+
+            $id = $(this).data('id');
+            $qno = $id;
+            $group = $(this).data('group');
+            $option = $(this).data('option');
+            $section = $('.greblock_'+$id).data('section');
+            $sno = $('.greblock_'+$id).data('sno');
+
+            if(value.length){
+              $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
+            }else{
+              $('.r_'+$section+'_'+$qno).html('<span class="badge badge-secondary">Not answered</span>');
+            }
+        });  
+
     $(".td_option").click(function() {
         $id = $(this).data('id');
         $qno = $id;
@@ -412,13 +430,17 @@
     });
 
     $('.sentence').on('click',function(){
+
       $id = $(this).data('id');
+      $qno = $id;
       var sno = '.s'+$(this).data('id');
+      $section = $('.sentence_input_'+$id).data('section');
+      
       $('.sentence_'+$id).removeClass('sentence_selected');
       $(this).addClass('sentence_selected');
       $('.sentence_textarea').html($(this).text().trim());
       $('.sentence_input').val($(this).text().trim());
-      $(sno).addClass('answered');
+      $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
     });
 
     /* show/hide time */
@@ -432,7 +454,7 @@
         }
     });
 
-    $('.review_qno').on('click',function(){
+    $('.review_qno').on('click',function(e){
         $qno = $(this).data('qno');
         $sno = $(this).data('sno');
         $sec_current = $('.gre_mark').data('section');
@@ -487,7 +509,7 @@
     });
 
     /* Review Button */
-    $('.gre_prev').on('click',function(){
+    $('.gre_prev').on('click',function(e){
         $qno = $(this).data('qno');
         $sec_current = $('.gre_mark').data('section');
         $section = $('.greblock_'+$qno).data('section');
@@ -589,6 +611,11 @@
 
     $('.btn-submit-section').on('click',function(e){
         $section = $('.gre_mark').data('section')+1;
+
+        //replace section count
+        $('.gre_sec').hide();
+        $('.sec_'+$section).show();
+
         $qno = $('.section_data_'+$section).data('qno');
         $sno = $('.greblock_'+$qno).data('sno');
         $mark = $('.greblock_'+$qno).data('mark');
