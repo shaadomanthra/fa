@@ -1,12 +1,5 @@
-@extends('layouts.app')
-@section('title', 'Result page of Test')
-@section('description', 'Result page of Test')
-@section('keywords', 'result page of test, first academy')
-@section('content')
 
-@if($test->category->slug=='gre')
-  @include('appl.test.attempt.alerts.gre_result')
-@else
+
 <div class="">
   <div class="row">
     <div class="col-12">
@@ -37,7 +30,7 @@
           </div>
           <div class="col-12 col-md-6">
              <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded ">
-              <div class="">Score</div>
+              <div class="">Overall Score</div>
               <div class="display-4">{{ $score }} / {{ $test->marks}} </div>
             </div>
             @if($band)
@@ -48,10 +41,9 @@
             @endif
           </div>
         </div>
-        @include('appl.test.attempt.blocks.answers')
+        @include('appl.test.attempt.blocks.gre_answers')
       </div>
     </div>
   </div>
 </div>
-@endif
-@endsection
+

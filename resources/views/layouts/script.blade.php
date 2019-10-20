@@ -432,6 +432,60 @@
         }
     });
 
+    $('.review_qno').on('click',function(){
+        $qno = $(this).data('qno');
+        $sno = $(this).data('sno');
+        $sec_current = $('.gre_mark').data('section');
+        $section = $('.greblock_'+$qno).data('section');
+        $mark = $('.greblock_'+$qno).data('mark');
+
+        if($sec_current == $section){
+        if($qno){
+            $('.gre_qno').html($sno);
+           $('.gre_section').html($section);
+            $review = '#review_'+$section;
+            $('.gre_review').data('target',$review);
+
+            $('.qblock').hide();
+            $('.greblock_'+$qno).show();
+
+            $qno = $qno - 1;
+            //update the navbar
+            if($('.greblock_'+$qno).length){
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',$qno);
+              $('.gre_mark').data('qno',$qno+1);
+              if($('.gre_next').data('qno'))
+                $('.gre_next').removeClass('disabled');
+            }
+            else{
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',0);
+              $('.gre_mark').data('qno',$qno+1);
+              $(this).addClass('disabled');
+            }
+
+            $('.gre_mark').data('section',$section);
+            if($mark==0){
+              $('.gre_mark').data('mark',0);
+              $('.mark-icon').html('<i class="fa fa-square-o "></i>');
+            }else{
+              $('.gre_mark').data('mark',1);
+              $('.mark-icon').html('<i class="fa fa-check-square-o "></i>');
+            }
+        }
+        }else{
+            $('.gre_prev').addClass('disabled');
+        }
+
+        $section = $('.gre_mark').data('section');
+        $review = '#review_'+$section;
+
+        $($review).modal('toggle');
+        e.preventDefault();
+
+    });
+
     /* Review Button */
     $('.gre_prev').on('click',function(){
         $qno = $(this).data('qno');
@@ -602,6 +656,11 @@
       $review = '#review_'+$section;
   
       $($review).modal();
+      e.preventDefault();
+    });
+
+    $('.gre_submit').on('click',function(e){
+      $('#test_submit').modal();
       e.preventDefault();
     });
 

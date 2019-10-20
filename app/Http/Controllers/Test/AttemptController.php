@@ -363,6 +363,7 @@ class AttemptController extends Controller
             ->with('test',$test)
             ->with('product',$product)
             ->with('timer',$user)
+            ->with('view',true)
             ->with('time',$test->test_time);
     else if($view == 'gre')
     return view('appl.test.attempt.try_'.$view)
@@ -374,6 +375,7 @@ class AttemptController extends Controller
             ->with('test',$test)
             ->with('product',$product)
             ->with('timer',$user)
+            ->with('view',true)
             ->with('time',$test->test_time);
       else if($view =='reading'){
         return view('appl.test.attempt.try_'.$view)
@@ -499,22 +501,46 @@ class AttemptController extends Controller
       else
       $product = $test->product;
 
+
       $user = \auth::user();
+
+      $attempt = Attempt::where('test_id',$this->test->id)->where('user_id',$user->id)->first();
+      if($attempt){
+        if($product)
+      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+      else
+      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
+      }
+
 
       foreach($test->mcq_order as $mcq){
         if($mcq->qno && $mcq->qno!=-1){
           $result[$mcq->qno]['id']=$mcq->id;
+          $result[$mcq->qno]['mcq_id']=$mcq->id;
+          $result[$mcq->qno]['fillup_id']=null;
           $result[$mcq->qno]['qno']=$mcq->qno;
           $result[$mcq->qno]['type']='mcq';
           $result[$mcq->qno]['answer'] = $mcq->answer;
           $result[$mcq->qno]['response']= '';
           $result[$mcq->qno]['accuracy']= 2;
         }
+        // GRE numeric and fraction answer
+        if(!$mcq->answer){
+          if($mcq->a && !$mcq->b && !$mcq->c){
+            $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a));
+          }
+
+          if($mcq->a && $mcq->b && !$mcq->c){
+            $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a)).'/'.trim(strip_tags($mcq->b));
+          }
+        }
       }
 
       foreach($test->fillup_order as $fillup){
           if($fillup->qno && $fillup->qno!=-1){
             $result[$fillup->qno]['id']=$fillup->id;
+            $result[$fillup->qno]['mcq_id']=null;
+            $result[$fillup->qno]['fillup_id']=$fillup->id;
             $result[$fillup->qno]['qno']=$fillup->qno;
             $result[$fillup->qno]['type']='fillup';
             $result[$fillup->qno]['answer'] = $fillup->answer;
@@ -524,58 +550,75 @@ class AttemptController extends Controller
           
       }
 
+
+      ksort($result);
+
       
-      foreach($request->except(['test_id','user_id','_token','product','qno','name','email','details','url']) as $qno=>$resp){
+      $data = array();
+      $date_time = new \DateTime();
+      $i=0;
+      foreach($result as $res){
+        $qno = $res['qno'];
+        $data[$i]['test_id'] = $this->test->id;
+        $data[$i]['user_id'] = $user->id;
+        $data[$i]['mcq_id'] = $res['mcq_id'];
+        $data[$i]['fillup_id'] = $res['fillup_id'];
+        $data[$i]['qno'] = $res['qno'];
+        $data[$i]['created_at'] = $date_time;
+        $data[$i]['updated_at'] = $date_time;
+        $data[$i]['answer'] =$res['answer'];
+        $data[$i]['response'] = null;
+        $data[$i]['accuracy'] =$res['accuracy'];
+
         
-        $attempt = new Attempt();
-        $attempt->test_id = $test->id;
-        $attempt->user_id = $user->id;
 
-        if(isset($result[$qno]))
-        {
-          $attempt->qno = $qno;
+
+        $resp = $request->get($qno);
+        if($resp){
+
           if(is_array($resp))
-            $attempt->response = implode(",",$resp);
+            $data[$i]['response']  = implode(",",$resp);
           else 
-            $attempt->response = $resp;
-          $attempt->answer = $result[$qno]['answer'];
-          if($result[$qno]['type']=='mcq'){
-            $attempt->mcq_id = $result[$qno]['id'];
-            if($this->matchOptions($result[$qno]['answer'],$resp)){
-              $attempt->accuracy =1;
+            $data[$i]['response']  = $resp;
+
+          if($res['mcq_id']){
+            if($this->matchOptions($res['answer'],$resp)){
+              $data[$i]['accuracy'] =1;
               $result[$qno]['accuracy'] = 1; 
               $score++;
             }elseif($resp == NULL){
 
             }
             else{
-              $attempt->accuracy =0;
+              $data[$i]['accuracy'] =0;
               $result[$qno]['accuracy'] = 0; 
             }
 
+          }else{
+
+            if($this->compare($res['answer'],$resp)){
+              $data[$i]['accuracy'] =1;
+              $result[$qno]['accuracy'] = 1; 
+              $score++;
+            }
+            else{
+              $data[$i]['accuracy'] = 0;
+              $result[$qno]['accuracy'] = 0; 
+            }
           }
-          else{
-            $attempt->fillup_id = $result[$qno]['id'];
-
-            if($this->compare($result[$qno]['answer'],$resp)){
-              $attempt->accuracy =1;
-              $result[$qno]['accuracy'] = 1; 
-              $score++;
-            }elseif($resp == NULL){
-
-            }
-            else{
-              $attempt->accuracy =0;
-              $result[$qno]['accuracy'] = 0; 
-            }
-
-          }  
+        
         }
-
-        if(!$request->get('admin'))
-          $attempt->save();
+        
+        
+        $i++;
       }
 
+      $this->section_score($data);
+      if(!$request->get('admin'))
+        Attempt::insert($data); 
+      
+
+      
       /* for admin submit we wont store the result */
       if($request->get('admin')){
 
@@ -596,18 +639,79 @@ class AttemptController extends Controller
 
         ksort($result);
 
+        /* sectional score */
+        $section_score = $this->section_score($result);
+
+        
+
          return view('appl.test.attempt.alerts.result')
               ->with('result',$result)
+              ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
               ->with('admin',1)
               ->with('score',$score);
       }
 
+      
+
       if($product)
       return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
       else
       return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
+   }
+
+   /* calculate section score */
+   public function section_score($data){
+      $test = $this->test;
+      $result =array();
+      $sec = null;
+      if(isset($test->sections)){
+          foreach($test->sections as $section){
+
+            foreach($section->mcq_order as $mcq_order){
+
+                $result[$mcq_order->qno] = $section->id;
+                $result_name[$mcq_order->qno] = $section->name;
+            }
+            foreach($section->fillup_order as $fillup_order){
+              $result[$fillup_order->qno] = $section->id;
+              $result_name[$fillup_order->qno] = $section->name;
+            }
+        }
+
+        foreach($data as $item){
+            
+            if(isset($item->qno)){
+              $qno = $item->qno;
+              $accuracy = $item->accuracy;
+              $answer = $item->answer;
+            }
+            else{
+              $qno = $item['qno'];
+              $accuracy = $item['accuracy'];
+              $answer = $item['answer'];
+            }
+
+            if(isset($result_name[$qno]))
+              $sec_name = $result_name[$qno];
+            else
+              $sec_name = '';
+
+            if(!isset($sec[$sec_name]['score']))
+              $sec[$sec_name]['score'] =0;
+
+            $sec[$sec_name]['questions'][$qno] = new Attempt();
+            $sec[$sec_name]['questions'][$qno]->answer = $answer;
+            $sec[$sec_name]['questions'][$qno]->accuracy = $accuracy;
+            if($accuracy==1)
+              $sec[$sec_name]['score']++;
+        }
+      }
+      
+
+      return $sec;
+      
    }
 
    /* Function to compare the answer with response */
@@ -625,17 +729,31 @@ class AttemptController extends Controller
 
    /* Function to compare the answer with response */
    public function matchOptions($answer,$response){
-      $answers = explode(",",$answer);
+      if(strpos($answer, ',') !== false)
+        $answers = explode(",",$answer);
+      else if(strpos($answer, '/') !== false)
+        $answers = explode("/",$answer);
       /* multi answer if response is array */
       if(is_array($response)){
-
-        if(count($answers) == count($response)){
+        
+        if(strpos($answer, '/') !== false){
+            $res = implode("/",$response);
+            if($res == $answer)
+              return true;
+        }
+        else if(count($answers) == count($response)){
           foreach($response as $resp){
-            if(strpos($answer, $resp) !== FALSE){
-              
+            if(is_int($resp))
+            {
+
             }else{
-                return false;
+                if(strpos($answer, $resp) !== FALSE){
+              
+                }else{
+                    return false;
+                }
             }
+            
           }
           return true;
         }
@@ -657,6 +775,7 @@ class AttemptController extends Controller
       $user = \auth::user();
       $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
 
+
       $score = 0;
       foreach($result as $r){
         if($r->accuracy==1)
@@ -676,9 +795,14 @@ class AttemptController extends Controller
         $band = $attempt->$function_name($s);
       }
       }
+
+
+      /* sectional score */
+        $section_score = $this->section_score($result);
       
       return view('appl.test.attempt.alerts.result')
               ->with('result',$result)
+              ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
               ->with('score',$score);

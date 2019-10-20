@@ -115,7 +115,7 @@
   <tbody>
     @foreach($section->mcq_order as $k=>$m)
     <tr>
-      <th scope="row">{{$k+1}}</th>
+      <th scope="row"><a href="#" class="review_qno" data-qno="{{$m->qno}}" data-sno="{{$s+1}}">{{$k+1}}</a></th>
       <td class="r_{{$s+1}}_{{$m->qno}}"><span class="badge badge-secondary">Not answered</span></td>
       <td class="m_{{$s+1}}_{{$m->qno}}"></td>
     </tr>

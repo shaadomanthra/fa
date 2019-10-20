@@ -109,6 +109,8 @@
           <option value="gre2" @if(isset($obj)) @if($obj->layout=='gre2') selected @endif @endif >Gre 2 Blanks</option>
           <option value="gre3" @if(isset($obj)) @if($obj->layout=='gre3') selected @endif @endif >Gre 3 Blanks</option>
           <option value="gre_maq" @if(isset($obj)) @if($obj->layout=='gre_maq') selected @endif @endif >Gre Multi Answer</option>
+          <option value="gre_numeric" @if(isset($obj)) @if($obj->layout=='gre_numeric') selected @endif @endif >Gre Numeric</option>
+          <option value="gre_fraction" @if(isset($obj)) @if($obj->layout=='gre_fraction') selected @endif @endif >Gre Fraction</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
         </select>
       </div>

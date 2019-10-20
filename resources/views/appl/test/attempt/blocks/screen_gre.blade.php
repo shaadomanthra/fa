@@ -54,7 +54,7 @@
 				</div>
 				
 				<div class="col-4 col-md-2">
-				<a href="#" class="dark gre_next" data-qno="2" data-toggle="modal" data-target="#test_submit">
+				<a href="#" class="dark gre_submit" data-qno="2" data-toggle="modal" data-target="#test_submit">
 					<div class="border border-warning rounded bg-warning  p-2 ml-1 mb-0 mb-md-0">
 						<div class="text-center">Submit <br class="d-none d-md-block">
 						<i class="fa fa-paper-plane "></i></div>

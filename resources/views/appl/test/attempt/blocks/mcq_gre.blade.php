@@ -1,12 +1,16 @@
 @foreach($section->mcq_order as $k=>$m)
-
 <div class="qblock greblock_{{$m->qno}}" data-qno="{{$m->qno}}" data-mark="0" data-section="{{$s+1}}" data-sno="{{$k+1}}" data-qcount="{{(count($section->mcq_order)+count($section->fillup_order))}}" @if($m->qno!=1)style="display:none"@endif>
+
+<div class="row">
 @if(isset($m->extract))
+<div class="col-12 col-md-6">
   <div class="option rounded p-4 border mb-4">
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
     {!!$m->extract->text !!}</div>
     <span class="d-none sentence_holder" data-qno="{{$m->qno}}"></span>
     <input type="hidden" name="{{$m->qno}}" value=""/>
+</div> 
+<div class="col-12 col-md-6">   
 @endif
 
 @if(!$m->layout)
@@ -20,6 +24,14 @@
 @elseif($m->layout == 'gre_maq')  
 <div class="border p-3 rounded mb-4 text-secondary">
 For the following question, select the one or more answer choices that, when inserted into the sentence, fit the meaning of the sentence as a whole and yield complete sentences that are similar in meaning. 
+</div>
+@elseif($m->layout == 'gre_numeric')  
+<div class="border p-3 rounded mb-4 text-secondary">
+For the following question, enter your answer as an integer or a decimal in the given input box.
+</div>
+@elseif($m->layout == 'gre_fraction')  
+<div class="border p-3 rounded mb-4 text-secondary">
+For the following question, enter your answer as as a fraction in the given input box.
 </div>
 @elseif($m->layout == 'no_instruction')  
 @endif
@@ -269,13 +281,65 @@ For the following question, select the one or more answer choices that, when ins
       @if($m->f)
       <tr>
       <td class="td_option td_{{$m->qno}}_6 option" data-id="{{$m->qno}}" data-option="F" data-group="6">
-        <input class='input {{$m->qno}}_F {{$m->qno}}_4' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
+        <input class='input {{$m->qno}}_F {{$m->qno}}_6' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
+      </td>
+      </tr>
+      @endif
+
+      @if($m->g)
+      <tr>
+      <td class="td_option td_{{$m->qno}}_7 option" data-id="{{$m->qno}}" data-option="G" data-group="7">
+        <input class='input {{$m->qno}}_G {{$m->qno}}_7' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="G"/> {!! $m->g !!}
+      </td>
+      </tr>
+      @endif
+
+      @if($m->h)
+      <tr>
+      <td class="td_option td_{{$m->qno}}_8 option" data-id="{{$m->qno}}" data-option="H" data-group="8">
+        <input class='input {{$m->qno}}_H {{$m->qno}}_8' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="H"/> {!! $m->h !!}
+      </td>
+      </tr>
+      @endif
+
+      @if($m->i)
+      <tr>
+      <td class="td_option td_{{$m->qno}}_9 option" data-id="{{$m->qno}}" data-option="I" data-group="9">
+        <input class='input {{$m->qno}}_I {{$m->qno}}_9' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="I"/> {!! $m->i !!}
       </td>
       </tr>
       @endif
  
 </table>
 @endif
+
+@if($m->layout == 'gre_numeric')
+<h5><b> Enter your answer</b></h5>
+  <input class='input {{$m->qno}} form-control w-25' type="text" name="{{$m->qno}}"  data-id="{{$m->qno}}" value=""/>
+@endif
+
+@if($m->layout == 'gre_fraction')
+<div class="mt-4">
+  <h5><b>Enter your answer in fraction format</b></h5>
+  <input class='input {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px"/>
+  <div style="display:block;clear: both;">
+<hr style="width:50px;float: left;clear: both;" >
+</div>
+  <input class='input {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px;clear: both;"/>
+</div>
+@endif
+
+@if($m->layout == 'gre_sentence')
+<div class="mt-4">
+  <input type="hidden" class="fill input sentence_input" name="{{$m->qno}}" data-id="{{$m->qno}}" >
+    <textarea class="form-control sentence_textarea" rows="3" disabled></textarea> 
+</div>
+@endif
+
+@if(isset($m->extract))
+</div>
+@endif
 </div>   
-</div>         
+</div>  
+</div>       
 @endforeach

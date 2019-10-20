@@ -226,6 +226,8 @@ class McqController extends Controller
                 $answer = implode(', ', $answers);
                 /* merge the updated data in request */
                 $request->merge(['answer'=>$answer]);
+            }else{
+                $request->merge(['answer'=>'']);
             }
 
             $tags = $request->get('tags');
