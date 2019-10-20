@@ -67,7 +67,7 @@
 	</div>
 	<div class="p-2 pl-3 pr-3" style="background:#d5f9f9;"> <b>Section <span class="gre_section">1</span> of {{count($test->sections)}}</b> &nbsp;|&nbsp; Question <span class="gre_qno">1</span> of 
 	@foreach($test->sections as $se=>$sec)
-		<span class="gre_sec sec_{{($se+1)}}" @if($se!=0)style="display:none" @endif>{{count($test->sections[0]->mcq_order)}}</span>
+		<span class="gre_sec sec_{{($se+1)}}" @if($se!=0)style="display:none" @endif>{{count($sec->mcq_order)}}</span>
 	@endforeach
 	<span class="d-block d-md-inline float-md-right"><span class="time_count" id="timer">0:27:39</span> <span class="time_count d-none" id="timer2"></span>&nbsp;<span class="hide_time" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Hide Time</span></span>
 	</div>
