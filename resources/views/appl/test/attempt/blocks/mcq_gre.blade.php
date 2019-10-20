@@ -24,7 +24,7 @@
 </div>
 @elseif($m->layout == 'gre_maq')  
 <div class="border p-3 rounded mb-4 text-secondary">
-For the following question, select the one or more answer choices that, when inserted into the sentence, fit the meaning of the sentence as a whole and yield complete sentences that are similar in meaning. 
+Select one or more choices from the given options.
 </div>
 @elseif($m->layout == 'gre_numeric')  
 <div class="border p-3 rounded mb-4 text-secondary">
