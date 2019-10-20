@@ -1,8 +1,9 @@
 @foreach($section->mcq_order as $k=>$m)
 <div class="qblock greblock_{{$m->qno}}" data-qno="{{$m->qno}}" data-mark="0" data-section="{{$s+1}}" data-sno="{{$k+1}}" data-qcount="{{(count($section->mcq_order)+count($section->fillup_order))}}" @if($m->qno!=1)style="display:none"@endif>
 
-<div class="row">
+
 @if(isset($m->extract))
+<div class="row">
 <div class="col-12 col-md-6">
   <div class="option rounded p-4 border mb-4">
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
@@ -338,8 +339,9 @@ For the following question, enter your answer as as a fraction in the given inpu
 
 @if(isset($m->extract))
 </div>
+</div> 
 @endif
-</div>   
+  
 </div>  
 </div>       
 @endforeach
