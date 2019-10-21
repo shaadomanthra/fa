@@ -129,13 +129,18 @@ class User extends Authenticatable
                 return true;
             }
         }else{
+
             $test = Test::where('id',$id)->first();
+            if($test){
                 $products = $test->products->pluck('id')->toArray();
                 $orders = $this->orders()->whereIn('product_id',$products)->orderBy('id','desc')->get();
                 foreach($orders as $o){
                     if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
                         return true;
                 }
+
+            }
+                
         }
 
 
