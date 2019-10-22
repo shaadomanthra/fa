@@ -525,12 +525,13 @@ class AttemptController extends Controller
           $result[$mcq->qno]['accuracy']= 2;
         }
         // GRE numeric and fraction answer
-        if(!$mcq->answer){
-          if($mcq->a && !$mcq->b && !$mcq->c){
+        if(!strip_tags($mcq->answer)){
+
+          if($mcq->a && !strip_tags($mcq->b) && !strip_tags($mcq->c)){
             $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a));
           }
 
-          if($mcq->a && $mcq->b && !$mcq->c){
+          if($mcq->a && $mcq->b && !strip_tags($mcq->c)){
             $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a)).'/'.trim(strip_tags($mcq->b));
           }
         }
