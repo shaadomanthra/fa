@@ -529,9 +529,7 @@ class AttemptController extends Controller
 
           if($mcq->a && !strip_tags($mcq->b) && !strip_tags($mcq->c)){
             $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a));
-          }
-
-          if($mcq->a && $mcq->b && !strip_tags($mcq->c)){
+          }else if($mcq->a && strip_tags($mcq->b) && !strip_tags($mcq->c)){
             $result[$mcq->qno]['answer'] = trim(strip_tags($mcq->a)).'/'.trim(strip_tags($mcq->b));
           }
         }
