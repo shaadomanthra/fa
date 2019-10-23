@@ -90,6 +90,11 @@ class SectionController extends Controller
                 $request->merge(['file' => 'files/extract/'.$filename]);
             }
 
+            $user = \auth::user();
+            if($request->get('instructions')){
+                $request->merge(['instructions' => summernote_imageupload($user,$request->get('instructions'))]);
+            }
+
             
             /* create a new entry */
             $obj = $obj->create($request->all());
@@ -182,6 +187,11 @@ class SectionController extends Controller
                 $request->merge(['file' => 'files/extract/'.$filename]);
 
                 //echo $filename."<br>";
+            }
+
+            $user = \auth::user();
+            if($request->get('instructions')){
+                $request->merge(['instructions' => summernote_imageupload($user,$request->get('instructions'))]);
             }
 
             $obj = $obj->update($request->except(['tags'])); 
