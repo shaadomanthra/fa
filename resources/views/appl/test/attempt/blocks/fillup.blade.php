@@ -3,7 +3,7 @@
     @foreach($extract->fillup_order as $f)
       @if($f->qno==-1 && !$f->label)
           @include('appl.test.attempt.layouts.oet_reading_example') 
-      @else if($f->label)
+      @elseif($f->label)
           @include('appl.test.attempt.layouts.oet_reading_label') 
       @else
             @include('appl.test.attempt.layouts.oet_reading_qno')
