@@ -251,7 +251,7 @@ class ProductController extends Controller
             $obj->order = null;
 
         if($obj)
-            return view('appl.'.$this->app.'.'.$this->module.'.view2')
+            return view('appl.'.$this->app.'.'.$this->module.'.view')
                     ->with('obj',$obj)->with('app',$this);
         else
             abort(404);
