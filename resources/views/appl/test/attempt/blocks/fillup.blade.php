@@ -1,8 +1,10 @@
 @if($test->category->name=='OET') 
   @if($test->testtype->name=='READING')
     @foreach($extract->fillup_order as $f)
-      @if($f->label)
-            @include('appl.test.attempt.layouts.oet_reading_label') 
+      @if($f->qno==-1 && !$f->label)
+          @include('appl.test.attempt.layouts.oet_reading_example') 
+      @else if($f->label)
+          @include('appl.test.attempt.layouts.oet_reading_label') 
       @else
             @include('appl.test.attempt.layouts.oet_reading_qno')
       @endif

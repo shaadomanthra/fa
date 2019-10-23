@@ -59,14 +59,18 @@
 
 @foreach($section->extracts as $extract)
 	@foreach($extract->mcq_order as $m)
+@if($m->qno!=-1)
 <div class="bottom-box  text-center">
 <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
 </div>
+@endif
 	@endforeach
 	@foreach($extract->fillup_order as $m)
+    @if($m->qno!=-1)
 <div class="bottom-box  text-center">
 <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
 </div>
+@endif
 	@endforeach
 	@endforeach   
 	@endforeach
