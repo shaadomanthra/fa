@@ -25,7 +25,7 @@
                     @foreach($test->sections as $s=>$section)
                     @include('appl.test.attempt.blocks.section_reading_ques')
                     @endforeach
-                    <br><br>
+                    <br><br><br>
                     </div>
                 </div>
 
