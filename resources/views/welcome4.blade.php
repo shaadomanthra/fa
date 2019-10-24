@@ -46,61 +46,16 @@
 </div>
 </div>
 
-<div class="bg-light">
-<div class="container ">
-  <div class="p-3"></div>
-<div  class="row ">
-  <div class="col-12 col-md-9 col-lg-10">
-    
-    <div class="">
-      <div class=" ">
-        <div id="search-items" class="">
-         @include('appl.'.$app->app.'.'.$app->module.'.public_list')
-       </div>
-     </div>
-   </div>
- </div>
- <div class="col-12 col-md-3 col-lg-2">
-  <form class="form-inline" method="GET" action="{{ route('tests') }}">
-            <div class="input-group input-group-lg mb-4">
-              
-              <input class="form-control " id="search" name="item" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
-              value="{{Request::get('item')?Request::get('item'):'' }}">
-            </div>
-          </form>
-
-  <div class=" border rounded bg-light mb-4">
-    <div class="list-group ">
-    <a href="{{ request()->fullUrlWithQuery(['category' => '']) }}" class="list-group-item list-group-item-action list-group-item-warning @if(!request()->get('category'))active @endif">
-      All Tests
-    </a>
-
-    @foreach($categories as $cat)
-    <a href="{{ request()->fullUrlWithQuery(['category' => $cat->slug]) }}" class="list-group-item list-group-item-action list-group-item-warning @if(request()->get('category')==$cat->slug)active @endif">
-      {{ $cat->name }}
-    </a>
-    @endforeach
-    
-    </div>
-  </div>
-
-    <div class=" border rounded bg-light">
-      <div class="list-group list">
-
-    <a href="{{ request()->fullUrlWithQuery(['type' => ''])  }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='')active @endif">
-     ALL
-    </a>
-    <a href="{{ request()->fullUrlWithQuery(['type' => 'free'])  }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='free')active @endif">
-     FREE
-    </a>
-     <a href="{{ request()->fullUrlWithQuery(['type' => 'premium']) }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='premium')active @endif">
-     PERMIUM
-    </a>
-   
-    </div>
-    </div>
- </div>
+<div class="p-3 p-md-5 bg-white">
+  @include('blocks.popular_ielts')
 </div>
+<div class="p-3 p-md-5 bg-light">
+  @include('blocks.free_listening_tests')
 </div>
+<div class="p-3 p-md-5 ">
+  @include('blocks.free_reading_tests')
+</div>
+<div class="p-3 p-md-5 bg-light">
+  @include('blocks.experience_best')
 </div>
 @endsection
