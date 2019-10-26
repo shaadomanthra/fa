@@ -17,9 +17,9 @@
 						@if($t->test_time) {{$t->test_time}} min @endif
 						<br>
 						@if($t->level)
-						<div class="">
+						<span class="">
 							<B>Level : </B>
-							<span class="text-success">
+							<span class="text-info">
 								@for($i=$t->level;$i>0;$i--)
 								<i class="fa fa-star "></i>
 								@endfor
@@ -29,7 +29,7 @@
 								<i class="fa fa-star-o "></i>
 								@endfor
 							</span>
-						</div>
+						</span>
 						@endif
 					</p>
 
