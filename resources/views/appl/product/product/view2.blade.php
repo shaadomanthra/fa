@@ -24,14 +24,14 @@
         @if(count($obj->tests)>3)
           
           @include('appl.product.product.blocks.viewmore')
-         
-          @include('appl.product.product.blocks.why_these_tests')
+  
+        @endif
+
+        @include('appl.product.product.blocks.why_these_tests')
 
           @include('appl.product.product.blocks.details')
 
           @include('appl.product.product.blocks.related')
-  
-        @endif
 
     </div>
   </div>
