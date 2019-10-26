@@ -59,6 +59,9 @@ class ProductController extends Controller
                     $obj->related_tests = null;
                 }
                 
+                foreach($obj->tests as $test){
+                $obj->tests->testtype = $test->testtype;
+                 }
 
                 foreach($obj->groups as $m=>$group){
                     $obj->groups->tests = $group->tests;
