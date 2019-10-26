@@ -1,35 +1,19 @@
 @if(count($objs)!=0)
 @foreach($objs as $obj)
 @if($obj->status)
-<div class="col-12 col-md-6 col-lg-6 mb-4">
-<div class="card " >
-  <div class="card-body">
-    <h5 class="card-title">{{ $obj->name }}
-    
-    </h5>
-    @if($obj->price==0)
-    <h6 class="card-subtitle mb-2 text-muted"><span class="badge badge-warning">Free</span></h6>
-    @else
-    <h6 class="card-subtitle mb-2 text-muted"><span class="badge badge-primary">PREMIUM</span></h6>
-    @endif
-    <p class="card-text">
-      <hr>
-      <div class="row">
-        @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-        <div class="col-3 ">
-          <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 ">
-        </div>
-        @endif
-        <div class="col">
-            <p>
-              {!! substr(strip_tags($obj->description),0,200 ) !!}
-              @if(strlen(strip_tags($obj->description))>200) ...@endif</p>
-          <a href="{{ route('product.view',$obj->slug)}}" class="btn  btn-outline-primary">Explore</a>
-        </div>
-      </div></p>
+<div class="col-6 col-md-4 col-lg-2">
+  <div class="card mb-3 ">
+    <div class="card-body text-center">
+      @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+      <img src="{{ asset('storage/'.$obj->image) }}" class="w-50 "/>
+      @endif
+    </div>
+    <a href="{{ route('product.view',$obj->slug)}}">
+    <div class="card-footer text-center text-dark">{{ $obj->name }}</div>
+    </a>
   </div>
 </div>
-</div>
+
 @endif
 @endforeach
 @else
