@@ -51,7 +51,7 @@ class ProductController extends Controller
 
                 $test_ids = $obj->tests->pluck('id')->toArray();
                 if(isset($obj->tests[0])){
-                    $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
+                    $test_ids_all = $obj->tests[0]->category->tests->where('status',1)->pluck('id')->toArray();
                     $t = array_diff_assoc($test_ids_all, $test_ids);
 
                     shuffle($t);
@@ -384,7 +384,7 @@ class ProductController extends Controller
 
             $test_ids = $obj->tests->pluck('id')->toArray();
             if(isset($obj->tests[0])){
-                $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
+                $test_ids_all = $obj->tests[0]->category->tests->where('status',1)->pluck('id')->toArray();
                 $t = array_diff_assoc($test_ids_all, $test_ids);
                 shuffle($t);
                 $t= array_slice($t,0,6);
