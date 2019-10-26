@@ -53,7 +53,12 @@ class ProductController extends Controller
                 if(isset($obj->tests[0])){
                     $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
                     $t = array_diff_assoc($test_ids_all, $test_ids);
-                    $related_tests = Test::whereIn('id',$t)->limit(6)->get();
+
+                    shuffle($t);
+                    $t= array_slice($t,0,6);
+                    
+
+                    $related_tests = Test::whereIn('id',$t)->get();
                     $obj->related_tests = $related_tests;
                 }else{
                     $obj->related_tests = null;
@@ -381,7 +386,9 @@ class ProductController extends Controller
             if(isset($obj->tests[0])){
                 $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
                 $t = array_diff_assoc($test_ids_all, $test_ids);
-                $related_tests = Test::whereIn('id',$t)->limit(6)->get();
+                shuffle($t);
+                $t= array_slice($t,0,6);
+                $related_tests = Test::whereIn('id',$t)->get();
                 $obj->related_tests = $related_tests;
             }else{
                 $obj->related_tests = null;
