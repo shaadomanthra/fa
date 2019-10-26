@@ -4,7 +4,7 @@
     &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
     <a href="{{ url('/products')}}" class="text-primary">Products</a> 
   </div>
-  <h1 class="h3 mb-0"><b> {{ $obj->name }} </b>
+  <h1 class="h3 mb-0"><b> {{ strip_tags($obj->name) }} </b>
     @can('update',$obj)
     <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
     @endcan
