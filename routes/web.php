@@ -84,6 +84,11 @@ Route::resource('/admin/order', 'Product\OrderController')->middleware('auth');
 Route::get('/orders', 'Product\OrderController@myorders')->middleware('auth')->name('myorders');
 Route::get('/orders/{order}', 'Product\OrderController@myordersview')->middleware('auth')->name('myorder.view');
 
+
+/* product redirect */
+Route::get('products/ielts-short-test', function () {
+    return redirect('products/ielts-mini-test');
+});
 /* Product/Orders Public Routes */
 Route::get('/products','Product\ProductController@public')->name('product.public');
 Route::get('/products/{product}','Product\ProductController@view')->name('product.view');
