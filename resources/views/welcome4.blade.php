@@ -49,13 +49,13 @@
 <div class="p-3 p-md-5 bg-white">
   @include('blocks.popular_ielts')
 </div>
-<div class="p-3 p-md-5 bg-light">
+<div class="p-3 p-md-5 " style="background: #eee">
   @include('blocks.free_listening_tests')
 </div>
 <div class="p-3 p-md-5 ">
   @include('blocks.free_reading_tests')
 </div>
-<div class="p-3 p-md-5 bg-light">
+<div class="p-3 p-md-5 " style="background: #eee">
   @include('blocks.experience_best')
 </div>
 @endsection

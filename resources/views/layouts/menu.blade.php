@@ -23,13 +23,14 @@
                 </li>
                 @endauth
 
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
+                </li>
                 
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/test') }}"><i class="fa fa-check-square-o"></i> Tests</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/products') }}"><i class="fa fa-cubes"></i> Products</a>
-                </li>
+                
 
                 
                 @guest

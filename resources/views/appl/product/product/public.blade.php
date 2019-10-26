@@ -10,7 +10,6 @@
     @include('appl.product.product.blocks.header_products')
     </div>
 
-    
     <div class="bg-white">
       <div class="container pt-4">
         <div id="search-items" class="row ">

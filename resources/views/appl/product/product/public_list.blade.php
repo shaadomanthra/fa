@@ -5,7 +5,9 @@
   <div class="card mb-3 ">
     <div class="card-body text-center">
       @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+      <a href="{{ route('product.view',$obj->slug)}}">
       <img src="{{ asset('storage/'.$obj->image) }}" class="w-50 "/>
+    </a>
       @endif
     </div>
     <a href="{{ route('product.view',$obj->slug)}}">
