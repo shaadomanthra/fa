@@ -11,7 +11,8 @@
 						@if($t->price==0)<span class="badge badge-warning">FREE</span>@endif
 					</h5>
 					<p>
-						@if($t->marks){{$t->marks}} Questions | @endif
+						@if($t->marks){{$t->marks}} Questions @endif
+						@if($t->marks && $t->test_time) | @endif
 						@if($t->test_time) {{$t->test_time}} min @endif
 						<br>
 						@if($t->level)
