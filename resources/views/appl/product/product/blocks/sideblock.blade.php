@@ -11,10 +11,12 @@
       <p>{!! $obj->details !!} </p>
       @endif
 
+      @auth
       @if(\auth::user()->isSuperAdmin())
       <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i> edit</a>
       <br><br>
       @endif
+      @endauth
 
       @if(\auth::user())
        @if($obj->order)
