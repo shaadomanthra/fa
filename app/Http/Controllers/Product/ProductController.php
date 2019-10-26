@@ -47,7 +47,19 @@ class ProductController extends Controller
                 $filename = $obj->slug.'.json';
                 $filepath = $this->cache_path.$filename;
                 $obj->groups = $obj->groups;
-                $obj->tests = $obj->tests;
+                $obj->tests = $obj->tests()->orderBy('name','asc')->get();
+
+                $test_ids = $obj->tests->pluck('id')->toArray();
+                if(isset($obj->tests[0])){
+                    $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
+                    $t = array_diff_assoc($test_ids_all, $test_ids);
+                    $related_tests = Test::whereIn('id',$t)->limit(6)->get();
+                    $obj->related_tests = $related_tests;
+                }else{
+                    $obj->related_tests = null;
+                }
+                
+
                 foreach($obj->groups as $m=>$group){
                     $obj->groups->tests = $group->tests;
                     foreach($obj->groups->tests as $test){
@@ -227,9 +239,13 @@ class ProductController extends Controller
     {
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
-        if(file_exists($filename))
+
+        ;
+        if(Storage::disk('cache')->exists('product/'.$filename))
         {
-            $obj = json_decode(file_get_contents($filename));
+            $obj = json_decode(file_get_contents($filepath));
+
+           
         }else{
             $obj = Obj::where('slug',$slug)->first();  
             $obj->groups = $obj->groups;
@@ -239,6 +255,16 @@ class ProductController extends Controller
                     $obj->groups->tests->testtype = $test->testtype;
                 }
             }
+            $test_ids = $obj->tests->pluck('id')->toArray();
+            if(isset($obj->tests[0])){
+                $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
+                $t = array_diff_assoc($test_ids_all, $test_ids);
+                $related_tests = Test::whereIn('id',$t)->limit(6)->get();
+                $obj->related_tests = $related_tests;
+            }else{
+                $obj->related_tests = null;
+            }
+
             file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
         }
 

@@ -155,6 +155,17 @@
           >
       </div>
 
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Level</label>
+        <select class="form-control" name="level">
+          <option value="0" @if(isset($obj)) @if($obj->level==0) selected @endif @endif >- None -</option>
+          @for($i=5;$i>0;$i--)
+          <option value="{{$i}}" @if(isset($obj)) @if($obj->level==$i) selected @endif @endif >Level {{$i}}</option>
+          @endfor
+        </select>
+      </div>
+
       <div class="form-group">
         <label for="formGroupExampleInput ">Status</label>
         <select class="form-control" name="status">

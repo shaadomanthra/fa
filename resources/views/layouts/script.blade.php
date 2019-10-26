@@ -92,6 +92,8 @@
         return s.split(' ').length;
       }
 
+
+
 </script>
 @elseif(isset($reading))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
@@ -778,4 +780,10 @@ function addMinutes(date, minutes) {
     });
       
   });
+
+  $('.view-more').on('click',function(e){
+        $(this).hide();
+          $('.test_block').show();
+          e.preventDefault();
+      });
 </script>

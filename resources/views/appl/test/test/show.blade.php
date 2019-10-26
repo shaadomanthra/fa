@@ -123,9 +123,23 @@
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Test Time</b></div>
-            <div class="col-md-8">{{ $obj->test_time }} min</div>
+            <div class="col-md-8">
+              @if($obj->test_time)
+              {{ $obj->test_time }} min
+              @else
+              -
+              @endif</div>
           </div>
 
+           <div class="row mb-2">
+            <div class="col-md-4"><b>Level</b></div>
+            <div class="col-md-8">
+              @if($obj->level)
+              {{$obj->level}}
+            @else
+            - 
+          @endif</div>
+          </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Price</b></div>
             <div class="col-md-8">

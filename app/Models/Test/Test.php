@@ -22,6 +22,7 @@ class Test extends Model
         'image',
         'type_id',
         'validity',
+        'level',
         // add all other fields
     ];
 

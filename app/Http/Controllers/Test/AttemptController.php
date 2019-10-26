@@ -112,7 +112,8 @@ class AttemptController extends Controller
           $id = $product->id;
           $product_id = $id;
           $validity = $product->validity;
-          $price = $product->price;
+          $price = $test->price;
+
         }
         else{
           $id = $test->id;

@@ -1,27 +1,48 @@
-@extends('layouts.app')
+@extends('layouts.breadcrumb')
 
 @section('title',$obj->name.' - First Academy' )
 @section('description', strip_tags($obj->description))
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET, '.$obj->name)
 
 @section('content')
-  <div class="row">
-    <div class="col-12 col-md-12">
-      <div class="card  mb-4" style="background: #fffcd8;border:1px solid #cecaa2;">
-        <div class="card-body p-5">
-          <div class="row">
-            <div class="col @if($obj->image) col-md-9 @endif">
-               <h1 class="h1 mb-0"> {{ $obj->name }} 
+<div class="p-4 " style="background:#eee;">
+<div class=" container ">
+    <div class="pb-1">
+      <a href="{{ url('/')}}" class="text-secondary">Home</a> 
+        &nbsp;<i class="fa fa-angle-right"></i>&nbsp;
+      <a href="{{ url('/products')}}" class="text-primary">Products</a> 
+    </div>
+    <h1 class="h3 mb-0"><b> {{ $obj->name }} </b>
                 @can('update',$obj)
                 <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
                 @endcan
+
+               <span class="float-right " > {{ count($obj->tests)}}  @if(count($obj->tests)>1)Tests @else Test @endif </span> 
           </h1>
+</div>
+</div>
+<div class="bg-white">
+<main class="py-4 container ">
+
+  <div class="row ">
+
+      <div class="col-12 col-md-3">
+      
+      <div class="card  mb-4" style="background: #fffcd8;border:1px solid #cecaa2;">
+        <div class="card-body ">
+          <div class="row">
+            @if($obj->image)
+            <div class="col-12 mb-4">
+                <img src="{{ asset('storage/'.$obj->image) }}" class="w-50 d-none d-md-block">
+            </div>
+            @endif
+            <div class="col-12">
+               
           <p>
              {!! $obj->description !!} 
+
           </p>
-          <p>
-             {!! $obj->details !!} 
-          </p>
+          
           @if(\auth::user())
             @if($obj->order)
               @if(strtotime($obj->order->expiry) > strtotime(date('Y-m-d')))
@@ -79,11 +100,7 @@
 
           @endif
             </div>
-            @if($obj->image)
-            <div class="col-12  col-md-3">
-                <img src="{{ asset('storage/'.$obj->image) }}" class="w-100 d-none d-md-block">
-            </div>
-            @endif
+            
 
           </div>
          
@@ -92,48 +109,20 @@
         </div>
       </div>
 
-      <div class="row">
-        @foreach($obj->groups as $group)
+    </div>
 
-        @if($group->status)
-          <div class="col-12 @if(count($obj->groups)==1) col-md-6 @endif
-            @if(count($obj->groups)==2) col-md-6 col-lg-6 @endif
-            @if(count($obj->groups)==3) col-md-6 col-lg-4 @endif
-            @if(count($obj->groups)>3) col-md-6 col-lg-3 @endif
-             mb-3">
-              <div class="card" >
-                @if(\Storage::disk('public')->exists($group->image)  && $group->image)
-                   <div class="card-img-top bg-image" style="background-image: url({{ asset(url('/').'/storage/'.$group->image)}})"> 
-</div>
-  @endif
-  <div class="card-body">
-    <h5 class="card-title">{{ $group->name}}  @can('update',$obj)
-                <a href="{{ route('group.edit',$group->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                @endcan</h5>
-    <p class="card-text">{!! $group->description !!}</p>
-    @foreach($group->tests as $test)
-    @if($test->testtype)
-    @if($test->status)
-    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-outline-secondary mb-1">{{$test->name}}</a>
-    @endif
-    @endif
-    @endforeach
-  </div>
-</div>
-          </div>
-          @endif
-          @endforeach
+    <div class="col-12 col-md-9">
 
-      </div>
 
-            <div class="row">
-        @foreach($obj->tests()->orderBy('name','asc')->get() as $test)
+<div class="row">
+        @foreach($obj->tests as $k=>$test)
 
+      
         @if($test->status)
           <div class="col-12 
-            @if(count($obj->tests)>1) col-md-6  @endif
-             mb-3">
-              <div class="card" >
+            @if(count($obj->tests)>1) col-md-12  @endif
+             mb-3 test_block" style="@if($k>2)display:none;@endif">
+              <div class="card" style="box-shadow: 2px 3px #f1f7fb;background-image: linear-gradient(#e9f7ff 5%, white 80%,white 15%); ">
       
   <div class="card-body">
     @if($test->status)
@@ -151,20 +140,42 @@
       <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-primary mb-1 float-right"><i class="fa fa-paper-plane"></i> Take Test</a>
     @endif
     @endif
-    <h4 class="card-title"><i class="fa fa-clone"></i> {{ $test->name}}  @can('update',$obj)
-                <a href="{{ route('test.edit',$test->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-                @endcan</h4>
-                @if($test->marks)
-                <div class="">{{$test->marks}} Questions 
-                  @if($test->test_time)
-                  | {{$test->test_time}} min
-                  @endif
-                </div>
-                @elseif($test->test_time)
-                <div class="">{{$test->test_time}} min</div>
-                @else
-                <div class="">&nbsp;</div>
-                @endif
+
+    <h4 class="card-title"><i class="fa fa-clone"></i> {{ $test->name}} 
+
+    @if($test->price==0)
+    <span class="badge badge-warning">FREE</span>
+    @endif
+    @can('update',$obj)
+      <a href="{{ route('test.edit',$test->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+    @endcan</h4>
+
+    @if($test->marks)
+    <div class="">{{$test->marks}} Questions 
+      @if($test->test_time)
+      | {{$test->test_time}} min
+      @endif
+    </div>
+    @elseif($test->test_time)
+    <div class="">{{$test->test_time}} min</div>
+    @else
+    @endif
+
+    @if($test->level)
+    <div class="">
+      <B>Level : </B>
+      <span class="text-success">
+      @for($i=$test->level;$i>0;$i--)
+          <i class="fa fa-star "></i>
+      @endfor
+      </span>
+      <span class="text-secondary">
+      @for($i=(5-$test->level);$i>0;$i--)
+          <i class="fa fa-star-o "></i>
+      @endfor
+      </span>
+    </div>
+    @endif
 
   </div>
 </div>
@@ -172,8 +183,85 @@
           @endif
           @endforeach
 
-      </div>
+          @if($k>2)
+          <div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <a href="" class="h5 view-more btn btn-outline-secondary"><b>View more</b></a>
+    </div>
+  </div>
+</div>
+          @endif
+
+    @include('appl.product.product.why_these_tests')
+        
+
+
+</div>
+
+  @if(strip_tags($obj->details))
+  <div class="">
+  <h4>Product Details @can('update',$obj)
+                <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+                @endcan</h4>
+  <p>{!! $obj->details !!}</p>
+  </div>
+  @endif
+
+
+  <div class="mt-4">
+    <h4 class="mb-3">Related Tests</h4>
+    <div class="row">
+      @if($obj->related_tests)
+      @foreach($obj->related_tests as $k=>$t)
+      @if($k<4)
+      <div class="col-12 col-md-6 mb-3">
+        <div class="card"  style="box-shadow: 2px 3px #f1f7fb;background-image: linear-gradient(#ffeef7 5%, white 80%,white 15%);">
+          <div class="card-body">
+            <h5>{{$t->name}}
+                @if($t->price==0)<span class="badge badge-warning">FREE</span>@endif
+            </h5>
+            <p>
+              @if($t->marks){{$t->marks}} Questions | @endif
+              @if($t->test_time) {{$t->test_time}} min @endif
+              <br>
+               @if($test->level)
+    <div class="">
+      <B>Level : </B>
+      <span class="text-success">
+      @for($i=$test->level;$i>0;$i--)
+          <i class="fa fa-star "></i>
+      @endfor
+      </span>
+      <span class="text-secondary">
+      @for($i=(5-$test->level);$i>0;$i--)
+          <i class="fa fa-star-o "></i>
+      @endfor
+      </span>
+    </div>
+    @endif
+            </p>
+
+            <button class="btn btn-sm btn-success">Try Now</button>
+          </div>
+
+        </div>
+      </div> 
+      @endif
+      @endforeach
+      @endif
+
+    </div>  
+  </div>
+
+
+
+</div>
+
+
 
     </div>
-  </div> 
+  </div>
+</main>
+</div>
 @endsection
