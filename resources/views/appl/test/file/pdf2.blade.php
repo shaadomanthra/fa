@@ -73,9 +73,9 @@
         	<div class="head">
         	<br>
         	<img src="{{ asset('/images/logo.png')}}" width="200px" > 
-        	<p>We have been the most awarded training centre offering the best coaching for exams like the GRE, PTE, OET, and IELTS for almost two decades. With University of Cambridge certified trainers, you can assured of the highest levels of training. </p>
+        	<p>We have been the most awarded training centre offering the best coaching for exams like the GRE, PTE, OET, and IELTS for almost two decades. With University of Cambridge certified trainers, you can be assured of the highest levels of training. </p>
         	<hr>
-        	<p>Are you aiming high score? <br>Access our industry best practice material at <br><a href="https://prep.firstacademy.in">prep.firstacademy.in</a></p>
+        	<p>Are you aiming for a high score? <br>Access our industry leading practice material at <br><a href="https://prep.firstacademy.in">prep.firstacademy.in</a></p>
         	</div>
         </footer>
 
