@@ -51,6 +51,14 @@ class User extends Authenticatable
             return false;
     }
 
+    public function isSuperAdmin(){
+        if(in_array($this->admin,[1]))
+            return true;
+        else
+            return false;
+    }
+
+
     public function referral($id)
     {
         $user = $this->find($id);

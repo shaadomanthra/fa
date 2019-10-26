@@ -11,6 +11,11 @@
       <p>{!! $obj->details !!} </p>
       @endif
 
+      @if(\auth::user()->isSuperAdmin())
+      <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i> edit</a>
+      <br><br>
+      @endif
+
       @if(\auth::user())
        @if($obj->order)
         @if(strtotime($obj->order->expiry) > strtotime(date('Y-m-d')))
