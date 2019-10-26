@@ -242,7 +242,9 @@
     @endif
             </p>
 
-            <button class="btn btn-sm btn-success">Try Now</button>
+          <a href="{{ route('test',$t->slug)}}">
+            <button class="btn btn-sm btn-success">view</button>
+          </a>
           </div>
 
         </div>

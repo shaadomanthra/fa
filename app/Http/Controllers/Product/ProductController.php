@@ -371,6 +371,23 @@ class ProductController extends Controller
             /* update cache file of this product */
             $filename = $obj->slug.'.json';
             $filepath = $this->cache_path.$filename;
+
+            $obj->tests = $obj->tests()->orderBy('name','asc')->get();
+
+            $test_ids = $obj->tests->pluck('id')->toArray();
+            if(isset($obj->tests[0])){
+                $test_ids_all = $obj->tests[0]->category->tests->pluck('id')->toArray();
+                $t = array_diff_assoc($test_ids_all, $test_ids);
+                $related_tests = Test::whereIn('id',$t)->limit(6)->get();
+                $obj->related_tests = $related_tests;
+            }else{
+                $obj->related_tests = null;
+            }
+            foreach($obj->tests as $test){
+                $obj->tests->testtype = $test->testtype;
+            }
+                
+
             file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
 
             /* update in cache folder main file */
