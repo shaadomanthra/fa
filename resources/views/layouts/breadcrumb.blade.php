@@ -53,5 +53,7 @@
         </footer> 
     </div>
     @include('layouts.script')
+
+
 </body>
 </html>

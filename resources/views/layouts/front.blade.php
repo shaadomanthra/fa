@@ -42,8 +42,10 @@
             <div class="container">
             @include('layouts.footer')
         </div>
+        @include('blocks.toast')
         @include('layouts.script')
         </footer>
+
     </div>
 </body>
 </html>

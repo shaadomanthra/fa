@@ -787,3 +787,14 @@ function addMinutes(date, minutes) {
           e.preventDefault();
       });
 </script>
+
+@if(request()->is('/'))
+    <script type="application/javascript" src="{{asset('js/bootstrap.js')}}"></script>  
+    <script>
+      $('.toast').toast({autohide:false});
+      setTimeout(function () {
+      $('.toast').toast('show');
+    },2000);
+    </script>
+
+@endif
