@@ -9,6 +9,8 @@
     <a href="{{ route($app->module.'.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
     @endcan
 
-    <span class="float-right " > {{ count($obj->tests)}}  @if(count($obj->tests)>1)Tests @else Test @endif </span> 
+    @if(count($obj->tests))
+      <span class="float-right " > {{ count($obj->tests)}}  @if(count($obj->tests)>1)Tests @else Test @endif </span> 
+    @endif
   </h1>
 </div>

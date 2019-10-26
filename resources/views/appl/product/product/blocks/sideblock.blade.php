@@ -2,7 +2,7 @@
   <div class="card-body ">
       @if($obj->image)
       <div class="mb-4">
-        <img src="{{ asset('storage/'.$obj->image) }}" class="w-50 d-none d-md-block" @if(count($obj->tests)==0) style="width:100px"@endif>
+        <img src="{{ asset('storage/'.$obj->image) }}" class="@if(count($obj->tests)!=0)w-50 @endif d-none d-md-block" @if(count($obj->tests)==0) style="width:150px"@endif>
       </div>
       @endif
       <p>{!! $obj->description !!} </p>
