@@ -52,11 +52,16 @@ class ProductController extends Controller
                 $test_ids = $obj->tests->pluck('id')->toArray();
                 if(isset($obj->tests[0])){
                     $test_ids_all = $obj->tests[0]->category->tests->where('status',1)->pluck('id')->toArray();
-                    $t = array_diff_assoc($test_ids_all, $test_ids);
 
+
+                    $t=array();
+                    foreach($test_ids_all as $ts)
+                        if(!in_array($ts,$test_ids))
+                        array_push($t, $ts); 
+                    
                     shuffle($t);
                     $t= array_slice($t,0,6);
-                    
+    
 
                     $related_tests = Test::whereIn('id',$t)->get();
                     $obj->related_tests = $related_tests;
@@ -385,9 +390,15 @@ class ProductController extends Controller
             $test_ids = $obj->tests->pluck('id')->toArray();
             if(isset($obj->tests[0])){
                 $test_ids_all = $obj->tests[0]->category->tests->where('status',1)->pluck('id')->toArray();
-                $t = array_diff_assoc($test_ids_all, $test_ids);
+                
+                $t=array();
+                    foreach($test_ids_all as $ts)
+                        if(!in_array($ts,$test_ids))
+                        array_push($t, $ts); 
+                    
                 shuffle($t);
                 $t= array_slice($t,0,6);
+
                 $related_tests = Test::whereIn('id',$t)->get();
                 $obj->related_tests = $related_tests;
             }else{
