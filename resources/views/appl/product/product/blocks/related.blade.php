@@ -1,7 +1,8 @@
+@if($obj->related_tests)
 <div class="mt-4">
 	<h4 class="mb-3">Related Tests</h4>
 	<div class="row">
-		@if($obj->related_tests)
+		
 		@foreach($obj->related_tests as $k=>$t)
 		@if($k<4)
 		<div class="col-12 col-md-6 mb-3">
@@ -41,6 +42,7 @@
 		</div> 
 		@endif
 		@endforeach
-		@endif
+		
 	</div>  
 </div>
+@endif
