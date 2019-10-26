@@ -4,6 +4,16 @@
 @section('keywords', 'practice tests, '.$test->name)
 
 @section('content')
+
+@guest
+<div class="alert alert-warning alert-dismissible alert-important fade show" role="alert">
+  <strong>Note:</strong> Only registered users can submit the test and view the result. 
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endguest
+
 <form method="post" action="{{ route('attempt.upload',$test->slug) }}" enctype="multipart/form-data" id="write">
 <div class="" style="padding-left:0px;padding-right:0px;">
 
