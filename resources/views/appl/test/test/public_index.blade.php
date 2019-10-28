@@ -9,7 +9,7 @@
 @include('flash::message')
 <div  class="row ">
   <div class="col-12 col-md-9 col-lg-10">
-    <nav class="navbar navbar-light  p-4 rounded justify-content-between  mb-4" style="background:#e6efec;border:1px solid #d6e2de;">
+    <nav class="navbar navbar-light  p-4 rounded justify-content-between  mb-4" style="background:transparent;border:1px solid #d3e1e8;">
           <a class=" h2 mb-3 mb-md-0"><i class="fa fa-check-square-o"></i> Tests @if(request()->get('category')) - {{ strtoupper(request()->get('category'))}} @endif</a>
           <form class="form-inline" method="GET" action="{{ route('tests') }}">
             <div class="input-group input-group-lg">

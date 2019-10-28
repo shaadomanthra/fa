@@ -1,17 +1,17 @@
 .bg{
 	background: 
-	radial-gradient(#e4f7f2 3px, transparent 4px),
-	radial-gradient(#e4f7f2 3px, transparent 4px),
-	linear-gradient(#d8f1eb 4px, transparent 0),
-	linear-gradient(45deg, transparent 74px, transparent 75px, #e4f7f2 75px,#e4f7f2 76px, transparent 77px, transparent 109px),
-	linear-gradient(-45deg, transparent 75px, transparent 76px, #e4f7f2 76px, #e4f7f2 77px, transparent 78px, transparent 109px),
-	#d8f1eb;
+	radial-gradient(#6a9fd0 3px, transparent 4px),
+	radial-gradient(#6a9fd0 3px, transparent 4px),
+	linear-gradient(#6397c7 4px, transparent 0),
+	linear-gradient(45deg, transparent 74px, transparent 75px, #6a9fd0 75px,#6a9fd0 76px, transparent 77px, transparent 109px),
+	linear-gradient(-45deg, transparent 75px, transparent 76px, #6a9fd0 76px, #6a9fd0 77px, transparent 78px, transparent 109px),
+	#6397c7;
 	background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
 	background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
 }
 
 body {
-  background-color: #edf3f1;
+  background-color: #f3fbff;
 }
 
 .user{
@@ -26,12 +26,12 @@ body {
 .heading{
 	font-size:60px;
 	font-family: 'Anton', sans-serif;
-	color:#dd7d62;
+	
 }
 
 .heading2{
 	font-size:20px;
-	color:#05c1b2;
+	
 	font-family: 'Muli', sans-serif;
 }
 

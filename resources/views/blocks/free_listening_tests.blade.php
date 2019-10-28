@@ -14,10 +14,7 @@
   					<a href="{{ route('test','listening-mini-test-'.$i) }}">
   					<i class="fa fa-clone"></i> Listening Mini Test #{{$i}} 
   					</a>	
-
-  				
-  					<a href="{{ route('test','listening-mini-test-'.$i) }}">
-  					<button class="btn btn-sm btn-outline-primary float-right">view</button></a></h5>
+        </h5>
   				@if(in_array($i,[3,5]))
   				<div class="text-secondary">6 Questions | 6 min</div>
   				@else

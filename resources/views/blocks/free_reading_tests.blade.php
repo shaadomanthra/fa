@@ -10,9 +10,7 @@
   		<div class="card mb-4">
   			<div class="card-body">
   				<h5><a href="{{ route('test','reading-mini-test-'.$i) }}"><i class="fa fa-clone"></i> Reading Mini Test #{{$i}} </a>
-            <a href="{{ route('test','reading-mini-test-'.$i) }}">
-              <button class="btn btn-sm btn-outline-primary float-right">view</button>
-            </a>
+            
           </h5>
   				<div class="text-secondary">5 Questions | 10 min</div>
   				<B>Level : </B>

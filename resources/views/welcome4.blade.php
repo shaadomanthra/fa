@@ -4,21 +4,21 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
-<div class="bg" style=""> 
+<div class="" style="background:#71bce2;"> 
 <div class="container ">
     <div class="row p-3 p-md-0">
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
-    <div class="heading  ">
+    <div class="heading  " style="color:#fff;font-family:  'Raleway', sans-serif;">
     Start your <br>Test Preparation now !
     </div>
-    <div class="heading2  mb-4">
+    <div class="heading2  mb-4" style="color:#b7e6ff">
     Practice, Analyze and Improve.
     </div>
 
     @guest
     <a href="{{ route('register')}}">
-    <button class="btn btn-success btn-warning btn-lg">Get Started for Free</button>
+    <button class="btn btn-success btn-warning btn-lg p-3 pr-4 pl-4">Get Started for Free</button>
     </a>
     
     @else
@@ -28,7 +28,7 @@
     <a href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                    <button class="btn btn-primary btn-yellow btn-lg ">Logout</button>
+                    <button class="btn btn-warning btn-lg ">Logout</button>
                     </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -47,13 +47,13 @@
 <div class="p-3 p-md-5 bg-white">
   @include('blocks.popular_ielts')
 </div>
-<div class="p-3 p-md-5 " style="background: #f5f9f7">
+<div class="p-3 p-md-5 " style="background: #f3fbff">
   @include('blocks.free_listening_tests')
 </div>
 <div class="p-3 p-md-5 ">
   @include('blocks.free_reading_tests')
 </div>
-<div class="p-3 p-md-5 " style="background: #f5f9f7">
+<div class="p-3 p-md-5 " style="background: #f3fbff">
   @include('blocks.experience_best')
 </div>
 
