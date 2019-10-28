@@ -3,7 +3,7 @@
 <div class="col-12 
 @if(count($obj->tests)>1) col-md-12  @endif
 mb-3 test_block" style="@if($k>2)display:none;@endif">
-<div class="card" style="box-shadow: 2px 3px #f1f7fb;background-image: linear-gradient(#e9f7ff 5%, white 80%,white 15%); " >
+<div class="card" style="box-shadow: 2px 3px #f8f9fa;background-image: linear-gradient(#fbf0f2 5%, white 80%,white 15%); " >
 
   <div class="card-body">
     @if($test->status)

@@ -85,45 +85,45 @@ class TestController extends Controller
                     ->where('category_id',$category_id)
                     ->where('status',1)
                     ->where('price',0)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18);
             else if($type=='premium')
              $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('status',1)
                     ->where('category_id',$category_id)
                     ->where('price','!=',0)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18);  
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('status',1)
                     ->where('category_id',$category_id)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18);   
         }else{
             if($type=='free')
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('status',1)
                     ->where('price',0)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18); 
             else if($type=='premium')
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('status',1)
                     ->where('price','!=',0)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18); 
             else
             $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->where('status',1)
-                    ->orderBy('created_at','desc')
+                    ->orderBy('name','asc')
                     ->paginate(18); 
         }
 
 
         
         
-        $view = $search ? 'public_list': 'public_index';
+        $view = $search ? 'public_list2': 'public_index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)

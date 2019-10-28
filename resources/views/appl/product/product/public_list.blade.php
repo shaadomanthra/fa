@@ -11,7 +11,7 @@
       @endif
     </div>
     <a href="{{ route('product.view',$obj->slug)}}">
-    <div class="card-footer text-center text-dark">{!! $obj->name !!}</div>
+    <div class="card-footer text-center text-dark "><b>{!! $obj->name !!}</b></div>
     </a>
   </div>
 </div>

@@ -22,9 +22,13 @@
                       <td>
                         @if($order->test_id)
                         <a href="{{ route('user.test',[$obj->id,$order->test->id])}}">
-                        {{$order->test->name}}  @if($obj->testscore($obj->id,$order->test->id))
+                        {{$order->test->name}}  
+                        @if($obj->attempted($obj->id,$order->test->id))
+                        <span class="badge badge-secondary">attempted</span>
+                        @endif
+                        @if($obj->testscore($obj->id,$order->test->id))
                               - Score : {{ $obj->testscore($obj->id,$order->test->id) }} 
-                              @endif
+                        @endif
                       </a>
                         @else
                         {{$order->product->name}}

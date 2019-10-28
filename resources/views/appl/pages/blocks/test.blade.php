@@ -35,9 +35,11 @@
 						
 					</h5>
 					@auth
+					@if($test->expiry)
 					<h6 class="card-subtitle mb-2 text-muted">
 						<span class="">Valid Till - {{date('d M Y', strtotime($test->expiry))}}</span>
 					</h6>
+					@endif
 					@endauth
 					
 					@auth

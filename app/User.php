@@ -188,6 +188,14 @@ class User extends Authenticatable
             return null;
     }
 
+    public function attempted($user_id,$test_id){
+        $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->first();
+        if($attempt)
+            return true;
+        else
+            return false;
+    }
+
 
     public function resend_sms($numbers,$code){
                 // Authorisation details.

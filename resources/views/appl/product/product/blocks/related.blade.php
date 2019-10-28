@@ -6,7 +6,7 @@
 		@foreach($obj->related_tests as $k=>$t)
 		@if($k<4)
 		<div class="col-12 col-md-6 mb-3">
-			<div class="card"  style="box-shadow: 2px 3px #f1f7fb;background-image: linear-gradient(#ffeef7 5%, white 80%,white 15%);">
+			<div class="card"  style="box-shadow: 2px 3px #f8f9fa;background-image: linear-gradient(#fafbed 5%, white 80%,white 15%);">
 				<div class="card-body">
 					<h5>{{$t->name}}
 						@if($t->price==0)<span class="badge badge-warning">FREE</span>@endif
@@ -21,12 +21,12 @@
 							<B>Level : </B>
 							<span class="text-info">
 								@for($i=$t->level;$i>0;$i--)
-								<i class="fa fa-star "></i>
+								<i class="fa fa-circle "></i>
 								@endfor
 							</span>
 							<span class="text-secondary">
 								@for($i=(5-$t->level);$i>0;$i--)
-								<i class="fa fa-star-o "></i>
+								<i class="fa fa-circle-o "></i>
 								@endfor
 							</span>
 						</span>
