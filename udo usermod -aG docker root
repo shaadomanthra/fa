@@ -1,0 +1,19 @@
+[0;1;32m●[0m docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: [0;1;32mactive (running)[0m since Sat 2019-10-26 16:05:05 UTC; 5s ago
+     Docs: https://docs.docker.com
+ Main PID: 14159 (dockerd)
+    Tasks: 8
+   CGroup: /system.slice/docker.service
+           └─14159 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Oct 26 16:05:04 homestead dockerd[14159]: time="2019-10-26T16:05:04.843246780Z" level=warning msg="Your kernel does not support swap memory limit"
+Oct 26 16:05:04 homestead dockerd[14159]: time="2019-10-26T16:05:04.843609407Z" level=warning msg="Your kernel does not support cgroup rt period"
+Oct 26 16:05:04 homestead dockerd[14159]: time="2019-10-26T16:05:04.843708602Z" level=warning msg="Your kernel does not support cgroup rt runtime"
+Oct 26 16:05:04 homestead dockerd[14159]: time="2019-10-26T16:05:04.844089648Z" level=info msg="Loading containers: start."
+Oct 26 16:05:05 homestead dockerd[14159]: time="2019-10-26T16:05:05.017367513Z" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Oct 26 16:05:05 homestead dockerd[14159]: time="2019-10-26T16:05:05.098703525Z" level=info msg="Loading containers: done."
+Oct 26 16:05:05 homestead dockerd[14159]: time="2019-10-26T16:05:05.125574299Z" level=info msg="Docker daemon" commit=9013bf583a graphdriver(s)=overlay2 version=19.03.4
+Oct 26 16:05:05 homestead dockerd[14159]: time="2019-10-26T16:05:05.125882840Z" level=info msg="Daemon has completed initialization"
+Oct 26 16:05:05 homestead systemd[1]: Started Docker Application Container Engine.
+Oct 26 16:05:05 homestead dockerd[14159]: time="2019-10-26T16:05:05.186877400Z" level=info msg="API listen on /var/run/docker.sock"

@@ -6,7 +6,7 @@
 @include('flash::message')
 <div  class=" ">
   <div class="">
-    <div class="" style="background: #eee">
+    <div class="" style="background: #e4f7f2">
     @include('appl.product.product.blocks.header_products')
     </div>
 

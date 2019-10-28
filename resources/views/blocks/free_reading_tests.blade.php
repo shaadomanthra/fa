@@ -16,7 +16,7 @@
           </h5>
   				<div class="text-secondary">5 Questions | 10 min</div>
   				<B>Level : </B>
-  					<span class="text-success"><i class="fa fa-star "></i><i class="fa fa-star "></i><i class="fa fa-star "></i></span><span class="text-secondary"><i class="fa fa-star-o "></i><i class="fa fa-star-o "></i></span>
+  					<span class="text-success"><i class="fa fa-circle "></i> <i class="fa fa-circle "></i> <i class="fa fa-circle "></i></span><span class="text-secondary"> <i class="fa fa-circle-o "></i> <i class="fa fa-circle-o "></i></span>
   			</div>
   		</div>
   </div>

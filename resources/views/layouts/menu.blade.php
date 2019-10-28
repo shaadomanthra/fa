@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#1a4248">
+<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#07c1b2">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img class="mb-2 mt-2" src="{{ asset('images/logo_white.png') }}" alt="" width="200" >
+            <img class="" src="{{ asset('images/logo_white.png') }}" alt="" width="200" >
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>

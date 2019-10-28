@@ -45,14 +45,15 @@ mb-3 test_block" style="@if($k>2)display:none;@endif">
     @if($test->level)
     <div class="">
       <B>Level : </B>
+
       <span class="text-success">
         @for($i=$test->level;$i>0;$i--)
-        <i class="fa fa-star "></i>
+        <i class="fa fa-circle "></i>
         @endfor
       </span>
       <span class="text-secondary">
         @for($i=(5-$test->level);$i>0;$i--)
-        <i class="fa fa-star-o "></i>
+        <i class="fa fa-circle-o "></i>
         @endfor
       </span>
     </div>

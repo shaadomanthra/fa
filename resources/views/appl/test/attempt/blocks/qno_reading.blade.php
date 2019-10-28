@@ -36,8 +36,8 @@
     		
     		<div class="col-12 col-md-6 col-lg-4 @if(count($test->sections)<2) d-none @endif">
     			<div class="section section2 rounded ml-md-1 ">
-    				<span class="section-name"> SECTION <span class="section-number">1</span></span>
-                   <i class="fa fa-exclamation-triangle section-name" data-toggle="modal" data-target="#exampleModal2" style="cursor:pointer"></i>
+    				<span class="section-name mt-1"> SECTION <span class="section-number">1</span></span>
+                   
     				<span class="float-right">
     				<button type="button" class="button btn  btn-sm prev" style="display: none" data-id="0"><i class="fa fa-angle-left"></i> PREV
                     </button>
@@ -54,27 +54,30 @@
 
     
      </div>
-<div class="mt-2 bottom-scroll {{$i=1}}"> 
-@foreach($test->sections as $se=>$section)
+    <div class="mt-2 bottom-scroll {{$i=1}}"> 
+        @foreach($test->sections as $se=>$section)
+            @foreach($section->extracts as $extract)
+                @foreach($extract->mcq_order as $m)
+                @if($m->qno!=-1)
+                <div class="bottom-box  text-center">
+                    <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
+                </div>
+                @endif
+                @endforeach
+                @foreach($extract->fillup_order as $w=>$m)
+                @if($m->qno!=-1 && $m->qno)
+                <div class="bottom-box  text-center">
+                <div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
+                </div>
+                @endif
+                
+                @endforeach
+                
+            @endforeach  
 
-@foreach($section->extracts as $extract)
-	@foreach($extract->mcq_order as $m)
-@if($m->qno!=-1)
-<div class="bottom-box  text-center">
-<div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
-</div>
-@endif
-	@endforeach
-	@foreach($extract->fillup_order as $m)
-    @if($m->qno!=-1 && $m->qno)
-<div class="bottom-box  text-center">
-<div class="sno bottom-sno  s{{$m->qno}}" data-id="{{$m->qno}}" data-section="{{$se}}">{{$m->qno}}</div>
-</div>
-@endif
-	@endforeach
-	@endforeach   
-	@endforeach
+        @endforeach
+        
+    </div>
 
-</div>
-</div>
+    </div>
 </div>

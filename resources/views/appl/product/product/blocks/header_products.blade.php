@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-12 col-md-4">
-      <form class="form-inline float-right" method="GET" action="{{ route($app->module.'.public') }}">
+      <form class="form-inline float-md-right mt-3 mt-md-0" method="GET" action="{{ route($app->module.'.public') }}">
             <div class="input-group input-group-lg">
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-search"></i></div>

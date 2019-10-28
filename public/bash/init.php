@@ -1,5 +1,2 @@
-<?php
-
-if(function_exists('exec')) {
-    echo "exec is enabled";
-}
+<?php echo exec('whoami'); ?>
+<?php echo exec('groups'); ?>

@@ -9,20 +9,18 @@
     <div class="row p-3 p-md-0">
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
-    <div class="heading  text-light ">
-    The time to be awesome<br> has come
+    <div class="heading  ">
+    Start your <br>Test Preparation now !
     </div>
-    <div class="heading2  mb-5">
-    Get started for FREE
+    <div class="heading2  mb-4">
+    Practice, Analyze and Improve.
     </div>
 
     @guest
     <a href="{{ route('register')}}">
-    <button class="btn btn-success btn-orange btn-lg">Register Now</button>
+    <button class="btn btn-success btn-warning btn-lg">Get Started for Free</button>
     </a>
-    <a href="{{ route('login')}}">
-    <button class="btn btn-primary btn-yellow btn-lg">Login</button>
-    </a>
+    
     @else
     <a href="{{ route('home')}}">
     <button class="btn btn-success btn-orange btn-lg">Open Dashboard</button>
@@ -49,13 +47,13 @@
 <div class="p-3 p-md-5 bg-white">
   @include('blocks.popular_ielts')
 </div>
-<div class="p-3 p-md-5 " style="background: #eee">
+<div class="p-3 p-md-5 " style="background: #f5f9f7">
   @include('blocks.free_listening_tests')
 </div>
 <div class="p-3 p-md-5 ">
   @include('blocks.free_reading_tests')
 </div>
-<div class="p-3 p-md-5 " style="background: #eee">
+<div class="p-3 p-md-5 " style="background: #f5f9f7">
   @include('blocks.experience_best')
 </div>
 

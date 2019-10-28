@@ -23,7 +23,13 @@
                     @foreach($test->sections as $s=>$section)
                     @include('appl.test.attempt.blocks.section_reading_text')
                     @endforeach
-                    <br><br>
+                    <br>
+                    <div class="border rounded p-3 bg-light">
+                        You are kindly requested to report any errors using the following link
+
+                        <button class="btn btn-danger mt-3" type="button" data-toggle="modal" data-target="#exampleModal2">Report Error</button>
+                    </div>
+                    <br><br><bR>
 
                 </div>
 
