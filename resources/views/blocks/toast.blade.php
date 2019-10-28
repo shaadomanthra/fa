@@ -1,6 +1,6 @@
 
 <div style="position: fixed; bottom: 10px; right: 10px;width:250px">
-<div class="toast " role="alert" aria-live="assertive" aria-atomic="true" style="background: #c1f3c1;">
+<div class="toast bg-warning" role="alert" aria-live="assertive" aria-atomic="true" style="">
   
   
   <div class="toast-body p-3 text-center">
