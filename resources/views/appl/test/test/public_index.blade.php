@@ -35,12 +35,12 @@
   <div class=" border rounded bg-light mb-4">
       <h5 class="mb-0 p-3">Category</h5>
     <div class="list-group ">
-    <a href="{{ request()->fullUrlWithQuery(['category' => '']) }}" class="list-group-item list-group-item-action list-group-item-warning @if(!request()->get('category'))active @endif">
+    <a href="{{ route('tests') }}" class="list-group-item list-group-item-action list-group-item-warning @if(!request()->get('category'))active @endif">
       All Tests
     </a>
 
     @foreach($categories as $cat)
-    <a href="{{ request()->fullUrlWithQuery(['category' => $cat->slug]) }}" class="list-group-item list-group-item-action list-group-item-warning @if(request()->get('category')==$cat->slug)active @endif">
+    <a href="{{ route('tests') }}?category={{  $cat->slug}}" class="list-group-item list-group-item-action list-group-item-warning @if(request()->get('category')==$cat->slug)active @endif">
       {{ $cat->name }}
     </a>
     @endforeach
@@ -52,13 +52,10 @@
       <h5 class="mb-0 p-3">Type</h5>
       <div class="list-group list">
 
-    <a href="{{ request()->fullUrlWithQuery(['type' => ''])  }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='')active @endif">
-     ALL
-    </a>
-    <a href="{{ request()->fullUrlWithQuery(['type' => 'free'])  }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='free')active @endif">
+    <a href="{{ route('tests') }}?type=free" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='free')active @endif">
      FREE
     </a>
-     <a href="{{ request()->fullUrlWithQuery(['type' => 'premium']) }}" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='premium')active @endif">
+     <a href="{{ route('tests') }}?type=premium" class="list-group-item list-group-item-action list-group-item-secondary @if(request()->get('type')=='premium')active @endif">
      PERMIUM
     </a>
    
