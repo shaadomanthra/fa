@@ -190,6 +190,7 @@ class User extends Authenticatable
 
     public function attempted($user_id,$test_id){
         $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->first();
+        
         if($attempt)
             return true;
         else

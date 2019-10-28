@@ -23,20 +23,27 @@
                         @if($order->test_id)
                         <a href="{{ route('user.test',[$obj->id,$order->test->id])}}">
                         {{$order->test->name}}  
+                        </a>
                         @if($obj->attempted($obj->id,$order->test->id))
                         <span class="badge badge-secondary">attempted</span>
                         @endif
                         @if($obj->testscore($obj->id,$order->test->id))
                               - Score : {{ $obj->testscore($obj->id,$order->test->id) }} 
                         @endif
-                      </a>
+                      
                         @else
                         {{$order->product->name}}
                         <ul>
                           @foreach($order->product->tests as $test)
                             <li><a href="{{ route('user.test',[$obj->id,$test->id])}}">{{ $test->name }}
                               
-                            </a>@if($obj->testscore($obj->id,$test->id))
+                            </a>
+
+                            @if($obj->attempted($obj->id,$test->id))
+                            <span class="badge badge-secondary">attempted</span>
+                            @endif
+
+                            @if($obj->testscore($obj->id,$test->id))
                               - Score : {{ $obj->testscore($obj->id,$test->id) }} 
                               @endif</li>
                           @endforeach
