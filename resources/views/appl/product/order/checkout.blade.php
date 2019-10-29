@@ -24,7 +24,7 @@
   </thead>
   <tbody>
     <tr>
-      <td scope="row" rowspan=1><b>{{$product->name}}</b><br>{!! $product->description !!}</td>
+      <td scope="row" rowspan=1><b>{{strip_tags($product->name)}}</b><br>{!! $product->description !!}</td>
       <td>@if($product->price==0) - FREE - @else {{ $product->price}} @endif</td>
     </tr>
      <tr>

@@ -31,8 +31,11 @@
           @if($obj->price !=0)
           <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
           <a href="{{ route('product.checkout',$obj->slug) }}">
-            <button class="btn btn-lg btn-success">Buy Now</button>
+            <button class="btn btn-lg btn-success mt-3">Buy Now</button>
           </a>
+          <a href="{{ route('product.checkout-access',$obj->slug) }}">
+              <button class="btn btn-lg btn-outline-secondary mt-3">Access Code</button>
+              </a>
           @else
           <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
           <form method="post" action="{{ route('product.order')}}">
@@ -48,8 +51,11 @@
         @if($obj->price !=0)
         <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
         <a href="{{ route('product.checkout',$obj->slug) }}">
-          <button class="btn btn-lg btn-success">Buy Now</button>
-        </a>
+            <button class="btn btn-lg btn-success mt-3">Buy Now</button>
+          </a>
+          <a href="{{ route('product.checkout-access',$obj->slug) }}">
+              <button class="btn btn-lg btn-outline-secondary mt-3">Access Code</button>
+              </a>
         @else
         <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
         <form method="post" action="{{ route('product.order')}}">
@@ -65,8 +71,11 @@
         @if($obj->price !=0)
         <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
         <a href="{{ route('product.checkout',$obj->slug) }}">
-          <button class="btn btn-lg btn-success">Buy Now</button>
-        </a>
+            <button class="btn btn-lg btn-success mt-3">Buy Now</button>
+          </a>
+          <a href="{{ route('product.checkout-access',$obj->slug) }}">
+              <button class="btn btn-lg btn-outline-secondary mt-3">Access Code</button>
+              </a>
         @else
         <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
         @endif

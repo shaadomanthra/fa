@@ -5,7 +5,7 @@
 @section('content')
 
 @if( \auth::user()->activation_token!=1 || \auth::user()->sms_token!=1)
-<div class="rounded p-4 mb-4" style="background: #98deb5; border:1px solid #39c072;"><h4 class="">Validate your account</h4>
+<div class="rounded p-4 mb-4" style="background: #caf7dd; border:1px solid #39c072;"><h4 class="">Validate your account</h4>
 <p>Your account has not been validated yet. You are only a few steps away from complete access to our platform.</p>
 <a href="{{ route('activation')}}">
 <button class="btn btn-success">Validate Now</button>
@@ -72,8 +72,17 @@
     
 
 @if(auth::user()->orders()->where('status',1)->count()!=0)
+<div class="mb-4">
   @include('appl.pages.blocks.tests')
+</div>
 @endif
+
+<div class="" style="">
+  @include('blocks.free_listening_tests2')
+</div>
+<div class="">
+  @include('blocks.free_reading_tests2')
+</div>
 
 
 </div>

@@ -39,10 +39,8 @@
             @else
               @if($obj->price !=0)
               <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
-              <a href="{{ route('product.checkout',$obj->slug) }}">
-              <button class="btn btn-lg btn-success">Buy Now</button>
-              </a>
-
+                @include('appl.test.test.buy')
+              
               @elseif($obj->price===null)
 
               @else
@@ -62,9 +60,7 @@
           @else
             @if($obj->price !=0)
             <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>
-            <a href="{{ route('product.checkout',$obj->slug) }}">
-            <button class="btn btn-lg btn-success">Buy Now</button>
-            </a>
+            @include('appl.test.test.buy')
             @else
               <p class="h3 mb-4"><span class="badge badge-warning">FREE</span></p>
 

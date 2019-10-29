@@ -41,6 +41,22 @@ class OrderController extends Controller
     }
 
     /**
+     * Checkout page with access code
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function checkout_access($slug,Request $request){
+        $product = Product::where('slug',$slug)->first();
+        $test = Test::where('slug',$slug)->first();
+        if($product){
+              return view('appl.product.order.checkout_access')->with('product',$product);
+        }
+        if($test){
+              return view('appl.product.order.checkout_access')->with('test',$test);
+        }
+    }
+
+    /**
      * To handle instamojo return request
      *
      */
