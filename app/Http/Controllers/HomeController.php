@@ -110,6 +110,8 @@ class HomeController extends Controller
     }
 
     public function dashboard(Request $request){
+
+        
         $orders = \auth::user()->orders()->where('status',1)->orderBy('created_at','desc')->get();
 
         $test_ids = array();

@@ -37,7 +37,7 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/home';
 
-    
+
     /**
      * Create a new controller instance.
      *
@@ -85,6 +85,7 @@ class RegisterController extends Controller
          $user->resend_sms($user->phone,$user->sms_token);
          Mail::to($user->email)->send(new EmailActivation($user));
 
+        session('created','yes');
         return $user;
     }
 }
