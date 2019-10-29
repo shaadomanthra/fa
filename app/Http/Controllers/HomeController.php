@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Test\Test;
 use App\Models\Test\Category;
+use App\Models\Test\Attempt;
+use App\Models\Product\Product;
 
 class HomeController extends Controller
 {
@@ -108,40 +110,79 @@ class HomeController extends Controller
     }
 
     public function dashboard(Request $request){
-        $orders = \auth::user()->orders()->where('status',1)->get();
+        $orders = \auth::user()->orders()->where('status',1)->orderBy('created_at','desc')->get();
 
         $test_ids = array();
+        $product_ids = array();
         $tests=array();
+        $status =array();
+        $product_status =array();
+        $product_expiry = array();
+        $expiry = array();
+        $search = $request->search;
+        $item = $request->item;
+        $item2 = $request->item2;
 
         $i=0;
-        foreach($orders as $o){
 
+        foreach($orders as $o){
             if($o->test_id){
                 if(!in_array($o->test_id, $test_ids)){
-                    $o->test->expiry = $o->expiry;
-                    $tests[$i] = $o->test;
-                            $i++;
-                    array_push($test_ids, $o->test_id);
+                     array_push($test_ids, $o->test_id);
                 }
+                $expiry[$o->test_id] = $o->expiry;
+                if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                    $status[$o->test_id] = 'Active';
+                else
+                    $status[$o->test_id] = 'Expired';
             }
             
             if($o->product_id){
+                array_push($product_ids, $o->product_id);
                 if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
-                {
-                    foreach($o->product->tests as $t){
-                        if(!in_array($t->id, $test_ids)){
-                            $t->expiry = $o->expiry;
-                            $tests[$i] = $t;
-                            $i++;
-                            array_push($test_ids, $t->id);
-                        }
-                        
+                    $product_status[$o->product_id] = 'Active';
+                else
+                    $product_status[$o->product_id] = 'Expired';
+                $product_expiry[$o->product_id] = $o->expiry;
+                foreach($o->product->tests as $t){
+                    if(!in_array($t->id, $test_ids)){
+                        array_push($test_ids, $t->id);
                     }
+                    $expiry[$t->id] = $o->expiry;
+                    if(strtotime($o->expiry) > strtotime(date('Y-m-d')))
+                        $status[$t->id] = 'Active';
+                    else
+                        $status[$t->id] = 'Expired';
                 }
-
             }    
         }
-        return view('appl.pages.dashboard')
-                ->with('tests',$tests);
+
+        $tests = Test::whereIn('id',$test_ids)->where('name','LIKE',"%{$item}%")->get();
+        $products = Product::whereIn('id',$product_ids)->where('name','LIKE',"%{$item2}%")->get();
+
+        
+        $attempts = Attempt::where('user_id',\auth::user()->id)->whereIn('test_id',$test_ids)->get()->pluck('test_id')->toArray();
+        
+        foreach($tests as $k=>$t){
+            if(in_array($t->id, $attempts))
+                $status[$t->id] = 'Completed';
+        }
+
+       if($search){
+            if($item2)
+            $view = 'appl.pages.blocks.productlist';
+           else   
+            $view = 'appl.pages.blocks.testlist';
+       }
+       else
+        $view = 'appl.pages.dashboard2';
+
+        return view($view)
+                ->with('tests',$tests)
+                ->with('products',$products)
+                ->with('expiry',$expiry)
+                ->with('product_expiry',$product_expiry)
+                ->with('product_status',$product_status)
+                ->with('status',$status);
     }
 }

@@ -16,6 +16,19 @@
     });
   });
 
+  $('#search2').on('keyup',function(){
+    $value=$(this).val();
+    $url = $(this).data('url');
+    $.ajax({
+      type : 'get',
+      url : $url,
+      data:{'search':true,'item2':$value},
+      success:function(data){
+        $('#search-items2').html(data);
+      }
+    });
+  });
+
 
   $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 

@@ -19,7 +19,7 @@
             <div class="col-12 col-md-9">
 
               <h4 class="card-title">
-                <a href="{{ route('product.view',$order->product->slug) }}">{{$order->product->name}}</a>
+                <a href="{{ route('product.view',$order->product->slug) }}">{{ strip_tags($order->product->name)}}</a>
               </h4>
               <h6 class="card-subtitle mb-2 text-muted">
                 @if(strtotime($order->expiry) > strtotime(date('Y-m-d')))

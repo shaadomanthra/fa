@@ -1,10 +1,50 @@
-<div class="mt-4">
-	<h3 class="mb-4 p-4 bg-light border">My Tests </h3>
-	<div class="row">
-		@foreach($tests as $test)
-		<div class="col-12 col-md-6 col-lg-4"> 
-				@include('appl.pages.blocks.test')
-			</div>
-		@endforeach
+
+<div class="bg-white p-3">
+	<div>
+		
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="mytest-tab" data-toggle="tab" href="#mytest" role="tab" aria-controls="mytest" aria-selected="true"><h4 class="mt-2">My Tests</h4></a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="myproduct-tab" data-toggle="tab" href="#myproduct" role="tab" aria-controls="myproduct" aria-selected="false"><h4 class="mt-2">My Products</h4></a>
+			</li>
+		</ul>
 	</div>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="mytest" role="tabpanel" aria-labelledby="mytest-tab">
+  	<div class="mt-4">
+  	<form class=" mb-4" method="GET" action="{{ route('home') }}">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<div class="input-group-text"><i class="fa fa-search"></i></div>
+				</div>
+				<input class="form-control " id="search" name="item" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
+				value="{{Request::get('item')?Request::get('item'):'' }}">
+			</div>
+		</form>
+    <div id="search-items" class="">
+		@include('appl.pages.blocks.testlist')
+	</div>
+	</div>
+  </div>
+  <div class="tab-pane fade" id="myproduct" role="tabpanel" aria-labelledby="myproduct-tab">
+  	<div class="mt-4">
+  		<form class=" mb-4" method="GET" action="{{ route('home') }}">
+			<div class="input-group input-group-lg">
+				<div class="input-group-prepend">
+					<div class="input-group-text"><i class="fa fa-search"></i></div>
+				</div>
+				<input class="form-control " id="search2" name="item2" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
+				value="{{Request::get('item')?Request::get('item'):'' }}">
+			</div>
+		</form>
+    <div id="search-items2" class="">
+		@include('appl.pages.blocks.productlist')
+	</div>
+	</div>
+  </div>
+ 
+</div>
+
 </div>

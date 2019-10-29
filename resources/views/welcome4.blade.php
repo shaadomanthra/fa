@@ -9,8 +9,8 @@
     <div class="row p-3 p-md-0">
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
-    <div class="heading  " style="color:#fff;font-family:  'Raleway', sans-serif;">
-    Start your <br>Test Preparation now !
+    <div class="heading  " style="color:#fff;font-family: 'Lato', sans-serif;font-weight: 900">
+    Start your <br>Preparation now !
     </div>
     <div class="heading2  mb-4" style="color:#b7e6ff">
     Practice, Analyze and Improve.
@@ -18,7 +18,7 @@
 
     @guest
     <a href="{{ route('register')}}">
-    <button class="btn btn-success btn-warning btn-lg p-3 pr-4 pl-4">Get Started for Free</button>
+    <button class="btn  btn-light text-dark btn-lg p-2 pr-4 pl-4">Get Started for Free</button>
     </a>
     
     @else

@@ -176,21 +176,25 @@ class User extends Authenticatable
 
     public function testscore($user_id,$test_id){
         $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->get();
-        $score =0;
-        
+
+        $score = 0;
+        $total = 0;
         foreach($attempt as $r){
                 if($r->accuracy==1)
                   $score++;
+              $total++;
         }
-        if($score)
-        return $score;
+        if(count($attempt)){
+            //echo $attempt;
+            return 'Score - '.$score.' / '.$total;
+        }
         else
             return null;
     }
 
     public function attempted($user_id,$test_id){
         $attempt = Attempt::where('test_id',$test_id)->where('user_id',$user_id)->first();
-        
+
         if($attempt)
             return true;
         else
