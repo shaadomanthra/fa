@@ -9,7 +9,7 @@
     <div class="row p-3 p-md-0">
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
-    <div class="heading  " style="color:#fff;font-family: 'Lato', sans-serif;font-weight: 900">
+    <div class="heading  " style="color:#fff;font-family: 'Chivo', sans-serif;font-weight: 900">
     Start your <br>Preparation now !
     </div>
     <div class="heading2  mb-4" style="color:#b7e6ff">

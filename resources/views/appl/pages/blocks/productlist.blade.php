@@ -1,6 +1,7 @@
 
 
 @if(count($products))
+<div class="table-responsive">
 <table class="table table-bordered">
   <thead>
     <tr class="bg-light">
@@ -29,6 +30,7 @@
 	@endforeach
   </tbody>
 </table>
+</div>
 @else
 <div class="card">
 	<div class="card-body">

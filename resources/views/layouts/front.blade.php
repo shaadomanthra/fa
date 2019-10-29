@@ -21,7 +21,7 @@
     @endif
     <!-- Styles -->
     
-    <link href="https://fonts.googleapis.com/css?family=Anton|Bungee+Outline|Muli|Raleway:800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Bungee+Outline|Muli|Chivo:800&display=swap" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">

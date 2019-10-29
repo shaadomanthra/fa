@@ -14,9 +14,9 @@
 @endif
 <div class="">
   <div class="row ">
-    <div class="col-12 col-sm-6 col-md-5 col-lg-4">
+    <div class="col-12 col-sm-4 col-md-5 col-lg-4">
       <div class="card mb-4">
-        <div class="bg-image" style="background-image: url({{asset('images/dashboard/bg2.jpg')}})"> 
+        <div class="bg-image" style="background-image: url({{asset('images/bg/bg5.jpg')}})"> 
         </div>
         <div class="user_container">
           <img src="{{ asset('images/admin/user.png')}}" class="user" />
@@ -41,7 +41,7 @@
   </div>
 
   
-  <div class="col-12 col-sm-6 col-md-7 col-lg-8">
+  <div class="col-12 col-sm-8 col-md-7 col-lg-8">
     
 
 @if(auth::user()->orders()->where('status',1)->count()!=0)
