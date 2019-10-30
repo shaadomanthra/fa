@@ -11,7 +11,7 @@
     <img src="{{ asset('images/general/exm.png') }}" width="90px" class="text-center mb-3"/>
     <p class="mb-3">and get a comprehensive assessment report</p>
     
-    <a href="https://prep.firstacademy.in/request-form?test=ielts"><button class="btn btn-orange w-100" >Apply Now</button></a>
+    <a href="https://prep.firstacademy.in/request-form?test=ielts"><button class="btn btn-orange w-100" >Get it now!</button></a>
   </div>
 </div>
 </div>
