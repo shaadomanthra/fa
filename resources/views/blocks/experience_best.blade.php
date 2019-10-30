@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="col-12 col-md-6 col-lg-4">
-			<div class="text-dark h5"><b><i class="fa fa-bar-chart "></i> Personalized, detailed Analysis</b></div>
+			<div class="text-dark h5"><b><i class="fa fa-bar-chart "></i> Personalized, Detailed Analysis</b></div>
 			<p class="text-secondary">
 				Know your weaknesses, strengths and everything else that you need to know to improve your score and rank.
 			</p>

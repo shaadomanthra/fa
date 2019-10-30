@@ -5,6 +5,7 @@
             <thead>
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
+                <th scope="col">ID No </th>
                 <th scope="col">File </th>
                 <th scope="col">Feedback</th>
                 <th scope="col">Assigned To</th>
@@ -15,6 +16,11 @@
               @foreach($objs as $key=>$obj)  
               <tr>
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
+                <td>
+                  <a href="{{ route('user.show',$obj->user->id) }}">
+                  {{ $obj->user->idno}}
+                  </a>
+                </td>
                 <td>
                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">
                   {{ $obj->user->name}} - {{ $obj->test->name }} - Response

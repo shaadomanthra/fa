@@ -8,10 +8,10 @@
 <div  class="row ">
 	@for($i=1;$i<7;$i++)
   <div class="col-12 col-md-6 col-lg-4">
-  		<div class="card mb-4">
+  		<div class=" mb-4">
   			<div class="card-body">
   				<h5>
-  					<a href="{{ route('test','listening-mini-test-'.$i) }}">
+  					<a href="{{ route('test','listening-mini-test-'.$i) }}" class="text-secondary">
   					<i class="fa fa-clone"></i> Listening Mini Test #{{$i}} 
   					</a>	
         </h5>
