@@ -75,6 +75,10 @@ class UserController extends Controller
                 ->with('app',$this);
     }
 
+    public function register(Obj $obj,Request $request){
+
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -96,6 +100,19 @@ class UserController extends Controller
                 flash('Invalid phone number (less than 10 digits)')->error();
                 return redirect()->back()->withInput();;
             }
+
+            $phone_exists = $obj->where('phone',$request->get('phone'))->first();
+            if ($phone_exists) {
+                flash('User('.$phone_exists->name.') with phone number('.$phone_exists->phone.') already exists in database.')->error();
+                return redirect()->back()->withInput();;
+            }
+
+            $idno_exists = $obj->where('idno',$request->get('idno'))->first();
+            if ($idno_exists) {
+                flash('User('.$idno_exists->name.') with ID number('.$idno_exists->idno.') already exists in database.')->error();
+                return redirect()->back()->withInput();;
+            }
+
             /* create a new entry */
            $user= $obj->create([
             'name' => $request->get('name'),

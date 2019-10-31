@@ -44,7 +44,7 @@
 </div>
 </div>
 
-<div class="p-2 p-md-5  pb-md-3 bg-white">
+<div class="p-2 pt-md-5 pb-md-4 bg-white">
   @include('blocks.popular_ielts')
 </div>
 <div class="p-2 p-md-5 pb-md-3" style="background: #f3fbff">

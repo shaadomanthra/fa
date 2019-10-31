@@ -60,4 +60,18 @@ class LoginController extends Controller
         else
             return redirect()->intended($this->redirectPath());
     }
+
+    protected function sendLoginResponse(Request $request)
+    {
+        $link = session('link');
+
+        $request->session()->regenerate();
+
+        session(['link' => $link]);
+
+        $this->clearLoginAttempts($request);
+
+        return $this->authenticated($request, $this->guard()->user())
+                ?: redirect()->intended($this->redirectPath());
+    }
 }

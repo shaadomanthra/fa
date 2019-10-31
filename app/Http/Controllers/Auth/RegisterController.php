@@ -38,6 +38,8 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
 
+
+
     /**
      * Create a new controller instance.
      *
@@ -46,6 +48,15 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+
+    protected function redirectTo()
+    {
+        if(session('link'))
+            return redirect(session('link')); 
+        else
+            return '/home';
     }
 
     /**

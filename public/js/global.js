@@ -38,4 +38,28 @@
     $('[data-toggle="popover"]').popover()
   });
 
+
+  $(".hover-border").on({
+    mouseenter: function () {
+        //stuff to do on mouse enter
+        $(this).addClass('border');
+    },
+    mouseleave: function () {
+        //stuff to do on mouse leave
+        $(this).removeClass('border');
+    }
+  });
+
+  $(".hover-bg").on({
+    mouseenter: function () {
+        //stuff to do on mouse enter
+        $(this).addClass('bg-shadow');
+    },
+    mouseleave: function () {
+        //stuff to do on mouse leave
+        $(this).removeClass('bg-shadow');
+    }
+  });
+
+
   

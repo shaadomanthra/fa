@@ -790,6 +790,7 @@ function addMinutes(date, minutes) {
 
 @if(request()->is('/'))
     <script type="application/javascript" src="{{asset('js/bootstrap.js')}}"></script>  
+    <script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
     <script>
       $('.toast').toast({autohide:false});
       setTimeout(function () {

@@ -111,7 +111,7 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="products[]" value="{{$product->id}}" id="defaultCheck1" @if($obj->hasProduct($product->id))) checked @endif>
             <label class="form-check-label" for="defaultCheck1">
-              {{ $product->name }} 
+              {{ strip_tags($product->name) }} 
             </label>
           </div>
           </div>
@@ -138,7 +138,7 @@
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="tests[]" value="{{$test->id}}" id="defaultCheck1" @if($obj->hasTest($test->id))) checked @endif>
             <label class="form-check-label" for="defaultCheck1">
-              {{ $test->name }}
+              {{ strip_tags($test->name) }}
             </label>
           </div>
           </div>
