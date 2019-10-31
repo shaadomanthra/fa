@@ -10,7 +10,7 @@
     @endcan
 
     @if(count($obj->tests))
-      <span class="float-right " > {{ count($obj->tests)}}  @if(count($obj->tests)>1)Tests @else Test @endif </span> 
+      <span class="float-md-right text-secondary" > {{ count($obj->tests)}}  @if(count($obj->tests)>1)Tests @else Test @endif </span> 
     @endif
   </h1>
 </div>

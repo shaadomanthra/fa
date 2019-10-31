@@ -1,4 +1,4 @@
- <div class="card  mb-4" style="background: #fffcd8;border:1px solid #cecaa2;">
+ <div class="card  mb-4 " style="background: #fffcd8;border:1px solid #cecaa2;">
   <div class="card-body ">
       @if($obj->image)
       <div class="mb-4">

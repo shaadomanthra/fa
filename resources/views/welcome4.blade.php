@@ -10,7 +10,7 @@
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
     <div class="heading  " style="color:#fff;font-family: 'Chivo', sans-serif;font-weight: 900;line-height: 1.2">
-    Start your <br>Preparation now !
+    Start your <br>Preparation now!
     </div>
     <div class="heading2  mb-4 mt-3" style="color:#b7e6ff">
     Practice, Analyze and Improve.

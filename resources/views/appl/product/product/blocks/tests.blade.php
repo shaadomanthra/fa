@@ -1,26 +1,13 @@
 @foreach($obj->tests as $k=>$test)
 @if($test->status)
-<div class="col-12 
-@if(count($obj->tests)>1) col-md-12  @endif
+<div class=" 
 mb-3 test_block" style="@if($k>2)display:none;@endif">
 <div class="card" style="box-shadow: 2px 3px #f8f9fa;background-image: linear-gradient(#fbf0f2 5%, white 80%,white 15%); " >
 
   <div class="card-body">
-    @if($test->status)
-    @if(\auth::user())
-    @if(!\auth::user()->attempt($test->id))
-    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-primary mb-1 float-right"><i class="fa fa-paper-plane"></i> Take Test</a>
-    @else
-    @if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
-    <a href="{{ route('test.try',$test->slug)}}?product={{$obj->slug}}" class="btn btn-secondary mb-1 float-right"><i class="fa fa-eye"></i> View Response</a>
-    @else
-    <a href="{{ route('test.analysis',$test->slug)}}?product={{$obj->slug}}" class="btn btn-secondary mb-1 float-right"><i class="fa fa-bar-chart"></i> Test Report</a>
-    @endif
-    @endif
-    @else
-    <a href="{{ route('test.instructions',$test->slug)}}?product={{$obj->slug}}" class="btn btn-primary mb-1 float-right"><i class="fa fa-paper-plane"></i> Take Test</a>
-    @endif
-    @endif
+    <div class="d-none d-md-block float-right">
+    @include('appl.product.product.blocks.test_button')
+    </div>
 
     <h4 class="card-title"><i class="fa fa-clone"></i> {{ $test->name}} 
 
@@ -58,6 +45,10 @@ mb-3 test_block" style="@if($k>2)display:none;@endif">
       </span>
     </div>
     @endif
+
+    <div class="d-block d-md-none mt-4">
+    @include('appl.product.product.blocks.test_button')
+    </div>
 
   </div>
 </div>

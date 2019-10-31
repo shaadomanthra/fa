@@ -85,6 +85,14 @@ class VerifyController extends Controller
     	return view('appl.user.verify.activation')
                 ->with('user',$user);
     }
+
+
+
+    public function otp_activation(Request $request)
+    {
+
+
+    }
     /**
      * Verify Email
      *
@@ -123,17 +131,31 @@ class VerifyController extends Controller
     {
     	$sms_code = $request->get('sms_code');
     	$user = User::where('sms_token',$sms_code)->first();
+        $api = $request->get('api');
 
     	if($user && $sms_code){
     		$user->sms_token =1;
     		$user->save();
+            $error=0;
     		$message = 'Successfully verified user phone number.';
     		flash($message)->success();
     	}else{
     		$message = 'Invalid phone verification code';
+            $error =1;
     		flash($message)->error();
     	}
-        return redirect()->route('activation');
+        if($api){
+            if($error){
+                $arr["error"] =1;
+                $arr["message"] = $message; 
+            }else{
+                $arr["error"] =0;
+                $arr["message"] = $message; 
+            }
+            return json_encode($arr);
+            
+        }else
+            return redirect()->route('activation');
 
     }
 

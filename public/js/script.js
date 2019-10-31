@@ -13051,7 +13051,10 @@ if(!module.children)module.children=[];Object.defineProperty(module,"loaded",{en
 /***/ (function(module, exports) {
 
 // auto fadeout for alert message
-$('div.alert').not('.alert-important').delay(3000).fadeOut(350); // search data
+$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+$('.alertclose').on('click', function () {
+  $('.alert').hide();
+}); // search data
 
 $('#search').on('keyup', function () {
   $value = $(this).val();
@@ -13082,6 +13085,139 @@ $('#search2').on('keyup', function () {
       $('#search-items2').html(data);
     }
   });
+});
+$(document).on('click', '.login_api', function (e) {
+  e.preventDefault();
+  $('.alert').hide();
+  $('.spinner-border').show();
+  $email = $('input[name="email2"]').val();
+  $password = $('input[name="password2"]').val();
+  $_token = $('input[name="_token"]').val();
+  $url = $(this).data('url');
+  $.ajax({
+    type: 'post',
+    url: $url,
+    data: {
+      'email': $email,
+      'password': $password,
+      '_token': $_token
+    },
+    success: function success(data) {
+      $('.spinner-border').hide(); //console.log(data);
+
+      d = JSON.parse(data);
+
+      if (d.error) {
+        $('.alert-message').html(d.message);
+        $('.alert').show();
+      } else {
+        $('.loginmodal').modal('toggle');
+        setTimeout("location.reload(true);", 1);
+      }
+    }
+  });
+});
+$(document).on('click', '.otp_submit', function (e) {
+  e.preventDefault();
+  $('.alert').hide();
+  $('.spinner-border').show();
+  $sms_code = $('input[name="sms_code"]').val();
+  $_token = $('input[name="_token"]').val();
+  $url = $(this).data('url');
+  $.ajax({
+    type: 'post',
+    url: $url,
+    data: {
+      'sms_code': $sms_code,
+      'api': 1,
+      '_token': $_token
+    },
+    success: function success(data) {
+      $('.spinner-border').hide(); //console.log(data);
+
+      d = JSON.parse(data);
+
+      if (d.error) {
+        $('.alert-message').html(d.message);
+        $('.alert').show();
+      } else {
+        $('.loginmodal').modal('toggle');
+        setTimeout("location.reload(true);", 1);
+      }
+    }
+  });
+});
+$(document).on('click', '.register_api', function (e) {
+  e.preventDefault();
+  $('.spinner-border').show();
+  $('.alert').hide(); //console.log("register api");
+
+  $name = $('input[name="name"]').val();
+  $email = $('input[name="email"]').val();
+  $phone = $('input[name="phone"]').val();
+  $password = $('input[name="password"]').val();
+  $repassword = $('input[name="repassword"]').val();
+  $_token = $('input[name="_token"]').val();
+  $error = 0;
+
+  if ($name.length == 0) {
+    $('.alert-message').html("Kindly enter your name");
+    $('.alert').show();
+    $error = 1;
+  }
+
+  if ($email.length == 0) {
+    $('.alert-message').html("Kindly enter your email");
+    $('.alert').show();
+    $error = 1;
+  }
+
+  if ($phone.length == 0) {
+    $('.alert-message').html("Kindly enter the phone number");
+    $('.alert').show();
+    $error = 1;
+  }
+
+  if ($password != $repassword) {
+    $('.alert-message').html("Password and confirm password mismatch");
+    $('.alert').show();
+    $error = 1;
+  }
+
+  if ($password.length < 8) {
+    $('.alert-message').html("Password cannot be less than 8 characters");
+    $('.alert').show();
+    $error = 1;
+  }
+
+  if (!$error) {
+    $url = $(this).data('url');
+    $.ajax({
+      type: 'post',
+      url: $url,
+      data: {
+        'name': $name,
+        'email': $email,
+        'phone': $phone,
+        'password': $password,
+        '_token': $_token
+      },
+      success: function success(data) {
+        $('.spinner-border').hide();
+        d = JSON.parse(data);
+
+        if (d.error) {
+          $('.alert-message').html(d.message);
+          $('.alert').show();
+        } else {
+          $('.register_form').hide();
+          $('.otp_activation').show();
+        }
+      }
+    });
+  } else {
+    $('.spinner-border').hide();
+  }
 });
 $(document).ready(function () {
   $('[data-toggle="tooltip"]').tooltip();

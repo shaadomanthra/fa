@@ -12,8 +12,10 @@ use App\Models\Product\Product;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
+use App\Mail\EmailActivation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -75,8 +77,87 @@ class UserController extends Controller
                 ->with('app',$this);
     }
 
-    public function register(Obj $obj,Request $request){
+    public function login(Request $request){
+        $email = $request->get('email');
+        $password = $request->get('password');
 
+        $user = Obj::where('email',$email)->first();
+
+        
+        $arr =["error"=>0,"message"=>0];
+        if($user){
+
+            if (!Hash::check($password, $user->password))
+            {
+                $arr =["error"=>1,"message"=>'Password mismatch'];
+            }else{
+                Auth::login($user);
+            }
+        }else{
+            $arr =["error"=>1,"message"=>'User with email('.$email.') not found'];
+        }
+        
+        echo json_encode($arr);
+    }
+
+    public function register(Obj $obj,Request $request){
+        try{
+
+            $arr =["error"=>0,"message"=>0];
+            
+
+            if (!filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+                $arr["error"] =1;
+                $arr["message"] = "Invalid Email ID";
+            }
+
+            if (strlen($request->get('phone'))<10) {
+                $arr["error"] =1;
+                $arr["message"] = "Invalid phone number (less than 10 digits)";
+            }
+
+            $phone_exists = $obj->where('phone',$request->get('phone'))->first();
+            if ($phone_exists) {
+                $arr["error"] =1;
+                $arr["message"] = 'User('.$phone_exists->name.') with phone number('.$phone_exists->phone.') already exists in database. Kindly use forgot password option.';
+            }
+
+            $email_exists = $obj->where('email',$request->get('email'))->first();
+            if ($email_exists) {
+                $arr["error"] =1;
+                $arr["message"] = 'User('.$email_exists->name.') with email('.$email_exists->email.') already exists in database.Kindly use forgot password option.';
+            }
+
+            if(!$arr["error"]){
+                $user= $obj->create([
+                'name' => $request->get('name'),
+                'email' => $request->get('email'),
+                'phone' => $request->get('phone'),
+                'status'=>1,
+                'idno'=> null,
+                'user_id'=>1,
+                'activation_token' => mt_rand(10000,99999),
+                'sms_token' => mt_rand(1000,9999),
+                'password' =>  Hash::make($request->get('password')),
+                'auto_password'=> '',
+                ]);
+
+                //$u = User::where('email','=',$request->get('email'))->first();
+                Auth::login($user);
+
+                $user->resend_sms($user->phone,$user->sms_token);
+                Mail::to($user->email)->send(new EmailActivation($user));
+            }
+
+            return json_encode($arr);
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                flash('Some error in Creating the record')->error();
+                 return redirect()->back()->withInput();
+            }
+        }
     }
 
     /**
@@ -98,6 +179,12 @@ class UserController extends Controller
 
             if (strlen($request->get('phone'))<10) {
                 flash('Invalid phone number (less than 10 digits)')->error();
+                return redirect()->back()->withInput();;
+            }
+
+            $email_exists = $obj->where('email',$request->get('email'))->first();
+            if ($email_exists) {
+                flash('User('.$email_exists->name.') with email('.$email_exists->phone.') already exists in database.')->error();
                 return redirect()->back()->withInput();;
             }
 

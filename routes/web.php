@@ -107,6 +107,9 @@ Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->n
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
 Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
+Route::post('/api/register', 'User\UserController@register')->name('apiregister');
+Route::post('/api/login', 'User\UserController@login')->name('apilogin');
+Route::get('/api/login', 'User\UserController@login')->name('apilogin');
 /* user verify routes */
 Route::get('/activation', 'User\VerifyController@activation')->name('activation')->middleware('auth');
 Route::post('/activation', 'User\VerifyController@activation')->name('activation');
