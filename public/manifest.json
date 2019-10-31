@@ -1,5 +1,9 @@
 {
- "name": "App",
+ "name": "First Academy",
+  "short_name": "FirstAcademy",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#71bce2",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",
