@@ -44,16 +44,16 @@
 </div>
 </div>
 
-<div class="p-2 pt-md-5 pb-md-4 bg-white">
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-4 pb-md-2 bg-white">
   @include('blocks.popular_ielts')
 </div>
-<div class="p-2 p-md-5 pb-md-3" style="background: #f3fbff">
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-2" style="background: #f3fbff">
   @include('blocks.free_listening_tests')
 </div>
-<div class="p-2 p-md-5 pb-md-3">
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-2">
   @include('blocks.free_reading_tests')
 </div>
-<div class="p-2 p-md-5 pb-md-3" style="background: #f3fbff">
+<div class="pr-2 pl-2 pt-4 pb-4 " style="background: #f3fbff">
   @include('blocks.experience_best')
 </div>
 
