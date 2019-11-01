@@ -194,11 +194,14 @@ class UserController extends Controller
                 return redirect()->back()->withInput();;
             }
 
-            $idno_exists = $obj->where('idno',$request->get('idno'))->first();
-            if ($idno_exists) {
-                flash('User('.$idno_exists->name.') with ID number('.$idno_exists->idno.') already exists in database.')->error();
-                return redirect()->back()->withInput();;
+            if($request->get('idno')){
+               $idno_exists = $obj->where('idno',$request->get('idno'))->first();
+                if ($idno_exists) {
+                    flash('User('.$idno_exists->name.') with ID number('.$idno_exists->idno.') already exists in database.')->error();
+                    return redirect()->back()->withInput();;
+                } 
             }
+            
 
             /* create a new entry */
            $user= $obj->create([
