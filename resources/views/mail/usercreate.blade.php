@@ -11,7 +11,7 @@ Your account details are as follows <br>
 @component('mail::panel')
 Email : {{$user['email']}} <br>
 Password : {{$user['password_string']}}<br>
-Website : {{ url('/') }}<br>
+Website : {{ url('/login') }}<br>
 @endcomponent
 
 Thanks,<br>
