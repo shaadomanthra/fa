@@ -184,7 +184,7 @@ class UserController extends Controller
 
             $email_exists = $obj->where('email',$request->get('email'))->first();
             if ($email_exists) {
-                flash('User('.$email_exists->name.') with email('.$email_exists->phone.') already exists in database.')->error();
+                flash('User('.$email_exists->name.') with email('.$email_exists->email.') already exists in database.')->error();
                 return redirect()->back()->withInput();;
             }
 
