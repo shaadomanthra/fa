@@ -550,7 +550,7 @@ class AttemptController extends Controller
           }
           
         if($fillup->layout=='ielts_two_blank'){
-            $fillup->answer= str_replace('[', '/[', $fillup->answer);
+            $fillup->answer= str_replace('[', '&[', $fillup->answer);
             $new_ans = delete_all_between('[',']',$fillup->answer);
             $result[$fillup->qno]['answer'] = $new_ans;
             $result[$fillup->qno]['two_blanks'] =1;
@@ -753,14 +753,18 @@ class AttemptController extends Controller
         $answers = explode(",",$answer);
       else if(strpos($answer, '/') !== false)
         $answers = explode("/",$answer);
+      else if(strpos($answer, '&') !== false)
+        $answers = explode("&",$answer);
 
       
       $pieces = explode("/",$answer);
       if(is_array($response)){
-        
+
         if(count($answers) == count($response)){
           foreach($response as $resp){
             $resp = strtoupper(str_replace(' ', '', $resp));
+            if($resp=='')
+              return false;
             if(is_int($resp))
             {
 
