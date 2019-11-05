@@ -102,7 +102,10 @@
     $( document ).ready(function() {
     var height = $( window ).height();
     var width = $( window ).width();
+    if($('.navbar').length)
     var nav = $('.navbar').height();
+    else
+      var nav = 0;
     var bottom = $('.bottom-qno').height();
     var h = height-nav-70;
 
@@ -754,6 +757,43 @@ var x = setInterval(function() {
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
 }
+
+/* prevent copy */
+
+$('body').bind('copy paste',function(e) {
+    e.preventDefault(); return false; 
+});
+
+$(document).ready(function () {
+    //Disable full page
+    $("body").on("contextmenu",function(e){
+        return false;
+    });
+    
+    //Disable part of page
+    $("#id").on("contextmenu",function(e){
+        return false;
+    });
+});
+
+  
+/* prevent refresh */
+var btn = document.getElementById('submit'),
+    clicked = false;
+
+btn.addEventListener('click', function () {
+  clicked = true;
+});
+
+window.onbeforeunload = function (e) {
+
+  if(!clicked) {
+    return 'If you resubmit this page, progress will be lost.';
+  }
+};
+
+
+
 </script>
 @endif
 @endif
@@ -785,7 +825,7 @@ function addMinutes(date, minutes) {
         $(this).hide();
           $('.test_block').show();
           e.preventDefault();
-      });
+  });
 </script>
 
 @if(request()->is('/'))

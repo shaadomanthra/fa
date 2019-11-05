@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.clean')
 @section('title', 'Listening Test - '.$test->name)
 @section('description', 'The Test page of '.$test->name)
 @section('keywords', 'practice tests, '.$test->name)
@@ -16,7 +16,7 @@
 <div class="container" style="padding-left:0px;padding-right:0px;">
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
-    <div class="row">
+    <div class="row no-gutters">
         <div class="col-12 col-md-8 col-lg-8">
            
             @if(file_exists(public_path().'/storage/'.$test->file) && $test->file)
@@ -27,6 +27,7 @@
                 @include('appl.test.attempt.blocks.section')
             @endforeach
 
+        @include('layouts.examfooter')
         </div>
         <div class="col-12 col-md-4 col-lg-4">
             @if(isset($view))

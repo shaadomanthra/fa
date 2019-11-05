@@ -35,14 +35,9 @@
 </head>
 <body>
     <div id="app">
-
         <main class="">
             @yield('content')
         </main>
-
-        <footer class="">
-            @include('layouts.examfooter')
-        </footer>
     </div>
     @include('layouts.script')
 </body>

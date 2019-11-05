@@ -1,5 +1,5 @@
 
-<div class="sticky-top d-none d-sm-block">
+<div class="sticky-top d-none d-sm-block ml-4">
 <div class=" p-4  sidebar ">
 <h5 class="mb-4 "><i class="fa fa-th"></i> Questions  &nbsp;<span class="badge badge-warning float-right" id="timer2"></span></h5>
 <div class="row no-gutters">
@@ -22,9 +22,11 @@
 
 <div class="d-block d-sm-none " style="position:fixed;bottom:0;left:0;right:0;z-index:10">
 <div class=" p-4  sidebar ">
-<h5 class="mb-0 qshow"><i class="fa fa-th"></i> Questions <span class="angle"><i class="fa fa-angle-double-up"></i></span></span>  <span class="badge badge-warning" id="timer"></span>
+<h5 class="mb-0 "><span class="qshow"><i class="fa fa-th"></i> Questions <span class="angle"><i class="fa fa-angle-double-up"></i></span></span>  
 
-<button class="btn btn-outline-light  btn-sm float-right ml-2" type="button" data-toggle="modal" data-target="#exampleModal2">Report</button>
+	<span class="badge badge-warning" id="timer"></span>
+
+<button class="btn btn-outline-light  btn-sm float-right ml-2" type="button" data-toggle="modal" data-target="#exampleModal2">Rep</button>
 <button class="btn btn-warning btn-sm float-right" type="button" data-toggle="modal" data-target="#exampleModal">Submit</button>
 
 
