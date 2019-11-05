@@ -548,6 +548,14 @@ class AttemptController extends Controller
             $result[$fillup->qno]['accuracy']= 2;
           }
           
+        if($fillup->layout=='ielts_two_blank'){
+            $fillup->answer= str_replace('[', '/[', $fillup->answer);
+            $new_ans = delete_all_between('[',']',$fillup->answer);
+            $result[$fillup->qno]['answer'] = $new_ans;
+            $result[$fillup->qno]['two_blanks'] =1;
+        }else{
+            $result[$fillup->qno]['two_blanks'] =0;
+        }
       }
 
 
@@ -596,15 +604,27 @@ class AttemptController extends Controller
 
           }else{
 
-            if($this->compare($res['answer'],$resp)){
-              $data[$i]['accuracy'] =1;
-              $result[$qno]['accuracy'] = 1; 
-              $score++;
+            $data[$i]['accuracy'] = 0;
+            $result[$qno]['accuracy'] = 0; 
+
+            if($res['two_blanks']){
+
+              if($this->matchAnswers($res['answer'],$resp)){
+                $data[$i]['accuracy'] =1;
+                $result[$qno]['accuracy'] = 1; 
+                $score++;
+              }
+
+            }else{
+
+              if($this->compare($res['answer'],$resp)){
+                $data[$i]['accuracy'] =1;
+                $result[$qno]['accuracy'] = 1; 
+                $score++;
+              }
+
             }
-            else{
-              $data[$i]['accuracy'] = 0;
-              $result[$qno]['accuracy'] = 0; 
-            }
+            
           }
         
         }
@@ -642,6 +662,7 @@ class AttemptController extends Controller
         /* sectional score */
         $section_score = $this->section_score($result);
 
+      
         
 
          return view('appl.test.attempt.alerts.result')
@@ -727,6 +748,48 @@ class AttemptController extends Controller
       return $match;
    }
 
+   public function matchAnswers($answer,$response){
+      $answer = strtoupper(str_replace(' ', '', $answer));
+      if(strpos($answer, ',') !== false)
+        $answers = explode(",",$answer);
+      else if(strpos($answer, '/') !== false)
+        $answers = explode("/",$answer);
+
+      
+      $pieces = explode("/",$answer);
+      if(is_array($response)){
+        
+        if(count($answers) == count($response)){
+          foreach($response as $resp){
+            $resp = strtoupper(str_replace(' ', '', $resp));
+            if(is_int($resp))
+            {
+
+            }else{
+                if(strpos($answer, $resp) !== FALSE){
+              
+                }else{
+                    return false;
+                }
+            }
+            
+          }
+          return true;
+        }else
+          return false;
+        
+      }else{
+        foreach($pieces as $p){
+        $p = trim(strtoupper(str_replace(' ', '', $p)));
+        $response = trim(strtoupper(str_replace(' ', '', $response)));
+        if($p == $response)
+          return true;
+        }
+      }
+      return false;
+
+   }
+
    /* Function to compare the answer with response */
    public function matchOptions($answer,$response){
       if(strpos($answer, ',') !== false)
@@ -798,7 +861,7 @@ class AttemptController extends Controller
 
 
       /* sectional score */
-        $section_score = $this->section_score($result);
+      $section_score = $this->section_score($result);
       
       return view('appl.test.attempt.alerts.result')
               ->with('result',$result)

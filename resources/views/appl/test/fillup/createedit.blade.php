@@ -119,6 +119,7 @@
         <label for="formGroupExampleInput ">Layout </label>
         <select class="form-control" name="layout">
           <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif >- None -</option>
+          <option value="ielts_two_blank" @if(isset($obj)) @if($obj->layout=='ielts_two_blank') selected @endif @endif >IELTS Two Blanks</option>
           <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Cloze Test</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
 

@@ -30,6 +30,31 @@ if (! function_exists('image_resize')) {
     }
 }
 
+if (! function_exists('get_string_between')) {
+    function get_string_between($string, $start, $end){
+        $string = ' ' . $string;
+        $ini = strpos($string, $start);
+        if ($ini == 0) return '';
+        $ini += strlen($start);
+        $len = strpos($string, $end, $ini) - $ini;
+        return substr($string, $ini, $len);
+    }
+}
+
+if (! function_exists('delete_all_between')) {
+function delete_all_between($beginning, $end, $string) {
+  $beginningPos = strpos($string, $beginning);
+  $endPos = strpos($string, $end);
+  if ($beginningPos === false || $endPos === false) {
+    return $string;
+  }
+
+  $textToDelete = substr($string, $beginningPos, ($endPos + strlen($end)) - $beginningPos);
+
+  return delete_all_between($beginning, $end, str_replace($textToDelete, '', $string)); // recursion to ensure all occurrences are replaced
+}
+}
+
 if (! function_exists('summernote_imageupload')) {
     function summernote_imageupload($user,$editor_data)
     {
