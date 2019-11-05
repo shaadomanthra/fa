@@ -546,6 +546,7 @@ class AttemptController extends Controller
             $result[$fillup->qno]['answer'] = $fillup->answer;
             $result[$fillup->qno]['response']= '';
             $result[$fillup->qno]['accuracy']= 2;
+            $result[$fillup->qno]['two_blanks'] =0;
           }
           
         if($fillup->layout=='ielts_two_blank'){
@@ -553,8 +554,6 @@ class AttemptController extends Controller
             $new_ans = delete_all_between('[',']',$fillup->answer);
             $result[$fillup->qno]['answer'] = $new_ans;
             $result[$fillup->qno]['two_blanks'] =1;
-        }else{
-            $result[$fillup->qno]['two_blanks'] =0;
         }
       }
 
