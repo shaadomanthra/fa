@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Test as Obj;
 use App\Models\Test\Tag;
+use App\Models\Test\Fillup;
+use App\Models\Test\Mcq;
 use App\Models\Test\Type;
 use App\Models\Test\Category;
 use App\Models\Test\Group;
@@ -362,6 +364,74 @@ class TestController extends Controller
  
         file_put_contents($filename, json_encode($test,JSON_PRETTY_PRINT));
         return redirect()->route($this->module.'.show',$id);
+    }
+
+    public function questions($id,Obj $obj,Request $request){
+
+        $search = $request->search;
+        $item = $request->item;
+        $test = Obj::where('id',$id)->first();
+
+        if($search){
+
+            $data=array();
+            $fillup = Fillup::where('test_id',$test->id)->where(function ($query) use ($item) {
+                $query->where('label','LIKE',"%{$item}%")
+                    ->orWhere('prefix','LIKE',"%{$item}%")
+                     ->orWhere('answer','LIKE',"%{$item}%")
+                    ->orWhere('suffix','LIKE',"%{$item}%")
+                    ->orWhere('qno','LIKE',"%{$item}%")
+                    ->orWhere('sno','LIKE',"%{$item}%");
+                    })
+                    ->orderBy('extract_id','asc')
+                    ->orderBy('qno','asc')
+                    ->get();
+            foreach($fillup as $q){
+                $q->fillup_id = $q->id;
+                $data[$q->id] = $q;
+            }
+
+            $mcq = Mcq::where('test_id',$test->id)->where(function ($query) use ($item) {
+                $query->where('question','LIKE',"%{$item}%")
+                    ->orWhere('a','LIKE',"%{$item}%")
+                     ->orWhere('b','LIKE',"%{$item}%")
+                    ->orWhere('c','LIKE',"%{$item}%")
+                    ->orWhere('qno','LIKE',"%{$item}%")
+                    ->orWhere('sno','LIKE',"%{$item}%");
+                    })
+                    ->orderBy('extract_id','asc')
+                    ->orderBy('qno','asc')
+                    ->get();
+            foreach($mcq as $q){
+                $q->mcq_id = $q->id;
+                $data[$q->id] = $q;
+            } 
+        }else{
+            
+            $data=array();
+            foreach($test->fillup as $q){
+                $q->fillup_id = $q->id;
+                $data[$q->id] = $q;
+            }
+
+            foreach($test->mcq as $q){
+                $q->mcq_id = $q->id;
+                $data[$q->id] = $q;
+            }
+        }
+        
+        
+        ksort($data);
+        $app = $this;
+        $app->test= $test;
+       
+        $view = $search ? 'qlist': 'questions';
+
+        return view('appl.test.test.'.$view)
+                ->with('data',$data)
+                ->with('test',$test)
+                ->with('app',$app);
+
     }
 
     public function cache_delete($id)

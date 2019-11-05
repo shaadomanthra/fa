@@ -7,19 +7,24 @@
 @include('flash::message')
   <div class="card">
     <div class="card-body">
+      @if($stub=='Create')
+      <form method="post" action="{{route($app->module.'.store',$app->test->id)}}" enctype="multipart/form-data">
+      @else
+      <form method="post" action="{{route($app->module.'.update',[$app->test->id,$obj->id])}}" enctype="multipart/form-data">
+      @endif  
       <h1 class="p-3 border bg-light mb-3">
         @if($stub=='Create')
           Create {{ $app->module }}
         @else
           Update {{ $app->module }}
         @endif  
+
+        <span class="float-right">
+        <button type="submit" class="btn btn-primary btn-lg">Save</button>
+      </span>
        </h1>
       
-      @if($stub=='Create')
-      <form method="post" action="{{route($app->module.'.store',$app->test->id)}}" enctype="multipart/form-data">
-      @else
-      <form method="post" action="{{route($app->module.'.update',[$app->test->id,$obj->id])}}" enctype="multipart/form-data">
-      @endif  
+      
       <div class="form-group">
         <label for="formGroupExampleInput ">{{ ucfirst($app->module)}} Name</label>
         <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Enter the Name" 
@@ -49,7 +54,7 @@
 
       
       <div class="form-group">
-        <label for="formGroupExampleInput ">Instructions</label>
+        <label for="formGroupExampleInput ">Instructions/Details</label>
         <textarea class="form-control summernote" name="instructions"  rows="5">
             @if($stub=='Create')
             {{ (old('instructions')) ? old('instructions') : '' }}
@@ -60,6 +65,7 @@
       </div>
 
       
+      @if($app->test->testtype->name=='LISTENING')
        <div class="form-group">
         <label for="formGroupExampleInput ">Seek Time (seconds)</label>
         <input type="text" class="form-control" name="seek_time" id="formGroupExampleInput" placeholder="Enter the seek time in seconds" 
@@ -70,6 +76,7 @@
             @endif
           >
       </div>
+      @endif
 
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
@@ -79,7 +86,7 @@
       <input type="hidden" name="type" value="fillup">
        <input type="hidden" name="test_id" value="{{ $app->test->id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-       <button type="submit" class="btn btn-info">Save</button>
+       <button type="submit" class="btn btn-primary btn-lg">Save</button>
     </form>
     </div>
   </div>

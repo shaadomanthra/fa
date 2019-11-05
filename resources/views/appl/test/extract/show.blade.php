@@ -20,7 +20,10 @@
     <div class="col-12 col-md-9">
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
+          <p class="h2 mb-0"><i class="fa fa-th "></i> 
+
+            {{ $obj->name }} 
+         
 
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">

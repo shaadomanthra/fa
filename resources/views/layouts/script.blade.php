@@ -1,7 +1,7 @@
 
 @if(isset($editor))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
-<script type="application/javascript" src="{{asset('js/script.js?new=1')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js?new=2')}}"></script>  
 <script type="application/javascript" src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
 <script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
 <script type="application/javascript" src="{{asset('js/global.js')}}"></script>  

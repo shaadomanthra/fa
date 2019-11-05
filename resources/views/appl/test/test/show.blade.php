@@ -18,86 +18,150 @@
   <div class="row">
 
     <div class="col-12 col-md-9">
-      <div class="card bg-light mb-3">
+      <div class="card bg-white mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
-            
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="public" target="_blank" ><i class="fa fa-globe"></i></a>
-              <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="view" target="_blank" ><i class="fa fa-eye"></i></a>
-              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
+              <a href="{{ route($app->module.'.edit',$obj->id) }}?category={{$obj->category->name}}&type={{$obj->testtype->name}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Test"></i></a>
+              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="public" target="_blank" ><i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="Public Page"></i></a>
+              <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="view" target="_blank" ><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Admin View"></i></a>
+              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal"><span data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" ></i></span></a>
             </span>
             @endcan
-          </p>
+          <p class="h2 mb-2"><i class="fa fa-th "></i> {{ $obj->name }} </p>
+          <div class="mb-0">
+            <span><b>Slug:</b> <a href="{{ route('test',$obj->slug) }}">{{ $obj->slug }}</a></span> | 
+
+            <span><b>Category:</b><span class="text-primary"> <a href="{{ route('category.show',$obj->category->id) }}">
+              {{ $obj->category->name }}
+            </a></span></span> | 
+
+            <span><b>Type:</b><a href="{{ route('type.show',$obj->testtype->id) }}">
+              {{ $obj->testtype->name }}
+            </a></span> |
+            <span><b>Status:</b>
+              @if($obj->status==0)
+                    <span class="badge badge-warning">Inactive</span>
+                  @elseif($obj->status==1)
+                    <span class="badge badge-success">Active</span>
+                  @endif
+            </span>
+
+          </div>
+          <div class="mb-0">
+            @if($obj->level)
+            <div class="">
+              <B>Level : </B>
+              <span class="text-success">
+                @for($i=$obj->level;$i>0;$i--)
+                <i class="fa fa-circle "></i>
+                @endfor
+              </span>
+              <span class="text-secondary">
+                @for($i=(5-$obj->level);$i>0;$i--)
+                <i class="fa fa-circle-o "></i>
+                @endfor
+              </span>
+              | <span><b>Created:</b><span class="text-info">
+              {{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</span>
+            </span>
+            </div>
+            @else
+            <B>Level : -</B>
+            @endif
+          </div>
+            
+          
+          
         </div>
       </div>
 
-     
       <div class="card mb-4">
-        @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-        <img src="{{ asset(\storage::disk('public')->url($obj->image))}}" class="w-100"/>
-        @endif
         <div class="card-body">
-          <h3>Details
-
-            @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-              
-              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deleteimage" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger float-right">Delete Image</button>
-              </form>
-              @endif
-
-          </h3>
+          <h3>Test Details</h3>
+          <p class="text-secondary">This information is visible on individual test page</p>
+          @if($obj->details)
           {!! $obj->details !!}
-        </div>
-        <div class="card-body">
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Slug</b></div>
-            <div class="col-md-8">{{ $obj->slug }}</div>
-          </div>
-    
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Category</b></div>
-            <div class="col-md-8">
-              <a href="{{ route('category.show',$obj->category->id) }}">
-                {{ $obj->category->name }}
-              </a>
-            </div>
-          </div>
-
-          @if($obj->testtype)
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Type</b></div>
-            <div class="col-md-8">
-              <a href="{{ route('type.show',$obj->testtype->id) }}">
-                {{ $obj->testtype->name }}
-              </a>
-            </div>
-          </div>
+          @else
+          - 
           @endif
+        </div>
+      </div>
 
-
-
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Instructions</b></div>
-            <div class="col-md-8">{!! $obj->instructions !!}</div>
+      <div class="row">
+        <div class="col-6 col-md-3 mb-3">
+          <div class="card">
+            <div class="card-header h5">
+                Marks
+            </div>
+            <div class="card-body">
+              <div class="h1">
+                @if($obj->marks)
+                {{ $obj->marks }}
+                @else
+                -
+                @endif
+              </div>
+            </div>
           </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Description</b></div>
-            <div class="col-md-8">{!! $obj->description !!}</div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card">
+            <div class="card-header h5">
+                Test Time
+            </div>
+            <div class="card-body">
+              <div class="h1">
+              @if($obj->test_time)
+              {{ $obj->test_time }} min
+              @else
+              -
+              @endif
+              </div>
+            </div>
           </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Audio File</b></div>
-            <div class="col-md-8">
-              @if(\Storage::disk('public')->exists($obj->file) && $obj->file )
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card">
+            <div class="card-header h5">
+                Price
+            </div>
+            <div class="card-body">
+              <div class="h1">
+              @if($obj->price===0)
+                <span class="badge badge-warning">FREE</span>
+              @elseif($obj->price)
+                <i class="fa fa-rupee"></i> {{ $obj->price }} 
+              @else
+               -
+              @endif
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="card">
+            <div class="card-header h5">
+                Validity
+            </div>
+            <div class="card-body">
+              <div class="h1">
+                @if($obj->validity)
+                {{ $obj->validity }} m
+                @else
+                -
+                @endif
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+     @if(strtolower($obj->testtype->name)=='listening' || !$obj->testtype)
+      <div class="card bg-light mb-4">
+        <div class="card-body">
+          <h3 class="mb-3">Audio File</h3>
+          @if(\Storage::disk('public')->exists($obj->file) && $obj->file )
               <div class="bg-light border mb-3">
                  <audio>
                   <source src="{{ asset(\storage::disk('public')->url($obj->file))}}" type="audio/mp3">
@@ -112,67 +176,40 @@
               @else
                <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> audio file path not found </span>
               @endif
-            </div>
-          </div>
+        </div>
+      </div>
+      @endif
 
-
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Marks</b></div>
-            <div class="col-md-8">{{ $obj->marks }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Test Time</b></div>
-            <div class="col-md-8">
-              @if($obj->test_time)
-              {{ $obj->test_time }} min
-              @else
-              -
-              @endif</div>
-          </div>
-
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Level</b></div>
-            <div class="col-md-8">
-              @if($obj->level)
-              {{$obj->level}}
-            @else
-            - 
-          @endif</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Price</b></div>
-            <div class="col-md-8">
-              @if($obj->price===0)
-                <span class="text-secondary">FREE</span>
-              @elseif($obj->price)
-                <i class="fa fa-rupee"></i> {{ $obj->price }} 
-              @else
-               -
-              @endif
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Validity</b></div>
-            <div class="col-md-8">{{ $obj->validity }} months</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Status</b></div>
-            <div class="col-md-8">@if($obj->status==0)
-                    <span class="badge badge-warning">Inactive</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-success">Active</span>
-                  @endif</div>
-          </div>
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created </b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
-          </div>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Instructions (Optional)</h3>
+          <p class="text-secondary">Empty instructions will skip the instruction screen</p>
+          @if($obj->instructions)
+          {!! $obj->instructions !!}
+          @else
+          - 
+          @endif
         </div>
       </div>
 
-      <div class="bg-light p-4 rounded mb-4">
+     @if(strtolower($obj->testtype->name)=='writing' || !$obj->testtype)
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3>Writing Question</h3>
+          
+          @if($obj->description)
+          {!! $obj->description !!}
+          @else
+          - 
+          @endif
+        </div>
+      </div>
+      @endif
+
+
+      
+
+      <div class="bg-light p-4 rounded mb-4 border">
         <h2>Test Cache</h2>
         
         @if(file_exists('../storage/app/cache/test/test.'.$obj->slug.'.json'))

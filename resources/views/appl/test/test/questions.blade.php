@@ -1,5 +1,4 @@
 @extends('layouts.app')
-@include('meta.index')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -7,8 +6,8 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/test')}}">Test</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('test.show',$app->test->id)}}">{{$app->test->name}}</a></li>
-    <li class="breadcrumb-item">{{ ucfirst($app->module) }}</li>
+    <li class="breadcrumb-item"><a href="{{ route('test.show',$test->id)}}">{{$test->name}}</a></li>
+    <li class="breadcrumb-item">Questions</li>
   </ol>
 </nav>
 
@@ -20,19 +19,11 @@
     <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
-          <a class="navbar-brand"><i class="fa fa-bars"></i> 
+          <a class="navbar-brand"><i class="fa fa-bars"></i>  Questions </a>
+
+          <form class="form-inline" method="GET" action="{{ route('test.questions',$test->id) }}">
+
             
-          {{ ucfirst($app->module) }} 
-         
-        </a>
-
-          <form class="form-inline" method="GET" action="{{ route($app->module.'.index',$app->test->id) }}">
-
-            @can('create',$obj)
-            <a href="{{route($app->module.'.create',$app->test->id)}}">
-              <button type="button" class="btn btn-outline-success my-2 my-sm-2 mr-sm-3">Create {{ ucfirst($app->module) }}</button>
-            </a>
-            @endcan
             <div class="input-group ">
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="fa fa-search"></i></div>
@@ -45,7 +36,7 @@
         </nav>
 
         <div id="search-items">
-         @include('appl.'.$app->app.'.'.$app->module.'.list')
+         @include('appl.test.test.qlist')
        </div>
 
      </div>

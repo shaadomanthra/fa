@@ -13,7 +13,7 @@
     <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
     @endif
     <!-- Styles -->
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/styles.css?new=1') }}" rel="stylesheet">
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
