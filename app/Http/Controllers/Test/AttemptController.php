@@ -557,8 +557,7 @@ class AttemptController extends Controller
         }
       }
 
-      if($request->get('admin'))
-        dd($result);
+      
       ksort($result);
 
       
