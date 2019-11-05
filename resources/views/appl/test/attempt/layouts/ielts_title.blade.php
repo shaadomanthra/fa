@@ -11,6 +11,7 @@
       @endif
       @if($f->suffix ){{$f->suffix }}@endif
     @elseif($f->layout=='ielts_two_blank')
+      <span class="badge badge-warning h2">{{$f->qno}}</span>
       @include('appl.test.attempt.layouts.ielts_two_blank') 
     @endif
     </div>
