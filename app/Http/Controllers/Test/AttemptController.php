@@ -756,6 +756,32 @@ class AttemptController extends Controller
       else if(strpos($answer, '&') !== false)
         $answers = explode("&",$answer);
 
+      /* pre check */
+      if(is_array($answers) && is_array($response)){
+        $same_answer = false;
+        if(count(array_unique($answers)) === 1){
+          $same_answer = end($answers);
+        }
+
+        $same_response = false;
+        if(count(array_unique($response)) === 1){
+          $same_response = end($response);
+        }
+
+        if($same_answer){
+          if($same_answer == $same_response)
+            return true;
+          else
+            return false;
+        }else{
+          if($same_response)
+            return false;
+        }
+
+      }
+      
+
+      
       
       $pieces = explode("/",$answer);
       if(is_array($response)){
