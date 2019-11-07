@@ -20,7 +20,9 @@
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
           <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->order_id }} 
-
+            <a href="{{ route('order.edit',$obj->id) }}">
+              <button class="btn btn-primary float-right">Edit</button>
+            </a>
           </p>
         </div>
       </div>
@@ -90,6 +92,11 @@
                   @endif
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Valid till </b></div>
+            <div class="col-md-8">{{ date('d M Y', strtotime($obj->expiry))}}</div>
+          </div>
+
           <div class="row mb-2">
             <div class="col-md-4"><b>Created </b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>

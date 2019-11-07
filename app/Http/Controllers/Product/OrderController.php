@@ -413,6 +413,52 @@ class OrderController extends Controller
         else
             abort(404);
     }
+
+       /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $obj= Obj::where('id',$id)->first();
+        $this->authorize('update', $obj);
+
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.edit')
+                ->with('stub','Update')
+                ->with('obj',$obj)
+                ->with('app',$this);
+        else
+            abort(404);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try{
+            $obj = Obj::where('id',$id)->first();
+
+            $obj->update($request->all()); 
+
+            flash('('.$this->app.'/'.$obj->order_id.') item is updated!')->success();
+            return redirect()->route($this->module.'.show',$id);
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                 flash('Some error in updating the record')->error();
+                 return redirect()->back()->withInput();
+            }
+        }
+    }
     
     
 }
