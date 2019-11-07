@@ -10,9 +10,10 @@
                 <tr class="bg-light">
                   <th scope="col">#</th>
                   <th scope="col" >Product/Test</th>
-                  <th scope="col" class="w-25">Order ID</th>
+                  <th scope="col" class="w-25">Order ID / Valid till</th>
                   
                   <th scope="col" >Coupon / Referral</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -46,7 +47,9 @@
                         </ul>
                         @endif
                       </td>
-                      <td><a href="{{ route('order.show',[$order->id])}}">{{$order->order_id}}</a></td>
+                      <td><a href="{{ route('order.show',[$order->id])}}">{{$order->order_id}}</a>
+                        / {{ date('d M Y', strtotime($order->expiry))}}
+                      </td>
                       
                       <td>{{$order->txn_id}}</td>
                   </tr>
