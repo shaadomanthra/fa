@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Test\Test as Obj;
+use App\Models\Test\Attempt;
+use App\Models\Test\Writing;
 use App\Models\Admin\Admin;
 use App\Models\Product\Coupon;
 
@@ -25,6 +27,13 @@ class AdminController extends Controller
     {
         $this->authorize('view', $obj);
         $data['users'] = User::orderBy('id','desc')->get();
+        /* writing data */
+        $test_ids = Obj::whereIn('type_id',[3])->get();
+       
+        $data['writing']= Attempt::whereIn('test_id',$test_ids)->whereNull('answer')->orderBy('created_at','desc')->get();
+
+
+         
         $data['coupon'] = Coupon::where('code','FA5Y9')->first();
         return view('appl.admin.admin.index')->with('data',$data);
     }

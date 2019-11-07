@@ -2,13 +2,14 @@
 <div class="row ">
 @foreach($objs as $obj)
 @if($obj->status)
-<div class="col-12 col-md-6 col-lg-6 mb-3">
-    <div class="card" >
+<div class="col-12 col-md-6 col-lg-4 mb-3">
+    <a href="{{ route('test',$obj->slug)}}" class="nostyle">
+    <div class="p-1 hover-bg text-secondary" >
 
   <div class="card-body">
   
     <h5 class="card-title">
-      <a href="{{ route('test',$obj->slug)}}"><i class="fa fa-clone"></i> {{ $obj->name}}</a>
+      <i class="fa fa-clone"></i> {{ $obj->name}}
        @if(!$obj->price)
        <span class="badge badge-warning" style="font-size: 10px;">FREE</span>
        @else
@@ -43,11 +44,12 @@
 
   </div>
 </div>
+</a>
 </div>
 @endif
 @endforeach
 </div>
-<nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif">
+<nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif pl-3">
         {{$objs->appends(request()->except(['page','search']))->links()  }}
 </nav>
 

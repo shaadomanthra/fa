@@ -12,7 +12,7 @@
                 <hr>
                 @foreach($data['users'] as $k=>$user)
                 <div class="mb-2"><a href="{{ route('user.show',$user->id) }}" class="text-white">{{$user->name}} </a><span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
-                @if($k==4)
+                @if($k==2)
                     @break
                 @endif
                 @endforeach
@@ -22,11 +22,38 @@
             </div>
 
             <div class="bg-secondary text-light rounded p-4 mb-4">
-                <h3 class="mb-0"><i class="fa fa-tag"></i> FA5Y9 <Span class="float-right ">{{ $data['coupon']->count() }}</Span></h3>
+                <h3 class="mb-0"><i class="fa fa-file-o"></i> Writing <span class="badge badge-warning">new</span> <Span class="float-right ">{{ $data['writing']->count() }}</Span></h3>
+                @if($data['writing']->count())
+                <hr>
+                @foreach($data['writing'] as $k=>$w)
+                <div class="mb-2"><a href="{{ route('file.show',$w->id) }}" class="text-white">{{$w->user->name}} </a><span class="float-right text-dark">{{ $w->created_at->diffForHumans()}}</span></div>
+                @if($k==2)
+                    @break
+                @endif
+                @endforeach
 
-                <a href="{{ route('order.index')}}?coupon=FA5Y9"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>
-                
+                <a href="{{ route('file.index')}}?type=writing"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>   
+                @endif  
             </div>
+
+<!--
+            <div class="border  border-dark  rounded p-4 mb-4">
+                <h3 class="mb-0"><i class="fa fa-gg"></i> Attempts <Span class="float-right ">{{ $data['writing']->count() }}</Span></h3>
+               
+                <hr>
+                @foreach($data['writing'] as $k=>$w)
+                <div class="mb-2"><a href="{{ route('file.show',$w->id) }}" class="text-white">{{$w->user->name}} </a><span class="float-right text-dark">{{ $w->created_at->diffForHumans()}}</span></div>
+                @if($k==2)
+                    @break
+                @endif
+                @endforeach
+
+                <a href="{{ route('file.index')}}?type=writing"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>   
+               
+            </div>
+
+        -->
+
         </div>
         @endif
         <div class="col-12 col-md-8 col-lg-8">

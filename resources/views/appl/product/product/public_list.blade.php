@@ -2,18 +2,19 @@
 @foreach($objs as $obj)
 @if($obj->status)
 <div class="col-6 col-md-4 col-lg-2">
-  <div class="card mb-3 ">
+  <a href="{{ route('product.view',$obj->slug)}}" class="nostyle">
+  <div class="p-3 hover-bg mb-3 ">
     <div class="card-body text-center">
       @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-      <a href="{{ route('product.view',$obj->slug)}}">
+      
       <img src="{{ asset('storage/'.$obj->image) }}" class="w-50 "/>
-    </a>
+    
       @endif
     </div>
-    <a href="{{ route('product.view',$obj->slug)}}">
-    <div class="card-footer text-center text-dark "><b>{!! $obj->name !!}</b></div>
-    </a>
+    <div class=" text-center text-dark "><b>{!! $obj->name !!}</b></div>
+
   </div>
+  </a>
 </div>
 
 @endif
