@@ -28,14 +28,34 @@ class AdminController extends Controller
         $this->authorize('view', $obj);
         $data['users'] = User::orderBy('id','desc')->get();
         /* writing data */
-        $test_ids = Obj::whereIn('type_id',[3])->get();
+        $test_ids = Obj::whereIn('type_id',[3])->pluck('id')->toArray();
        
         $data['writing']= Attempt::whereIn('test_id',$test_ids)->whereNull('answer')->orderBy('created_at','desc')->get();
 
+        $attempts = Attempt::orderBy('created_at','desc')->get();
 
+        $latest = [];$count=0;
+        foreach($attempts as $a){
+            if(!in_array($a->test_id, $test_ids))
+            if(!isset($latest[$a->test_id.$a->user_id])){
+              
+                  $latest[$a->test_id.$a->user_id]['user']= $a->user;
+                  $latest[$a->test_id.$a->user_id]['test'] = $a->test;
+                  $latest[$a->test_id.$a->user_id]['attempt'] = $a;
+
+                $count++;
+                
+            }
+        }
+
+       // dd($count);
          
+        $data['latest'] = $latest;
+         $data['attempt_total'] = $count; 
+  
         $data['coupon'] = Coupon::where('code','FA5Y9')->first();
         return view('appl.admin.admin.index')->with('data',$data);
+        
     }
 
     public function analytics(Obj $obj){

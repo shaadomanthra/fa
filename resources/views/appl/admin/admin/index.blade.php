@@ -11,7 +11,10 @@
                 <h3><i class="fa fa-user"></i> Users <Span class="float-right">{{$data['users']->count()}}</Span></h3>
                 <hr>
                 @foreach($data['users'] as $k=>$user)
-                <div class="mb-2"><a href="{{ route('user.show',$user->id) }}" class="text-white">{{$user->name}} </a><span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
+                <div class="mb-2"><a href="{{ route('user.show',$user->id) }}" class="text-white">{{$user->name}}</a>
+                    @if($user->idno)
+                    <span class="badge badge-info text-white">Enrolled</span>
+                    @endif<span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
                 @if($k==2)
                     @break
                 @endif
@@ -26,7 +29,7 @@
                 @if($data['writing']->count())
                 <hr>
                 @foreach($data['writing'] as $k=>$w)
-                <div class="mb-2"><a href="{{ route('file.show',$w->id) }}" class="text-white">{{$w->user->name}} </a><span class="float-right text-dark">{{ $w->created_at->diffForHumans()}}</span></div>
+                <div class="mb-2"><a href="{{ route('file.show',$w->id) }}" class="text-white">{{$w->user->name}} </a><span class="float-right " style="color:#888f94">{{ $w->created_at->diffForHumans()}}</span></div>
                 @if($k==2)
                     @break
                 @endif
@@ -36,62 +39,16 @@
                 @endif  
             </div>
 
-<!--
-            <div class="border  border-dark  rounded p-4 mb-4">
-                <h3 class="mb-0"><i class="fa fa-gg"></i> Attempts <Span class="float-right ">{{ $data['writing']->count() }}</Span></h3>
-               
-                <hr>
-                @foreach($data['writing'] as $k=>$w)
-                <div class="mb-2"><a href="{{ route('file.show',$w->id) }}" class="text-white">{{$w->user->name}} </a><span class="float-right text-dark">{{ $w->created_at->diffForHumans()}}</span></div>
-                @if($k==2)
-                    @break
-                @endif
-                @endforeach
 
-                <a href="{{ route('file.index')}}?type=writing"><button class="btn btn-outline-light btn-sm mt-3">view list</button></a>   
-               
-            </div>
 
-        -->
+        
 
         </div>
         @endif
         <div class="col-12 col-md-8 col-lg-8">
                 <div class="row ">
         @if(\auth::user()->admin==1)
-        <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('category.index') }}">
-            <div class="border bg-white p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/category.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Test Categories</div>
-                </div>
-            </div>
-            </a>
-        </div>
-
-        <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('type.index') }}">
-            <div class="border bg-white p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/type.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Test Types</div>
-                </div>
-            </div>
-            </a>
-        </div>
-
         
-        <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('tag.index') }}">
-            <div class="border bg-white p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/tag.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Question Tags</div>
-                </div>
-            </div>
-            </a>
-        </div>
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('test.index') }}">
             <div class="border bg-white p-4 rounded mb-4">
@@ -171,16 +128,6 @@
             </div>
             </a>
         </div>
-        <div class="col-6 col-md-3 col-lg-3">
-            <a href="{{ route('file.index') }}?type=speaking">
-            <div class="border bg-white p-4 rounded mb-4">
-                <div>
-                    <img src="{{ asset('images/admin/speaking.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Speaking files</div>
-                </div>
-            </div>
-            </a>
-        </div>
         @endif
 
         @if(\auth::user()->admin==4 ||\auth::user()->admin==1)
@@ -199,6 +146,35 @@
 
     </div>
 
+@if(\auth::user()->admin!=4)
+<div class="bg-white p-4 rounded">
+    <h3 class="mb-4"><i class="fa fa-gg"></i> Tests Attempted
+    <span class="badge badge-warning float-right">{{ $data['attempt_total'] }}</span>
+    </h3>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Test</th>
+      <th scope="col">User</th>
+      <th scope="col">Attempted</th>
+    </tr>
+  </thead>
+  <tbody class="{{$k=0}}">
+    @foreach($data['latest'] as $l)
+    <tr class="{{ $k++}}">
+      <td><a href="{{ route('user.test',[$l['user']['id'],$l['test']['id']]) }}">{{ $l['test']['name']}}</a></td>
+      <td><a href="{{ route('user.show',$l['user']['id']) }}" class="">{{ $l['user']['name']}}</a> @if($l['user']['idno']) <span class="badge badge-info text-white">Enrolled</span>@endif</td>
+      <td>{{ $l['attempt']->created_at->diffForHumans()}}</td>
+    </tr>
+    @if($k==10)
+        @break
+    @endif
+    @endforeach
+   
+  </tbody>
+</table>
+</div>
+@endif
         </div>
     </div>
 
