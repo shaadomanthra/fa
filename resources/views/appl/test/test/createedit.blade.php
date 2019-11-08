@@ -108,7 +108,7 @@
             <select class="form-control" name="category_id">
 
               @foreach($categories as $category)
-              <option value="{{$category->id}}" @if(isset($obj)) @if($category->name==request()->get('category')) selected  @endif @elseif($obj->category_id == $category->id) selected @endif >{{ $category->name }}</option>
+              <option value="{{$category->id}}" @if(isset($obj)) @if($category->name==request()->get('category')) selected  @elseif($obj->category_id == $category->id) selected @endif @endif >{{ $category->name }}</option>
               @endforeach
             </select>
           </div>
