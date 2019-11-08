@@ -36,7 +36,7 @@
      @if($score)
       <div class="card mb-4">
         <div class="card-body">
-         <div class="display-4">Score: {{$score}}</div>
+         <div class="display-4">Score: {{$score}} / {{$test->marks}}</div>
         </div>
       </div>
       @endif

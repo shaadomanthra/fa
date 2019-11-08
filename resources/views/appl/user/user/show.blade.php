@@ -14,10 +14,10 @@
 @include('flash::message')
 
   <div class="row">
-
-    <div class="col-md-12">
+    <div class="col-12 ">
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
+            
           <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
 
           @can('update',$obj)
@@ -37,97 +37,107 @@
      
       <div class="card mb-4">
         <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>ID number</b></div>
-            <div class="col-md-8">@if($obj->idno){{ $obj->idno }}@else - @endif </div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Email</b></div>
-            <div class="col-md-8">{{ $obj->email }}
 
-            @if($obj->activation_token==1)
-              <span class="text-success"><i class="fa fa-check-circle"></i> </span>
-              @else
-              <span class="text-secondary"><i class="fa fa-exclamation-circle"></i> </span>
-              @endif
+          <div class="row">
+            <div class="col-12 col-md-3">
+              <img src="{{ asset('images/user.png')}}" class="w-75 mt-4">
+            </div>
+
+          <div class="col-12 col-md-9">    
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>ID number</b></div>
+              <div class="col-md-8">@if($obj->idno){{ $obj->idno }}@else - @endif </div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Name</b></div>
+              <div class="col-md-8">{{ $obj->name }}</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Email</b></div>
+              <div class="col-md-8">{{ $obj->email }}
+
+              @if($obj->activation_token==1)
+                <span class="text-success"><i class="fa fa-check-circle"></i> </span>
+                @else
+                <span class="text-secondary"><i class="fa fa-exclamation-circle"></i> </span>
+                @endif
+              </div>
+            </div>
+           
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Phone</b></div>
+              <div class="col-md-8">{{$obj->phone}}
+
+                @if($obj->sms_token==1)
+                <span class="text-success"><i class="fa fa-check-circle"></i> </span>
+                @else
+                <span class="text-secondary"><i class="fa fa-exclamation-circle"></i> </span>
+                @endif
+              </div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Auto Password</b></div>
+              <div class="col-md-8">@if($obj->auto_password)
+                {{$obj->auto_password }}
+                @else
+                -
+                @endif
+              </div>
+            </div>
+            
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Status</b></div>
+              <div class="col-md-8">@if($obj->status==0)
+                      <span class="badge badge-danger">Blocked</span>
+                    @elseif($obj->status==1)
+                      <span class="badge badge-success">Active</span>
+                    @endif</div>
+            </div>
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Role</b></div>
+              <div class="col-md-8">
+
+                <span class="badge badge-secondary">
+                @if($obj->admin==0)
+                User
+                @elseif($obj->admin==1)
+                Administrator
+                @elseif($obj->admin==2)
+                Employee
+                @elseif($obj->admin==4)
+                Faculty
+                @elseif($obj->admin==3)
+                Telecaller
+                @endif
+                </span>
+              </div>
+            </div>
+
+            @if($obj->user_id)
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Referral</b></div>
+              <div class="col-md-8">
+                @if($obj->user_id)
+                <a href="{{route('user.show',$obj->user_id)}}">
+                    {{ $obj->referral($obj->user_id)->name }}
+                </a>
+                @endif
+              </div>
+            </div>
+            @endif
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Created At</b></div>
+              <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
+            </div>
+             <div class="row mb-2">
+              <div class="col-md-4"><b>Last Login At</b></div>
+              <div class="col-md-8">{{ ($obj->lastlogin_at) ? \Carbon\Carbon::parse($obj->lastlogin_at)->diffForHumans() : ' - ' }}</div>
             </div>
           </div>
-         
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Phone</b></div>
-            <div class="col-md-8">{{$obj->phone}}
-
-              @if($obj->sms_token==1)
-              <span class="text-success"><i class="fa fa-check-circle"></i> </span>
-              @else
-              <span class="text-secondary"><i class="fa fa-exclamation-circle"></i> </span>
-              @endif
-            </div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Auto Password</b></div>
-            <div class="col-md-8">@if($obj->auto_password)
-              {{$obj->auto_password }}
-              @else
-              -
-              @endif
-            </div>
-          </div>
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Status</b></div>
-            <div class="col-md-8">@if($obj->status==0)
-                    <span class="badge badge-danger">Blocked</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-success">Active</span>
-                  @endif</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Role</b></div>
-            <div class="col-md-8">
-
-              <span class="badge badge-secondary">
-              @if($obj->admin==0)
-              User
-              @elseif($obj->admin==1)
-              Administrator
-              @elseif($obj->admin==2)
-              Employee
-              @elseif($obj->admin==4)
-              Faculty
-              @elseif($obj->admin==3)
-              Telecaller
-              @endif
-              </span>
-            </div>
-          </div>
-
-          @if($obj->user_id)
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Referral</b></div>
-            <div class="col-md-8">
-              @if($obj->user_id)
-              <a href="{{route('user.show',$obj->user_id)}}">
-                  {{ $obj->referral($obj->user_id)->name }}
-              </a>
-              @endif
-            </div>
-          </div>
-          @endif
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
-          </div>
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Last Login At</b></div>
-            <div class="col-md-8">{{ ($obj->lastlogin_at) ? \Carbon\Carbon::parse($obj->lastlogin_at)->diffForHumans() : ' - ' }}</div>
-          </div>
+        </div>
         </div>
       </div>
 
