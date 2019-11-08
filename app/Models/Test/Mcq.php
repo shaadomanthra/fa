@@ -24,6 +24,7 @@ class Mcq extends Model
         'layout',
         'qno',
         'sno',
+        'explanation',
         // add all other fields
     ];
 

@@ -79,6 +79,11 @@
           </div>
 
           <div class="row mb-2">
+            <div class="col-md-4"><b>Explanation</b></div>
+            <div class="col-md-8">{!! $obj->explanation !!}</div>
+          </div>
+
+          <div class="row mb-2">
             <div class="col-md-4"><b>Layout</b></div>
             <div class="col-md-8">{!! $obj->layout !!}</div>
           </div>

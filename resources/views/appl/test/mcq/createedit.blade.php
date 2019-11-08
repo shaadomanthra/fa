@@ -80,7 +80,17 @@
       </div>
       @endforeach
 
-      
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Explanation / Solution</label>
+        <textarea class="form-control summernote" name="explanation"  rows="5">
+            @if($stub=='Create')
+            {{ (old('explanation')) ? old('explanation') : '' }}
+            @else
+            {{ $obj->explanation }}
+            @endif
+        </textarea>
+      </div>
 
       <div class="form-group">
         <label for="formGroupExampleInput">Answers</label>
