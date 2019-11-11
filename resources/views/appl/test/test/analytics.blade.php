@@ -16,7 +16,7 @@
     <div class="col-12 col-md-9">
       <div class="card bg-white mb-3">
         <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-bar-chart "></i> Analytics
+          <p class="h2 mb-0"><i class="fa fa-bar-chart "></i> {{ $obj->name }} 
             <a href="{{ route('test.analytics',$obj->id)}}?all=1" class="btn btn-success float-right">View All</a>
           </p>
         </div>
@@ -24,26 +24,25 @@
 
       <div class="row">
         <div class="col-6 col-md-3 mb-3">
-          <div class="card" style="background: #95e9d2">
-            <div class="card-header h5">
+          <div class="card" style="background: #b4e8ca">
+            <div class="pl-3 pr-3 pt-3 h5 mb-0">
                 Participants
+             
             </div>
+
             <div class="card-body">
               <div class="h1">
+                   {{ $users['participants'] }}
                 
-                @if($users['participants'])
-                  {{ $users['participants'] }}
-                @else
-                  -
-                @endif
               </div>
             </div>
           </div>
         </div>
         <div class="col-6 col-md-3">
           <div class="card " style="background: #fff8b4">
-            <div class="card-header h5">
+            <div class="pl-3 pr-3 pt-3 h5 mb-0">
                 Highest
+             
             </div>
             <div class="card-body">
               <div class="h1">
@@ -58,8 +57,9 @@
         </div>
         <div class="col-6 col-md-3">
           <div class="card" style="background: #fff8b4">
-            <div class="card-header h5">
-                Average 
+            <div class="pl-3 pr-3 pt-3 h5 mb-0">
+                Average
+             
             </div>
             <div class="card-body">
               <div class="h1">
@@ -74,8 +74,9 @@
         </div>
         <div class="col-6 col-md-3">
           <div class="card " style="background: #fff8b4">
-            <div class="card-header h5">
+            <div class="pl-3 pr-3 pt-3 h5 mb-0">
                 Lowest
+             
             </div>
             <div class="card-body">
               <div class="h1">
@@ -86,6 +87,7 @@
         </div>
       </div>
       <div class="">
+      @if($users['participants']!=0)
         <div class="table-responsive ">
 
 <table class="table table-bordered bg-white">
@@ -116,6 +118,7 @@
   </tbody>
 </table>
         </div>
+        @endif
       </div> 
     </div>
     <div class="col-12 col-md-3">

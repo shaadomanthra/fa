@@ -475,10 +475,16 @@ class TestController extends Controller
             if($data['lowest']>$s)
                 $data['lowest'] =$s;
         }
+        if($counter)
         $data['avg'] = round($total/$counter,2);
+        else
+            $data['avg'] =0;
         $data['participants'] = count($users);
 
         if($test->testtype->name=='WRITING' || $test->testtype->name=='SPEAKING')
+            $data['lowest'] ='-';
+
+        if($data['lowest']==400)
             $data['lowest'] ='-';
 
         return view('appl.test.test.analytics')
