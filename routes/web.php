@@ -47,6 +47,7 @@ Route::resource('/admin/test/{test}/extract', 'Test\ExtractController')->middlew
 Route::resource('/admin/test/{test}/mcq', 'Test\McqController')->middleware('auth');
 Route::resource('/admin/test/{test}/fillup', 'Test\FillupController')->middleware('auth');
 Route::get('/admin/test/{test}/questions', 'Test\TestController@questions')->name('test.questions')->middleware('auth');
+Route::get('/admin/test/{test}/analytics', 'Test\TestController@analytics')->name('test.analytics')->middleware('auth');
 Route::resource('/admin/file', 'Test\FileController')->middleware('auth');
 Route::get('/admin/{file}/download','Test\FileController@download')->name('file.download');
 Route::get('/admin/{file}/notify','Test\FileController@notify')->name('review.notify');

@@ -9,6 +9,7 @@ use App\Models\Test\Tag;
 use App\Models\Test\Fillup;
 use App\Models\Test\Mcq;
 use App\Models\Test\Type;
+use App\Models\Test\Attempt;
 use App\Models\Test\Category;
 use App\Models\Test\Group;
 use Illuminate\Support\Facades\Storage;
@@ -432,6 +433,59 @@ class TestController extends Controller
                 ->with('test',$test)
                 ->with('app',$app);
 
+    }
+
+
+    public function analytics($id,Obj $obj,Request $request){
+
+        $test = Obj::where('id',$id)->first();
+
+        $app = $this;
+        $app->test= $test;
+
+        $users = Attempt::where('test_id',$id)->get()->groupBy('user_id');
+
+        $data = [];
+        $i=0;
+        $score = [];
+        $all = $request->get('all');
+        $counter =0;
+        $total = 0;
+        foreach($users as $i=>$attempt){
+            $data[$i]['id'] = $i;
+            $data[$i]['score'] =0;
+            $score[$i]=0;
+            foreach($attempt as $a){
+                if(!isset($data[$i]['user']))
+                    $data[$i]['user'] = $a->user;
+                if($a->accuracy==1){
+                        $data[$i]['score']++;
+                        $score[$i]++;
+                        $total++;
+                }
+            }
+            $counter++;
+        }
+        arsort($score);
+        $data['highest'] = 0;
+        $data['lowest'] =400;
+        foreach($score as $s){
+            if($data['highest']<$s)
+                $data['highest'] = $s;
+            if($data['lowest']>$s)
+                $data['lowest'] =$s;
+        }
+        $data['avg'] = round($total/$counter,2);
+        $data['participants'] = count($users);
+
+        if($test->testtype->name=='WRITING' || $test->testtype->name=='SPEAKING')
+            $data['lowest'] ='-';
+
+        return view('appl.test.test.analytics')
+                ->with('obj',$test)
+                ->with('users',$data)
+                ->with('score',$score)
+                ->with('app',$app);
     }
 
     public function cache_delete($id)
