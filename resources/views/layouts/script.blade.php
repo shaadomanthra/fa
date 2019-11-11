@@ -798,44 +798,8 @@ window.onbeforeunload = function (e) {
 @endif
 @endif
 
-<script>
-
-  $(function(){
-    $('.btn-error-report').on('click',function(e){
-      e.preventDefault();
-      $('.spinner-border').show();
-      $name = $('input[name="name"]').val();
-      $email = $('input[name="email"]').val();
-      $qno = $('input[name="qno"]').val();
-      $details = $.trim($(".details").val());
-      $_token =  $('input[name="_token"]').val();
-      $url = $('input[name="url"]').val();
-
-      
-      
-      $.post( $url, {'name':$name,'email':$email,'qno':$qno,'details':$details,'_token':$_token},function( data ) {
-        $( ".modal-body" ).html( data );
-      });
-      
-    });
-      
-  });
-
-  $('.view-more').on('click',function(e){
-        $(this).hide();
-          $('.test_block').show();
-          e.preventDefault();
-  });
-</script>
 
 @if(request()->is('/'))
-    <script type="application/javascript" src="{{asset('js/bootstrap.js')}}"></script>  
-    <script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
-    <script>
-      $('.toast').toast({autohide:false});
-      setTimeout(function () {
-      $('.toast').toast('show');
-    },2000);
-    </script>
+   
 
 @endif

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.clean')
 @section('title', 'Grammar Test - '.$test->name)
 @section('description', 'The Test page of '.$test->name)
 @section('keywords', 'practice tests, '.$test->name)
