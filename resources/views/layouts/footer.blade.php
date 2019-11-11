@@ -3,7 +3,7 @@
 <div class="row">
 	<div class="col-6 col-md">
 		<div class="">
-		<img src="{{ asset('images/logo_color.png') }}"  style="max-width:80px;"class=" w-100" alt="First Academy logo "/>
+		<img src="{{ asset('images/logo_color.jpg') }}"  style="max-width:80px;"class=" w-100" alt="First Academy logo "/>
 		</div>
 	</div>
 	<div class="col-6 col-md">
