@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title', $obj->name.' - Analytics | First Academy')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -10,6 +10,7 @@
     <li class="breadcrumb-item">{{ $obj->name }} - Analytics</li>
   </ol>
 </nav>
+
 
 @include('flash::message')
   <div class="row">
