@@ -61,7 +61,8 @@ class OrderController extends Controller
      *
      */
     public function instamojo_return(Request $request){
-      $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+      
+      $api = new Instamojo\Instamojo('e4e6f34564b3f74063965eca8c6c6c47', '432d420b7c22a2650cc431a0fa0e2555');
       try {
             $id = $request->get('payment_request_id');
 
@@ -115,7 +116,7 @@ class OrderController extends Controller
     {
           if($request->type=='instamojo' && $request->txn_amount!=0){
 
-          $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+          $api = new Instamojo\Instamojo('e4e6f34564b3f74063965eca8c6c6c47', '432d420b7c22a2650cc431a0fa0e2555');
           try {
             
 
@@ -140,12 +141,6 @@ class OrderController extends Controller
             }
             else
               $test = null;
-
-
-
-
-            
-            
               
             $response = $api->paymentRequestCreate(array(
                   "buyer_name" => $user->name,
@@ -153,7 +148,7 @@ class OrderController extends Controller
                   "amount" =>  $request->txn_amount,
                   "send_email" => false,
                   "email" => $user->email,
-                  "redirect_url" => "https://fa.packetprep.com/order_payment"
+                  "redirect_url" => "https://prep.firstacademy.in/order_payment"
                 ));
 
               //dd($response);
@@ -168,7 +163,7 @@ class OrderController extends Controller
                   "amount" =>  $request->txn_amount,
                   "send_email" => false,
                   "email" => $user->email,
-                  "redirect_url" => "https://fa.packetprep.com/order_payment"
+                  "redirect_url" => "https://prep.firstacademy.in/order_payment"
                   ));
                 $order->order_id = $response->id;
                 $o_check = Order::where('order_id',$order->order_id)->first();
@@ -200,7 +195,7 @@ class OrderController extends Controller
 
           
         }else{
-         $api = new Instamojo\Instamojo('test_43eb01abde88edc5f67120bc66b', 'test_0e4d7ecf73f435abd0236582e93','https://test.instamojo.com/api/1.1/');
+          $api = new Instamojo\Instamojo('e4e6f34564b3f74063965eca8c6c6c47', '432d420b7c22a2650cc431a0fa0e2555');
 
           try {
             
