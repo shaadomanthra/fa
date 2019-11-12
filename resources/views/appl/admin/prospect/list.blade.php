@@ -23,11 +23,11 @@
                   </a>
                 </td>
                 <td>
-                 {{ $obj->source }}
+                 {{ ucfirst($obj->source) }}
                
                 </td>
                 <td>
-                  {{ $obj->center }}
+                  {{ ucfirst($obj->center) }}
                 </td>
                 <td>
                   @if($obj->stage=='enquiry')
