@@ -103,6 +103,17 @@
             </div>
             </a>
         </div>
+
+        <div class="col-6 col-md-3 col-lg-3">
+            <a href="{{ route('prospect.index') }}">
+            <div class="border bg-white p-4 rounded mb-4">
+                <div>
+                    <img src="{{ asset('images/admin/prospect.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Prospects</div>
+                </div>
+            </div>
+            </a>
+        </div>
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('coupon.index') }}">
             <div class="border bg-white p-4 rounded mb-4">

@@ -1,4 +1,6 @@
 
+
+
 @if(isset($editor))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
 <script type="application/javascript" src="{{asset('js/script.js?new=2')}}"></script>  
@@ -799,7 +801,31 @@ window.onbeforeunload = function (e) {
 @endif
 
 
-@if(request()->is('/'))
-   
+@if(isset($datetimepicker))
 
+<script src="{{ asset('js/datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>
+<script>/*
+window.onerror = function(errorMsg) {
+  $('#console').html($('#console').html()+'<br>'+errorMsg)
+}*/
+
+$.datetimepicker.setLocale('en');
+
+$('#datetimepicker_format').datetimepicker({value:'2019/08/15 05:03', format: $("#datetimepicker_format_value").val()});
+console.log($('#datetimepicker_format').datetimepicker('getValue'));
+
+$("#datetimepicker_format_change").on("click", function(e){
+  $("#datetimepicker_format").data('xdsoft_datetimepicker').setOptions({format: $("#datetimepicker_format_value").val()});
+});
+$("#datetimepicker_format_locale").on("change", function(e){
+  $.datetimepicker.setLocale($(e.currentTarget).val());
+});
+
+$('#datetimepicker').datetimepicker();
+/*
+$('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+{{date("d")}}+' 16:03', step:10});  */
+ 
+
+
+</script>
 @endif

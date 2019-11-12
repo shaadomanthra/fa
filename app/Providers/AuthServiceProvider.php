@@ -36,6 +36,8 @@ class AuthServiceProvider extends ServiceProvider
         \App\Models\Product\Coupon::class => \App\Policies\Product\CouponPolicy::class,
 
          \App\Models\Admin\Form::class => \App\Policies\Admin\FormPolicy::class,
+         \App\Models\Admin\Prospect::class => \App\Policies\Admin\ProspectPolicy::class,
+         \App\Models\Admin\Followup::class => \App\Policies\Admin\FollowupPolicy::class,
     ];
 
     /**

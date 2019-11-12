@@ -19,6 +19,10 @@
     @if(isset($player))
     <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
     @endif
+
+    @if(isset($datetimepicker))
+    <link rel="stylesheet" type="text/css" href="{{ asset('js/datetimepicker/jquery.datetimepicker.css') }}"/>
+    @endif
     <!-- Styles -->
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     @if(isset($editor))
