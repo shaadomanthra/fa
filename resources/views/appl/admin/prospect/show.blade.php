@@ -101,6 +101,12 @@
                   @endif
               </div>
             </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Counsellor</b></div>
+              <div class="col-md-8">@if($obj->user){{$obj->user->name }}@else - @endif</div>
+            </div>
+
             <div class="row mb-2">
               <div class="col-md-4"><b>Center</b></div>
               <div class="col-md-8">{{$obj->center }}</div>
