@@ -101,6 +101,12 @@
       </div>
       @endif
 
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Image</label>
+        <input type="file" class="form-control" name="image_" id="formGroupExampleInput" placeholder="Enter the image path" 
+          >
+      </div>
+
       <div class="row">
         <div class="col-12 col-md-6">
           <div class="form-group">
