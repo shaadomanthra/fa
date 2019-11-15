@@ -252,7 +252,7 @@ class FileController extends Controller
                 $t = strip_tags($a);
                 $t = str_replace('&hellip;', '...', $t);
                 $t = str_replace('&nbsp;', ' ', $t);
-                if($t!="Task Response"){
+                if($t!="Task Response" && trim($t)!="" && trim($t)!=" "){
                     array_push($data, $t);
                     $section->addText($t);
                     $section->addText('');
@@ -310,7 +310,7 @@ class FileController extends Controller
                 $t = strip_tags($a);
                 $t = str_replace('&nbsp;', ' ', $t);
 
-                if($t!="Task Response" && $t!="Question"){
+                if($t!="Task Response" && $t!="Question" && trim($t)!="" && trim($t)!=" "){
                     array_push($data, $t);
                     $section->addText($t);
                     $section->addText('');
