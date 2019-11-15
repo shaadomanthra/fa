@@ -265,7 +265,7 @@ class FileController extends Controller
             preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->test->description, $matches);
         
             foreach($matches[1] as $src){
-            $section->addImage($src,array('width' => "450"));   
+            $section->addImage($src,array('width' => "250"));   
             }
             
 
@@ -291,7 +291,7 @@ class FileController extends Controller
             preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->response, $matches2);
         
             foreach($matches2[1] as $src){
-            $section->addImage($src,array('width' => "450"));   
+            $section->addImage($src,array('width' => "250"));   
             }
 
 
@@ -316,7 +316,7 @@ class FileController extends Controller
                     $section->addText('');
                     preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $a, $matches2);
                     foreach($matches2[1] as $src){
-                    $section->addImage($src,array('width' => "450"));   
+                    $section->addImage($src,array('width' => "250"));   
                     }
                 }else if($t=="Question"){
                    $section->addText($t.' ', $styleFont); 
@@ -354,15 +354,7 @@ levels of training.');
 
     }
 
-    function linkExtractor($html){
-     $linkArray = array();
-     if(preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>/i',$html,$matches,PREG_SET_ORDER)){
-      foreach($matches as $match){
-       array_push($linkArray,array($match[1],$match[2]));
-      }
-     }
-     return $linkArray;
-    }
+    
 
     /**
      * Notify User with Email
