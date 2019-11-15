@@ -230,9 +230,9 @@ class FileController extends Controller
         $styleFont = array('bold'=>true, 'size'=>16, 'name'=>'Calibri');
 
         $section->addText('');
-        $section->addText('Name : '.$obj->user->name );
+        $section->addText('Name: '.$obj->user->name );
 
-         $section->addText('Test Date : '.date("F j, Y, g:i a",strtotime($obj->created_at)));
+         $section->addText('Test Date: '.date("F j, Y, g:i a",strtotime($obj->created_at)));
         $section->addText('');
         $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
        
