@@ -265,7 +265,8 @@ class FileController extends Controller
             preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->test->description, $matches);
         
             foreach($matches[1] as $src){
-            $section->addImage($src,array('width' => "250"));   
+            $section->addImage($src,array('width' => "250")); 
+            $section->addText('');  
             }
             
 
@@ -291,7 +292,8 @@ class FileController extends Controller
             preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->response, $matches2);
         
             foreach($matches2[1] as $src){
-            $section->addImage($src,array('width' => "250"));   
+            $section->addImage($src,array('width' => "250"));  
+            $section->addText(''); 
             }
 
 
@@ -316,7 +318,8 @@ class FileController extends Controller
                     $section->addText('');
                     preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $a, $matches2);
                     foreach($matches2[1] as $src){
-                    $section->addImage($src,array('width' => "250"));   
+                    $section->addImage($src,array('width' => "250"));  
+                    $section->addText(''); 
                     }
                 }else if($t=="Question"){
                    $section->addText($t.' ', $styleFont); 
