@@ -37,6 +37,8 @@
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}">Generic</a>
+                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=listening&category=PTE">PTE Listening</a>
+                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=reading&category=PTE">PTE Reading</a>
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=listening&category=IELTS">IELTS Listening</a>
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=reading&category=IELTS">IELTS Reading</a>
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=writing&category=IELTS">IELTS Writing</a>

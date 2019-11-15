@@ -177,13 +177,35 @@ class FileController extends Controller
             }
             else if(in_array($ext, ['mp3','wav','mkv','mp4','aac','3gp','ogg','mpga'])){
                     $file = $obj->response;
-            }else{
+            }else if($request->get('word')){
+
+                $phpWord = new \PhpOffice\PhpWord\PhpWord();
+                $section = $phpWord->addSection();
+                $text = $section->addText('name');
+                $text = $section->addText($obj->response);
+                $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+                $objWriter->save($obj->id.'.docx');
+                return response()->download(public_path($obj->id.'.docx'));
+            }
+            else{
                
             }  
         }else{
-             if($request->get('pdf')){
-            // expert feedback document
+                if($request->get('pdf')){
+                // expert feedback document
                     $file = 'feedback/feedback_'.$id.'.pdf';
+                }
+                else if($request->get('word')){
+
+                $phpWord = $this->processWord($obj);
+
+                $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
+                try {
+                    $objWriter->save('../storage/app/public/response/response_'.$obj->id.'.docx');
+                } catch (Exception $e) {
+                }
+
+                return response()->download('../storage/app/public/response/response_'.$obj->id.'.docx');
                 }
                 else{
                     $file = 'response/response_'.$id.'.pdf';
@@ -197,6 +219,149 @@ class FileController extends Controller
             return response()->download('../storage/app/public/'.$file);
         else
             abort(404);
+    }
+
+
+    public function processWord($obj){
+
+        $phpWord = new \PhpOffice\PhpWord\PhpWord();
+        $section = $phpWord->addSection();
+
+        $styleFont = array('bold'=>true, 'size'=>16, 'name'=>'Calibri');
+
+        $section->addText('');
+        $section->addText('Name : '.$obj->user->name );
+
+         $section->addText('Test Date : '.date("F j, Y, g:i a",strtotime($obj->created_at)));
+        $section->addText('');
+        $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
+       
+
+        
+
+        $data =[];
+
+        if($obj->test->description){
+            
+            
+            $section->addText('Question'.' ', $styleFont);
+
+            $text = str_replace('</p>', '', $obj->test->description);
+            $array = explode('<p>', $text);
+            foreach($array as $a){
+                $t = strip_tags($a);
+                $t = str_replace('&hellip;', '...', $t);
+                $t = str_replace('&nbsp;', ' ', $t);
+                if($t!="Task Response"){
+                    array_push($data, $t);
+                    $section->addText($t);
+                    $section->addText('');
+                }
+            }
+
+
+
+            //if images
+            preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->test->description, $matches);
+        
+            foreach($matches[1] as $src){
+            $section->addImage($src,array('width' => "450"));   
+            }
+            
+
+            $section->addText('');
+            $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
+            $section->addText('');
+            $section->addText('Task Response'.' ', $styleFont);
+            $section->addText('');
+
+
+            $text = str_replace('</p>', '', $obj->response);
+            $array = explode('<p>', $text);
+            foreach($array as $a){
+                $t = strip_tags($a);
+                $t = str_replace('&nbsp;', ' ', $t);
+                if($t!="Task Response"){
+                    array_push($data, $t);
+                    $section->addText($t);
+                    $section->addText('');
+                }
+            }
+
+            preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $obj->response, $matches2);
+        
+            foreach($matches2[1] as $src){
+            $section->addImage($src,array('width' => "450"));   
+            }
+
+
+        }else{
+
+            $section->addText('');
+            
+
+
+            $text = str_replace('</p>', '', $obj->response);
+            $array = explode('<p>', $text);
+
+
+            foreach($array as $a){
+                
+                $t = strip_tags($a);
+                $t = str_replace('&nbsp;', ' ', $t);
+
+                if($t!="Task Response" && $t!="Question"){
+                    array_push($data, $t);
+                    $section->addText($t);
+                    $section->addText('');
+                    preg_match_all('/<img[^>]*?\s+src\s*=\s*"([^"]+)"[^>]*?>/i', $a, $matches2);
+                    foreach($matches2[1] as $src){
+                    $section->addImage($src,array('width' => "450"));   
+                    }
+                }else if($t=="Question"){
+                   $section->addText($t.' ', $styleFont); 
+                   $section->addText('');
+                }else{
+                    $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
+                    $section->addText('');
+                    $section->addText($t.' ', $styleFont); 
+                    $section->addText('');
+                }
+            }
+
+            
+
+            
+            
+        }
+                
+        $section->addText('');
+        $section->addText('');
+        $section->addText('');
+        $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
+                    $section->addText('');
+        // Add Logo
+        $section->addImage("https://i.imgur.com/bILa9ib.png",array('width' => 100));
+        $section->addText('');
+        $section->addText('We have been the most awarded training centre offering the best coaching
+for exams like the GRE, PTE, OET, and IELTS for almost two decades. With
+University of Cambridge certified trainers, you can be assured of the highest
+levels of training.');
+        
+
+        return $phpWord;
+        
+
+    }
+
+    function linkExtractor($html){
+     $linkArray = array();
+     if(preg_match_all('/<img\s+.*?src=[\"\']?([^\"\' >]*)[\"\']?[^>]*>/i',$html,$matches,PREG_SET_ORDER)){
+      foreach($matches as $match){
+       array_push($linkArray,array($match[1],$match[2]));
+      }
+     }
+     return $linkArray;
     }
 
     /**

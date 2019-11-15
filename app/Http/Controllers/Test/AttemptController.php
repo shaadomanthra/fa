@@ -276,8 +276,13 @@ class AttemptController extends Controller
 
     if(!$test->testtype)
       abort('403','Test Type not defined');
-    else
-      $view =  strtolower($test->testtype->name);
+    else{
+      $testtype = strtolower($test->testtype->name);
+      if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading'))
+      $view =  'pte_'.strtolower($test->testtype->name);
+      else
+      $view = strtolower($test->testtype->name);
+    }
 
    if($view == 'listening' || $view == 'grammar' || $view =='english')
     return view('appl.test.attempt.try_'.$view)
@@ -343,9 +348,14 @@ class AttemptController extends Controller
 
 
       if(!$test->testtype)
-          abort('403','Test Type not defined');
-      else
-        $view =  strtolower($test->testtype->name);
+        abort('403','Test Type not defined');
+      else{
+        $testtype = strtolower($test->testtype->name);
+        if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading'))
+        $view =  'pte_'.strtolower($test->testtype->name);
+        else
+        $view = strtolower($test->testtype->name);
+      }
 
        /* If Attempted show report */
       if($user)
@@ -453,10 +463,10 @@ class AttemptController extends Controller
       else{
         if($request->get('question')){
           $question = summernote_imageupload(\auth::user(),$request->get('question'));
-          $question = '<div class="question"><h4>Question</h4>'.$question.'</div><hr>';
-          $model->response = $question.'<div class="option response"><h4>Task Response</h4>'.$request->get('response').'</div>';
+          $question = '<div class="question"><p><h4>Question</h4></p>'.$question.'</div><hr>';
+          $model->response = $question.'<div class="option response"><p><h4>Task Response</h4></p>'.$request->get('response').'</div>';
         }else
-          $model->response = '<div class="option response"><h4>Task Response</h4>'.$request->get('response').'</div>';
+          $model->response = '<div class="option response"><p><h4>Task Response</h4></p>'.$request->get('response').'</div>';
       }
       $model->test_id = $test->id;
 

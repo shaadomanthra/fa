@@ -92,8 +92,12 @@
             <div class="col-md-4"><b>Response</b></div>
             <div class="col-md-8"><div class="p-3 border mb-3 bg-light">{!! $obj->response !!}</div>
           <a href="{{route($app->module.'.download',[$obj->id])}}" >
-                <button type="button" class="btn btn btn-primary float-left mr-2 mb-2">Download Response</button>
-              </a></div>
+                <button type="button" class="btn btn btn-primary float-left mr-2 mb-2">Download Response PDF</button>
+              </a>
+<a href="{{route($app->module.'.download',[$obj->id])}}?word=1" >
+                <button type="button" class="btn btn btn-success float-left mr-2 mb-2">Download Response WORD</button>
+              </a>
+            </div>
 
           </div>
           
