@@ -80,7 +80,7 @@
         </textarea>
       </div>
 
-      @if(request()->get('type')=='writing' || !request()->get('type'))
+      @if(strtolower(request()->get('type'))=='writing' || !request()->get('type'))
       <div class="form-group">
         <label for="formGroupExampleInput ">Writing Question</label>
         <textarea class="form-control summernote" name="description"  rows="5">
