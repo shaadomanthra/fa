@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
+
+
 class UserController extends Controller
 {
     
@@ -42,7 +44,7 @@ class UserController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        $objs = $obj->where('name','LIKE',"%{$item}%")
+        $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
                     ->orWhere('idno','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")

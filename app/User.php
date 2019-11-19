@@ -10,10 +10,12 @@ use App\Models\Test\Test;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
 use App\Models\Test\Attempt;
+use Kyslik\ColumnSortable\Sortable;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
-    use Notifiable;
+ 
+    use Sortable, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,6 +26,13 @@ class User extends Authenticatable
         'name', 'email', 'password','phone','lastlogin_at','status',
         'activation_token','sms_token','user_id','idno','admin','auto_password',
     ];
+
+     public $sortable = ['idno',
+                        'name',
+                        'email',
+                        'phone',
+                        'created_at',
+                        'status'];
 
     /**
      * The attributes that should be hidden for arrays.

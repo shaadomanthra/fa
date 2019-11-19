@@ -206,6 +206,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         'Intervention\Image\ImageServiceProvider',
         Barryvdh\DomPDF\ServiceProvider::class,
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
 
     ],

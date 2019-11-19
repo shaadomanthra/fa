@@ -41,6 +41,7 @@
         </nav>
 
         <div id="search-items">
+          
          @include('appl.'.$app->app.'.'.$app->module.'.list')
        </div>
 
