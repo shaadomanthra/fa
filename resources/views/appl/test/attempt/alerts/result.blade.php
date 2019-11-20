@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Result page of Test')
+@section('title', $test->name.' - Report')
 @section('description', 'Result page of Test')
 @section('keywords', 'result page of test, first academy')
 @section('content')
@@ -52,10 +52,12 @@
 
       </div>
 
+      @if(isset($tags))
       @if($tags)
       <div class="mt-4 ">
         @include('appl.test.attempt.alerts.tags')
       </div>
+      @endif
       @endif
     </div>
   </div>
