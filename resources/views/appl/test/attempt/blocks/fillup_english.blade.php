@@ -22,6 +22,8 @@
         @include('appl.test.attempt.layouts.ielts_paragraph') 
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
+      @elseif($f->layout=='ielts_two_blank')
+        @include('appl.test.attempt.layouts.ielts_two_blank') 
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
