@@ -672,7 +672,8 @@ class AttemptController extends Controller
         /* sectional score */
         $section_score = $this->section_score($result);
 
-      
+        $tags = Attempt::tags($result);
+        $secs = $this->graph($tags);
         
 
          return view('appl.test.attempt.alerts.result')
@@ -680,6 +681,8 @@ class AttemptController extends Controller
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('tags',$tags)
+              ->with('secs',$secs)
               ->with('admin',1)
               ->with('score',$score);
       }
