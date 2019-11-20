@@ -18,6 +18,8 @@
         @include('appl.test.attempt.layouts.gre_sentence') 
       @elseif($f->layout=='dropdown')
         @include('appl.test.attempt.layouts.dropdown') 
+      @elseif($f->layout=='paragraph')
+        @include('appl.test.attempt.layouts.ielts_paragraph') 
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
       @else
