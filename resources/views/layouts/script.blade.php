@@ -795,6 +795,14 @@ window.onbeforeunload = function (e) {
 };
 
 
+$('body').on('keyup keypress', function(e) {
+  var keyCode = e.keyCode || e.which;
+  if (keyCode === 13) { 
+    e.preventDefault();
+    return false;
+  }
+});
+
 
 </script>
 @endif
