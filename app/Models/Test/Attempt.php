@@ -54,11 +54,26 @@ class Attempt extends Model
     }
 
     public static function  tags($result){
-        $mcq_id = $result->pluck('mcq_id')->toArray();
+        $mcq_id = [];
+        $fillup_id =[];
+        if(is_array($result)){
+            foreach($result as $res){
+                if($res['fillup_id']){
+                    array_push($fillup_id, $res['fillup_id']);
+                }
+                elseif($res['mcq_id']){
+                    array_push($mcq_id, $res['mcq_id']);
+                }
+            }
+        }else{
+            $mcq_id = $result->pluck('mcq_id')->toArray();
+            $fillup_id = $result->pluck('fillup_id')->toArray();
+        }
+        
         $mcq_tags = DB::table('mcq_tag')->whereIn('mcq_id',$mcq_id)->get();
         $mcq_tag_ids = $mcq_tags->pluck('tag_id')->toArray();
 
-        $fillup_id = $result->pluck('fillup_id')->toArray();
+        
         $fillup_tags = DB::table('fillup_tag')->whereIn('fillup_id',$fillup_id)->get();
         $fillup_tag_ids =$fillup_tags->pluck('tag_id')->toArray();
         
@@ -87,19 +102,33 @@ class Attempt extends Model
 
 
             $q=0;
-            if($at->mcq_id)
+            if(is_array($result)){
+                if($at['mcq_id'])
+                $q = Mcq::where('id',$at['mcq_id'])->first();
+                else if($at['fillup_id']) 
+                $q = Fillup::where('id',$at['fillup_id'])->first();
+
+            }else{
+                if($at->mcq_id)
                 $q = $at->mcq;
-            else if($at->fillup_id) 
+                else if($at->fillup_id) 
                 $q = $at->fillup;
+            }
+            
             
 
             if($q){
                 if(isset($q->tags))
                 foreach($q->tags as $tg){
-                    if($at->accuracy==1){
-                       
-                        $data[$tg->name][$tg->value]['correct']++;
+                    if(isset($at->accuracy)){
+                        if($at->accuracy==1){
+                            $data[$tg->name][$tg->value]['correct']++;
+                        } 
+                    }else{
+                        if($at['accuracy']==1)
+                             $data[$tg->name][$tg->value]['correct']++;
                     }
+                    
                     $data[$tg->name][$tg->value]['total']++;
                     
                 }

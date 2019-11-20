@@ -672,7 +672,8 @@ class AttemptController extends Controller
         /* sectional score */
         $section_score = $this->section_score($result);
 
-        $tags = Attempt::tags($result);
+        
+        $tags = Attempt::tags($data);
         $secs = $this->graph($tags);
         
 
