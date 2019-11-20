@@ -898,16 +898,64 @@ class AttemptController extends Controller
       }
       }
 
+     $tags = Attempt::tags($result);
+     $secs = $this->graph($tags);
 
+     //dd($secs);
       /* sectional score */
-      $section_score = $this->section_score($result);
+     $section_score = $this->section_score($result);
+      
+      
       
       return view('appl.test.attempt.alerts.result')
               ->with('result',$result)
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('tags',$tags)
+              ->with('secs',$secs)
               ->with('score',$score);
+   }
+
+   public function graph($tags){
+        $green = "rgba(60, 120, 40, 0.8)";
+        $red = "rgba(219, 55, 50, 0.9)";
+        $yellow = "rgba(255, 206, 86, 0.9)";
+        $blue ="rgba(60, 108, 208, 0.8)";
+
+        $num =['one','two','three','four','five'];
+        $k=1;
+        foreach($tags as $name =>$tag){
+          $i=0;
+          $section = new Attempt;
+          $section->section_id = $k++;
+          
+          $labels =[];
+          $section->suggestion ='';
+           $section->average = 50;
+          
+          foreach($tag as $im=>$t){
+            $number = $num[$i];
+            $number_color = $number.'_color';
+            $section->$number = $t['percent'];
+            if($t['percent']>80)
+              $section->$number_color = $green;
+            else if($t['percent']>60 && $t['percent']<81)
+              $section->$number_color = $blue;
+            else if($t['percent']>40 && $t['percent']<61)
+              $section->$number_color = $yellow;
+            else
+              $section->$number_color = $red;
+
+            $labels[$i]= $im;
+            $i++;
+          }
+          $section->labels = $labels;
+          $secs[$name] = $section;
+        }
+        return $secs;
+
+         
    }
 
    /**

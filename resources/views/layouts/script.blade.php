@@ -801,6 +801,48 @@ window.onbeforeunload = function (e) {
 @endif
 
 
+@if(isset($secs))
+@foreach($secs as $sec => $section)
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+<script type="text/javascript">
+  var options_{{$section->section_id}} = {
+  type: 'horizontalBar',
+  data: {
+    labels: ["{{$section->labels[0]}}" @if(isset($section->two)),"{{$section->labels[1]}}" @endif @if(isset($section->three)),"{{$section->labels[2]}}" @endif @if(isset($section->four)),"{{$section->labels[3]}}" @endif @if(isset($section->five)),"{{$section->labels[4]}}" @endif],
+    datasets: [{
+      label:'',
+      data: [{{$section->one}} @if(isset($section->two)), {{$section->two}}@endif @if(isset($section->three)), {{$section->three}}@endif @if(isset($section->four)), {{$section->four}} @endif  @if(isset($section->five)), {{$section->five}}@endif],
+      backgroundColor: [
+                '{{$section->one_color}}',
+                @if(isset($section->two))'{{$section->two_color}}', @endif
+                @if(isset($section->three))'{{$section->three_color}}', @endif
+                @if(isset($section->four))'{{$section->four_color}}', @endif
+                @if(isset($section->five))'{{$section->five_color}}' @endif
+            ]
+    }]
+  },
+  options: {
+    legend: {
+        display: false
+    },
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+}
+
+var ctx_{{$section->section_id}} = document.getElementById({{$section->section_id}}+'Container').getContext('2d');
+new Chart(ctx_{{$section->section_id}},options_{{$section->section_id}});
+
+</script>
+@endforeach
+@endif
+
+
 @if(isset($datetimepicker))
 
 <script src="{{ asset('js/datetimepicker/build/jquery.datetimepicker.full.min.js') }}"></script>

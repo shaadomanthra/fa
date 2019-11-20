@@ -10,7 +10,7 @@
 <div class="">
   <div class="row">
     <div class="col-12">
-      <div class="bg-white p-4">
+      <div class="bg-white p-4 border">
         <div class="row">
           <div class="col-12 col-md-6">
             <h3 class="text-center text-md-left mb-md-4 mt-2  p-4">
@@ -49,7 +49,14 @@
           </div>
         </div>
         @include('appl.test.attempt.blocks.answers')
+
       </div>
+
+      @if($tags)
+      <div class="mt-4 ">
+        @include('appl.test.attempt.alerts.tags')
+      </div>
+      @endif
     </div>
   </div>
 </div>

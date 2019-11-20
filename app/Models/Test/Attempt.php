@@ -4,6 +4,8 @@ namespace App\Models\Test;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Test\Test;
+use App\Models\Test\Tag;
+use Illuminate\Support\Facades\DB;
 
 class Attempt extends Model
 {
@@ -51,6 +53,69 @@ class Attempt extends Model
         return $this->belongsTo('App\Models\Test\Mcq');
     }
 
+    public static function  tags($result){
+        $mcq_id = $result->pluck('mcq_id')->toArray();
+        $mcq_tags = DB::table('mcq_tag')->whereIn('mcq_id',$mcq_id)->get();
+        $mcq_tag_ids = $mcq_tags->pluck('tag_id')->toArray();
+
+        $fillup_id = $result->pluck('fillup_id')->toArray();
+        $fillup_tags = DB::table('fillup_tag')->whereIn('fillup_id',$fillup_id)->get();
+        $fillup_tag_ids =$fillup_tags->pluck('tag_id')->toArray();
+        
+
+        $tags = Tag::whereIn('id',$mcq_tag_ids)->orWhereIn('id',$fillup_tag_ids)->get();
+
+        if(!$tags)
+            return null;
+
+        $tags = $tags->groupBy('name');
+
+        $data = [];
+        $tagdata = [];
+        foreach($tags as $name => $t){
+            foreach($t as $a){
+
+              $data[$name][$a->value]['correct'] = 0; 
+              $data[$name][$a->value]['total'] = 0;
+              $data[$name][$a->value]['percent'] = 0;
+            }
+            
+        }
+
+        //dd($result);
+        foreach($result as $at){
+
+
+            $q=0;
+            if($at->mcq_id)
+                $q = $at->mcq;
+            else if($at->fillup_id) 
+                $q = $at->fillup;
+            
+
+            if($q){
+                if(isset($q->tags))
+                foreach($q->tags as $tg){
+                    if($at->accuracy==1){
+                       
+                        $data[$tg->name][$tg->value]['correct']++;
+                    }
+                    $data[$tg->name][$tg->value]['total']++;
+                    
+                }
+            }
+        }
+
+        foreach($tags as $name => $t){
+            foreach($t as $a){
+              if($data[$name][$a->value]['total'])
+              $data[$name][$a->value]['percent'] = (round($data[$name][$a->value]['correct']/$data[$name][$a->value]['total'],2))*100;
+            }
+            
+        }
+
+        return $data;
+    }
 
     public function reading_band($score){
         if($score==39 || $score ==40)
