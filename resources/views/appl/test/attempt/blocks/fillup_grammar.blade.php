@@ -11,6 +11,9 @@
     <input type="hidden" name="{{$f->qno}}" value=""/>
 @endif
 
+    @if($f->qno==-1)
+      @include('appl.test.attempt.layouts.fillup_example') 
+    @else
       @if($f->layout=='gre_sentence')
         @include('appl.test.attempt.layouts.gre_sentence') 
       @elseif($f->layout=='dropdown')
@@ -20,6 +23,7 @@
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
+    @endif
     @endforeach
  
 
