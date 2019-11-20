@@ -127,22 +127,26 @@
 
       
 
-       <div class="form-group">
+      <div class="form-group">
         <label for="formGroupExampleInput">Tags</label>
-         <div class=" card p-3">
+          @foreach($tags->groupBy('name') as $name=>$t)
+          <div class="border rounded p-2 mb-1 bg-light">
           <div class="row">
-          @foreach($tags as $tag)
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-2"><b>{{$name}}</b></div>
+          @foreach($t as $tag)
+          <div class="col-12 col-md-2">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="tags[]" value="{{$tag->id}}" id="defaultCheck1" @if($obj->tags->contains($tag->id))) checked @endif>
             <label class="form-check-label" for="defaultCheck1">
-              {{ $tag->name }} - {{ $tag->value }}
+               {{ $tag->value }}
             </label>
           </div>
           </div>
           @endforeach
-         </div>
-         </div>
+
+          </div>
+        </div>
+          @endforeach
       </div>
 
       @if($stub=='Update')
