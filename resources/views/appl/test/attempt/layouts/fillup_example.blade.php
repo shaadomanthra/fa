@@ -20,12 +20,14 @@
   </div>
 @else
 
+<div class="col-12 col-md">
 @if($f->prefix ) {{$f->prefix }}  @endif 
-@if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" >
+@if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_before($f->answer) ?>">
   <?php echo get_string_between($f->answer,'[',']') ?>
-<input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" >
+<input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_after($f->answer) ?>">
 @endif
 @if($f->suffix ){{$f->suffix }}@endif
+</div>
 
 @endif
 </div>

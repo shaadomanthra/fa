@@ -41,6 +41,20 @@ if (! function_exists('get_string_between')) {
     }
 }
 
+if (! function_exists('get_string_before')) {
+    function get_string_before($string){
+        $arr = explode("[", $string);
+        return $arr[0];
+    }
+}
+
+if (! function_exists('get_string_after')) {
+    function get_string_after($string){
+        $arr = explode("]", $string);
+        return $arr[1];
+    }
+}
+
 if (! function_exists('delete_all_between')) {
 function delete_all_between($beginning, $end, $string) {
   $beginningPos = strpos($string, $beginning);

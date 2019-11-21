@@ -576,6 +576,7 @@ class AttemptController extends Controller
       $date_time = new \DateTime();
       $i=0;
       foreach($result as $res){
+        if(isset($res['qno'])){
         $qno = $res['qno'];
         $data[$i]['test_id'] = $this->test->id;
         $data[$i]['user_id'] = $user->id;
@@ -641,6 +642,7 @@ class AttemptController extends Controller
         
         
         $i++;
+        }
       }
 
       $this->section_score($data);
@@ -723,6 +725,8 @@ class AttemptController extends Controller
               $answer = $item->answer;
             }
             else{
+              if(!isset($item['qno']))
+                continue;
               $qno = $item['qno'];
               $accuracy = $item['accuracy'];
               $answer = $item['answer'];
