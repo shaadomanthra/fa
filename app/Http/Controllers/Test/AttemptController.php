@@ -784,7 +784,7 @@ class AttemptController extends Controller
 
         $same_response = false;
         if(count(array_unique($response)) === 1){
-          $same_response = end($response);
+          $same_response = strtoupper(end($response));
         }
 
         if($same_answer){

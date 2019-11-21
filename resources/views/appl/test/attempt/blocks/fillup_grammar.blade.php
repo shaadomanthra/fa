@@ -23,7 +23,11 @@
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
       @elseif($f->layout=='ielts_two_blank')
+      <div class=" question">
+        <div class="card-text">
         @include('appl.test.attempt.layouts.ielts_two_blank') 
+      </div>
+      </div>
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
