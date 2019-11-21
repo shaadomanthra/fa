@@ -13,7 +13,7 @@
 
       @if($f->prefix ) {{$f->prefix }}  @endif 
       @if($f->answer) 
-      <input type="text" class="fill input mb-0"  value="{{$f->answer}}" disabled>
+      <input type="text" class="fill input mb-0"  value="{{$f->answer}}" @if(strlen($f->answer)>20) style="width:300px" @endif disabled>
       @endif
       @if($f->suffix ){{$f->suffix }}@endif
     
@@ -22,9 +22,9 @@
 
 <div class="col-12 col-md">
 @if($f->prefix ) {{$f->prefix }}  @endif 
-@if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_before($f->answer) ?>">
+@if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_before($f->answer) ?>" @if(strlen(get_string_before($f->answer))>20) style="width:300px" @endif>
   <?php echo get_string_between($f->answer,'[',']') ?>
-<input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_after($f->answer) ?>">
+<input type="text" class="fill input" name="{{$f->qno}}[]" data-id="{{$f->qno}}" value="<?php echo get_string_after($f->answer) ?>" @if(strlen(get_string_after($f->answer))>20) style="width:300px" @endif>
 @endif
 @if($f->suffix ){{$f->suffix }}@endif
 </div>
