@@ -455,6 +455,11 @@ class AttemptController extends Controller
           $path = Storage::disk('public')->putFileAs('response', $request->file('file_'), $filename);
       }
 
+      $exists = Attempt::where('test_id',$test->id)->where('user_id',\auth::user()->id)->first();
+      if($exists){
+          return redirect()->route($this->module.'.try',['test'=>$this->test->slug,'product'=>$product_slug]);
+      }
+
       $model = new Attempt();
       $model->user_id = $user->id;
       $model->qno = 1;
@@ -476,7 +481,7 @@ class AttemptController extends Controller
 
       //Mail notifaction to the administrator
       if(!$request->get('response'))
-      Mail::to(config('mail.report'))->send(new uploadfile($user,$filename));
+        Mail::to(config('mail.report'))->send(new uploadfile($user,$filename));
 
       flash('Successfully submitted !')->success();
       return redirect()->route($this->module.'.try',['test'=>$this->test->slug,'product'=>$product_slug]);
