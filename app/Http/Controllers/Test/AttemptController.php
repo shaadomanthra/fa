@@ -764,6 +764,7 @@ class AttemptController extends Controller
       $pieces = explode("/",$answer);
       foreach($pieces as $p){
         $p = strtoupper(str_replace(' ', '', $p));
+        if(!is_array($response))
         $response = strtoupper(str_replace(' ', '', $response));
         if($p == $response)
           $match = true;
