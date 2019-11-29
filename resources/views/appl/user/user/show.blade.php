@@ -62,6 +62,8 @@
                 @else
                 <span class="text-secondary"><i class="fa fa-exclamation-circle"></i> </span>
                 @endif
+
+                
               </div>
             </div>
            
@@ -136,6 +138,20 @@
               <div class="col-md-4"><b>Last Login At</b></div>
               <div class="col-md-8">{{ ($obj->lastlogin_at) ? \Carbon\Carbon::parse($obj->lastlogin_at)->diffForHumans() : ' - ' }}</div>
             </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Resend Account Details</b></div>
+              <div class="col-md-8">
+                @if($obj->auto_password)
+                <a href="{{ route('user.show',$obj->id)}}?resend_email=1">
+                <button class="btn btn-sm btn-outline-primary"> Send email </button>
+                </a>
+                @endif
+                
+              </div>
+            </div>
+
+            
           </div>
         </div>
         </div>

@@ -257,9 +257,16 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Request $request)
     {
         $obj = Obj::where('id',$id)->first();
+
+        if($request->get('resend_email')){
+            $obj['password_string'] = $obj->auto_password;
+            Mail::to($obj->email)->send(new usercreate($obj));
+            flash('Successfully mailed the account details to ('.$obj->email.')')->success();
+        }
+
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
@@ -307,6 +314,37 @@ class UserController extends Controller
             $obj = Obj::where('id',$id)->first();
 
             $this->authorize('update', $obj);
+
+
+            if (!filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
+                flash('Invalid Email')->error();
+                return redirect()->back()->withInput();;
+            }
+
+            if (strlen($request->get('phone'))<10) {
+                flash('Invalid phone number (less than 10 digits)')->error();
+                return redirect()->back()->withInput();;
+            }
+
+            $obj2 = Obj::where('email',$request->get('email'))->first();
+            if ($obj2) {
+                if($obj2->id !=$obj->id){
+                    flash('User('.$obj2->name.') with similar details already exists in database.')->error();
+                    return redirect()->back()->withInput();
+                }
+                
+            }
+
+            $obj2 = Obj::where('phone',$request->get('phone'))->first();
+            if ($obj2) {
+                if($obj2->id !=$obj->id){
+                    flash('User('.$obj2->name.') with similar details already exists in database.')->error();
+                    return redirect()->back()->withInput();
+                }
+                
+            }
+
+
             
             $obj->update($request->all()); 
 
