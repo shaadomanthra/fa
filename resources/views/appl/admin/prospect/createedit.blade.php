@@ -71,7 +71,8 @@
             <div class="form-group">
               <label for="formGroupExampleInput ">Module</label>
               <select class="form-control" name="module">
-                <option value="NA" @if(isset($obj)) @if($obj->module=='NA') selected @endif @endif > NA </option>
+                <option value="full" @if(isset($obj)) @if($obj->module=='full') selected @endif @endif > Full </option>
+                <option value="combo" @if(isset($obj)) @if($obj->module=='combo') selected @endif @endif > Combo </option>
                 <option value="listening" @if(isset($obj)) @if($obj->module=='listening') selected @endif @endif >Listening</option>
                 <option value="speaking" @if(isset($obj)) @if($obj->module=='speaking') selected @endif @endif >Speaking</option>
                 <option value="reading" @if(isset($obj)) @if($obj->module=='reading') selected @endif @endif >Reading</option>
@@ -87,7 +88,6 @@
           <div class="form-group">
             <label for="formGroupExampleInput ">Counsellor</label>
             <select class="form-control" name="user_id">
-              <option value="0"  >-None-</option>
               @foreach($employees as $emp)
               <option value="{{$emp->id}}" @if(isset($obj)) @if($obj->user_id==$emp->id) selected  @endif  @endif >{{$emp->name}}</option>
               @endforeach
@@ -114,7 +114,9 @@
           <div class="form-group">
               <label for="formGroupExampleInput ">Source</label>
               <select class="form-control" name="source">
-                <option value="NA" @if(isset($obj)) @if($obj->source=='NA') selected @endif @endif > NA </option>
+                
+                <option value="call" @if(isset($obj)) @if($obj->source=='call') selected @endif @endif > Call </option>
+                <option value="walkin" @if(isset($obj)) @if($obj->source=='walkin') selected @endif @endif > Walk-in </option>
                 <option value="google-search" @if(isset($obj)) @if($obj->source=='google-search') selected @endif @endif > Google Search </option>
                 <option value="contact-form" @if(isset($obj)) @if($obj->source=='contact-form') selected @endif @endif > Contact Form </option>
                 <option value="packetprep" @if(isset($obj)) @if($obj->source=='packetprep') selected @endif @endif > PacketPrep </option>
@@ -126,10 +128,8 @@
           <div class="form-group">
               <label for="formGroupExampleInput ">Batch</label>
               <select class="form-control" name="batch">
-                <option value="not-sure" @if(isset($obj)) @if($obj->batch=='not-sure') selected @endif @endif > Not Sure </option>
                 <option value="weekend" @if(isset($obj)) @if($obj->batch=='weekend') selected @endif @endif >Weekend</option>
-                <option value="morning" @if(isset($obj)) @if($obj->batch=='morning') selected @endif @endif >Morning</option>
-                <option value="evening" @if(isset($obj)) @if($obj->batch=='evening') selected @endif @endif >Evening</option>
+                <option value="weekday" @if(isset($obj)) @if($obj->batch=='weekday') selected @endif @endif >Weekday</option>
               </select>
             </div>
 

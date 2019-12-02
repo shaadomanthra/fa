@@ -49,7 +49,7 @@ class ProspectController extends Controller
     {
         $obj = new Obj();
         $this->authorize('create', $obj);
-        $employees = User::where('admin',2)->get();
+        $employees = User::whereIn('admin',[1,2])->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
