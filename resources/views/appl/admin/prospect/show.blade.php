@@ -135,7 +135,7 @@
   </div> 
 
 
-@foreach($obj->followups as $f)
+@foreach($obj->followups()->orderBy('id','desc')->get() as $f)
   <div class=" bg-light border p-3 mb-3">
     <div class="media">
   <img class="mr-3 " src="{{ asset('images/man.png')}}" alt="Counsellor"  width="80px">
