@@ -8,6 +8,7 @@ use App\Models\Admin\Followup as Obj;
 use App\Models\Admin\Prospect;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class FollowupController extends Controller
 {
@@ -35,17 +36,21 @@ class FollowupController extends Controller
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         }else{
-            $objs = $obj->where('comment','LIKE',"%{$item}%")
-                    ->orderBy('created_at','desc')
+            $ids =[];
+            $objx = $obj->orderBy('created_at','desc')->get()->groupBy('prospect_id');
+            foreach($objx as $ob){
+                array_push($ids, $ob[0]->id);
+            }
+            $objs = $obj->whereIn('id',$ids)->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         }
         
-         
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('today',$today)
                 ->with('app',$this);
     }
 

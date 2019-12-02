@@ -15,9 +15,10 @@
             <tbody>
               @foreach($objs as $key=>$obj)  
               <tr>
-                <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
+                <th scope="row">
+                   <a href=" {{ route($app->module.'.show',$obj->id) }} ">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</a></th>
                 <td>
-                  <a href=" {{ route($app->module.'.show',$obj->id) }} ">
+                  <a href=" {{ route('prospect.show',$obj->prospect_id) }} ">
                   {{ $obj->prospect->name }}
                   </a>
                 </td>
@@ -44,6 +45,10 @@
           No {{ $app->module }} found
         </div>
         @endif
+
         <nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif">
         {{$objs->appends(request()->except(['page','search']))->links()  }}
       </nav>
+
+
+ 
