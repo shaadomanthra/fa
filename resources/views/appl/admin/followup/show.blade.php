@@ -18,7 +18,7 @@
       <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
             
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->prospect->name }}
+          <p class="h2 mb-0"><i class="fa fa-th "></i> @if(isset($obj->prospect)){{ $obj->prospect->name }} @endif
 
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
