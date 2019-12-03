@@ -191,6 +191,11 @@ class ProspectController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
             $this->authorize('update', $obj);
+
+            if(!$request->get('email')){
+                $request->merge(['email'=>' ']);
+            }
+
             $obj->update($request->all()); 
 
             if($request->get('comment') || $request->get('schedule') ){
