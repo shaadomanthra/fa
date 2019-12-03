@@ -47,7 +47,7 @@
             <div class="row mb-2">
               <div class="col-md-4"><b>Prospect Name</b></div>
               <div class="col-md-8">
-                @if(isset($obj->prospect)
+                @if(isset($obj->prospect))
                 <a href="{{ route('prospect.show',$obj->prospect->id)}}">{{ $obj->prospect->name }}</a></div>
                 @endif
             </div>
