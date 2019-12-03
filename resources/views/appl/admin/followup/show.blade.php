@@ -7,7 +7,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->prospect->name }}</li>
+    <li class="breadcrumb-item">@if(isset($obj->prospect)){{ $obj->prospect->name }} @endif</li>
   </ol>
 </nav>
 
