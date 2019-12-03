@@ -97,7 +97,7 @@
   
           <div class="form-group">
             <label for="formGroupExampleInput ">Comment</label>
-            <textarea class="form-control " name="comment"  rows="3">@if($stub=='Create'){{ (old('comment')) ? old('comment') : '' }}@else{{ $obj->comment }}@endif</textarea>
+            <textarea class="form-control " name="comment"  rows="3">@if($stub=='Create'){{ (old('comment')) ? old('comment') : '' }}@else @if(isset($followup->comment)) {{ $followup->comment }}@endif @endif</textarea>
           </div>
 
 
@@ -166,7 +166,7 @@
 
           <div class="form-group">
             <label for="formGroupExampleInput ">Schedule Followup Call (optional)</label>
-            <input type="text" class=" form-control" value="" name="schedule" id="datetimepicker"/>
+            <input type="text" class=" form-control" value="@if($followup->schedule) {{$followup->schedule}} @endif" name="schedule" id="datetimepicker"/>
           </div>
 
         </div>

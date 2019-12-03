@@ -51,12 +51,14 @@ class ProspectController extends Controller
         $obj = new Obj();
         $this->authorize('create', $obj);
         $employees = User::whereIn('admin',[1,2])->get();
+        $followup = new Followup();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('datetimepicker',true)
+                ->with('followup',$followup)
                 ->with('employees',$employees)
                 ->with('app',$this);
     }
@@ -160,6 +162,9 @@ class ProspectController extends Controller
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
         $employees = User::whereIn('admin',[1,2])->get();
+        $followup = Followup::where('prospect_id',$id)->first();
+
+       
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -167,6 +172,7 @@ class ProspectController extends Controller
                 ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('datetimepicker',true)
+                ->with('followup',$followup)
                 ->with('employees',$employees)
                 ->with('app',$this);
         else
@@ -184,14 +190,15 @@ class ProspectController extends Controller
     {
         try{
             $obj = Obj::where('id',$id)->first();
-
-
             $this->authorize('update', $obj);
-            
-            
+            $obj->update($request->all()); 
 
-            $obj = $obj->update($request->all()); 
-
+            if($request->get('comment') || $request->get('schedule') ){
+                $f = Followup::where('prospect_id',$id)->first();
+                $f->comment = ($request->get('comment'))?$request->get('comment'):'- None -';
+                $f->schedule = $request->get('schedule');
+                $f->save();
+            }
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);
