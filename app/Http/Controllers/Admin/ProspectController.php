@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Prospect as Obj;
+use App\Models\Admin\Followup;
 use App\User;
 
 class ProspectController extends Controller
@@ -55,6 +56,7 @@ class ProspectController extends Controller
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
+                ->with('datetimepicker',true)
                 ->with('employees',$employees)
                 ->with('app',$this);
     }
@@ -71,6 +73,7 @@ class ProspectController extends Controller
             
            
             $arr["error"] = 0;
+            if($request->get('email'))
             if (!filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
                 $arr["error"] =1;
                 $arr["message"] = "Invalid Email ID";
@@ -87,11 +90,14 @@ class ProspectController extends Controller
                 $arr["message"] = 'User('.$phone_exists->name.') with phone number('.$phone_exists->phone.') already exists in database. ';
             }
 
-            $email_exists = $obj->where('email',$request->get('email'))->first();
-            if ($email_exists) {
-                $arr["error"] =1;
-                $arr["message"] = 'User('.$email_exists->name.') with email('.$email_exists->email.') already exists in database.';
+            if($request->get('email')){
+                $email_exists = $obj->where('email',$request->get('email'))->first();
+                if ($email_exists) {
+                    $arr["error"] =1;
+                    $arr["message"] = 'User('.$email_exists->name.') with email('.$email_exists->email.') already exists in database.';
+                }
             }
+            
 
             if($arr["error"]){
                     flash($arr['message'])->success();
@@ -100,9 +106,16 @@ class ProspectController extends Controller
             
 
              /* create a new entry */
-            $obj = $obj->create($request->all());
+            $id = $obj->create($request->all())->id;
 
-            
+            if($request->get('comment') || $request->get('schedule') ){
+                $f = new Followup();
+                $f->user_id = $request->get('user_id');
+                $f->prospect_id = $id;
+                $f->comment = ($request->get('comment'))?$request->get('comment'):'- None -';
+                $f->schedule = $request->get('schedule');
+                $f->save();
+            }
             
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
@@ -144,13 +157,14 @@ class ProspectController extends Controller
     {
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
-        $employees = User::where('admin',2)->get();
+        $employees = User::whereIn('admin',[1,2])->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Update')
                 ->with('obj',$obj)
                 ->with('editor',true)
+                ->with('datetimepicker',true)
                 ->with('employees',$employees)
                 ->with('app',$this);
         else

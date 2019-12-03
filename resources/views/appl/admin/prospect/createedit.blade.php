@@ -95,6 +95,10 @@
             </select>
           </div>
   
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Comment</label>
+            <textarea class="form-control " name="comment"  rows="3">@if($stub=='Create'){{ (old('comment')) ? old('comment') : '' }}@else{{ $obj->comment }}@endif</textarea>
+          </div>
 
 
         </div>
@@ -158,6 +162,11 @@
               <option value="1" @if(isset($obj)) @if($obj->status==1) selected @else selected @endif  @endif >Active</option>
               <option value="0" @if(isset($obj)) @if($obj->status===0) selected @endif @endif >Archive</option>
             </select>
+          </div>
+
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Schedule Followup Call (optional)</label>
+            <input type="text" class=" form-control" value="" name="schedule" id="datetimepicker"/>
           </div>
 
         </div>
