@@ -18,9 +18,11 @@
                 <th scope="row">
                    <a href=" {{ route($app->module.'.show',$obj->id) }} ">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</a></th>
                 <td>
+                  @if(isset($obj->prospect))
                   <a href=" {{ route('prospect.show',$obj->prospect_id) }} ">
                   {{ $obj->prospect->name }}
                   </a>
+                  @endif
                 </td>
                 <td>
                   {{ $obj->user->name }}
