@@ -96,6 +96,8 @@ class ProspectController extends Controller
                     $arr["error"] =1;
                     $arr["message"] = 'User('.$email_exists->name.') with email('.$email_exists->email.') already exists in database.';
                 }
+            }else{
+                $request->merge(['email'=>' ']);
             }
             
 
