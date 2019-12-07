@@ -152,10 +152,19 @@
         });
     
     $(".button").click(function() {
-            $id = $(this).data('id');
+            $id = parseInt($(this).data('id'));
             $class = ".r"+$id; 
             $('.r').hide();
             $($class).show();
+            $idp = $id+1;
+             $content = parseInt($($class).data('content'));
+
+            if($content){
+              $('.leftblock').show();
+            }
+            else{
+              $('.leftblock').hide();
+            }
 
             $('.section-number').html($id);
             for($k=1;$k<10;$k++){
@@ -202,6 +211,14 @@
             $section_number = $(this).data('section')+1;
             $section = ".r"+$section_number; 
           
+            $content = parseInt($($section).data('content'));
+
+            if($content){
+              $('.leftblock').show();
+            }
+            else{
+              $('.leftblock').hide();
+            }
 
             if(!$($section).is(':visible')){
               $('.r').hide();
