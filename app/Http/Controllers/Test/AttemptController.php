@@ -876,8 +876,8 @@ class AttemptController extends Controller
         }
         
       }else{
-        $answer = strtoupper(str_replace(' ', '', $answer));
-        $response = strtoupper(str_replace(' ', '', $response));
+        $answer = trim(strtoupper(str_replace(' ', '', $answer)));
+        $response = trim(strtoupper(str_replace(' ', '', $response)));
         if($answer==$response)
           return true;
       }
