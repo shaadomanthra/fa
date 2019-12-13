@@ -20,7 +20,7 @@
       <td>{{ date('d M Y', strtotime($expiry[$test->id]))}}</td>
       
       <td>@if($status[$test->id]=='Active')
-			<a href="{{ route('test.try',$test->slug) }}">
+			<a href="{{ route('test.instructions',$test->slug) }}">
 				<button class="btn  btn-sm btn-success">Try Now</button>
 			</a>
 			@else
