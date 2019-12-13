@@ -12,9 +12,7 @@
   </div>
   <div class="card">
     <div class="card-body mb-0">
-      <div class="mb-4 mb-md-0 float-md-right text-md-right">
-        <img class=" " src="{{ asset('images/general/instructions.png') }}" alt="" style="width:100px" >
-      </div>
+      
       <div class="mb-3 " style="font-size: 18px;">
         {!! $test->instructions !!}
       </div>
