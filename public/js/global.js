@@ -1,6 +1,6 @@
 
   // auto fadeout for alert message
-  $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+  $('div.alert').not('.alert-important').delay(6000).fadeOut(350);
 
   $('.alertclose').on('click',function(){
     $('.alert').hide();

@@ -6,7 +6,7 @@
 <script type="application/javascript" src="{{asset('js/script.js?new=2')}}"></script>  
 <script type="application/javascript" src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
 <script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
-<script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/global.js?new=1')}}"></script>  
 
 
 <script type="application/javascript">
@@ -296,7 +296,7 @@
 <script type="application/javascript" src="{{asset('js/player.js')}}"></script>
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
 <script type="application/javascript" src="{{asset('js/bootstrap.bundle.js')}}"></script>
-<script type="application/javascript" src="{{asset('js/global.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/global.js?new=1')}}"></script>  
 
 <script type="application/javascript">
     $(document).ready(function(){
