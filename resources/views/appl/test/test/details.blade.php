@@ -26,7 +26,7 @@
               <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $order->created_at->diffForHumans()}}</span>
             </div>
               @if(!\auth::user()->attempt($obj->id))
-                <a href="{{ route('test.try',$obj->slug) }}">
+                <a href="{{ route('test.instructions',$obj->slug) }}">
                   <button class="btn btn-lg btn-success">Try Now</button>
                 </a>
               @else

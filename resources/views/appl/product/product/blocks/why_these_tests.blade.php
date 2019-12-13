@@ -7,7 +7,7 @@
                 <img src=" {{ asset('images/general/test.png')}}" style="width:70px" />
               </div>
               <div class="col-8">
-                 <div class="h5 text-primary"><b>Exam Grade</b></div>
+                 <div class="text-primary"><b>Exam Grade</b></div>
                  <p>Develop skills that actually help in the test</p>
               </div>
             </div>
