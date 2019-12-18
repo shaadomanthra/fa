@@ -8,6 +8,7 @@
           <div class="col-12 col-md-6">
             <h3 class="text-center text-md-left mb-md-4 mt-2  p-4">
               <i class="fa fa-bar-chart"></i> {{ $test->name}} - Report
+             
               <br>
               @if(isset($admin))
               <a href="{{ route('test.show',$test->id)}}">
@@ -47,16 +48,27 @@
           @include('appl.test.attempt.blocks.gre_answers')
         @else
         <div class="card">
+          <div class="card-header"> <h5 class="mt-2">Name: {{\auth::user()->name }}
+            <span class="float-md-right">{{\auth::user()->email}}</span>
+          </h5></div>
           <div class="card-body">
+
             <div class="alert alert-primary alert-important">
 
+              <h4 class="badge badge-warning">VJIT Students</h4>
               <h5><div class="mb-2">Attend the abroad guidance session this saturday (21st Dec) at 5:00pm at our office.</div> Collect all your coupons the same day.</h5>
-              <b>Note:</b> This offer is valid for 7 days  from the date({{  \Carbon\Carbon::parse($result[0]['created_at'])->format('M d Y')}}) when you have attempted the scholarship test. Call us at +91 95151 25110 for more details.
+              <a href="https://forms.gle/vsTrub6e23s3TLSA8" class="btn btn-success mb-3">Register Now</a><br>
+              <b>Note:</b> 
+              <ol>
+                <li>This offer is valid for 7 days  from the date({{  \Carbon\Carbon::parse($result[0]['created_at'])->format('M d Y')}}) when you have attempted the scholarship test. </li>
+                <li> Carry the print out of the following sheet to First Academy office.</li>
+                 <li> Call us at +91 95151 25110 for more details.</li>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6">
                   <h3><i class="fa fa-thumbs-up text-secondary"></i>  Congratulations!</h3>
                   <p>You have unlocked Rs.20000 worth benefits. Collect your coupons at our office. </p>
+                  
                   <h5>Your Benefits</h5>
                   <ol>
                     <li>Attend a free GRE/ILETS session this monday (6:30to 8:00am or 6:30 to 8:00pm) </li>
