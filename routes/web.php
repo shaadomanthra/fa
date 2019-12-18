@@ -111,6 +111,8 @@ Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->n
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
 Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
+Route::get('/ieltswriting', function(){ return view('appl.pages.ieltswriting');})->name('ieltswriting');
+
 Route::post('/api/register', 'User\UserController@register')->name('apiregister');
 Route::post('/api/login', 'User\UserController@login')->name('apilogin');
 Route::get('/api/login', 'User\UserController@login')->name('apilogin');
