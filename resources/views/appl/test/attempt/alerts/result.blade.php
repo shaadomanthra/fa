@@ -48,7 +48,9 @@
             @endif
           </div>
         </div>
+
         @include('appl.test.attempt.blocks.answers')
+        
 
       </div>
 

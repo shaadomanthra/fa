@@ -400,6 +400,135 @@
 
 </script>
 @endif
+
+@if(isset($pte))
+<script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
+<script type="application/javascript">
+$(function() {
+  if($( "#sortable-1" ).length){
+    $( "#sortable-1, #sortable-2" ).sortable({
+        connectWith: "#sortable-1, #sortable-2"
+    });
+  }
+  if($( "#sortable-2" ).length)
+    $( "#sortable-2" ).sortable();
+  if($( "#sortable-3" ).length)
+    $( "#sortable-3" ).sortable();
+  if($( "#sortable-4" ).length)
+  $( "#sortable-4" ).sortable();
+});
+</script>
+<script type="application/javascript">
+ 
+  $(".td_option").click(function() {
+        $id = $(this).data('id');
+        $qno = $id;
+        $option = $(this).data('option');
+        $section = $('.greblock_'+$id).data('section');
+        $sno = $('.greblock_'+$id).data('sno');
+
+        if(!$(this).hasClass('td_answered'))
+        {
+           $('.td_'+$id+'_'+$group).removeClass('td_answered');
+          $('.'+$id+'_'+$group).prop("checked",false);
+          $('.'+$id+'_'+$option).prop("checked", true);
+          $(this).addClass('td_answered');
+          $('.s'+$id).addClass('answered');
+          $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
+
+        }else{
+          $(this).removeClass('td_answered');
+          $('.'+$id+'_'+$option).prop("checked", false);
+          var options = ["A","B","C","D",'E',"F","G","H","I"];
+          $isChecked = false;
+          options.forEach(function(item, index, arr){
+              if($('.'+$id+'_'+item).prop("checked"))
+                $isChecked = true;
+          });
+          if(!$isChecked){
+            $('.s'+$id).removeClass('answered');
+            $('.r_'+$section+'_'+$qno).html('<span class="badge badge-secondary">Not answered</span>');
+          }
+          
+        }
+    });
+
+  /* show/hide time */
+    $('.hide_time').on('click',function(){
+        $('#timer').toggle();
+        if($('#timer').is(':visible'))
+        {
+            $('.hide_time').html('<i class="fa fa-minus-circle"></i> Hide Time');
+        }else{
+            $('.hide_time').html('<i class="fa fa-clock-o"></i> Show Time');
+        }
+    });
+
+    /* Review Button */
+    $('.gre_prev').on('click',function(e){
+
+        $qno = $(this).data('qno');
+        console.log($qno);
+        $section = $('.greblock_'+$qno).data('section');
+        $sno = $('.greblock_'+$qno).data('sno');
+
+        if($qno){
+            $('.gre_qno').html($sno);
+            $('.gre_section').html($section);
+
+            $('.qblock').hide();
+            $('.greblock_'+$qno).show();
+
+            $qno = $qno - 1;
+            //update the navbar
+            if($('.greblock_'+$qno).length){
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',$qno);
+              if($('.gre_next').data('qno'))
+                $('.gre_next').removeClass('disabled');
+            }
+            else{
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',0);
+              $(this).addClass('disabled');
+            }
+
+            
+        
+        }else{
+            $('.gre_prev').addClass('disabled');
+        }
+    });
+
+
+    $('.gre_next').on('click',function(e){
+      $qno = $(this).data('qno');
+      $section = $('.greblock_'+$qno).data('section');
+      $sno = $('.greblock_'+$qno).data('sno');
+
+      if($qno){
+        $('.gre_section').html($section);
+
+        $('.qblock').hide();
+        $('.greblock_'+$qno).show();
+        $qno = $qno +1;
+              //update the navbar
+        if($('.greblock_'+$qno).length){
+            $('.gre_prev').data('qno',($qno-2));
+            $('.gre_next').data('qno',$qno);
+            if($qno-2!=0)
+                $('.gre_prev').removeClass('disabled');
+        }
+        else{
+          $('.gre_prev').data('qno',($qno-2));
+          $('.gre_next').data('qno',0);
+          $(this).addClass('disabled');
+        }       
+      }
+    });
+
+</script>
+@endif
 @if(isset($gre))
 <script type="application/javascript">
 

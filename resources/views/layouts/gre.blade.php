@@ -17,7 +17,7 @@
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
-    @if(isset($try) || isset($reading))
+    @if(isset($try) || isset($reading) || isset($pte))
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
 

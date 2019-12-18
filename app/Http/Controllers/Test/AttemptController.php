@@ -275,15 +275,19 @@ class AttemptController extends Controller
 
     (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
 
+    $pte = false;
     if(!$test->testtype)
       abort('403','Test Type not defined');
     else{
       $testtype = strtolower($test->testtype->name);
-      if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading'))
-      $view =  'pte_'.strtolower($test->testtype->name);
+      if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading')){
+        $view =  'pte_'.strtolower($test->testtype->name);
+        $pte=true;
+      }
       else
       $view = strtolower($test->testtype->name);
     }
+
 
    if($view == 'listening' || $view == 'grammar' || $view =='english')
     return view('appl.test.attempt.try_'.$view)
@@ -292,6 +296,7 @@ class AttemptController extends Controller
             ->with('grammar',true)
             ->with('app',$this)
             ->with('qcount',$qcount)
+            ->with('pte',$pte)
             ->with('test',$test)
             ->with('product',$product)
             ->with('timer',$user)
@@ -312,6 +317,7 @@ class AttemptController extends Controller
         ->with('try',true)
         ->with('app',$this)
         ->with('qcount',$qcount)
+        ->with('pte',$pte)
         ->with('test',$test)
         ->with('product',$product)
         ->with('reading',1)
@@ -331,6 +337,9 @@ class AttemptController extends Controller
                   ->with('test',$test)
                   ->with('product',$product)
                   ->with('attempt',$attempt)
+                  ->with('pte',$pte)
+                  ->with('timer',$user)
+                  ->with('time',$test->test_time)
                   ->with('view',true)
                   ->with('player',1);
       }
@@ -348,15 +357,20 @@ class AttemptController extends Controller
       (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
 
 
+      $pte = false;
       if(!$test->testtype)
         abort('403','Test Type not defined');
       else{
         $testtype = strtolower($test->testtype->name);
-        if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading'))
-        $view =  'pte_'.strtolower($test->testtype->name);
+        if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading')){
+            $view =  'pte_'.strtolower($test->testtype->name);
+            $pte = true;
+        }
+        
         else
         $view = strtolower($test->testtype->name);
       }
+
 
        /* If Attempted show report */
       if($user)
@@ -373,12 +387,14 @@ class AttemptController extends Controller
             ->with('app',$this)
             ->with('qcount',$qcount)
             ->with('test',$test)
+            ->with('pte',$pte)
             ->with('product',$product)
             ->with('timer',$user)
             ->with('view',true)
             ->with('time',$test->test_time);
-    else if($view == 'gre')
-    return view('appl.test.attempt.try_'.$view)
+    else if($view == 'gre'){
+      
+      return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
             ->with('gre',true)
@@ -389,12 +405,16 @@ class AttemptController extends Controller
             ->with('timer',$user)
             ->with('view',true)
             ->with('time',$test->test_time);
+    }
+    
       else if($view =='reading'){
+
         return view('appl.test.attempt.try_'.$view)
                 ->with('try',true)
                 ->with('app',$this)
                 ->with('qcount',$qcount)
                 ->with('test',$test)
+                ->with('pte',$pte)
                 ->with('product',$product)
                 ->with('reading',1)
                 ->with('view',true)
@@ -410,11 +430,15 @@ class AttemptController extends Controller
                   ->with('editor',true);
       }
       else{
+
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
                   ->with('app',$this)
+                  ->with('pte',$pte)
                   ->with('attempt',$attempt)
+                  ->with('timer',$user)
+                  ->with('time',$test->test_time)
                   ->with('view',true)
                   ->with('player',1);
       }
