@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-1">
+	<div class="col-1 mb-3 mb-md-0">
 		<img src="{{ asset('images/general/contract.png')}}" class="float-left mr-3" width="70px" />
 	</div>
 	<div class="col-11">
@@ -14,7 +14,7 @@
 <hr>
 <br>
 <div class="row">
-	<div class="col-12 col-md-8 mb-md-3">
+	<div class="col-12 col-md-8 mb-3 mb-md-0">
 		<div class="embed-responsive embed-responsive-16by9">
 		<iframe 
 		    src="http://docs.google.com/gview?url=https://firstacademy.in/wp-content/uploads/2019/03/Writing-Evaluation.pdf&embedded=true" 

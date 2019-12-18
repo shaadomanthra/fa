@@ -5,7 +5,7 @@
 
 
 <div class="bg-white">
-<div class="card-body p-5 mb-4">
+<div class="card-body p-3 p-md-5 mb-4">
 
 @include('appl.pages.blocks.write')
 </div>
@@ -13,7 +13,7 @@
 
 <div class="row">
 	<div class="col-12 col-md-3">
-		<div class="card">
+		<div class="card mb-3 mb-md-0">
 			<div class="card-header">
 				<h5 class="mb-0">Language Quizzes</h5>
 			</div>
@@ -24,7 +24,7 @@
 		</div>
 	</div>
 	<div class="col-12 col-md-3">
-		<div class="card">
+		<div class="card mb-3 mb-md-0">
 			<div class="card-header">
 				<h5 class="mb-0">Expert Evaluation</h5>
 			</div>
@@ -36,7 +36,7 @@
 		</div>
 	</div>
 	<div class="col-12 col-md-3">
-		<div class="card">
+		<div class="card mb-3 mb-md-0">
 			<div class="card-header">
 				<h5 class="mb-0">Group Class</h5>
 			</div>
@@ -47,7 +47,7 @@
 		</div>
 	</div>
 	<div class="col-12 col-md-3">
-		<div class="card">
+		<div class="card mb-3 mb-md-0">
 			<div class="card-header">
 				<h5 class="mb-0">Personalised Session</h5>
 			</div>
