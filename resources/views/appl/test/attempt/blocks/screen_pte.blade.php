@@ -56,20 +56,28 @@
 
 	<style>
 		ul.sortlist{ list-style: none; margin:0px;padding:0px; }
-		li.sortitem{ list-style: none; border:1px solid #888; padding:10px; margin:5px; }
+		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px;}
 	</style>
-	<ul id = "sortable-1" class="sortlist"><h3>List 1</h3>
-         <li class = "default sortitem">A</li>
-         <li class = "default sortitem">B</li>
-         <li class = "default sortitem">C</li>
-         <li class = "default sortitem">D</li>
-      </ul>
-      <ul id = "sortable-2"><h3>List 2</h3>
-         <li class = "default">a</li>
-         <li class = "default">b</li>
-         <li class = "default">c</li>
-         <li class = "default">d</li>
-      </ul>
+	<div class="row">
+		<div class="col-6">
+			<ul id = "sortable-1" class="sortlist">
+		         <li class = "default sortitem">A</li>
+		         <li class = "default sortitem">B</li>
+		         <li class = "default sortitem">C</li>
+		         <li class = "default sortitem">D</li>
+		      </ul>
+		</div>
+		<div class="col-6">
+			<ul id = "sortable-2" class="sortlist">
+		         <li class = "default sortitem">A</li>
+		         <li class = "default sortitem">B</li>
+		         <li class = "default sortitem">C</li>
+		         <li class = "default sortitem">D</li>
+		      </ul>
+		</div>
+	</div>
+	
+      
 
 	@if(count($section->mcq_order)!=0)
 		@include('appl.test.attempt.blocks.mcq_pte')

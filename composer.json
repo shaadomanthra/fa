@@ -14,11 +14,12 @@
         "guzzlehttp/guzzle": "^6.3",
         "instamojo/instamojo-php": "^0.4.0",
         "intervention/image": "^2.5",
+        "kyslik/column-sortable": "^5.8",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "phpoffice/phpword": "^0.17.0",
-         "kyslik/column-sortable": "^5.8"
+        "maatwebsite/excel": "^3.1",
+        "phpoffice/phpword": "^0.17.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

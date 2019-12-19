@@ -23,6 +23,7 @@
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
@@ -62,7 +63,7 @@
               @foreach($obj->tests as $test)
                 <a href="{{ route('test',$test->slug)}}">
                   {{$test->name }}
-                </a><br>
+                </a> - <a href="{{ route($app->module.'.show',$obj->id) }}?export=1&test_id={{$test->id}}" class="" data-tooltip="tooltip" data-placement="top" title="Edit">Download Report</a><br>
               @endforeach
             </div>
           </div>

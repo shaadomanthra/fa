@@ -6,7 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Coupon as Obj;
 use App\Models\Product\Product;
+use App\Models\Product\Order;
 use App\Models\Test\Test;
+use App\Models\Test\Attempt;
+
+use App\Exports\ScoreExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CouponController extends Controller
 {
@@ -116,6 +121,32 @@ class CouponController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
    
+        if(request()->get('export')){
+            $users =Order::where('txn_id',$obj->code)->pluck('user_id')->toArray();
+            request()->session()->put('users',$users);
+            if(request()->get('test_id')){
+                $test = Test::where('id',request()->get('test_id'))->first();
+            }else
+            $test = $obj->products[0]->tests[0];
+            $u = Attempt::where('test_id',$test->id)->whereIn('user_id',$users)->get()->groupBy('user_id');
+            $score =[];
+            foreach($u as $k=>$usr){
+                foreach($usr as $at){
+                    if(!isset($score[$k]))
+                        $score[$k] = 0;
+                    if($at->accuracy)
+                            $score[$k]++;                    
+                }
+            }
+
+            arsort($score);
+            request()->session()->put('score',$score);
+            request()->session()->put('ids_ordered',array_keys($score));
+
+            $name = $test->slug.'_report';
+            return Excel::download(new ScoreExport, $name.'.xlsx');
+        }
+
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')

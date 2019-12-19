@@ -26,6 +26,10 @@ class Coupon extends Model
         return $this->belongsToMany('App\Models\Test\Test');
     }
 
+    public function users(){
+        return $this->belongsToMany('App\User');
+    }
+
     public function count()
     {
         return Order::where('txn_id',$this->code)->count();
