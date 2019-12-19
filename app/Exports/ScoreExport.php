@@ -26,10 +26,6 @@ class ScoreExport implements FromCollection
 		 
 
         foreach($usr as $k=>$u){
-            if(isset($usd[$k])){
-                
-            }
-            
     		unset($usr[$k]->created_at);
     		unset($usr[$k]->updated_at);
     		unset($usr[$k]->password);

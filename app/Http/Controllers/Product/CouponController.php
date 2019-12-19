@@ -128,14 +128,17 @@ class CouponController extends Controller
                 $test = Test::where('id',request()->get('test_id'))->first();
             }else
             $test = $obj->products[0]->tests[0];
-            $u = Attempt::where('test_id',$test->id)->whereIn('user_id',$users)->get()->groupBy('user_id');
+            $u = Attempt::where('test_id',$test->id)
+                    ->whereIn('user_id',$users)
+                    ->get()->groupBy('user_id');
             $score =[];
             foreach($u as $k=>$usr){
+                $score[$k] = 0;
+            }
+            foreach($u as $k=>$usr){
                 foreach($usr as $at){
-                    if(!isset($score[$k]))
-                        $score[$k] = 0;
-                    if($at->accuracy)
-                            $score[$k]++;                    
+                    if($at->accuracy==1)
+                        $score[$k]++;                    
                 }
             }
 
