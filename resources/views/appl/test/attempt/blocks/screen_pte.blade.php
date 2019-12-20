@@ -42,6 +42,7 @@
 	<style>
 		ul.sortlist{ list-style: none; margin:0px;padding:20px;min-height:200px; background: #e8e7dc; border-radius: 5px;}
 		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px; cursor: all-scroll;}
+		.draggable{cursor: all-scroll;}
 	</style>
 	<div class="">
 	<div class="bg-white border-top p-4">
