@@ -1,3 +1,6 @@
+
+
+
 @foreach($section->mcq_order as $k=>$m)
 
 
@@ -12,7 +15,39 @@
     <span class="d-none sentence_holder" data-qno="{{$m->qno}}"></span>
     <input type="hidden" name="{{$m->qno}}" value=""/>
 </div> 
-<div class="col-12 col-md-6">   
+<div class="col-12 col-md-6"> 
+
+@if(!$m->layout)
+<div class="border p-3 rounded mb-4 text-secondary">Select one answer choice from the given options. </div>
+@elseif($m->layout == 'gre1')
+  <div class="border p-3 rounded mb-4 text-secondary">Select one answer choice for the blank. Fill in the blank in such a way that it best completes the text. </div>
+@elseif($m->layout == 'gre2' || $m->layout == 'gre3')  
+<div class="border p-3 rounded mb-4 text-secondary">
+ For each blank, select an answer choice from the corresponding column of choices. Fill all blanks in such a way that they best complete the text. 
+</div>
+@elseif($m->layout == 'gre_maq')  
+<div class="border p-3 rounded mb-4 text-secondary">
+Select one or more choices from the given options.
+</div>
+@elseif($m->layout == 'gre_numeric')  
+<div class="border p-3 rounded mb-4 text-secondary">
+For the following question, enter your answer as an integer or a decimal in the given input box.
+</div>
+@elseif($m->layout == 'gre_fraction')  
+<div class="border p-3 rounded mb-4 text-secondary">
+For the following question, enter your answer as as a fraction in the given input box.
+</div>
+@elseif($m->layout == 'pte_maq')  
+<div class="border p-3 rounded mb-4 text-secondary">
+Read the text and answer the multiple-choice question by selecting all correct responses. More than one response is correct.
+</div>
+@elseif($m->layout == 'pte_mcq')  
+<div class="border p-3 rounded mb-4 text-secondary">
+Read the text and answer the multiple-choice question by selecting the correct response. Only one response is correct.
+</div>
+@elseif($m->layout == 'no_instruction')  
+@endif
+
 @endif
 
 

@@ -122,6 +122,8 @@
           <option value="gre_numeric" @if(isset($obj)) @if($obj->layout=='gre_numeric') selected @endif @endif >Gre Numeric</option>
           <option value="gre_fraction" @if(isset($obj)) @if($obj->layout=='gre_fraction') selected @endif @endif >Gre Fraction</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
+          <option value="pte_maq" @if(isset($obj)) @if($obj->layout=='pte_maq') selected @endif @endif >PTE Multi Answer</option>
+          <option value="pte_mcq" @if(isset($obj)) @if($obj->layout=='pte_mcq') selected @endif @endif >PTE Single Answer</option>
         </select>
       </div>
 
