@@ -30,6 +30,16 @@ class TestController extends Controller
    public function details($slug,Request $request){
         $obj = Obj::where('slug',$slug)->first();
 
+        if(request()->get('update_2')){
+            $attempt = Attempt::whereNull('Response')->get();
+            //dd($attempt[0]);
+            foreach($attempt as $a){
+                $a->accuracy =0;
+                $a->save();
+            }
+            flash('answers is updated!')->success();
+        }
+
         if(!$obj)
             abort('404');
         

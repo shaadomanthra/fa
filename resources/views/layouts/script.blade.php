@@ -458,6 +458,18 @@ $(function() {
     });
   }
 });
+
+/* drag and drop */
+$( function() {
+    $( ".draggable" ).draggable({ revert: "valid" });
+    $( ".droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this ).addClass("bg-light");
+        $(this).attr('value',$(ui.draggable).text());        
+      }
+    });
+  } );
+
 </script>
 <script type="application/javascript">
  
@@ -465,6 +477,7 @@ $(function() {
         $id = $(this).data('id');
         $qno = $id;
         $option = $(this).data('option');
+        $group = $(this).data('group');
         $section = $('.greblock_'+$id).data('section');
         $sno = $('.greblock_'+$id).data('sno');
 

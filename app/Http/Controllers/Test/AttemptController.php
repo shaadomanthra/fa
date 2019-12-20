@@ -318,6 +318,7 @@ class AttemptController extends Controller
     }
 
 
+
    if($view == 'listening' || $view == 'grammar' || $view =='english')
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
@@ -560,6 +561,8 @@ class AttemptController extends Controller
       return redirect()->route($this->module.'.try',['test'=>$this->test->slug,'product'=>$product_slug]);
    }
 
+   
+
    /* Function to save data in database */
    public function store($slug,Request $request){
       
@@ -571,6 +574,7 @@ class AttemptController extends Controller
       else
       $product = $test->product;
 
+      
 
       $user = \auth::user();
 
@@ -592,7 +596,7 @@ class AttemptController extends Controller
           $result[$mcq->qno]['type']='mcq';
           $result[$mcq->qno]['answer'] = $mcq->answer;
           $result[$mcq->qno]['response']= '';
-          $result[$mcq->qno]['accuracy']= 2;
+          $result[$mcq->qno]['accuracy']= 0;
         }
         // GRE numeric and fraction answer
         if(!strip_tags($mcq->answer)){
@@ -614,7 +618,7 @@ class AttemptController extends Controller
             $result[$fillup->qno]['type']='fillup';
             $result[$fillup->qno]['answer'] = $fillup->answer;
             $result[$fillup->qno]['response']= '';
-            $result[$fillup->qno]['accuracy']= 2;
+            $result[$fillup->qno]['accuracy']= 0;
             $result[$fillup->qno]['two_blanks'] =0;
           }
           
@@ -623,6 +627,10 @@ class AttemptController extends Controller
             $new_ans = delete_all_between('[',']',$fillup->answer);
             $result[$fillup->qno]['answer'] = $new_ans;
             $result[$fillup->qno]['two_blanks'] =1;
+        }
+
+        if($fillup->layout=='pte_reorder'){
+          $result[$fillup->qno]['pte_reorder'] =1;
         }
       }
 
@@ -684,7 +692,16 @@ class AttemptController extends Controller
                 $score++;
               }
 
-            }else{
+            }else if(isset($res['pte_reorder'])){
+
+              $qscore = $this->matchReorder($res['answer'],$resp);
+
+              $data[$i]['accuracy'] =$qscore;
+              $result[$qno]['accuracy'] = $qscore;
+              $score = $score+$qscore;
+
+            }
+            else{
 
               if($this->compare($res['answer'],$resp)){
                 $data[$i]['accuracy'] =1;
@@ -823,6 +840,33 @@ class AttemptController extends Controller
           $match = true;
       }
       return $match;
+   }
+
+   public function matchReorder($answer,$response){
+      $answer = strtoupper(str_replace(' ', '', $answer));
+      $response = strtoupper(str_replace(' ', '', $response));
+      
+      $ans_bits = explode(',',$answer);
+      $ans_pairs = [];
+
+      foreach($ans_bits as $k=>$ans){
+        if(isset($ans_bits[$k+1]))
+          $ans_pairs[$k] = $ans_bits[$k].','.$ans_bits[$k+1];
+      }
+
+
+
+      $count =0;
+      foreach($ans_pairs as $ans_item){
+        if(strpos($response, $ans_item) !== FALSE){
+           $count++;   
+        }else{
+            
+        }
+      }
+      
+      return $count;
+
    }
 
    public function matchAnswers($answer,$response){

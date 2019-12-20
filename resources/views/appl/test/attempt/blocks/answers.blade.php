@@ -26,10 +26,8 @@
     <tr>
       <th scope="row">{{ $item['qno']}}</th>
       <td>{{ $item['answer']}}</td>
-      <td>@if($item['accuracy']==1) 
+      <td>@if($item['accuracy']==1 || $item['accuracy']>1 ) 
         <span class="text-success"><i class="fa fa-check-circle"></i></span>
-      @elseif($item['accuracy']==2) 
-       <span class="text-danger"><i class="fa fa-times-circle"></i></span> 
       @else 
         <span class="text-danger"><i class="fa fa-times-circle"></i></span>
       @endif</td>

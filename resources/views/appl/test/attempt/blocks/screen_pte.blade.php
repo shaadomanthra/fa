@@ -39,7 +39,10 @@
 	<span class="d-block d-md-inline float-md-right"><span class="time_count" id="timer">0:00:00</span> <span class="time_count d-none" id="timer2"></span>&nbsp;<span class="hide_time" style="cursor: pointer;"><i class="fa fa-minus-circle"></i> Hide Time</span></span>
 	</div>
 	
-
+	<style>
+		ul.sortlist{ list-style: none; margin:0px;padding:20px;min-height:200px; background: #e8e7dc; border-radius: 5px;}
+		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px; cursor: all-scroll;}
+	</style>
 	<div class="">
 	<div class="bg-white border-top p-4">
 	@foreach($test->sections as $s=>$section)
@@ -54,10 +57,7 @@
 	
 	<div class="qblock greblock_{{($s+1)}}" data-qno="{{$s}}"  data-section="{{$s+1}}" data-sno="{{$s+1}}" data-qcount="{{(count($section->mcq_order)+count($section->fillup_order))}}" @if($s!=0)style="display:none"@endif>
 
-	<style>
-		ul.sortlist{ list-style: none; margin:0px;padding:20px;min-height:200px; background: #e8e7dc; border-radius: 5px;}
-		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px; cursor: all-scroll;}
-	</style>
+	
 
 	
       

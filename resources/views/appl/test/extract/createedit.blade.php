@@ -66,6 +66,7 @@
           <option value="gre_selection" @if(isset($obj)) @if($obj->layout == 'gre_selection') selected @endif @endif > GRE Selection </option>
           <option value="dropdown" @if(isset($obj)) @if($obj->layout == 'dropdown') selected @endif @endif > Dropdown </option>
           <option value="cloze_test" @if(isset($obj)) @if($obj->layout == 'cloze_test') selected @endif @endif > Cloze Test </option>
+          <option value="dropin" @if(isset($obj)) @if($obj->layout == 'dropin') selected @endif @endif >Drop In </option>
         </select>
       </div>
 

@@ -3,8 +3,10 @@
       @if($f->answer)
       &nbsp;
       <span style="display:inline-block;">
+      @if($test->category->name!='PTE')
       <span class="badge badge-warning h2">{{$f->qno}}</span>
-      <select class=" input fill" name="{{$f->qno}}" data-id="{{$f->qno}}">
+      @endif
+      <select class="input fill" name="{{$f->qno}}" data-id="{{$f->qno}}">
       <option value=""></option>
       @foreach(explode('/',$f->label) as $option)
       <option value="{{ trim($option) }}">{{$option}}</option>
