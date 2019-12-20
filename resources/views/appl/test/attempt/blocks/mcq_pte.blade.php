@@ -38,11 +38,11 @@ For the following question, enter your answer as an integer or a decimal in the 
 For the following question, enter your answer as as a fraction in the given input box.
 </div>
 @elseif($m->layout == 'pte_maq')  
-<div class="border p-3 rounded mb-4 text-secondary">
+<div class="alert alert-primary alert-important mb-4 ">
 Read the text and answer the multiple-choice question by selecting all correct responses. More than one response is correct.
 </div>
 @elseif($m->layout == 'pte_mcq')  
-<div class="border p-3 rounded mb-4 text-secondary">
+<div class="alert alert-primary alert-important mb-4 ">
 Read the text and answer the multiple-choice question by selecting the correct response. Only one response is correct.
 </div>
 @elseif($m->layout == 'no_instruction')  
@@ -55,7 +55,7 @@ Read the text and answer the multiple-choice question by selecting the correct r
   <div class="row">
         
       <div class="col-12">
-          <div class="question">{!! $m->question !!}</div>
+          <div class="question"><b>{!! $m->question !!}</b></div>
       </div>
   </div>
 
