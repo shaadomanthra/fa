@@ -1,8 +1,27 @@
 
+
+@if(isset($section->fillup_order[0]))
+  @if($section->fillup_order[0]->layout=='cloze_test')
+  <div class="alert alert-primary alert-important mb-4 ">
+    Below is a text with blanks. Click on each blank, a list of choices will appear. Select the appropriate answer choice for each blank.
+  </div>
+  @endif
+@endif
+
+
 @foreach($section->fillup_order as $k=>$f)
 
   
+@if(isset($f->extract))
+  @if($f->extract->layout=='dropin')
+  <div class="alert alert-primary alert-important mb-4 ">
+  In the text below some words are missing. Drag words from the box below to the appropriate place in the text. To undo an answer choice, double click the answer box.
+  </div>
+  @endif
+@else
   
+@endif
+
 
   @if($f->qno==-1)
     @include('appl.test.attempt.layouts.fillup_example') 
@@ -33,6 +52,8 @@
 @if(isset($f->extract))
   <div class="option rounded bg-light p-4 border  mt-4 mb-4">
   @if($f->extract->layout=='dropin')
+
+
     @foreach(explode(',',strip_tags($f->extract->text)) as $k=> $word)
       <span  class="draggable border p-2 mr-3 rounded bg-white">{{$word}}</span>
     @endforeach

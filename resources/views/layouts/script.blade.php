@@ -468,6 +468,11 @@ $( function() {
         $(this).attr('value',$(ui.draggable).text());        
       }
     });
+
+    $( ".droppable" ).dblclick(function() {
+      $( this ).removeClass("bg-light");
+      $( this ).attr('value','');
+    });
   } );
 
 </script>

@@ -3,7 +3,7 @@
       @if($f->answer)
       &nbsp;
       <span style="display:inline-block;">
-      <input class="form-control droppable" name="{{$f->qno}}" data-id="{{$f->qno}}"value="0">
+      <input class="form-control droppable" name="{{$f->qno}}" data-id="{{$f->qno}}"value="">
       
     </span>
       &nbsp; 
