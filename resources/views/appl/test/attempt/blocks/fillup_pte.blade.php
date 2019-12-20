@@ -6,21 +6,22 @@
     Below is a text with blanks. Click on each blank, a list of choices will appear. Select the appropriate answer choice for each blank.
   </div>
   @endif
+
+  @if(isset($section->fillup_order[0]->extract))
+    @if($section->fillup_order[0]->extract->layout=='dropin')
+    <div class="alert alert-primary alert-important mb-4 ">
+    In the text below some words are missing. Drag words from the box below to the appropriate place in the text. To undo an answer choice, double click the answer box.
+    </div>
+    @endif
+  @endif
+
 @endif
 
 
 @foreach($section->fillup_order as $k=>$f)
 
   
-@if(isset($f->extract))
-  @if($f->extract->layout=='dropin')
-  <div class="alert alert-primary alert-important mb-4 ">
-  In the text below some words are missing. Drag words from the box below to the appropriate place in the text. To undo an answer choice, double click the answer box.
-  </div>
-  @endif
-@else
-  
-@endif
+
 
 
   @if($f->qno==-1)
