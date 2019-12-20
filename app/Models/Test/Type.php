@@ -10,4 +10,9 @@ class Type extends Model
         'name',
         // add all other fields
     ];
+
+    public function tests()
+    {
+        return $this->belongsTo('App\Models\Test\Test');
+    }
 }

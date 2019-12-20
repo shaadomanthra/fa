@@ -1,6 +1,7 @@
 
 @foreach($section->fillup_order as $k=>$f)
 
+  
   @if(isset($f->extract))
   <div class="option rounded p-4 border mb-4">
   <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $f->extract->name }} </h4>
@@ -24,6 +25,8 @@
       @include('appl.test.attempt.layouts.ielts_two_blank') 
     @elseif($f->layout=='two_blank')
       @include('appl.test.attempt.layouts.two_blank')  
+    @elseif($f->layout=='pte_reorder')
+      @include('appl.test.attempt.layouts.reorder')  
     @else
       @include('appl.test.attempt.layouts.gre_blank') 
     @endif   

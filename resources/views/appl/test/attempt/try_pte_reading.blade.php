@@ -18,6 +18,8 @@
    @if(isset($view))
             <input type="hidden" name="admin" value="1">
             @endif
+
+     
             
     @include('appl.test.attempt.blocks.screen_pte')
     @include('appl.test.attempt.blocks.gremodal')

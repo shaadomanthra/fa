@@ -126,6 +126,7 @@
           <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Cloze Test</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
           <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif >Dropdown</option>
+          <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
 
         </select>
       </div>

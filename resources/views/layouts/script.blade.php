@@ -405,17 +405,58 @@
 <script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
 <script type="application/javascript">
 $(function() {
-  if($( "#sortable-1" ).length){
-    $( "#sortable-1, #sortable-2" ).sortable({
-        connectWith: "#sortable-1, #sortable-2"
+  if($( "#sortable-1a" ).length){
+    $( "#sortable-1a, #sortable-1b" ).sortable({
+      connectWith: "#sortable-1a, #sortable-1b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-1b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-1b').val(d);
+      }
     });
   }
-  if($( "#sortable-2" ).length)
-    $( "#sortable-2" ).sortable();
-  if($( "#sortable-3" ).length)
-    $( "#sortable-3" ).sortable();
-  if($( "#sortable-4" ).length)
-  $( "#sortable-4" ).sortable();
+  if($( "#sortable-2a" ).length){
+    $( "#sortable-2a, #sortable-2b" ).sortable({
+      connectWith: "#sortable-2a, #sortable-2b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-2b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-2b').val(d);
+      }
+    });
+  }
+  if($( "#sortable-3a" ).length){
+    $( "#sortable-3a, #sortable-3b" ).sortable({
+      connectWith: "#sortable-3a, #sortable-3b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-3b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-3b').val(d);
+      }
+    });
+  }
+  if($( "#sortable-4a" ).length){
+    $( "#sortable-4a, #sortable-4b" ).sortable({
+      connectWith: "#sortable-4a, #sortable-4b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-4b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-4b').val(d);
+      }
+    });
+  }
 });
 </script>
 <script type="application/javascript">

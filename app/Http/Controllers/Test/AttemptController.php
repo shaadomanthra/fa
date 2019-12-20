@@ -275,17 +275,46 @@ class AttemptController extends Controller
 
     (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
 
-    $pte = false;
+    $pte = 0;
     if(!$test->testtype)
       abort('403','Test Type not defined');
     else{
       $testtype = strtolower($test->testtype->name);
       if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading')){
         $view =  'pte_'.strtolower($test->testtype->name);
-        $pte=true;
+        $pte=1;
       }
       else
       $view = strtolower($test->testtype->name);
+
+      // limit writing submissions to 2 in 24 hours
+      if($testtype == 'writing'){
+        //$type = Type::where('name','writing')->first();
+        
+        $test_ids = Test::where('type_id',3)->get()->pluck('id');
+        $wattempt = Attempt::whereIn('test_id',$test_ids)->where('user_id',$user->id)->orderBy('created_at','desc')->limit(2)->get();
+
+        $wcount =0;
+        $today =  \Carbon\Carbon::now(new \DateTimeZone('Asia/Kolkata'));
+        foreach($wattempt as $k=>$w){
+          $createdDate = \Carbon\Carbon::parse($w->created_at);
+          $hr = $today->diffInHours($createdDate);
+          $wattempt[$k]->time_diff = $hr;
+          if($hr<24){
+            $wcount++;
+          }
+        }
+        //dd($today);
+       // dd($wattempt);
+
+        if($wcount==2 && !$attempt){
+            return view('appl.test.attempt.alerts.writing_limit')
+                        ->with('test',$test)
+                        ->with('wattempt',$wattempt);
+        }
+        
+      }
+
     }
 
 
@@ -357,14 +386,14 @@ class AttemptController extends Controller
       (isset($test->qcount))?$qcount = $test->qcount : $qcount=0;
 
 
-      $pte = false;
+      $pte = 0  ;
       if(!$test->testtype)
         abort('403','Test Type not defined');
       else{
         $testtype = strtolower($test->testtype->name);
         if($test->category->name=='PTE' && ($testtype=='listening' || $testtype=='reading')){
             $view =  'pte_'.strtolower($test->testtype->name);
-            $pte = true;
+            $pte = 1;
         }
         
         else

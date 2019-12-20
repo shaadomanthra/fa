@@ -55,27 +55,10 @@
 	<div class="qblock greblock_{{($s+1)}}" data-qno="{{$s}}"  data-section="{{$s+1}}" data-sno="{{$s+1}}" data-qcount="{{(count($section->mcq_order)+count($section->fillup_order))}}" @if($s!=0)style="display:none"@endif>
 
 	<style>
-		ul.sortlist{ list-style: none; margin:0px;padding:0px; }
-		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px;}
+		ul.sortlist{ list-style: none; margin:0px;padding:20px;min-height:200px; background: #e8e7dc; border-radius: 5px;}
+		li.sortitem{ list-style: none; border:1px solid #e4d35b; background:#fff9cd; padding:10px; margin-bottom:8px; border-radius: 5px; cursor: all-scroll;}
 	</style>
-	<div class="row">
-		<div class="col-6">
-			<ul id = "sortable-1" class="sortlist">
-		         <li class = "default sortitem">A</li>
-		         <li class = "default sortitem">B</li>
-		         <li class = "default sortitem">C</li>
-		         <li class = "default sortitem">D</li>
-		      </ul>
-		</div>
-		<div class="col-6">
-			<ul id = "sortable-2" class="sortlist">
-		         <li class = "default sortitem">A</li>
-		         <li class = "default sortitem">B</li>
-		         <li class = "default sortitem">C</li>
-		         <li class = "default sortitem">D</li>
-		      </ul>
-		</div>
-	</div>
+
 	
       
 
