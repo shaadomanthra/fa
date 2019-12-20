@@ -43,10 +43,8 @@
           </div>
         </div>
         
-
-        @if($test->slug!='gre-mini-test')
-          @include('appl.test.attempt.blocks.gre_answers')
-        @else
+        @include('appl.test.attempt.blocks.gre_answers')
+        <!--
         <div class="card">
           <div class="card-header"> <h5 class="mt-2">Name: {{\auth::user()->name }}
             <span class="float-md-right">{{\auth::user()->email}}</span>
@@ -95,7 +93,8 @@ Email: info@firstacademy.in<br>
               
           </div>
         </div>
-        @endif
+         -->
+         
       </div>
     </div>
   </div>
