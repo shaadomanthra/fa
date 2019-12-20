@@ -75,6 +75,10 @@
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Label</label>
+        @if($app->test->category->name=='PTE')
+        <textarea class="form-control " name="label"  rows="5">@if($stub=='Create'){{ (old('label')) ? old('label') : '' }} @else {{ $obj->label }} @endif
+        </textarea>
+        @else
         <input type="text" class="form-control" name="label" id="formGroupExampleInput" placeholder="Enter the label" 
         @if($stub=='Create')
             value="{{ (old('label')) ? old('label') : '' }}"
@@ -82,6 +86,7 @@
             value = "{{ $obj->label }}"
             @endif
             >
+        @endif
       </div>
       
       <div class="form-group">
