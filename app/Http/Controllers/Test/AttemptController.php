@@ -667,17 +667,33 @@ class AttemptController extends Controller
             $data[$i]['response']  = $resp;
 
           if($res['mcq_id']){
-            if($this->matchOptions($res['answer'],$resp)){
-              $data[$i]['accuracy'] =1;
-              $result[$qno]['accuracy'] = 1; 
-              $score++;
-            }elseif($resp == NULL){
+            if($test->category->name=='PTE'){
+              $score_bit = $this->matchOptionsPTE($res['answer'],$resp);
+              $score = $score + $score_bit;
+              if($score_bit<1){
+                $data[$i]['accuracy'] =0;
+                $result[$qno]['accuracy'] = 0; 
+              }
+              else{
+                $data[$i]['accuracy'] =1;
+                $result[$qno]['accuracy'] = 1; 
+              }
+            }else{
+
+              if($this->matchOptions($res['answer'],$resp)){
+                $data[$i]['accuracy'] =1;
+                $result[$qno]['accuracy'] = 1; 
+                $score++;
+              }elseif($resp == NULL){
+
+              }
+              else{
+                $data[$i]['accuracy'] =0;
+                $result[$qno]['accuracy'] = 0; 
+              }
 
             }
-            else{
-              $data[$i]['accuracy'] =0;
-              $result[$qno]['accuracy'] = 0; 
-            }
+            
 
           }else{
 
@@ -908,7 +924,23 @@ class AttemptController extends Controller
       $pieces = explode("/",$answer);
       if(is_array($response)){
 
-        if(count($answers) == count($response)){
+          return $this->MultiAnswer($answer,$answers,$response);
+        
+      }else{
+        foreach($pieces as $p){
+        $p = trim(strtoupper(str_replace(' ', '', $p)));
+        $response = trim(strtoupper(str_replace(' ', '', $response)));
+        if($p == $response)
+          return true;
+        }
+      }
+      return false;
+
+   }
+
+   public function MultiAnswer($answer,$answers,$response){
+
+      if(count($answers) == count($response)){
           foreach($response as $resp){
             $resp = strtoupper(str_replace(' ', '', $resp));
             if($resp=='')
@@ -928,17 +960,6 @@ class AttemptController extends Controller
           return true;
         }else
           return false;
-        
-      }else{
-        foreach($pieces as $p){
-        $p = trim(strtoupper(str_replace(' ', '', $p)));
-        $response = trim(strtoupper(str_replace(' ', '', $response)));
-        if($p == $response)
-          return true;
-        }
-      }
-      return false;
-
    }
 
    /* Function to compare the answer with response */
@@ -981,6 +1002,50 @@ class AttemptController extends Controller
       return false;
    }
 
+   /* Function to compare the answer with response */
+   public function matchOptionsPTE($answer,$response){
+      if(strpos($answer, ',') !== false)
+        $answers = explode(",",$answer);
+      else if(strpos($answer, '/') !== false)
+        $answers = explode("/",$answer);
+
+      $score =0;
+      /* multi answer if response is array */
+      if(is_array($response)){
+        
+        if(strpos($answer, '/') !== false){
+            $res = implode("/",$response);
+            if($res == $answer)
+              return true;
+        }
+
+        
+          foreach($response as $resp){
+            if(is_int($resp))
+            {
+
+            }else{
+                if(strpos($answer, $resp) !== FALSE){
+                  $score++;
+                }else{
+                    $score--;
+                }
+            }
+            
+          }
+        return $score;
+        
+        
+      }else{
+        $answer = trim(strtoupper(str_replace(' ', '', $answer)));
+        $response = trim(strtoupper(str_replace(' ', '', $response)));
+        if($answer==$response)
+          $score++;
+
+          return $score;
+      }
+      return $score;
+   }
    
 
    /* Function to display the analysis of the test */
