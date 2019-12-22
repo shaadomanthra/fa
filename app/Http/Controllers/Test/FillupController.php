@@ -41,7 +41,7 @@ class FillupController extends Controller
                     ->orWhere('suffix','LIKE',"%{$item}%")
                      ->orWhere('answer','LIKE',"%{$item}%")
                     ->orWhere('label','LIKE',"%{$item}%");
-                    })->orderBy('extract_id', 'ASC')
+                    })
                     ->orderBy('sno','asc')
                     ->paginate(config('global.no_of_records'));   
                    
@@ -67,10 +67,15 @@ class FillupController extends Controller
 
 
         /* add the serial number */
-        if(Obj::where('test_id',$test_id)->orderBy('id','desc')->first())
-            $this->sno = Obj::where('test_id',$test_id)->orderBy('id','desc')->first()->sno+1;
-        else
+        if(Obj::where('test_id',$test_id)->orderBy('id','desc')->first()){
+            $f = Obj::where('test_id',$test_id)->orderBy('id','desc')->first();
+            $this->sno = $f->sno+1;
+            $this->qno = $f->qno+1;
+        }
+        else{
             $this->sno = 1;
+            $this->qno = 1;
+        }
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
         $sections = Section::where('test_id',$this->test->id)->get();
