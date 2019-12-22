@@ -45,6 +45,11 @@
               <div class="">&nbsp;&nbsp;&nbsp; Band &nbsp;&nbsp;&nbsp;</div>
               <div class="display-4">{{ $band }} </div>
             </div>
+            @elseif($points)
+            <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded mr-0 mr-md-4">
+              <div class="">&nbsp;&nbsp;&nbsp; Points &nbsp;&nbsp;&nbsp;</div>
+              <div class="display-4">{{ $points }} </div>
+            </div>
             @endif
           </div>
         </div>

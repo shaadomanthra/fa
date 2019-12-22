@@ -746,6 +746,7 @@ class AttemptController extends Controller
       if($request->get('admin')){
 
         $band =0;
+        $points = 0;
         $type = strtolower($test->testtype->name);
         if(strtoupper($test->category->name)=='IELTS'){
         if($type=='listening' || $type=='reading'){
@@ -756,6 +757,17 @@ class AttemptController extends Controller
           else
           $s = $score;
           $band = $attempt->$function_name($s);
+
+          }
+        }
+
+        if(strtoupper($test->category->name)=='PTE'){
+          $points =10;
+          if($type=='listening' || $type=='reading'){
+
+          if($test->marks)
+            $points = $points + round($score * (int)(80/$test->marks));
+          
 
           }
         }
@@ -775,6 +787,7 @@ class AttemptController extends Controller
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('points',$points)
               ->with('tags',$tags)
               ->with('secs',$secs)
               ->with('admin',1)
@@ -1062,6 +1075,7 @@ class AttemptController extends Controller
       }
 
       $band =0;
+      $points =0;
       $type = strtolower($test->testtype->name);
       if(strtoupper($test->category->name)=='IELTS'){
       if($type=='listening' || $type=='reading'){
@@ -1074,6 +1088,17 @@ class AttemptController extends Controller
         $band = $attempt->$function_name($s);
       }
       }
+
+      if(strtoupper($test->category->name)=='PTE'){
+          $points =10;
+          if($type=='listening' || $type=='reading'){
+
+          if($test->marks)
+            $points = $points + round($score * (int)(80/$test->marks));
+          
+
+          }
+        }
 
      $tags = Attempt::tags($result);
      $secs = $this->graph($tags);
@@ -1089,6 +1114,7 @@ class AttemptController extends Controller
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('points',$points)
               ->with('tags',$tags)
               ->with('secs',$secs)
               ->with('score',$score);
