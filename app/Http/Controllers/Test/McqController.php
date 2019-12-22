@@ -65,10 +65,15 @@ class McqController extends Controller
         $this->authorize('create', $obj);
 
         /* add the serial number */
-        if(Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first())
-            $this->sno = Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first()->sno+1;
-        else
+        if(Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first()){
+            $m = Obj::orderBy('id','desc')->where('test_id',$this->test->id)->first();
+            $this->qno = $m->qno +1;
+            $this->sno = $m->sno+1;
+        }
+        else{
+            $this->qno =1;
             $this->sno = 1;
+        }
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
         $sections = Section::where('test_id',$this->test->id)->get();

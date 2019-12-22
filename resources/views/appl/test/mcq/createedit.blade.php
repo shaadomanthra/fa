@@ -22,7 +22,7 @@
         <label for="formGroupExampleInput ">Qno</label>
         <input type="text" class="form-control" name="qno" id="formGroupExampleInput" placeholder="Enter the Question number" 
             @if($stub=='Create')
-            value="{{ (old('qno')) ? old('qno') : '' }}"
+            value="{{ (old('qno')) ? old('qno') : $app->qno }}"
             @else
             value = "{{ $obj->qno }}"
             @endif

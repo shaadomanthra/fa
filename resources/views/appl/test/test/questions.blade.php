@@ -21,7 +21,22 @@
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
           <a class="navbar-brand"><i class="fa fa-bars"></i>  Questions </a>
 
+          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+
+ 
+           <div class="btn " role="group">
+    <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      Create
+    </button>
+    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+      <a class="dropdown-item" href="{{ route('mcq.create',$test->id)}}">MCQ</a>
+      <a class="dropdown-item" href="{{ route('fillup.create',$test->id)}}">Fillup</a>
+    </div>
+  </div>
+
+
           <form class="form-inline" method="GET" action="{{ route('test.questions',$test->id) }}">
+
 
             
             <div class="input-group ">
