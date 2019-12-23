@@ -174,17 +174,10 @@ class AttemptController extends Controller
 
             if($testtype=='writing' || $testtype == 'speaking')
             {
-               if(!strip_tags($test->instructions)){
-                if($product)
-                  return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
-                else
-                  return redirect()->route('test.try',['test'=>$this->test->slug]);
-              }else{
-                return view('appl.test.attempt.alerts.instructions')
-                ->with('test',$test)
-                ->with('product',$product)
-                ->with('app',$this);
-              }
+              if($product)
+                return redirect()->route('test.try',['test'=>$this->test->slug,'product'=>$product->slug]);
+              else
+                return redirect()->route('test.try',['test'=>$this->test->slug]);
             }else{
               if($product)
                 return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
