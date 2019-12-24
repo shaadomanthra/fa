@@ -174,6 +174,15 @@ class ProductController extends Controller
                 $request->merge(['slug' => strtolower(str_replace(' ','-',$request->get('name')))]);
             }
 
+            if($request->get('slug')){
+                $exists = Obj::where('slug',$request->get('slug'))->first();
+                if($exists)
+                {
+                  flash('Slug ('.$request->get('slug').') already in use. Kindly use a different slug.')->error();
+                 return redirect()->back()->withInput(); 
+                }
+            }
+
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
