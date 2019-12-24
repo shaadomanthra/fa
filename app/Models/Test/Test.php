@@ -3,9 +3,12 @@
 namespace App\Models\Test;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Test extends Model
 {
+    use Sortable;
+
     protected $fillable = [
         'name',
         'slug',

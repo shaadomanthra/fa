@@ -61,7 +61,7 @@ class TestController extends Controller
         $search = $request->search;
         $item = $request->item;
 
-        $objs = $obj->where('name','LIKE',"%{$item}%")
+        $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records')); 
 

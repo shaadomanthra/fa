@@ -85,7 +85,7 @@ class ProductController extends Controller
             flash('Product Pages Cache Updated')->success();
         }
             
-        $objs = $obj->where('name','LIKE',"%{$item}%")
+        $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         

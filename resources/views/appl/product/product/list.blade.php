@@ -5,10 +5,10 @@
             <thead>
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
-                <th scope="col">Name </th>
-                <th scope="col">Price</th>
-                <th scope="col">Status</th>
-                <th scope="col">Created at</th>
+                <th scope="col">@sortablelink('name') </th>
+                <th scope="col">@sortablelink('price')</th>
+                <th scope="col">@sortablelink('status')</th>
+                <th scope="col">@sortablelink('created_at','Created')</th>
               </tr>
             </thead>
             <tbody>
