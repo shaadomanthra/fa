@@ -181,6 +181,11 @@ class ProductController extends Controller
                 $request->merge(['image' => $path]);
             }
 
+            if(!$request->get('price')){
+                
+                $request->merge(['price' => 0]);
+            }
+
             /* create a new entry */
             $obj->create($request->except(['groups','file','tests']));
 
