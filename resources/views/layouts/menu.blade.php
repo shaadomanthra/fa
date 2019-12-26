@@ -19,7 +19,7 @@
 
                 @auth
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-home"></i> Dashboard</a>
+                    <a class="nav-link" href="{{ url('/home') }}"><i class="fa fa-home"></i> Dashboard </a>
                 </li>
                 @endauth
 

@@ -38,6 +38,8 @@ class AuthServiceProvider extends ServiceProvider
          \App\Models\Admin\Form::class => \App\Policies\Admin\FormPolicy::class,
          \App\Models\Admin\Prospect::class => \App\Policies\Admin\ProspectPolicy::class,
          \App\Models\Admin\Followup::class => \App\Policies\Admin\FollowupPolicy::class,
+
+         \App\Models\Admin\Page::class => \App\Policies\Admin\PagePolicy::class,
     ];
 
     /**

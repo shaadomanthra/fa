@@ -32,6 +32,13 @@
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
 
+    @if(isset($code))
+  <link href="{{asset('js/codemirror/lib/codemirror.css')}}" rel="stylesheet">
+  <link href="{{asset('js/codemirror/theme/monokai.css')}}" rel="stylesheet">
+  <link href="{{asset('js/highlight/styles/default.css')}}" rel="stylesheet">
+  <link href="{{asset('js/highlight/styles/tomorrow.css')}}" rel="stylesheet">
+  @endif
+
     @if(isset($try))
       <script type="text/x-mathjax-config">
           MathJax.Hub.Config({

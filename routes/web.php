@@ -67,6 +67,13 @@ Route::resource('/admin/user', 'User\UserController')->middleware('auth');
 Route::get('/admin/user/{user}/{test}','User\UserController@test')->middleware('auth')->name('user.test');
 Route::post('/admin/user/{user}/{test}','User\UserController@test')->middleware('auth')->name('user.test');
 
+/* Editor routes */
+Route::get('/admin/editor','Admin\EditorController@index')->middleware('auth')->name('editor.index');
+Route::get('/admin/editor/page','Admin\EditorController@page')->middleware('auth')->name('editor.page');
+Route::post('/admin/editor/page','Admin\EditorController@page')->middleware('auth')->name('editor.post');
+
+
+
 /* Test Attempt Routes */
 Route::get('/test/','Test\TestController@public')->name('tests');
 Route::get('/test/{test}','Test\TestController@details')->name('test');
@@ -123,6 +130,10 @@ Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('ema
 
 Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify');
 
+
+/* Page Routes */
+Route::resource('/admin/page', 'Admin\PageController')->middleware('auth');
+Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */
 Route::get('/learnersclub', function(){
     return view('appl.pages.lclub');

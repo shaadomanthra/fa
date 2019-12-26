@@ -1,5 +1,32 @@
 
 
+@if(isset($code))
+<!-- Codemirror-->
+<script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
+<script src="{{asset('js/codemirror/lib/codemirror.js')}}"></script>  
+<script src="{{asset('js/codemirror/mode/xml/xml.js')}}"></script>  
+<script src="{{asset('js/codemirror/mode/javascript/javascript.js')}}"></script> 
+<script src="{{asset('js/codemirror/mode/clike/clike.js')}}"></script>  
+<script src="{{asset('js/codemirror/addon/display/autorefresh.js')}}"></script>  
+<script src="{{asset('js/codemirror/mode/markdown/markdown.js')}}"></script>  
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var options = {
+          lineNumbers: true,
+          styleActiveLine: true,
+          matchBrackets: true,
+          autoRefresh:true,
+          mode: "text/x-c++src",
+          theme: "monokai",
+          indentUnit: 4
+        };
+  if(document.getElementById("code"))
+    var editor = CodeMirror.fromTextArea(document.getElementById("code"), options);
+});
+</script>
+@endif
+
 
 @if(isset($editor))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
