@@ -84,7 +84,7 @@ class PageController extends Controller
             $obj = $obj->create($request->all());
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
-            return redirect()->route($this->module.'.view');
+            return redirect()->route($this->module.'.view',$obj->slug);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];
