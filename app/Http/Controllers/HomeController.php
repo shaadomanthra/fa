@@ -159,8 +159,8 @@ class HomeController extends Controller
             }    
         }
 
-        $tests = Test::whereIn('id',$test_ids)->where('name','LIKE',"%{$item}%")->get();
-        $products = Product::whereIn('id',$product_ids)->where('name','LIKE',"%{$item2}%")->get();
+        $tests = Test::whereIn('id',$test_ids)->where('name','LIKE',"%{$item}%")->orderBy('name')->get();
+        $products = Product::whereIn('id',$product_ids)->where('name','LIKE',"%{$item2}%")->orderBy('name')->get();
 
         
         $attempts = Attempt::where('user_id',\auth::user()->id)->whereIn('test_id',$test_ids)->get()->pluck('test_id')->toArray();
