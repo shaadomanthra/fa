@@ -130,9 +130,17 @@ Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('ema
 
 Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify');
 
+/* Blog Routes */
+Route::resource('/admin/blog', 'Blog\BlogController')->middleware('auth');
+Route::resource('/admin/label', 'Blog\labelController')->middleware('auth');
+Route::resource('/admin/collection', 'Blog\CollectionController')->middleware('auth');
 
 /* Page Routes */
 Route::resource('/admin/page', 'Admin\PageController')->middleware('auth');
+
+
+
+
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */
 Route::get('/learnersclub', function(){

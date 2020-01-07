@@ -40,6 +40,10 @@ class AuthServiceProvider extends ServiceProvider
          \App\Models\Admin\Followup::class => \App\Policies\Admin\FollowupPolicy::class,
 
          \App\Models\Admin\Page::class => \App\Policies\Admin\PagePolicy::class,
+
+         \App\Models\Blog\Blog::class => \App\Policies\Blog\BlogPolicy::class,
+         \App\Models\Blog\Label::class => \App\Policies\Blog\LabelPolicy::class,
+         \App\Models\Blog\Collection::class => \App\Policies\Blog\CollectionPolicy::class,
     ];
 
     /**
