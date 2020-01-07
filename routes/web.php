@@ -132,7 +132,7 @@ Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify'
 
 /* Blog Routes */
 Route::resource('/admin/blog', 'Blog\BlogController')->middleware('auth');
-Route::resource('/admin/label', 'Blog\labelController')->middleware('auth');
+Route::resource('/admin/label', 'Blog\LabelController')->middleware('auth');
 Route::resource('/admin/collection', 'Blog\CollectionController')->middleware('auth');
 
 /* Page Routes */
