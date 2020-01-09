@@ -6,7 +6,6 @@
 <nav aria-label="">
   <ol class="breadcrumb p-0 pb-3 m-2" style="background: transparent;">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
     <li class="breadcrumb-item">{{ $obj->title }}</li>
   </ol>
@@ -21,19 +20,20 @@
             
           <p class="h1 mb-0"><b> {{ $obj->title }} </b> 
 
-          @can('update',$obj)
+          @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               
-               @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
+              @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
               <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
               @endif
               @if(\auth::user()->admin==1)
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
               @endif
             </span>
-            @endcan
+            @endif
+           
           </p>
-          <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj['created_at'])->format('M d Y') }} &nbsp;&nbsp;
+          <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
 
             @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
             @foreach($obj->categories as $cat)
@@ -115,15 +115,7 @@ fine tune your timing, it does not equate with a good score. </p>
 
       <div class="col-12 col-md-3">    
             <div class="h3  pb-3">Read about</div>
-             <div class="list-group mb-4">
-  <a href="#" class="list-group-item list-group-item-action  list-group-item-primary">
-    General Interest
-  </a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">GRE</a>
-  <a href="#" class="list-group-item list-group-item-action active list-group-item-primary">IELTS</a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">PTE</a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-primary" tabindex="-1" aria-disabled="true">OET</a>
-</div>
+          @include('appl.blog.snippets.categories')
 
       <div class="h3 pt-3 pb-3" >Other posts</div>
              <div class="list-group mb-4">

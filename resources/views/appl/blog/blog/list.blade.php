@@ -1,54 +1,32 @@
 
  @if($objs->total()!=0)
-        <div class="table-responsive">
-          <table class="table table-bordered mb-0">
-            <thead>
-              <tr>
-                <th scope="col">#({{$objs->total()}})</th>
-                <th scope="col">Title </th>
-                <th scope="col">Category</th>
-                <th scope="col">status</th>
-                <th scope="col">Created </th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($objs as $key=>$obj)  
-              <tr>
-                <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
-                <td>
-                  <a href=" {{ route($app->module.'.show',$obj->slug) }} ">
-                  {{ $obj->title }}
-                  </a>
-                </td>
-                <td>
-                @if(count($obj->categories)!=0)
-                @foreach($obj->categories as $cat)
-                  <span class="badge badge-success">{{$cat->name}}</span>
-                @endforeach
-                @else
-                -
-                @endif
-                </td>
-                <td>
-                  @if($obj->status==0)
-                  <span class="badge badge-warning">Inactive</span>
-                  @else
-                  <span class="badge badge-success"> Active</span>
-                  @endif
-                </td>
+ @foreach($objs as $key=>$obj) 
+ <div class="mb-4 mt-4">
+  <a href=" {{ route('page.view',$obj->slug) }} ">
+  <h3>  <b>{{ $obj->title }}</b></h3>
+  </a>
+  <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
 
-                <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
-                
-              </tr>
-              @endforeach      
-            </tbody>
-          </table>
-        </div>
+            @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
+            @foreach($obj->categories as $cat)
+              <span class="badge badge-success">{{$cat->name}}</span>
+            @endforeach
+            @endif
+          </div>
+          <div class="body mt-3 mb-4" style="font-size:17px;line-height: 25px">
+              {!! substr(strip_tags($obj->body),0,500) !!}
+             </div>
+
+             <button class="btn btn-primary btn-lg mb-2">readmore <i class="fa fa-angle-right"></i></button>  
+</div>
+<hr>
+  @endforeach
+       
         @else
         <div class="card card-body bg-light">
-          No {{ $app->module }} found
+          No blogs found
         </div>
         @endif
-        <nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif">
+        <nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-4 @endif">
         {{$objs->appends(request()->except(['page','search']))->links()  }}
       </nav>

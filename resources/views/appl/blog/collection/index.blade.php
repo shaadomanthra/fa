@@ -3,12 +3,11 @@
 @section('description', 'categories for blog')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
+<nav aria-label="">
+  <ol class="breadcrumb p-0 pb-3 m-2" style="background: transparent;">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
-    <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
-    <li class="breadcrumb-item"><a href="{{ url('/admin/blog')}}">Blog</a></li>
-    <li class="breadcrumb-item">Category</li>
+    <li class="breadcrumb-item"><a href="{{ url('/blog')}}">Blog</a></li>
+    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">Category</a></li>
   </ol>
 </nav>
 

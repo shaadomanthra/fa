@@ -15,6 +15,7 @@ class BlogController extends Controller
      public function __construct(){
         $this->app      =   'blog';
         $this->module   =   'blog';
+        $this->cache_path =  '../storage/app/cache/pages/';
     }
 
     /**
@@ -36,9 +37,24 @@ class BlogController extends Controller
                     ->paginate(config('global.no_of_records'));   
         $view = $search ? 'list': 'index';
 
+        $categories = Collection::get();
+
+        /* update in cache folder */
+        if($request->refresh){
+            foreach($objs as $obj){ 
+                $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+            }
+            flash('Blog Cache Updated')->success();
+        }
+
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('categories',$categories)
                 ->with('app',$this);
     }
 
@@ -84,8 +100,19 @@ class BlogController extends Controller
                 $arr["message"] = "Title cannot be empty";
             }
 
+            if (!$request->get('meta_title')) {
+                $arr["error"] =1;
+                $arr["message"] = "Meta Title cannot be empty";
+            }
+
+            if (!$request->get('meta_description')) {
+                $arr["error"] =1;
+                $arr["message"] = "Meta description cannot be empty";
+            }
+
+
             if(!$request->get('slug')){
-                $request->merge(['slug' => strtolower(str_replace(' ','-',$request->get('name')))]);
+                $request->merge(['slug' => strtolower(str_replace(' ','-',$request->get('title')))]);
             }
 
             $blog_exists = $obj->where('slug',$request->get('slug'))->first();
@@ -99,6 +126,8 @@ class BlogController extends Controller
                 $file      = $request->all()['file'];
                 $path = Storage::disk('public')->putFile('images', $request->file('file'));
                 $request->merge(['image' => $path]);
+            }else{
+                $request->merge(['image' => ' ']);
             }
             
 
@@ -107,6 +136,7 @@ class BlogController extends Controller
                      return redirect()->back()->withInput();;
             }
             
+
             $categories = $request->get('category');
             $tags = $request->get('tag');
 
@@ -149,12 +179,21 @@ class BlogController extends Controller
      */
     public function show($slug)
     {
-        $obj = Obj::where('slug',$slug)->first();
-   
+        $filename = $slug.'.json';
+        $filepath = $this->cache_path.$filename;
+
+        if(Storage::disk('cache')->exists('pages/'.$filename))
+        {
+            $obj = json_decode(file_get_contents($filepath));
+        }else
+            $obj = Obj::where('slug',$slug)->first();
+
+        $categories = Collection::get();
+
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
         else
             abort(404);
     }

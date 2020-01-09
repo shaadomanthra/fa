@@ -196,10 +196,16 @@ class ProspectController extends Controller
                 $request->merge(['email'=>' ']);
             }
 
+            //dd($request->all());
             $obj->update($request->all()); 
 
             if($request->get('comment') || $request->get('schedule') ){
                 $f = Followup::where('prospect_id',$id)->first();
+                if(!$f){
+                    $f = new Followup();
+                    $f->prospect_id = $id;
+                    $f->user_id = $request->get('user_id');
+                }
                 $f->comment = ($request->get('comment'))?$request->get('comment'):'- None -';
                 $f->schedule = $request->get('schedule');
                 $f->save();

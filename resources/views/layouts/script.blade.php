@@ -945,7 +945,7 @@ $( function() {
 @if(isset($timer))
 @if($time)
 <script type="application/javascript">
-// Set the date we're counting down to
+// Set the datetimepicker we're counting down to
 @if(isset($time))
   var countDownDate = addMinutes(new Date(),{{ ($time) }});
 @endif
@@ -1093,7 +1093,7 @@ window.onerror = function(errorMsg) {
 
 $.datetimepicker.setLocale('en');
 
-$('#datetimepicker_format').datetimepicker({value:'2019/08/15 05:03', format: $("#datetimepicker_format_value").val()});
+$('#datetimepicker_format').datetimepicker({value:'2019-08-15 05:03', format: $("#datetimepicker_format_value").val()});
 console.log($('#datetimepicker_format').datetimepicker('getValue'));
 
 $("#datetimepicker_format_change").on("click", function(e){
@@ -1103,7 +1103,10 @@ $("#datetimepicker_format_locale").on("change", function(e){
   $.datetimepicker.setLocale($(e.currentTarget).val());
 });
 
-$('#datetimepicker').datetimepicker();
+$('#datetimepicker').datetimepicker({timepicker:false,
+ format:'Y-m-d H:i:s'});
+$('#datetimepicker_2').datetimepicker({timepicker:false,
+ format:'Y-m-d H:i:s'});
 /*
 $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+{{date("d")}}+' 16:03', step:10});  */
  

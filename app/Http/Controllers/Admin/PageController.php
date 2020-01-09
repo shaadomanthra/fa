@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Page as Obj;
+use App\Models\Blog\Blog;
+use App\Models\Blog\Collection;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -109,25 +111,41 @@ class PageController extends Controller
         if(Storage::disk('cache')->exists('pages/'.$filename))
         {
             $obj = json_decode(file_get_contents($filepath));
-        }else
+        }else{
+
             $obj = Obj::where('slug',$slug)->first();
+
+            if(!$obj){
+                 $obj = Blog::where('slug',$slug)->first();
+                 
+            }
+        }
+
+        $categories = null;
+        if(isset($obj->title)){
+            $categories = Collection::get();
+            $this->app = 'blog';
+            $this->module = 'blog';
+        }
+
+        
 
         if($obj){
             if(\auth::user())
                 if(\auth::user()->admin==1)
                     return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
                 else{
                     if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('app',$this);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
                     else
                       abort(404);
                 }
             else{
                 if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('app',$this);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
                     else
                       abort(404);
             }

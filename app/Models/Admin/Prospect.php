@@ -19,10 +19,13 @@ class Prospect extends Model
         'center',
         'contacted',
         'status',
-        'user_id'
+        'user_id',
+        'created_at'
 
         // add all other fields
     ];
+
+    public $timestamps = true;
 
     public function followups()
     {

@@ -38,15 +38,17 @@
           </div>
 
           <div class="form-group">
-            <label for="formGroupExampleInput ">Email</label>
-            <input type="text" class="form-control" name="email" id="formGroupExampleInput" placeholder="Enter the Email" 
+            <label for="formGroupExampleInput ">Phone</label>
+            <input type="text" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter the phone number" 
                 @if($stub=='Create')
-                value="{{ (old('email')) ? old('email') : '' }}"
+                value="{{ (old('phone')) ? old('phone') : '' }}"
                 @else
-                value = "{{ $obj->email }}"
+                value = "{{ $obj->phone }}"
                 @endif
               >
           </div>
+
+          
 
            <div class="form-group">
               <label for="formGroupExampleInput ">Course</label>
@@ -57,6 +59,8 @@
                 <option value="ielts-gre" @if(isset($obj)) @if($obj->course=='ielts-gre') selected @endif @endif >IELTS & GRE</option>
                 <option value="pte" @if(isset($obj)) @if($obj->course=='pte') selected @endif @endif >PTE</option>
                 <option value="oet" @if(isset($obj)) @if($obj->course=='oet') selected @endif @endif >OET</option>
+                <option value="toefl" @if(isset($obj)) @if($obj->course=='toefl') selected @endif @endif >TOEFL</option>
+                <option value="sat" @if(isset($obj)) @if($obj->course=='sat') selected @endif @endif >SAT</option>
               </select>
             </div>
 
@@ -77,6 +81,8 @@
                 <option value="speaking" @if(isset($obj)) @if($obj->module=='speaking') selected @endif @endif >Speaking</option>
                 <option value="reading" @if(isset($obj)) @if($obj->module=='reading') selected @endif @endif >Reading</option>
                 <option value="writing" @if(isset($obj)) @if($obj->module=='writing') selected @endif @endif >Writing</option>
+                <option value="verbal" @if(isset($obj)) @if($obj->module=='verbal') selected @endif @endif >Verbal</option>
+                <option value="quant" @if(isset($obj)) @if($obj->module=='quant') selected @endif @endif >Quant</option>
               </select>
             </div>
 
@@ -104,17 +110,17 @@
         </div>
         <div class="col-12 col-md-6">
           
-
           <div class="form-group">
-            <label for="formGroupExampleInput ">Phone</label>
-            <input type="text" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter the phone number" 
+            <label for="formGroupExampleInput ">Email</label>
+            <input type="text" class="form-control" name="email" id="formGroupExampleInput" placeholder="Enter the Email" 
                 @if($stub=='Create')
-                value="{{ (old('phone')) ? old('phone') : '' }}"
+                value="{{ (old('email')) ? old('email') : '' }}"
                 @else
-                value = "{{ $obj->phone }}"
+                value = "{{ $obj->email }}"
                 @endif
               >
           </div>
+          
           <div class="form-group">
               <label for="formGroupExampleInput ">Source</label>
               <select class="form-control" name="source">
@@ -125,6 +131,7 @@
                 <option value="contact-form" @if(isset($obj)) @if($obj->source=='contact-form') selected @endif @endif > Contact Form </option>
                 <option value="packetprep" @if(isset($obj)) @if($obj->source=='packetprep') selected @endif @endif > PacketPrep </option>
                 <option value="email" @if(isset($obj)) @if($obj->source=='email') selected @endif @endif > email </option>
+                <option value="just-dial" @if(isset($obj)) @if($obj->source=='jsut-dial') selected @endif @endif > Just Dial</option>
                 <option value="other-consultancy" @if(isset($obj)) @if($obj->source=='other-consultancy') selected @endif @endif > Other Consultancy</option>
               </select>
             </div>
@@ -166,7 +173,11 @@
 
           <div class="form-group">
             <label for="formGroupExampleInput ">Schedule Followup Call (optional)</label>
-            <input type="text" class=" form-control" value="@if($followup->schedule) {{$followup->schedule}} @endif" name="schedule" id="datetimepicker"/>
+            <input type="text" class=" form-control" value="@if($followup) {{$followup->schedule}} @endif" name="schedule" id="datetimepicker"/>
+          </div>
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Enquiry Date</label>
+            <input type="text" class=" form-control" value="@if($obj->created_at) {{$obj->created_at}} @endif" name="created_at" id="datetimepicker_2"/>
           </div>
 
         </div>
