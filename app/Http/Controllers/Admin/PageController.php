@@ -117,12 +117,13 @@ class PageController extends Controller
 
             if(!$obj){
                  $obj = Blog::where('slug',$slug)->first();
-                 
             }
         }
 
+        //dd($obj->title);
+
         $categories = null;
-        if(isset($obj->title)){
+        if(!isset($obj->description)){
             $categories = Collection::get();
             $this->app = 'blog';
             $this->module = 'blog';
