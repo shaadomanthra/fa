@@ -267,7 +267,7 @@ class ProductController extends Controller
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
 
-        ;
+        
         if(Storage::disk('cache')->exists('product/'.$filename))
         {
             $obj = json_decode(file_get_contents($filepath));

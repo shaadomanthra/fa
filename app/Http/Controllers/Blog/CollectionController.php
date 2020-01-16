@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Blog\Collection as Obj;
+use App\Models\Blog\Blog;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 
@@ -13,6 +14,7 @@ class CollectionController extends Controller
      public function __construct(){
         $this->app      =   'blog';
         $this->module   =   'collection';
+        $this->cache_path =  '../storage/app/cache/pages/';
     }
 
     /**
@@ -36,6 +38,96 @@ class CollectionController extends Controller
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
+
+    public function list($slug,Request $request)
+    {
+
+        if(!$slug)
+            abort('404','Page not found');
+
+        
+        $obj = Obj::where('slug',$slug)->first();   
+        $objs = $obj->blogs()->paginate(config('global.no_of_records'));
+        
+         $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+
+
+        $this->app = 'blog';
+        $this->module = 'blog';
+        $this->name = $obj->name;
+
+        return view('appl.blog.blog.index')
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('categories',$categories)
+                ->with('dates',$dates)
+                ->with('app',$this);
+    }
+
+
+    public function year($year)
+    {
+
+        $objs = Blog::whereYear('created_at',$year)->paginate(config('global.no_of_records'));
+
+        $obj=null;
+        
+         $filename = 'dates.json';
+        $filepath = $this->cache_path.$filename;
+        $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+        
+
+        $this->app = 'blog';
+        $this->module = 'blog';
+        $this->name = $year;
+
+        return view('appl.blog.blog.index')
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('categories',$categories)
+                ->with('dates',$dates)
+                ->with('app',$this);
+
+    }
+
+    public function yearmonth($year,$month,Request $request)
+    {
+
+        $objs = Blog::whereMonth('created_at', $month)->whereYear('created_at',$year)->paginate(config('global.no_of_records'));
+
+        $obj=null;
+        
+         $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+        
+
+        $this->app = 'blog';
+        $this->module = 'blog';
+        $month = date('F', mktime(0,0,0,$month, 1, date('Y')));
+        $this->name = $year.' '.$month;
+        return view('appl.blog.blog.index')
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('categories',$categories)
+                ->with('dates',$dates)
                 ->with('app',$this);
     }
 

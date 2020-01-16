@@ -108,6 +108,12 @@ class PageController extends Controller
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
 
+        if(is_numeric($slug) && strlen($slug)==4){
+            $this->name = $slug;
+            return app('App\Http\Controllers\Blog\CollectionController')->year($slug);
+            //app()->call('App\Http\Controllers\Blog\CollectionController@year',[$slug]);
+        }
+
         if(Storage::disk('cache')->exists('pages/'.$filename))
         {
             $obj = json_decode(file_get_contents($filepath));
@@ -122,9 +128,17 @@ class PageController extends Controller
 
         //dd($obj->title);
 
-        $categories = null;
+        $categories = null;$dates=null;
         if(!isset($obj->description)){
-            $categories = Collection::get();
+
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+
             $this->app = 'blog';
             $this->module = 'blog';
         }
@@ -135,18 +149,18 @@ class PageController extends Controller
             if(\auth::user())
                 if(\auth::user()->admin==1)
                     return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
                 else{
                     if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
                     else
                       abort(404);
                 }
             else{
                 if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
                     else
                       abort(404);
             }

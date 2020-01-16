@@ -9,6 +9,10 @@ use App\Models\Blog\Label;
 use App\Models\Blog\Collection;
 use App\User;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BlogController extends Controller
 {
@@ -25,37 +29,124 @@ class BlogController extends Controller
      */
     public function index(Obj $obj,Request $request)
     {
-        $this->authorize('view', $obj);
 
         $search = $request->search;
         $item = $request->item;
         
-        $objs = $obj->where('title','LIKE',"%{$item}%")
+        $filename = 'blogindex.json';
+        $filepath = $this->cache_path.$filename;
+        if(Storage::disk('cache')->exists('pages/'.$filename) && !$request->refresh && !$search)
+        {
+            $objs = json_decode(file_get_contents($filepath));
+            $objs = $this->paginateAnswers($objs,config('global.no_of_records'));
+
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+
+
+        }else{
+            $objs = $obj->where('title','LIKE',"%{$item}%")
                     ->orWhere('slug','LIKE',"%{$item}%")
                     ->orWhere('body','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
-        $view = $search ? 'list': 'index';
+                    ->paginate(config('global.no_of_records')); 
 
-        $categories = Collection::get();
+            $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
+
+            $categories = Collection::get();
+        }
+           
+        $view = $search ? 'list': 'index';
+       
 
         /* update in cache folder */
         if($request->refresh){
+            $objs = Obj::orderBy('created_at','desc')->get();
+
             foreach($objs as $obj){ 
                 $filename = $obj->slug.'.json';
                 $filepath = $this->cache_path.$filename;
                 $obj->tags = $obj->tags;
                 $obj->categories = $obj->categories;
+                $obj->related = $obj->related();
                 file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
             }
             flash('Blog Cache Updated')->success();
+
+            //dates
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($dates,JSON_PRETTY_PRINT));
+
+            // index
+            $filename = 'blogindex.json';
+            $filepath = $this->cache_path.$filename;
+            $objs = $obj->where('title','LIKE',"%{$item}%")
+                    ->orWhere('slug','LIKE',"%{$item}%")
+                    ->orWhere('body','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->get(); 
+            foreach($objs as $obj){
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+            }
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
+
+            $objs = $obj->where('title','LIKE',"%{$item}%")
+                    ->orWhere('slug','LIKE',"%{$item}%")
+                    ->orWhere('body','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+
+            //categories
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($categories,JSON_PRETTY_PRINT));
+
+            //years
+            $years = DB::select("SELECT YEAR(created_at) AS YEAR,  COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR ORDER BY YEAR DESC");
+            foreach($years as $year){
+                
+                $items = Obj::whereYear('created_at',$year->YEAR)->get();
+                foreach($items as $obj){
+                    $obj->tags = $obj->tags;
+                    $obj->categories = $obj->categories;
+                }
+                $filename = $year->YEAR.'.json';
+                $filepath = $this->cache_path.$filename;
+                file_put_contents($filepath, json_encode($items,JSON_PRETTY_PRINT));
+            }
+            
         }
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
+                ->with('dates',$dates)
                 ->with('obj',$obj)
                 ->with('categories',$categories)
                 ->with('app',$this);
+    }
+
+    protected function paginateAnswers(array $answers, $perPage = 10)
+    {
+        $page = Input::get('page', 1);
+
+        $offset = ($page * $perPage) - $perPage;
+
+        $paginator = new LengthAwarePaginator(
+            array_slice($answers, $offset, $perPage, true),
+            count($answers),
+            $perPage,
+            $page,
+            ['path' => request()->url(), 'query' => request()->query()]
+        );
+
+        return $paginator;
     }
 
     /**
@@ -121,6 +212,14 @@ class BlogController extends Controller
                 $arr["message"] = 'Blog('.$blog_exists->slug.') slug already exists in database. ';
             }
 
+            if(!$request->get('created_at')){
+                $request->merge(['created_at' => date('Y-m-d H:i:s')]);
+            }
+
+            if(!$request->get('meta_title')){
+                $request->merge(['meta_title' => $request->get('title')]);
+            }
+
             /* If image is given upload and store path */
             if(isset($request->all()['file'])){
                 $file      = $request->all()['file'];
@@ -144,6 +243,7 @@ class BlogController extends Controller
             $id = $obj->create($request->all())->id;
 
 
+            $obj = Obj::where('id',$id)->first();
             // create tags
             if($tags)
             foreach($tags as $tag){
@@ -157,6 +257,32 @@ class BlogController extends Controller
                 if(!$obj->categories->contains($category))
                     $obj->categories()->attach($category);
             }
+
+            //update cachec
+                $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+                $obj->related = $obj->related();
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+        
+            //all cache update
+            $objs = Obj::orderBy('created_at','desc')->get();
+            foreach($objs as $obj){ 
+                $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+                $obj->related = $obj->related();
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+            }
+
+            //dates
+            $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($dates,JSON_PRETTY_PRINT));
+        
 
             
             flash('A new blog ('.$request->get('slug').') item is created!')->success();
@@ -182,18 +308,32 @@ class BlogController extends Controller
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
 
+
+
         if(Storage::disk('cache')->exists('pages/'.$filename))
         {
             $obj = json_decode(file_get_contents($filepath));
-        }else
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = json_decode(file_get_contents($filepath));
+
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = json_decode(file_get_contents($filepath));
+
+        }else{
+
             $obj = Obj::where('slug',$slug)->first();
 
-        $categories = Collection::get();
+            $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
 
-        $this->authorize('view', $obj);
+            $categories = Collection::get();
+        }
+
+
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
         else
             abort(404);
     }
@@ -295,9 +435,23 @@ class BlogController extends Controller
                 $obj->labels()->detach();
             } 
             
+            //update cache
+            $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+                 $obj->related = $obj->related();
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+        
+            //dates
+            $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($dates,JSON_PRETTY_PRINT));
+
 
             flash('('.$obj->slug.') blog item is updated!')->success();
-            return redirect()->route($this->module.'.show',$obj->slug);
+            return redirect()->route('page.view',$obj->slug);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];

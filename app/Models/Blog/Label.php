@@ -15,6 +15,6 @@ class Label extends Model
 
     public function blogs()
     {
-        return $this->belongsTo('App\Models\Blog\Blog');
+        return $this->belongsToMany('App\Models\Blog\Blog');
     }
 }

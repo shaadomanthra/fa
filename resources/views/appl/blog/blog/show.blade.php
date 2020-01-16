@@ -20,6 +20,7 @@
             
           <p class="h1 mb-0"><b> {{ $obj->title }} </b> 
 
+          @auth
           @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               
@@ -31,13 +32,16 @@
               @endif
             </span>
             @endif
+          @endauth
            
           </p>
           <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
 
             @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
             @foreach($obj->categories as $cat)
+            <a href="{{ route('category.list',$cat->slug)}}">
               <span class="badge badge-success">{{$cat->name}}</span>
+            </a>
             @endforeach
             @endif
           </div>
@@ -80,53 +84,26 @@ $arr = array('h' => $height, 'w' => $width );
               
               <div class="body mt-3">
               @foreach($obj->tags as $tag)
+              <a href="{{ route('tag.list',$tag->slug)}}">
               <span class="badge badge-primary">{{$tag->name}}</span>
+            </a>
             @endforeach
              </div> 
               </div>  
             </div>
 
+            @if(count($obj->related))
             <h3 class="mb-4">Related</h3>
-            <div class="row">
-              <div class="col-12 col-md-4">
-                <h5><a href="">The Best Preparation For IELTS</a></h5>
-                <p>One of the most important aspects of IELTS preparation is thoroughly understanding the pattern of the test. Knowing that there are 4 sections is easy. This is, by now, </p>
-                <span class="text-info">Jan 12 2019</span><br>
-                <span class="badge badge-success">General Interest</span>
-              </div>
-              <div class="col-12 col-md-4">
-                <h5><a href="">Task Response – IELTS Writing Task 2</a></h5>
-                <p>Select ideas that address the IELTS Writing Task 2 Topic*
-Smoking is injurious to health. This information is written everywhere, even on the cigarette packets.</p>
-                <span class="text-info">Dec 12 2019</span><br>
-                <span class="badge badge-success">Writing</span>
-              </div>
-              <div class="col-12 col-md-4">
-                <h5><a href="">10 IELTS Myths – Part 2</a></h5>
-                <p>While practicing
-sample questions is a good way to familiarise yourself with the structure and
-fine tune your timing, it does not equate with a good score. </p>
-                <span class="text-info">Feb 18 2019</span><br>
-                <span class="badge badge-success">IELTS</span>
-              </div>
-            </div>
+            @include('appl.blog.snippets.related')
+            @endif
         </div>
      
 
       <div class="col-12 col-md-3">    
-            <div class="h3  pb-3">Read about</div>
-          @include('appl.blog.snippets.categories')
-
-      <div class="h3 pt-3 pb-3" >Other posts</div>
-             <div class="list-group mb-4">
-  <a href="#" class="list-group-item list-group-item-action  list-group-item-success">
-    October 2019
-  </a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-success">August 2019</a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-success">July 2019</a>
-  <a href="#" class="list-group-item list-group-item-action active list-group-item-success">March 2019</a>
-  <a href="#" class="list-group-item list-group-item-action list-group-item-success" tabindex="-1" aria-disabled="true">January 2019</a>
-</div>
+        <div class="h3  pb-3">Read about</div>
+        @include('appl.blog.snippets.categories')
+        <div class="h3 pt-3 pb-3" >Other posts</div>
+        @include('appl.blog.snippets.dates')
 
       </div>
 

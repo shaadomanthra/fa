@@ -41,6 +41,24 @@ body {
 	font-family: 'Muli', sans-serif;
 }
 
+.headin {
+  font-weight: 200;
+  display: inline-block;
+  padding-bottom: 5px;
+  position: relative;
+}
+.headin:before{
+    content: "";
+    position: absolute;
+    width: 25%;
+    height: 10px;
+    bottom: 0;
+    left: 0%;
+    border-bottom: 5px solid #38c172;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius: 5px;
+}
+
 .btn-orange{
 	background-color: #ea7559;
 	border-color:#ef7759;

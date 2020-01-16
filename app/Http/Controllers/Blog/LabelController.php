@@ -12,6 +12,8 @@ class LabelController extends Controller
      public function __construct(){
         $this->app      =   'blog';
         $this->module   =   'label';
+        
+        $this->cache_path =  '../storage/app/cache/pages/';
     }
 
     /**
@@ -35,6 +37,37 @@ class LabelController extends Controller
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
+     public function list($slug,Request $request)
+    {
+
+        if(!$slug)
+            abort('404','Page not found');
+
+        
+        $obj = Obj::where('slug',$slug)->first();   
+        $objs = $obj->blogs()->paginate(config('global.no_of_records'));
+        
+        $filename = 'dates.json';
+        $filepath = $this->cache_path.$filename;
+        $dates = json_decode(file_get_contents($filepath));
+
+        $filename = 'categories.json';
+        $filepath = $this->cache_path.$filename;
+        $categories = json_decode(file_get_contents($filepath));
+
+
+        $this->app = 'blog';
+        $this->module = 'blog';
+        $this->name = $obj->name;
+
+        return view('appl.blog.blog.index')
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('categories',$categories)
+                ->with('dates',$dates)
                 ->with('app',$this);
     }
 

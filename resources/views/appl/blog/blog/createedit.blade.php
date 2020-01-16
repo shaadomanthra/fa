@@ -186,6 +186,10 @@
             <label for="formGroupExampleInput ">Schedule (optional)</label>
             <input type="text" class=" form-control" value="@if($obj->schedule) {{$obj->schedule}} @endif" name="schedule" id="datetimepicker"/>
           </div>
+           <div class="form-group">
+            <label for="formGroupExampleInput ">created on </label>
+            <input type="text" class=" form-control" value="@if($obj->created_at) {{$obj->created_at}} @endif" name="created_at" id=""/>
+          </div>
           <div class="form-group">
             <label for="formGroupExampleInput ">Meta Description (SEO)</label>
             <textarea class="form-control " name="meta_description"  rows="3">@if($stub=='Create'){{ (old('meta_description')) ? old('meta_description') : '' }}@else {{ $obj->meta_description }} @endif</textarea>
@@ -198,6 +202,7 @@
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">
       @endif
+        <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-success">Save</button>
     </form>
