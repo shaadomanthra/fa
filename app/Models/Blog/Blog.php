@@ -57,16 +57,25 @@ class Blog extends Model
         $items=[];
         if($this->categories->first()){
           $coll = $this->categories->first();
-          $items = $coll->blogs()->where('id','!=',$this->id)->limit(3)->get(); 
+          $items = $coll->blogs()->where('id','!=',$this->id)
+                        ->where('status',1)
+                        ->whereDate('created_at', '>=',date('Y-m-d H:i:s'))
+                        ->limit(3)->get(); 
         }
 
         if(count($items)<4 && $this->tags->first()){
             $tag= $this->tags->first();
-            $items = $tag->blogs()->where('id','!=',$this->id)->limit(3)->get(); 
+            $items = $tag->blogs()->where('id','!=',$this->id)
+                        ->where('status',1)
+                        ->whereDate('created_at', '>=',date('Y-m-d H:i:s'))
+                         ->limit(3)->get(); 
         }
 
         if(count($items)<4){
-          $items = $this->where('id','!=',$this->id)->limit(3)->get();
+          $items = $this->where('id','!=',$this->id)
+                    ->where('status',1)
+                        ->whereDate('created_at', '<=',date('Y-m-d H:i:s'))
+                        ->limit(3)->get();
         }
 
         foreach($items as $item){

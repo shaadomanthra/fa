@@ -184,12 +184,9 @@
           </div>
           <div class="form-group">
             <label for="formGroupExampleInput ">Schedule (optional)</label>
-            <input type="text" class=" form-control" value="@if($obj->schedule) {{$obj->schedule}} @endif" name="schedule" id="datetimepicker"/>
+            <input type="text" class=" form-control" value="@if($obj->schedule) {{$obj->schedule}} @endif" name="created_at" id="datetimepicker"/>
           </div>
-           <div class="form-group">
-            <label for="formGroupExampleInput ">created on </label>
-            <input type="text" class=" form-control" value="@if($obj->created_at) {{$obj->created_at}} @endif" name="created_at" id=""/>
-          </div>
+          
           <div class="form-group">
             <label for="formGroupExampleInput ">Meta Description (SEO)</label>
             <textarea class="form-control " name="meta_description"  rows="3">@if($stub=='Create'){{ (old('meta_description')) ? old('meta_description') : '' }}@else {{ $obj->meta_description }} @endif</textarea>

@@ -1,31 +1,18 @@
 @if(isset($app->name))
   <h1 class="headin"><b>{{ $app->name}}</b></h1>
 @endif
-
+<div class="empty {{$i=0}}" ></div>
  @if($objs->total()!=0)
  @foreach($objs as $key=>$obj) 
- @if($key!=0)
- <hr>
+ @if($obj->status==1)
+   @include('appl.'.$app->app.'.'.$app->module.'.schedule')
+ @else
+  @auth
+    @if(\auth::user()->admin)
+      @include('appl.'.$app->app.'.'.$app->module.'.schedule')
+    @endif
+  @endauth
  @endif
- <div class="mb-4 mt-4">
-  <a href=" {{ route('page.view',$obj->slug) }} ">
-  <h3>  <b>{{ $obj->title }}</b></h3>
-  </a>
-  <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
-
-            @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
-            @foreach($obj->categories as $cat)
-              <span class="badge badge-success">{{$cat->name}}</span>
-            @endforeach
-            @endif
-          </div>
-          <div class="body mt-3 mb-4" style="font-size:17px;line-height: 25px">
-              {!! substr(strip_tags($obj->body),0,500) !!}
-             </div>
-             <a href=" {{ route('page.view',$obj->slug) }} ">
-             <button class="btn btn-primary btn-lg mb-2">readmore <i class="fa fa-angle-right"></i></button>  
-           </a>
-</div>
 
   @endforeach
        

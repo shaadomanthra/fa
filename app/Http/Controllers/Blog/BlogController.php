@@ -66,62 +66,14 @@ class BlogController extends Controller
 
         /* update in cache folder */
         if($request->refresh){
-            $objs = Obj::orderBy('created_at','desc')->get();
-
-            foreach($objs as $obj){ 
-                $filename = $obj->slug.'.json';
-                $filepath = $this->cache_path.$filename;
-                $obj->tags = $obj->tags;
-                $obj->categories = $obj->categories;
-                $obj->related = $obj->related();
-                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
-            }
-            flash('Blog Cache Updated')->success();
-
-            //dates
-            $filename = 'dates.json';
-            $filepath = $this->cache_path.$filename;
-            file_put_contents($filepath, json_encode($dates,JSON_PRETTY_PRINT));
-
-            // index
-            $filename = 'blogindex.json';
-            $filepath = $this->cache_path.$filename;
-            $objs = $obj->where('title','LIKE',"%{$item}%")
-                    ->orWhere('slug','LIKE',"%{$item}%")
-                    ->orWhere('body','LIKE',"%{$item}%")
-                    ->orderBy('created_at','desc')
-                    ->get(); 
-            foreach($objs as $obj){
-                $obj->tags = $obj->tags;
-                $obj->categories = $obj->categories;
-            }
-            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
+            
+            $this->refreshCache();
 
             $objs = $obj->where('title','LIKE',"%{$item}%")
                     ->orWhere('slug','LIKE',"%{$item}%")
                     ->orWhere('body','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records')); 
-
-            //categories
-            $filename = 'categories.json';
-            $filepath = $this->cache_path.$filename;
-            file_put_contents($filepath, json_encode($categories,JSON_PRETTY_PRINT));
-
-            //years
-            $years = DB::select("SELECT YEAR(created_at) AS YEAR,  COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR ORDER BY YEAR DESC");
-            foreach($years as $year){
-                
-                $items = Obj::whereYear('created_at',$year->YEAR)->get();
-                foreach($items as $obj){
-                    $obj->tags = $obj->tags;
-                    $obj->categories = $obj->categories;
-                }
-                $filename = $year->YEAR.'.json';
-                $filepath = $this->cache_path.$filename;
-                file_put_contents($filepath, json_encode($items,JSON_PRETTY_PRINT));
-            }
-            
         }
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
@@ -149,6 +101,58 @@ class BlogController extends Controller
         return $paginator;
     }
 
+
+    public function refreshCache(){
+
+            // each blog article update cache
+            $objs = Obj::orderBy('created_at','desc')->get();
+            foreach($objs as $obj){ 
+                $filename = $obj->slug.'.json';
+                $filepath = $this->cache_path.$filename;
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+                $obj->related = $obj->related();
+                file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+            }
+
+            //dates
+            $filename = 'dates.json';
+            $filepath = $this->cache_path.$filename;
+            $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
+            file_put_contents($filepath, json_encode($dates,JSON_PRETTY_PRINT));
+
+            // index
+            $filename = 'blogindex.json';
+            $filepath = $this->cache_path.$filename;
+            $objs = Obj::orderBy('created_at','desc')
+                    ->get(); 
+            foreach($objs as $obj){
+                $obj->tags = $obj->tags;
+                $obj->categories = $obj->categories;
+            }
+            file_put_contents($filepath, json_encode($objs,JSON_PRETTY_PRINT));
+
+            
+
+            //categories
+            $filename = 'categories.json';
+            $filepath = $this->cache_path.$filename;
+            $categories = Collection::get();
+            file_put_contents($filepath, json_encode($categories,JSON_PRETTY_PRINT));
+
+            //years
+            $years = DB::select("SELECT YEAR(created_at) AS YEAR,  COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR ORDER BY YEAR DESC");
+            foreach($years as $year){
+                $items = Obj::whereYear('created_at',$year->YEAR)->get();
+                foreach($items as $obj){
+                    $obj->tags = $obj->tags;
+                    $obj->categories = $obj->categories;
+                }
+                $filename = $year->YEAR.'.json';
+                $filepath = $this->cache_path.$filename;
+                file_put_contents($filepath, json_encode($items,JSON_PRETTY_PRINT));
+            }
+    }
     /**
      * Show the form for creating a new resource.
      *
