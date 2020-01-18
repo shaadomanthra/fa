@@ -130,7 +130,7 @@ class PageController extends Controller
 
         //dd($obj->title);
 
-        $categories = null;$dates=null;
+        $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){
 
             $filename = 'dates.json';
