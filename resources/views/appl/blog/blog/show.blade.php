@@ -56,14 +56,13 @@
 
                  @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
                     <div class=" mb-3">
-                                   <?php 
-list($width, $height) = getimagesize(asset('storage/'.$obj->image)); 
-$arr = array('h' => $height, 'w' => $width );
-?>
+                      <?php 
+                      list($width, $height) = getimagesize(asset('storage/'.$obj->image)); 
+                      $arr = array('h' => $height, 'w' => $width );
+                      ?>
                       <img src="{{ asset('storage/'.$obj->image)}}"  class=" @if($arr['h']>680)w-100 @endif"/>
                     </div>
-                    @else
-                    @endif
+                  @endif
                 
              <div class="body mt-3" style="font-size:17px;line-height: 25px">
               {!! $obj->body !!}
@@ -71,9 +70,11 @@ $arr = array('h' => $height, 'w' => $width );
 
 
              @if($obj->test)
-             <div class="body mt-3">
-              {{$obj->test}}
+             @if($test->testtype='grammar' || $test->testtype='english')
+             <div class="testbox body mt-3 ">
+                @include('appl.blog.snippets.test')
              </div>  
+             @endif
              @endif
 
              @if($obj->conlusion)

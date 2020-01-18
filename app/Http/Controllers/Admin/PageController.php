@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Page as Obj;
 use App\Models\Blog\Blog;
+use App\Models\Test\Test;
 use App\Models\Blog\Collection;
 use Illuminate\Support\Facades\Storage;
 
@@ -20,6 +21,7 @@ class PageController extends Controller
         $this->app      =   'admin';
         $this->module   =   'page';
         $this->cache_path =  '../storage/app/cache/pages/';
+        $this->cache_path_test = '../storage/app/cache/test/';
     }
 
     /**
@@ -141,26 +143,71 @@ class PageController extends Controller
 
             $this->app = 'blog';
             $this->module = 'blog';
+
+         $try =0;
+         if($obj->test){
+            $try =1;
+            $filename = $this->cache_path_test.'test.'.$obj->test.'.json'; 
+            if(file_exists($filename)){
+              $this->test = json_decode(file_get_contents($filename));
+            }
+            else{
+              $this->test = Test::where('slug',$obj->test)->first();
+              $this->test->sections = $this->test->sections;
+              $this->test->mcq_order = $this->test->mcq_order;
+              $this->test->fillup_order = $this->test->fillup_order;
+              $this->test->testtype = $this->test->testtype;
+              $this->test->category = $this->test->category;
+              //load test and all the extra data
+              $this->test->qcount = 0;
+              if(!$this->test->qcount){
+                  foreach($this->test->mcq_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                  foreach($this->test->fillup_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                
+              }
+              foreach($this->test->sections as $section){ 
+                  $ids = $section->id ;
+                  $this->test->sections->$ids = $section->extracts;
+                  foreach($this->test->sections->$ids as $m=>$extract){
+                      $this->test->sections->$ids->mcq =$extract->mcq_order;
+                      $this->test->sections->$ids->fillup=$extract->fillup_order;
+                  }
+                      
+              }
+            }
+
+            $test = $this->test;
+            $testtype = $this->test->testtype;
+
+         }
         }
 
-        
+       
 
         if($obj){
             if(\auth::user())
                 if(\auth::user()->admin==1)
                     return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
                 else{
                     if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
                     else
                       abort(404);
                 }
             else{
                 if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
                     else
                       abort(404);
             }

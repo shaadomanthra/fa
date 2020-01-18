@@ -389,6 +389,44 @@ $(document).ready(function() {
 
 @if(isset($grammar))
 <script type="application/javascript">
+
+    $(document).on('click','.retry',function(){
+        $('#ajaxtest')[0].reset();
+        $('.td_option').removeClass('td_answered');
+        $('.result_container').hide();
+        $('.test_container').show();
+        $('html, body').animate({
+                        scrollTop: (($('.testbox').offset().top - 100))
+                    },500);
+
+
+    });
+
+    $("#ajaxtest").submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+               type: "POST",
+               url: url,
+               data: form.serialize(), // serializes the form's elements.
+               success: function(data)
+               {
+                  $('.test_container').hide();
+                  $('html, body').animate({
+                        scrollTop: (($('.testbox').offset().top - 100))
+                    },500);
+                  $('.result_container').show();
+                   $('.result').html("<div class='p-4'><p>Your score is</p><h1>"+data+"</h1><button class='btn btn-primary retry'>Retry</button></div>");
+               }
+             });
+
+
+    });
+
     $(".td_option").click(function() {
         $id = $(this).data('id');
         $option = $(this).data('option');

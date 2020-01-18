@@ -574,9 +574,15 @@ class AttemptController extends Controller
       else
       $product = $test->product;
 
+
       
 
       $user = \auth::user();
+
+      if(!$user){
+          $user = new User();
+          $user->id = -1;
+      }
 
       $attempt = Attempt::where('test_id',$this->test->id)->where('user_id',$user->id)->first();
       if($attempt){
@@ -737,6 +743,11 @@ class AttemptController extends Controller
       }
 
       $this->section_score($data);
+
+      if($request->get('ajax')){
+        echo $score;
+        dd();
+      }
       if(!$request->get('admin'))
         Attempt::insert($data); 
       

@@ -20,6 +20,7 @@ class BlogController extends Controller
         $this->app      =   'blog';
         $this->module   =   'blog';
         $this->cache_path =  '../storage/app/cache/pages/';
+        $this->cache_path_test = '../storage/app/cache/test/';
     }
 
     /**
@@ -332,6 +333,45 @@ class BlogController extends Controller
             $dates = DB::select("SELECT YEAR(created_at) AS YEAR, DATE_FORMAT(created_at, '%M') AS MONTH, DATE_FORMAT(created_at, '%m') AS MON, COUNT(*) AS TOTAL FROM blogs  GROUP BY YEAR, MONTH, MON ORDER BY YEAR DESC, MONTH DESC");
 
             $categories = Collection::get();
+        }
+
+        if($obj->test){
+            $filename = $this->cache_path_test.'test.'.$obj->test.'.json'; 
+            if(file_exists($filename)){
+              $this->test = json_decode(file_get_contents($filename));
+            }
+            else{
+              $this->test = Test::where('slug',$obj->test)->first();
+              $this->test->sections = $this->test->sections;
+              $this->test->mcq_order = $this->test->mcq_order;
+              $this->test->fillup_order = $this->test->fillup_order;
+              $this->test->testtype = $this->test->testtype;
+              $this->test->category = $this->test->category;
+              //load test and all the extra data
+              $this->test->qcount = 0;
+              if(!$this->test->qcount){
+                  foreach($this->test->mcq_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                  foreach($this->test->fillup_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                
+              }
+              foreach($this->test->sections as $section){ 
+                  $ids = $section->id ;
+                  $this->test->sections->$ids = $section->extracts;
+                  foreach($this->test->sections->$ids as $m=>$extract){
+                      $this->test->sections->$ids->mcq =$extract->mcq_order;
+                      $this->test->sections->$ids->fillup=$extract->fillup_order;
+                  }
+                      
+              }
+            }
         }
 
 
