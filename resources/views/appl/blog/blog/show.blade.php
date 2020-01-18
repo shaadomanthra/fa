@@ -60,7 +60,7 @@
                       list($width, $height) = getimagesize(asset('storage/'.$obj->image)); 
                       $arr = array('h' => $height, 'w' => $width );
                       ?>
-                      <img src="{{ asset('storage/'.$obj->image)}}"  class=" @if($arr['h']>680)w-100 @endif"/>
+                      <img src="{{ asset('storage/'.$obj->image)}}"  class=" @if($arr['h']>680)w-100 @endif" style="max-width: 100%"/>
                     </div>
                   @endif
                 

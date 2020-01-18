@@ -346,6 +346,10 @@ $(document).ready(function() {
             player.play();
         });
 
+        $(".stop").click(function() {
+            player.stop();
+        });
+
         $(".forward").click(function() {
             player.forward();
         });

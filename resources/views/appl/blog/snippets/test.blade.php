@@ -48,7 +48,7 @@
 	<input type="hidden" name="ajax" value="1">
 
 	<div class="pr-4 pl-4 pb-4 pt-0">
-	<button class="btn btn-success btn-lg ajaxtestsubmit" type="submit" >Submit</button>
+	<button class="btn btn-success btn-lg ajaxtestsubmit stop" type="submit" >Submit</button>
 	</div>
 	</div>
 
@@ -64,7 +64,7 @@
 	<input type="hidden" name="ajax" value="1">
 
 	<div class="pr-4 pl-4 pb-4 pt-0">
-	<button class="btn btn-success btn-lg ajaxtestsubmit" type="submit" >Submit</button>
+	<button class="btn btn-success btn-lg ajaxtestsubmit stop" type="submit" >Submit</button>
 	</div>
 </div>
 @endif
