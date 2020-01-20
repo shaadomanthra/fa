@@ -184,7 +184,7 @@
           </div>
           <div class="form-group">
             <label for="formGroupExampleInput ">Schedule (optional)</label>
-            <input type="text" class=" form-control" value="@if($obj->schedule) {{$obj->schedule}} @endif" name="created_at" id="datetimepicker"/>
+            <input type="text" class=" form-control" value="@if($obj->created_at) {{$obj->created_at}} @endif" name="created_at" id="datetimepicker"/>
           </div>
           
           <div class="form-group">
