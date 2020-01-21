@@ -8,9 +8,10 @@
   <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
 
             @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
-            @foreach($obj->categories as $cat)
+            @foreach($obj->categories as $mc=>$cat)
+            @if($mc!=0),@endif
              <a href="{{ route('category.list',$cat->slug)}}">
-              <span class="badge badge-success">{{$cat->name}}</span>
+              {{$cat->name}}
             </a>
             @endforeach
             @endif
