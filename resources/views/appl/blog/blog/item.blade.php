@@ -27,7 +27,7 @@
               {!! substr(strip_tags($obj->body),0,500) !!}
              </div>
              <a href=" {{ route('page.view',$obj->slug) }} ">
-             <button class="btn btn-primary btn-lg mb-2">readmore <i class="fa fa-angle-right"></i></button>  
+             <button class="btn btn-primary btn-lg mb-2">Read more <i class="fa fa-angle-right"></i></button>  
            </a>
 </div>
 
