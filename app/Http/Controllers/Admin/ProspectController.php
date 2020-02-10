@@ -75,6 +75,11 @@ class ProspectController extends Controller
             
            
             $arr["error"] = 0;
+
+            if(!$request->get('name')){
+                $arr["error"] =1;
+                $arr["message"] = "Name cannot be empty";
+            }
             if($request->get('email'))
             if (!filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {
                 $arr["error"] =1;
