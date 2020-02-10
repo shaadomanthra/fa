@@ -12,6 +12,9 @@
 </a>
 </div>
 @endif
+
+@include('flash::message')
+
 <div class="">
   <div class="row no-gutters">
     <div class="col-12  col-md-5 col-lg-4 d-block d-sm-none d-md-block">
@@ -19,11 +22,20 @@
         <div class="bg-image" style="background-image: url({{asset('images/bg/bg5.jpg')}})"> 
         </div>
         <div class="user_container">
-          <img src="{{ asset('images/admin/user.png')}}" class="user" />
+          @if(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.jpg')) 
+         <img src="{{ asset('storage/images/'.\auth::user()->id.'.jpg')}}" class="user img-thumbnail" style="" />
+          @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.jpeg'))
+            <img src="{{ asset('storage/images/'.\auth::user()->id.'.jpeg')}}" class="user img-thumbnail"  />
+          @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.png'))
+              <img src="{{ asset('storage/images/'.\auth::user()->id.'.png')}}" class="user img-thumbnail"  />
+            
+          @endif
         </div>
         <div class="card-body pt-0 text-center mb-3">
           <div class="h4 mb-4 mt-4">Hi, {{ \auth::user()->name}}! </div>
           <p>Develop a passion for learning. If you do, you will never cease to grow <br><span class="text-secondary">-Anthony J Dangelo</span></p>
+          <a href="{{ route('useredit')}}">
+          <button class="btn btn-primary">Edit</button></a>
           <a href="{{ route('logout') }}"
           onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">
@@ -40,15 +52,28 @@
 
     <div class="col-12  col-md-5 col-lg-4 d-none d-sm-block d-md-none">
       <div class="card mb-4 mr-2 mr-md-4">
-       
-            <div class="bg-image" style="background-image: url({{asset('images/bg/bg5.jpg')}})"> 
+          
+
+          <div class="bg-image" style="background-image: url({{asset('images/bg/bg5.jpg')}})"> 
         </div>
               
         <div class="card-body pt-0  mb-3">
 
-          <img src="{{ asset('images/admin/user.png')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;" />
-            <div class="h4 mb-4 mt-4">Hi, {{ \auth::user()->name}}! </div>
+          @if(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.jpg')) 
+         <img src="{{ asset('storage/images/'.\auth::user()->id.'.jpg')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;" />
+          @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.jpeg'))
+            <img src="{{ asset('storage/images/'.\auth::user()->id.'.jpeg')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;" />
+          @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.png'))
+            
+              <img src="{{ asset('storage/images/'.\auth::user()->id.'.png')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;" />
+            
+          @endif
+
           
+            <div class="h4 mb-4 mt-4">Hi, {{ \auth::user()->name}}!  </div>
+          
+         <a href="{{ route('useredit')}}">
+          <button class="btn btn-primary">Edit</button></a>
           <a href="{{ route('logout') }}"
           onclick="event.preventDefault();
           document.getElementById('logout-form').submit();">

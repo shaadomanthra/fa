@@ -267,6 +267,9 @@ class UserController extends Controller
         }
     }
 
+
+
+
     /**
      * Display the specified resource.
      *
@@ -311,6 +314,21 @@ class UserController extends Controller
                 ->with('obj',$obj)
                 ->with('tests',$tests)
                 ->with('products',$products)
+                ->with('editor',true)
+                ->with('app',$this);
+        else
+            abort(404);
+    }
+
+    public function useredit()
+    {
+        $obj= \auth::user();
+        $this->authorize('update', $obj);
+
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.edit')
+                ->with('stub','Update')
+                ->with('obj',$obj)
                 ->with('editor',true)
                 ->with('app',$this);
         else
@@ -419,6 +437,46 @@ class UserController extends Controller
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                 flash('Some error in updating the record')->error();
+                 
+            }
+        }
+    }
+
+    public function userstore(Request $request)
+    {
+        try{
+            $obj = Obj::where('id',$request->get('id'))->first();
+
+
+            if($request->get('password')){
+                if($request->get('password') != $request->get('repassword')){
+                    return redirect()->back()->withInput();
+                }else{
+                    $request->merge(['password' => Hash::make($request->get('password'))]);;
+                }
+            }else{
+                unset($request['password']);
+            }
+
+             /* If image is given upload and store path */
+            if(isset($request->all()['file'])){
+                $file      = $request->all()['file'];
+                $extension = $file->getClientOriginalExtension();
+                $filename  = $obj->id.'.' . $extension;
+                $path      = $file->storeAs('public/images/', $filename);
+            }
+            
+            $this->authorize('update', $obj);
+
+            $obj->update($request->all()); 
+
+            flash('Your profile is updated!')->success();
+            return redirect()->route('home');
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];

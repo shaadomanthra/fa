@@ -77,8 +77,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput ">Course </label><br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->course=='ielts') active @endif @endif">
-                <input type="radio" name="course" id="option1" value="ielts" autocomplete="off" @if(isset($obj)) @if($obj->course=='ielts') checked @endif @endif > IELTS
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->course=='ielts') active @endif @endif @if($stub=='Create') active @endif">
+                <input type="radio" name="course" id="option1" value="ielts" autocomplete="off" @if(isset($obj)) @if($obj->course=='ielts') checked @endif @else @endif @if($stub=='Create') checked @endif> IELTS
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->course=='gre') active @endif @endif">
                 <input type="radio" name="course" id="option2" value="gre" autocomplete="off"  @if(isset($obj)) @if($obj->course=='gre') checked @endif  @endif > GRE
@@ -113,8 +113,8 @@
       <div class="form-group">
           <label for="formGroupExampleInput ">Module</label><br>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='full') active @endif @endif">
-              <input type="radio" name="module" id="option1" value="full" autocomplete="off" @if(isset($obj)) @if($obj->module=='classroom') checked @endif @endif > Full
+            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='full') active @endif @endif @if($stub=='Create') active @endif">
+              <input type="radio" name="module" id="option1" value="full" autocomplete="off" @if(isset($obj)) @if($obj->module=='classroom') checked @endif @endif @if($stub=='Create')checked @endif> Full
             </label>
             <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='combo') active @endif @endif">
               <input type="radio" name="module" id="option2" value="combo" autocomplete="off"  @if(isset($obj)) @if($obj->module=='combo') checked @endif  @endif > Combo
@@ -147,8 +147,8 @@
             <label for="formGroupExampleInput ">Source</label><br>
 
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->source=='call') active @endif @endif">
-                <input type="radio" name="source" id="option1" value="call" autocomplete="off" @if(isset($obj)) @if($obj->source=='call') checked @endif @endif > Call
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->source=='call') active @endif @endif @if($stub=='Create') active @endif">
+                <input type="radio" name="source" id="option1" value="call" autocomplete="off" @if(isset($obj)) @if($obj->source=='call') checked @endif @endif @if($stub=='Create') checked @endif> Call
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->source=='walkin') active @endif @endif">
                 <input type="radio" name="source" id="option2" value="walkin" autocomplete="off" @if(isset($obj)) @if($obj->source=='walkin') checked @endif @endif > Walkin
@@ -190,7 +190,7 @@
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
               @foreach($employees as $emp)
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->user_id==$emp->id) active @endif @endif">
-    <input type="radio" name="module" id="option" value="{{$emp->id}}" autocomplete="off"  @if(isset($obj)) @if($obj->user_id==$emp->id) checked @endif  @endif > <i class="fa fa-user"></i> {{$emp->name}}
+    <input type="radio" name="user_id" id="option" value="{{$emp->id}}" autocomplete="off"  @if(isset($obj)) @if($obj->user_id==$emp->id) checked @endif  @endif > <i class="fa fa-user"></i> {{$emp->name}}
   </label>
               @endforeach
             </div>
@@ -203,8 +203,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput ">Stage</label><br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='enquiry') active @endif @endif">
-                <input type="radio" name="stage" id="option1" value="enquiry" autocomplete="off" @if(isset($obj)) @if($obj->stage=='enquiry') checked @endif @endif > Enquiry
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='enquiry') active @endif @endif @if($stub=='Create') active @endif">
+                <input type="radio" name="stage" id="option1" value="enquiry" autocomplete="off" @if(isset($obj)) @if($obj->stage=='enquiry') checked @endif @endif @if($stub=='Create') checked @endif> Enquiry
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='demo') active @endif @endif">
                 <input type="radio" name="stage" id="option1" value="demo" autocomplete="off" @if(isset($obj)) @if($obj->stage=='demo') checked @endif @endif >Demo
@@ -220,8 +220,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput ">Mode</label><br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->mode=='classroom') active @endif @endif">
-                <input type="radio" name="mode" id="option1" value="classroom" autocomplete="off" @if(isset($obj)) @if($obj->course=='classroom') checked @endif @endif > Classroom
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->mode=='classroom') active @endif @endif @if($stub=='Create')active @endif">
+                <input type="radio" name="mode" id="option1" value="classroom" autocomplete="off" @if(isset($obj)) @if($obj->course=='classroom') checked @endif @endif @if($stub=='Create') checked @endif> Classroom
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->mode=='online') active @endif @endif">
                 <input type="radio" name="mode" id="option2" value="online" autocomplete="off"  @if(isset($obj)) @if($obj->mode=='online') checked @endif  @endif > Online
@@ -237,8 +237,8 @@
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->batch=='weekend') active @endif @endif">
                 <input type="radio" name="batch" id="option1" value="weekend" autocomplete="off" @if(isset($obj)) @if($obj->batch=='weekend') checked @endif @endif > Weekend
               </label>
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->batch=='weekday') active @endif @endif">
-                <input type="radio" name="batch" id="option1" value="weekday" autocomplete="off" @if(isset($obj)) @if($obj->batch=='weekday') checked @endif @endif > Weekday
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->batch=='weekday') active @endif @endif @if($stub=='Create') active @endif">
+                <input type="radio" name="batch" id="option1" value="weekday" autocomplete="off" @if(isset($obj)) @if($obj->batch=='weekday') checked @endif @endif @if($stub=='Create') checked @endif> Weekday
               </label>
             </div>
           </div>
@@ -247,8 +247,8 @@
           <div class="form-group">
             <label for="formGroupExampleInput ">Center</label><br>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->center=='ameerpet') active @endif @endif">
-                <input type="radio" name="center" id="option1" value="ameerpet" autocomplete="off" @if(isset($obj)) @if($obj->center=='ameerpet') checked @endif @endif > Ameerpet
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->center=='ameerpet') active @endif @endif @if($stub=='Create') active @endif">
+                <input type="radio" name="center" id="option1" value="ameerpet" autocomplete="off" @if(isset($obj)) @if($obj->center=='ameerpet') checked @endif @endif @if($stub=='Create') checked @endif> Ameerpet
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->center=='madhapur') active @endif @endif">
                 <input type="radio" name="center" id="option1" value="madhapur" autocomplete="off" @if(isset($obj)) @if($obj->center=='madhapur') checked @endif @endif > Madhapur
@@ -260,8 +260,8 @@
          <div class="form-group">
           <label for="formGroupExampleInput ">Status</label><br>
           <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->status==1) active @endif @endif">
-              <input type="radio" name="status" id="option1" value="1" autocomplete="off" @if(isset($obj)) @if($obj->status==1) checked @endif @endif > Active
+            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->status==1) active @endif @endif @if($stub=='Create') active @endif">
+              <input type="radio" name="status" id="option1" value="1" autocomplete="off" @if(isset($obj)) @if($obj->status==1) checked @endif @endif  @if($stub=='Create') checked @endif> Active
             </label>
             <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->status==='0') active @endif @endif">
               <input type="radio" name="status" id="option1" value="0" autocomplete="off" @if(isset($obj)) @if($obj->status==0) checked @endif @endif > Archive

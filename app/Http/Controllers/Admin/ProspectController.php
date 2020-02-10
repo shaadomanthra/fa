@@ -101,6 +101,10 @@ class ProspectController extends Controller
             }else{
                 $request->merge(['email'=>' ']);
             }
+
+            if(!$request->get('created_at')){
+                $request->merge(['created_at'=>date("Y-m-d H:i:s")]);
+            }
             
 
             if($arr["error"]){

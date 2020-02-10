@@ -124,6 +124,9 @@ Route::post('/api/register', 'User\UserController@register')->name('apiregister'
 Route::post('/api/login', 'User\UserController@login')->name('apilogin');
 Route::get('/api/login', 'User\UserController@login')->name('apilogin');
 Route::get('/api/phone', 'User\UserController@phone')->name('apiphone');
+Route::get('/user/edit', 'User\UserController@useredit')->name('useredit');
+Route::post('/user/edit', 'User\UserController@userstore')->name('userstore');
+
 /* user verify routes */
 Route::get('/activation', 'User\VerifyController@activation')->name('activation')->middleware('auth');
 Route::post('/activation', 'User\VerifyController@activation')->name('activation');
@@ -135,11 +138,6 @@ Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify'
 Route::resource('/blog', 'Blog\BlogController');
 Route::resource('/admin/label', 'Blog\LabelController')->middleware('auth');
 Route::resource('/admin/collection', 'Blog\CollectionController')->middleware('auth');
-
-
-
-
-
 
 /* Page Routes */
 Route::resource('/admin/page', 'Admin\PageController')->middleware('auth');
