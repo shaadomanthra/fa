@@ -9,6 +9,7 @@ use App\Models\Test\Test;
 use App\Models\Test\Attempt;
 use App\Models\Product\Order;
 use App\Models\Product\Product;
+use App\Models\Admin\Prospect;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
@@ -97,6 +98,21 @@ class UserController extends Controller
             }
         }else{
             $arr =["error"=>1,"message"=>'User with email('.$email.') not found'];
+        }
+        
+        echo json_encode($arr);
+    }
+
+    public function phone(Request $request){
+        $phone = $request->get('phone');
+
+        $user = Prospect::where('phone',$phone)->first();
+
+        $arr =["error"=>0,"message"=>0];
+        if($user){
+            $arr = $user;
+        }else{
+            $arr =["error"=>1,"message"=>'User with phone('.$phone.') not found'];
         }
         
         echo json_encode($arr);

@@ -35,6 +35,49 @@ $(document).ready(function() {
 <script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
 <script type="application/javascript" src="{{asset('js/global.js?new=1')}}"></script>  
 
+<script type="application/javascript">
+$(document).ready(function() {
+    $(document).on("keyup", function(){
+       
+        if($("#phone").length){
+
+            var phone = $("#phone").val();
+            var url = $("#phone").data('url');
+            var type= $(".form").data('type');
+            var edit = $("#phone").data('edit');
+   
+            if(type=='create')
+            if(phone.length==10){
+              $.ajax({
+               type: "GET",
+               url: url,
+               data: {"phone":phone}, // serializes the form's elements.
+               success: function(data)
+               {
+                  
+                  d=jQuery.parseJSON(data);
+                  console.log(d);
+                  if(d.id){
+                    $('.alert').slideToggle();
+                    $('.phonenumber').text(phone);
+                    $('.name').text(d.name);
+                    $('.userlink').attr('href',edit+'/'+d.id+'/edit');
+                  }else{
+                    $('.alert').slideUp();
+                  }
+                  
+               }
+             });
+            }
+
+        }
+
+      });
+
+
+});
+
+</script>
 
 <script type="application/javascript">
     $(document).ready(function() {
@@ -97,11 +140,13 @@ $(document).ready(function() {
           });
 
       $(document).on("keyup", function(){
+        if($(".summernote2").length){
         var text = $(".summernote2").summernote("code");
         text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
         var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
         //Update Count value
         $(".word-count").text(words);
+      }
 
       });
 

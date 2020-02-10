@@ -123,6 +123,7 @@ Route::get('/ieltswriting', function(){ return view('appl.pages.ieltswriting');}
 Route::post('/api/register', 'User\UserController@register')->name('apiregister');
 Route::post('/api/login', 'User\UserController@login')->name('apilogin');
 Route::get('/api/login', 'User\UserController@login')->name('apilogin');
+Route::get('/api/phone', 'User\UserController@phone')->name('apiphone');
 /* user verify routes */
 Route::get('/activation', 'User\VerifyController@activation')->name('activation')->middleware('auth');
 Route::post('/activation', 'User\VerifyController@activation')->name('activation');
