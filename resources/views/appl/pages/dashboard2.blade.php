@@ -28,7 +28,8 @@
             <img src="{{ asset('storage/images/'.\auth::user()->id.'.jpeg')}}" class="user img-thumbnail"  />
           @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.png'))
               <img src="{{ asset('storage/images/'.\auth::user()->id.'.png')}}" class="user img-thumbnail"  />
-            
+          @else
+              <img src="{{ asset('images/admin/user.png')}}" class="user "  />
           @endif
         </div>
         <div class="card-body pt-0 text-center mb-3">
@@ -66,7 +67,8 @@
           @elseif(\Storage::disk('public')->exists('images/'.\auth::user()->id.'.png'))
             
               <img src="{{ asset('storage/images/'.\auth::user()->id.'.png')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;" />
-            
+          @else
+            <img src="{{ asset('images/admin/user.png')}}" class="float-right" style="width:120px;margin:30px;margin-top: -50px;"  />
           @endif
 
           
