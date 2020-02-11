@@ -163,22 +163,21 @@ class FileController extends Controller
     public function download($id,Request $request)
     {
         $obj = Obj::where('id',$id)->first();
-   
-
+        $test = $obj->test;
+        $user = $obj->user;
+        $name ='response_'.$test->slug.'_'.str_replace(' ', '',$user->name);
+        
         $info = pathinfo(Storage::url($obj->response));
 
-        
         if(isset($info['extension'])){
             $ext = $info['extension'];
 
             if($request->get('pdf')){
                 $file = 'feedback/feedback_'.$id.'.pdf';
-
             }
             else if(in_array($ext, ['mp3','wav','mkv','mp4','aac','3gp','ogg','mpga'])){
                     $file = $obj->response;
             }else if($request->get('word')){
-
                 $phpWord = new \PhpOffice\PhpWord\PhpWord();
                 $section = $phpWord->addSection();
                 $text = $section->addText('name');
@@ -201,16 +200,17 @@ class FileController extends Controller
 
                 $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
                 try {
-                    $objWriter->save('../storage/app/public/response/response_'.$obj->id.'.docx');
+                    $objWriter->save('../storage/app/public/response/'.$name.'.docx');
                 } catch (Exception $e) {
                 }
 
-                return response()->download('../storage/app/public/response/response_'.$obj->id.'.docx');
+                return response()->download('../storage/app/public/response/'.$name.'.docx');
                 }
                 else{
-                    $file = 'response/response_'.$id.'.pdf';
+                    
+                    $file = 'response/'.$name.'.pdf';
                     $pdf = PDF::loadView('appl.test.file.pdf2',compact('obj'));
-                    $pdf->save('../storage/app/public/response/response_'.$obj->id.'.pdf'); 
+                    $pdf->save('../storage/app/public/response/'.$name.'.pdf'); 
                     //user response file (audio or doc)  
                 }
         }
