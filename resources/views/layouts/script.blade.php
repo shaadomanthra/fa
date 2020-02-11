@@ -477,9 +477,12 @@ $(document).ready(function() {
     });
 
     $(".td_option").click(function() {
+
         $id = $(this).data('id');
         $option = $(this).data('option');
         $group = $(this).data('group');
+
+
 
         if(!$(this).hasClass('td_answered'))
         {
@@ -488,6 +491,7 @@ $(document).ready(function() {
           $('.'+$id+'_'+$option).prop("checked", true);
           $(this).addClass('td_answered');
           $('.s'+$id).addClass('answered');
+          console.log(123);
         }else{
           $(this).removeClass('td_answered');
           $('.'+$id+'_'+$option).prop("checked", false);
@@ -513,196 +517,8 @@ $(document).ready(function() {
     });
 
 </script>
-@endif
 
-@if(isset($pte))
-<script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
-<script type="application/javascript">
-$(function() {
-  if($( "#sortable-1a" ).length){
-    $( "#sortable-1a, #sortable-1b" ).sortable({
-      connectWith: "#sortable-1a, #sortable-1b",
-      update: function(event, ui) {
-      var d ='';
-        $('#sortable-1b li').each(function(i)
-        {
-           d =  d +$(this).data('val')+','; // This is your rel value
-        });
-        $('.reorder-1b').val(d);
-      }
-    });
-  }
-  if($( "#sortable-2a" ).length){
-    $( "#sortable-2a, #sortable-2b" ).sortable({
-      connectWith: "#sortable-2a, #sortable-2b",
-      update: function(event, ui) {
-      var d ='';
-        $('#sortable-2b li').each(function(i)
-        {
-           d =  d +$(this).data('val')+','; // This is your rel value
-        });
-        $('.reorder-2b').val(d);
-      }
-    });
-  }
-  if($( "#sortable-3a" ).length){
-    $( "#sortable-3a, #sortable-3b" ).sortable({
-      connectWith: "#sortable-3a, #sortable-3b",
-      update: function(event, ui) {
-      var d ='';
-        $('#sortable-3b li').each(function(i)
-        {
-           d =  d +$(this).data('val')+','; // This is your rel value
-        });
-        $('.reorder-3b').val(d);
-      }
-    });
-  }
-  if($( "#sortable-4a" ).length){
-    $( "#sortable-4a, #sortable-4b" ).sortable({
-      connectWith: "#sortable-4a, #sortable-4b",
-      update: function(event, ui) {
-      var d ='';
-        $('#sortable-4b li').each(function(i)
-        {
-           d =  d +$(this).data('val')+','; // This is your rel value
-        });
-        $('.reorder-4b').val(d);
-      }
-    });
-  }
-});
-
-/* drag and drop */
-$( function() {
-    $( ".draggable" ).draggable({ revert: "valid" });
-    $( ".droppable" ).droppable({
-      drop: function( event, ui ) {
-        $( this ).addClass("bg-light");
-        $(this).attr('value',$(ui.draggable).text());        
-      }
-    });
-
-    $( ".droppable" ).dblclick(function() {
-      $( this ).removeClass("bg-light");
-      $( this ).attr('value','');
-    });
-  } );
-
-</script>
-<script type="application/javascript">
- 
-  $(".td_option").click(function() {
-        $id = $(this).data('id');
-        $qno = $id;
-        $option = $(this).data('option');
-        $group = $(this).data('group');
-        $section = $('.greblock_'+$id).data('section');
-        $sno = $('.greblock_'+$id).data('sno');
-
-        if(!$(this).hasClass('td_answered'))
-        {
-           $('.td_'+$id+'_'+$group).removeClass('td_answered');
-          $('.'+$id+'_'+$group).prop("checked",false);
-          $('.'+$id+'_'+$option).prop("checked", true);
-          $(this).addClass('td_answered');
-          $('.s'+$id).addClass('answered');
-          $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
-
-        }else{
-          $(this).removeClass('td_answered');
-          $('.'+$id+'_'+$option).prop("checked", false);
-          var options = ["A","B","C","D",'E',"F","G","H","I"];
-          $isChecked = false;
-          options.forEach(function(item, index, arr){
-              if($('.'+$id+'_'+item).prop("checked"))
-                $isChecked = true;
-          });
-          if(!$isChecked){
-            $('.s'+$id).removeClass('answered');
-            $('.r_'+$section+'_'+$qno).html('<span class="badge badge-secondary">Not answered</span>');
-          }
-          
-        }
-    });
-
-  /* show/hide time */
-    $('.hide_time').on('click',function(){
-        $('#timer').toggle();
-        if($('#timer').is(':visible'))
-        {
-            $('.hide_time').html('<i class="fa fa-minus-circle"></i> Hide Time');
-        }else{
-            $('.hide_time').html('<i class="fa fa-clock-o"></i> Show Time');
-        }
-    });
-
-    /* Review Button */
-    $('.gre_prev').on('click',function(e){
-
-        $qno = $(this).data('qno');
-        console.log($qno);
-        $section = $('.greblock_'+$qno).data('section');
-        $sno = $('.greblock_'+$qno).data('sno');
-
-        if($qno){
-            $('.gre_qno').html($sno);
-            $('.gre_section').html($section);
-
-            $('.qblock').hide();
-            $('.greblock_'+$qno).show();
-
-            $qno = $qno - 1;
-            //update the navbar
-            if($('.greblock_'+$qno).length){
-              $('.gre_next').data('qno',($qno+2));
-              $(this).data('qno',$qno);
-              if($('.gre_next').data('qno'))
-                $('.gre_next').removeClass('disabled');
-            }
-            else{
-              $('.gre_next').data('qno',($qno+2));
-              $(this).data('qno',0);
-              $(this).addClass('disabled');
-            }
-
-            
-        
-        }else{
-            $('.gre_prev').addClass('disabled');
-        }
-    });
-
-
-    $('.gre_next').on('click',function(e){
-      $qno = $(this).data('qno');
-      $section = $('.greblock_'+$qno).data('section');
-      $sno = $('.greblock_'+$qno).data('sno');
-
-      if($qno){
-        $('.gre_section').html($section);
-
-        $('.qblock').hide();
-        $('.greblock_'+$qno).show();
-        $qno = $qno +1;
-              //update the navbar
-        if($('.greblock_'+$qno).length){
-            $('.gre_prev').data('qno',($qno-2));
-            $('.gre_next').data('qno',$qno);
-            if($qno-2!=0)
-                $('.gre_prev').removeClass('disabled');
-        }
-        else{
-          $('.gre_prev').data('qno',($qno-2));
-          $('.gre_next').data('qno',0);
-          $(this).addClass('disabled');
-        }       
-      }
-    });
-
-</script>
-@endif
-@if(isset($gre))
+@elseif(isset($gre))
 <script type="application/javascript">
 
     $('.input_').on('input',function(e){
@@ -1024,6 +840,194 @@ $( function() {
       else
         $('#test_submit').modal();
       e.preventDefault();
+    });
+
+</script>
+
+
+@elseif(isset($pte))
+<script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
+<script type="application/javascript">
+$(function() {
+  if($( "#sortable-1a" ).length){
+    $( "#sortable-1a, #sortable-1b" ).sortable({
+      connectWith: "#sortable-1a, #sortable-1b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-1b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-1b').val(d);
+      }
+    });
+  }
+  if($( "#sortable-2a" ).length){
+    $( "#sortable-2a, #sortable-2b" ).sortable({
+      connectWith: "#sortable-2a, #sortable-2b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-2b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-2b').val(d);
+      }
+    });
+  }
+  if($( "#sortable-3a" ).length){
+    $( "#sortable-3a, #sortable-3b" ).sortable({
+      connectWith: "#sortable-3a, #sortable-3b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-3b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-3b').val(d);
+      }
+    });
+  }
+  if($( "#sortable-4a" ).length){
+    $( "#sortable-4a, #sortable-4b" ).sortable({
+      connectWith: "#sortable-4a, #sortable-4b",
+      update: function(event, ui) {
+      var d ='';
+        $('#sortable-4b li').each(function(i)
+        {
+           d =  d +$(this).data('val')+','; // This is your rel value
+        });
+        $('.reorder-4b').val(d);
+      }
+    });
+  }
+});
+
+/* drag and drop */
+$( function() {
+    $( ".draggable" ).draggable({ revert: "valid" });
+    $( ".droppable" ).droppable({
+      drop: function( event, ui ) {
+        $( this ).addClass("bg-light");
+        $(this).attr('value',$(ui.draggable).text());        
+      }
+    });
+
+    $( ".droppable" ).dblclick(function() {
+      $( this ).removeClass("bg-light");
+      $( this ).attr('value','');
+    });
+  } );
+
+</script>
+<script type="application/javascript">
+ 
+  $(".td_option").click(function() {
+        $id = $(this).data('id');
+        $qno = $id;
+        $option = $(this).data('option');
+        $group = $(this).data('group');
+        $section = $('.greblock_'+$id).data('section');
+        $sno = $('.greblock_'+$id).data('sno');
+
+        if(!$(this).hasClass('td_answered'))
+        {
+           $('.td_'+$id+'_'+$group).removeClass('td_answered');
+          $('.'+$id+'_'+$group).prop("checked",false);
+          $('.'+$id+'_'+$option).prop("checked", true);
+          $(this).addClass('td_answered');
+          $('.s'+$id).addClass('answered');
+          $('.r_'+$section+'_'+$qno).html('<span class="badge badge-success">Answered</span>');
+
+        }else{
+          $(this).removeClass('td_answered');
+          $('.'+$id+'_'+$option).prop("checked", false);
+          var options = ["A","B","C","D",'E',"F","G","H","I"];
+          $isChecked = false;
+          options.forEach(function(item, index, arr){
+              if($('.'+$id+'_'+item).prop("checked"))
+                $isChecked = true;
+          });
+          if(!$isChecked){
+            $('.s'+$id).removeClass('answered');
+            $('.r_'+$section+'_'+$qno).html('<span class="badge badge-secondary">Not answered</span>');
+          }
+          
+        }
+    });
+
+  /* show/hide time */
+    $('.hide_time').on('click',function(){
+        $('#timer').toggle();
+        if($('#timer').is(':visible'))
+        {
+            $('.hide_time').html('<i class="fa fa-minus-circle"></i> Hide Time');
+        }else{
+            $('.hide_time').html('<i class="fa fa-clock-o"></i> Show Time');
+        }
+    });
+
+    /* Review Button */
+    $('.gre_prev').on('click',function(e){
+
+        $qno = $(this).data('qno');
+        console.log($qno);
+        $section = $('.greblock_'+$qno).data('section');
+        $sno = $('.greblock_'+$qno).data('sno');
+
+        if($qno){
+            $('.gre_qno').html($sno);
+            $('.gre_section').html($section);
+
+            $('.qblock').hide();
+            $('.greblock_'+$qno).show();
+
+            $qno = $qno - 1;
+            //update the navbar
+            if($('.greblock_'+$qno).length){
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',$qno);
+              if($('.gre_next').data('qno'))
+                $('.gre_next').removeClass('disabled');
+            }
+            else{
+              $('.gre_next').data('qno',($qno+2));
+              $(this).data('qno',0);
+              $(this).addClass('disabled');
+            }
+
+            
+        
+        }else{
+            $('.gre_prev').addClass('disabled');
+        }
+    });
+
+
+    $('.gre_next').on('click',function(e){
+      $qno = $(this).data('qno');
+      $section = $('.greblock_'+$qno).data('section');
+      $sno = $('.greblock_'+$qno).data('sno');
+
+      if($qno){
+        $('.gre_section').html($section);
+
+        $('.qblock').hide();
+        $('.greblock_'+$qno).show();
+        $qno = $qno +1;
+              //update the navbar
+        if($('.greblock_'+$qno).length){
+            $('.gre_prev').data('qno',($qno-2));
+            $('.gre_next').data('qno',$qno);
+            if($qno-2!=0)
+                $('.gre_prev').removeClass('disabled');
+        }
+        else{
+          $('.gre_prev').data('qno',($qno-2));
+          $('.gre_next').data('qno',0);
+          $(this).addClass('disabled');
+        }       
+      }
     });
 
 </script>
