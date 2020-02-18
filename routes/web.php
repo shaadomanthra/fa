@@ -54,11 +54,14 @@ Route::get('/admin/{file}/notify','Test\FileController@notify')->name('review.no
 Route::get('/admin/{file}/assign','Test\FileController@assign')->name('file.assign');
 Route::post('/admin/{file}/assign','Test\FileController@assignupdate')->name('file.assign');
 
+Route::get('/admin/prospect/dashboard', 'Admin\ProspectController@dashboard')->middleware('auth')->name('prospect.dashboard');
 Route::resource('/admin/prospect', 'Admin\ProspectController')->middleware('auth');
 Route::resource('/admin/followup', 'Admin\FollowupController')->middleware('auth');
 Route::resource('/admin/group', 'Test\GroupController')->middleware('auth');
 Route::resource('/admin/type', 'Test\TypeController')->middleware('auth');
+
 Route::resource('/admin/form', 'Admin\FormController')->middleware('auth');
+
 Route::get('/request-form','Admin\FormController@request')->name('form.request');
 Route::post('/request-form','Admin\FormController@save')->name('form.save');
 

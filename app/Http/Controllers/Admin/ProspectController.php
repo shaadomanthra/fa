@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\Prospect as Obj;
 use App\Models\Admin\Followup;
 use App\User;
+use Carbon\Carbon;
 
 class ProspectController extends Controller
 {
@@ -14,6 +15,43 @@ class ProspectController extends Controller
    public function __construct(){
         $this->app      =   'admin';
         $this->module   =   'prospect';
+    }
+
+    public function dashboard(Obj $obj,Request $r){
+
+
+        $user_id = $r->get('user_id');
+        $range = $r->get('range');
+
+
+        $counter = $obj->getCount($user_id);  
+
+        if(!$user_id)
+            $objs = $obj->orderBy('created_at','desc')
+                    ->paginate(5); 
+        else
+          $objs = $obj->where('user_id',$user_id)->orderBy('created_at','desc')
+                    ->paginate(5);   
+
+        $employees = User::whereIn('admin',[1,2])->get();
+
+       
+
+        if($user_id)
+            $employee = User::where('id',$user_id)->first();
+        else
+            $employee = null;
+
+
+        $view = 'dashboard';
+
+        return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
+                ->with('objs',$objs)
+                ->with('obj',$obj)
+                ->with('counter',$counter)
+                ->with('employees',$employees)
+                ->with('employ',$employee)
+                ->with('app',$this);
     }
 
     /**
@@ -27,12 +65,33 @@ class ProspectController extends Controller
 
         $search = $request->search;
         $item = $request->item;
-        
-        $objs = $obj->where('name','LIKE',"%{$item}%")
+        $user_id = $request->get('user_id');
+        if(!$user_id){
+            $objs = $obj->where('name','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records')); 
+        }
+        else{
+
+            $objs = $obj->where('user_id',$user_id)
+                ->paginate(config('global.no_of_records'));  
+
+            if($item){
+                $objs = $obj->where('user_id',$user_id)
+                ->where('name','LIKE',"%{$item}%")
+                    ->orWhere('phone','LIKE',"%{$item}%")
+                    ->orWhere('email','LIKE',"%{$item}%")
+                    ->orderBy('created_at','desc')
+                ->paginate(config('global.no_of_records')); 
+            }   
+                    
+                    
+
+        }
+
+
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)

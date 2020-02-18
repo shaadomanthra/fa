@@ -514,7 +514,6 @@ class BlogController extends Controller
                 $obj->conclusion= str_replace($searchVal, $replaceVal, $obj->conclusion);
             }
 
-            
             //update cache
             $filename = $obj->slug.'.json';
                 $filepath = $this->cache_path.$filename;
