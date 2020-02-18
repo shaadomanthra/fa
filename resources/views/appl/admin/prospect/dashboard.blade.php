@@ -74,11 +74,11 @@
                 <td>
                   <a href="{{ route('prospect.dashboard')}}?user_id={{$employee->id}}">
                     @if(\Storage::disk('public')->exists('images/'.$employee->id.'.jpg')) 
-         <img src="{{ asset('storage/images/'.$employee->id.'.jpg')}}" class="user img-thumbnail" style="width:10px" />
+         <img src="{{ asset('storage/images/'.$employee->id.'.jpg')}}" class="user " style="width:15px;height:15px;border-radius: 10px;" />
           @elseif(\Storage::disk('public')->exists('images/'.$employee->id.'.jpeg'))
-            <img src="{{ asset('storage/images/'.$employee->id.'.jpeg')}}" class="user img-thumbnail"  style="width:10px"/>
+            <img src="{{ asset('storage/images/'.$employee->id.'.jpeg')}}" class="user "  style="width:15px;height:15px;border-radius: 10px;"/>
           @elseif(\Storage::disk('public')->exists('images/'.$employee->id.'.png'))
-              <img src="{{ asset('storage/images/'.$employee->id.'.png')}}" class="user img-thumbnail"  style="width:10px"/>
+              <img src="{{ asset('storage/images/'.$employee->id.'.png')}}" class="user "  style="width:15px;height:15px;border-radius:10px;"/>
           @else
               <img src="{{ asset('images/admin/user.png')}}" class="user mt-0" style="width:15px" />
           @endif
