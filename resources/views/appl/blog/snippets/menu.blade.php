@@ -1,7 +1,7 @@
 
 <div class="p-3 bg-dark rounded border mb-3">
 	<span class="badge badge-warning mb-3">Admin menu</span>
-@if(!request()->is('admin/collection*') && !request()->is('admin/label*'))
+@if(!request()->is('admin/collection*') && !request()->is('admin/label*') && !request()->is('blog/tooltip*'))
 @can('create',$obj)
 <div class="row no-gutters">
 	<div class="col-12 col-md">
@@ -31,6 +31,7 @@
 	<a href="{{ route('collection.index')}}" class="list-group-item   list-group-item-dark list-group-item-action {{  (request()->is('admin/collection*')) ? 'active' : ''  }}">&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i> Categories </a>
 	
 	<a href="{{ route('label.index')}}" class="list-group-item  list-group-item-dark list-group-item-action {{  (request()->is('admin/label*') ) ? 'active' : ''  }}">&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i> Tags</a>
+	<a href="{{ route('tooltip')}}" class="list-group-item  list-group-item-dark list-group-item-action {{  (request()->is('blog/tooltip*') ) ? 'active' : ''  }}">&nbsp;&nbsp;&nbsp;<i class="fa fa-bars"></i> Tooltip</a>
 </div>
 
 

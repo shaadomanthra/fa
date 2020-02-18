@@ -135,7 +135,10 @@ Route::get('/activation/mail/{token}', 'User\VerifyController@email')->name('ema
 Route::post('/activation/phone', 'User\VerifyController@sms')->name('sms.verify');
 
 /* Blog Routes */
+Route::post('/blog/tooltip', 'Blog\BlogController@tooltip')->name('tooltip');
+Route::get('/blog/tooltip', 'Blog\BlogController@tooltip')->name('tooltip');
 Route::resource('/blog', 'Blog\BlogController');
+
 Route::resource('/admin/label', 'Blog\LabelController')->middleware('auth');
 Route::resource('/admin/collection', 'Blog\CollectionController')->middleware('auth');
 

@@ -177,6 +177,25 @@ class BlogController extends Controller
                 ->with('app',$this);
     }
 
+
+    public function tooltip(Request $r){
+        $filename = $this->cache_path.'tooltip.json';
+        $code ='';
+        $obj = new Obj();
+        $this->authorize('create', $obj);
+        if($r->code){
+            $code = $r->code;
+            file_put_contents($filename,$code);
+            flash('Successfully updated the file!')->success();
+        }else{
+            if(file_exists($filename))
+            $code = file_get_contents($filename);
+        }
+        return view('appl.blog.blog.tooltip')
+            ->with('code',$code)
+            ->with('filename',$filename)->with('obj',$obj)->with('app',$this);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -312,7 +331,6 @@ class BlogController extends Controller
     {
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
-
 
 
         if(Storage::disk('cache')->exists('pages/'.$filename))
@@ -478,6 +496,24 @@ class BlogController extends Controller
             }else{
                 $obj->labels()->detach();
             } 
+
+            //autotooltip
+            $filename = $this->cache_path.'tooltip.json';
+            $tooltip = json_decode(file_get_contents($filename));
+            //$searchVal =[];
+            //$replaceVal = [];
+            foreach($tooltip as $item=>$value){
+                $searchVal = $item;
+                $replaceVal = '<a href="#" data-toggle="tooltip" title="'.$value.'">'.$item.'</a>';
+                //array_push($searchVal, $item);
+                //array_push($replaceVal, $value);
+                
+                
+                $e = $obj->body;
+                $obj->body = str_replace($searchVal, $replaceVal, $e); 
+                $obj->conclusion= str_replace($searchVal, $replaceVal, $obj->conclusion);
+            }
+
             
             //update cache
             $filename = $obj->slug.'.json';
