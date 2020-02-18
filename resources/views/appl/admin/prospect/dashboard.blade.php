@@ -17,7 +17,7 @@
 
 @include('flash::message')
 
-<p class="h1 mb-4 text-secondary"><b><i class="fa fa-user-circle-o "></i> 
+<p class="h3 mb-4 text-secondary"><b><i class="fa fa-user-circle-o "></i> 
 @if($employ) {{$employ->name}} @else Prospect @endif
  Dashboard </b> 
 
@@ -51,7 +51,7 @@
     </div>
 <div  class="row ">
 @if(!$employ)
-  <div class="col-12 col-md-6">
+  <div class="col-12 col-md-6 mb-4">
 
      @if(count($employees))
         <div class="table-responsive">
