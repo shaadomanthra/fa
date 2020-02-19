@@ -23,25 +23,23 @@ class ProspectController extends Controller
         $user_id = $r->get('user_id');
         $range = $r->get('range');
 
-
-        $counter = $obj->getCount($user_id);  
+ 
+        $counter = $obj->getCount($user_id,$range);  
 
         if(!$user_id)
-            $objs = $obj->orderBy('created_at','desc')
+            $objs = $obj
+                    ->orderBy('created_at','desc')
                     ->paginate(5); 
         else
-          $objs = $obj->where('user_id',$user_id)->orderBy('created_at','desc')
+            $objs = $obj->where('user_id',$user_id)->orderBy('created_at','desc')
                     ->paginate(5);   
 
         $employees = User::whereIn('admin',[1,2])->get();
-
-       
 
         if($user_id)
             $employee = User::where('id',$user_id)->first();
         else
             $employee = null;
-
 
         $view = 'dashboard';
 
@@ -53,6 +51,8 @@ class ProspectController extends Controller
                 ->with('employ',$employee)
                 ->with('app',$this);
     }
+
+    
 
     /**
      * Display a listing of the resource.

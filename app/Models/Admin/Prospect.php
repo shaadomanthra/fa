@@ -3,6 +3,7 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Prospect extends Model
 {
@@ -51,12 +52,38 @@ class Prospect extends Model
         return $c;
     }
 
-    public function getCount($user_id=null){
-        if($user_id){
-            $counter = $this->getCountUser($this->where('user_id',$user_id)->get());
+
+    public function getDataDate($item,$range){
+        if($range=='thisweek'){
+            return $item->whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+        }else if($range=='lastweek'){
+            $previous_week = strtotime("-1 week +1 day");
+             $start_week = strtotime("last sunday midnight",$previous_week);
+             $end_week = strtotime("next saturday",$start_week);
+             $start_week = date("Y-m-d",$start_week);
+             $end_week = date("Y-m-d",$end_week);
+            return $item->whereBetween('created_at', [$start_week, $end_week]);
+        }else if($range=='thismonth'){
+              return $item->whereMonth('created_at', Carbon::now()->month);
+        }else if($range=='lastmonth'){
+            return $item->whereMonth('created_at', '=', Carbon::now()->subMonth()->month);
+        }else if($range=='thisyear'){
+            return $item->whereYear('created_at', Carbon::now()->year);
+        }else if($range=='lastyear'){
+            return $item->whereYear('created_at', date('Y', strtotime('-1 year')));
         }else{
-            $data = $this->get()->groupBy('user_id');
-            $counter = $this->getCountUser($this->get());
+            return $item;
+        }
+    }
+
+    
+
+    public function getCount($user_id=null,$range=null){
+        if($user_id){
+            $counter = $this->getCountUser($this->getDataDate($this->where('user_id',$user_id),$range)->get());
+        }else{
+            $data = $this->getDataDate($this,$range)->get()->groupBy('user_id');
+            $counter = $this->getCountUser($this->getDataDate($this,$range)->get());
             foreach($data as $item=>$d){
                 $counter[$item] = $this->getCountUser($d);
             }
