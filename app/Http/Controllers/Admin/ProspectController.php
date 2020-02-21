@@ -23,15 +23,15 @@ class ProspectController extends Controller
         $user_id = $r->get('user_id');
         $range = $r->get('range');
 
- 
+
         $counter = $obj->getCount($user_id,$range);  
 
         if(!$user_id)
-            $objs = $obj
+            $objs = $obj->getDataDate($obj,$range)
                     ->orderBy('created_at','desc')
                     ->paginate(5); 
         else
-            $objs = $obj->where('user_id',$user_id)->orderBy('created_at','desc')
+            $objs = $obj->getDataDate($obj,$range)->where('user_id',$user_id)->orderBy('created_at','desc')
                     ->paginate(5);   
 
         $employees = User::whereIn('admin',[1,2])->get();

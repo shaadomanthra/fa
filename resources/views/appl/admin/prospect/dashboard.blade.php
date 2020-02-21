@@ -2,7 +2,7 @@
 @include('meta.index')
 @section('content')
 
-<nav aria-label="">
+<div aria-label="">
   <ol class="breadcrumb p-0 pb-3 m-2" style="background: transparent;">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
@@ -13,13 +13,30 @@
      <li class="breadcrumb-item">{{ ucfirst($app->module) }} - Dashboard</li>
     @endif
   </ol>
-</nav>
+</div>
+
+
 
 @include('flash::message')
 
 <p class="h3 mb-4 text-secondary"><b><i class="fa fa-user-circle-o "></i> 
 @if($employ) {{$employ->name}} @else Prospect @endif
  Dashboard </b> 
+  <div class="input-group mb-3 ">
+  <div class="input-group-prepend">
+    <label class="input-group-text" for="inputGroupSelect01">Filter</label>
+  </div>
+  <select class="custom-select range" id="inputGroupSelect01" name="range" data-url="{{ route('prospect.dashboard')}}?@if($employ)user_id={{$employ->id}}@endif">
+    <option value="" @if(request()->get('range')=='') selected @endif>Over All</option>
+    <option value="thisweek" @if(request()->get('range')=='thisweek') selected @endif>This Week</option>
+    <option value="lastweek" @if(request()->get('range')=='lastweek') selected @endif>Last Week</option>
+    <option value="thismonth" @if(request()->get('range')=='thismonth') selected @endif>This Month</option>
+    <option value="lastmonth" @if(request()->get('range')=='lastmonth') selected @endif>Last Month</option>
+    <option value="thisyear" @if(request()->get('range')=='thisyear') selected @endif>This Year</option>
+    <option value="lastyear" @if(request()->get('range')=='lastyear') selected @endif>Last Year</option>
+  </select>
+</div>
+</p>
 
 <div class='wrap'>
         <div class="row">

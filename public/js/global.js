@@ -5,6 +5,16 @@
   $('.alertclose').on('click',function(){
     $('.alert').hide();
   });
+
+  $(".range").change(function(){
+    $value=$(this).val();
+    if($value)
+    $url = $(this).data('url')+'&range='+$value;
+    else
+    $url = $(this).data('url');
+    window.location = $url;
+  });
+
   // search data
   $('#search').on('keyup',function(){
     $value=$(this).val();
