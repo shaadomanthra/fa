@@ -93,7 +93,7 @@
       </div>
       @endif
 
-      @if(request()->get('type')=='listening' || !request()->get('type'))
+      @if(strtolower(request()->get('type'))=='listening' || !request()->get('type'))
       <div class="form-group">
         <label for="formGroupExampleInput ">Audio File</label>
         <input type="file" class="form-control" name="file_" id="formGroupExampleInput" 
