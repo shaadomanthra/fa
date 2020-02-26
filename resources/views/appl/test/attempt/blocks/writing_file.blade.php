@@ -2,15 +2,15 @@
 
 <div class="rounded p-4 mb-4" style="">
 	@if($attempt->answer)
-	<div class="alert alert-warning alert-important mb-4 border border-warning">
-	<p>Your Evaluation Is Ready!  </p>
+	<div class="alert alert-success alert-important mb-4 border border-success">
+	<h5>Your Evaluation Is Ready!  </h5>
 	<a href="{{ route('test.review',$test->slug)}}?product=@if($product){{$product->slug}}@endif">
 	<button type="button" class="btn btn-bg btn-success">View Expert Review</button>
 	</a>
 	</div>
 	@else
-	<div class="alert alert-warning alert-important mb-4 border border-warning" role="alert">
-  	Your writing task has been submitted. Please check back later for the evaluation. Good Luck! 
+	<div class="alert alert-success alert-important mb-4 border border-success" role="alert">
+  	<h5 class="mb-0">Your writing task has been submitted. Please check back later for the evaluation. Good Luck! </h5>
 	</div>
 	
 	@endif
