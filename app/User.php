@@ -53,6 +53,10 @@ class User extends Authenticatable
     ];
 
 
+    public function getUser($id){
+        return $this->where('id',$id)->first();
+    }
+
     public function isAdmin(){
         if(in_array($this->admin,[1,2,3,4]))
             return true;

@@ -43,25 +43,43 @@
             <div class="col-6 col-md-3 mb-4">
               <div class="rounded p-3 " style="background: #e6f6ff; border:1px solid #cee1eb">
                 <h5 class="text-center">All</h5>
-                <div class="display-4 text-center">{{ $counter['all']}}</div>
+                <div class="display-4 text-center">
+                <a href="{{route('prospect.index')}}?@if(request()->get('range'))range={{request()->get('range')}}@endif @if(request()->get('user_id'))&user_id={{request()->get('user_id')}}@endif @if(request()->get('stage'))&stage={{request()->get('stage')}}@endif">
+                {{ $counter['all']}}
+                </a>
+                </div>
               </div>
             </div>
-            <div class="col-6 col-md-3 mb-4">
+            <div class="col-6 col-md-2 mb-4">
              <div class="rounded p-3 " style="background: #e6f6ff; border:1px solid #cee1eb">
                 <h5 class="text-center">Enquiry</h5>
+                <a href="{{route('prospect.index')}}?stage=enquiry&@if(request()->get('range'))range={{request()->get('range')}}@endif @if(request()->get('user_id'))&user_id={{request()->get('user_id')}}@endif">
                 <div class="display-4 text-center">{{ $counter['enquiry']}}</div>
+                </a>
               </div>
             </div>
-            <div class="col-6 col-md-3 mb-4">
+            <div class="col-6 col-md-2 mb-4">
+              <div class="rounded p-3 " style="background: #e6f6ff; border:1px solid #cee1eb">
+                <h5 class="text-center">Invited</h5>
+                <a href="{{route('prospect.index')}}?stage=invited&@if(request()->get('range'))range={{request()->get('range')}}@endif @if(request()->get('user_id'))&user_id={{request()->get('user_id')}}@endif">
+                <div class="display-4 text-center">{{ $counter['invited']}}</div>
+              </a>
+              </div>
+            </div>
+            <div class="col-6 col-md-2 mb-4">
               <div class="rounded p-3 " style="background: #e6f6ff; border:1px solid #cee1eb">
                 <h5 class="text-center">Demo</h5>
+                <a href="{{route('prospect.index')}}?stage=demo&@if(request()->get('range'))range={{request()->get('range')}}@endif @if(request()->get('user_id'))&user_id={{request()->get('user_id')}}@endif">
                 <div class="display-4 text-center">{{ $counter['demo']}}</div>
+              </a>
               </div>
             </div>
             <div class="col-6 col-md-3 mb-4">
               <div class="rounded p-3 " style="background: #cdfbe1; border:1px solid #c1efd5">
                 <h5 class="text-center">Enrolled</h5>
+                <a href="{{route('prospect.index')}}?stage=enrolled&@if(request()->get('range'))range={{request()->get('range')}}@endif @if(request()->get('user_id'))&user_id={{request()->get('user_id')}}@endif">
                 <div class="display-4 text-center">{{ $counter['enrolled']}}</div>
+                </a>
               </div>
             </div>
         </div>
@@ -79,6 +97,7 @@
                 <th scope="col">Counsellor </th>
                 <th scope="col">All</th>
                 <th scope="col">Enquiry</th>
+                <th scope="col">Invited</th>
                 <th scope="col">Demo</th>
                 <th scope="col">Enrolled </th>
               </tr>
@@ -102,10 +121,11 @@
                   {{ $employee->name }}
                   </a>
                 </td>
-                <td>{{ $counter[$employee->id]['all'] }}</td>
-                 <td>{{ $counter[$employee->id]['enquiry'] }}</td>
-                  <td>{{ $counter[$employee->id]['demo'] }}</td>
-                   <td>{{ $counter[$employee->id]['enrolled'] }}</td>
+                <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&@if(request()->get('range'))range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['all'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enquiry @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enquiry'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=invited @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['invited'] }}</a></td>
+                  <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=demo @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['demo'] }}</a></td>
+                   <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enrolled @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enrolled'] }}</a></td>
                 
                 
               </tr>

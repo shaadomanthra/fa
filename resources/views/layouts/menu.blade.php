@@ -46,7 +46,7 @@
 
                 @if(\auth::user()->isAdmin())
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('prospect.index') }}"><i class="fa fa-bars"></i> Prospects</a>
+                    <a class="nav-link" href="{{ route('prospect.dashboard') }}"><i class="fa fa-bars"></i> Prospects</a>
                 </li>
                 @endif
 

@@ -38,6 +38,19 @@
           </form>
         </nav>
 
+        @if(request()->get('user_id') || request()->get('stage') || request()->get('range'))
+          <div class="alert alert-important alert-primary">
+            @if(request()->get('user_id'))
+            <b>Counsellor: </b> {{\auth::user()->getUser(request()->get('user_id'))->name}} &nbsp; &nbsp;
+            @endif
+            @if(request()->get('stage'))
+            <span class=""><b>Stage: </b>  {{ Ucfirst(request()->get('stage'))}}</span>&nbsp; &nbsp;
+            @endif
+            @if(request()->get('range'))
+            <span class=""><b>Range: </b>  {{ Ucfirst(request()->get('range'))}}</span>
+            @endif
+          </div>
+        @endif
         <div id="search-items">
          @include('appl.'.$app->app.'.'.$app->module.'.list')
        </div>

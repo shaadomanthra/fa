@@ -41,7 +41,7 @@ class Prospect extends Model
     }
 
     public function getCountUser($d){
-        $c=array('all'=>0,'enquiry'=>0,'demo'=>0,'enrolled'=>0);
+        $c=array('all'=>0,'enquiry'=>0,'demo'=>0,'enrolled'=>0,'invited'=>0);
         $sum =0;
         $data = $d->groupBy('stage');
         foreach($data as $item => $value){

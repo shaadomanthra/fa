@@ -65,9 +65,27 @@ class ProspectController extends Controller
 
         $search = $request->search;
         $item = $request->item;
+        $stage = $request->stage;
         $user_id = $request->get('user_id');
+        $range = $request->get('range');
+        if($range){
+            if($stage)
+                $model =$obj->getDataDate($obj,$range)->where('stage',$stage);
+            else
+                $model = $obj->getDataDate($obj,$range);
+        }else{
+            if($stage)
+            $model = $obj->sortable()->where('stage',$stage);
+            else
+            $model = $obj->sortable();
+        }
+
         if(!$user_id){
-            $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
+
+            $objs = $model->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            if($item)
+            $objs = $model->where('name','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
@@ -75,22 +93,18 @@ class ProspectController extends Controller
         }
         else{
 
-            $objs = $obj->sortable()->where('user_id',$user_id)
+            $objs = $model->where('user_id',$user_id)
                 ->paginate(config('global.no_of_records'));  
 
             if($item){
-                $objs = $obj->sortable()->where('user_id',$user_id)
+                $objs = $model->where('user_id',$user_id)
                 ->where('name','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
                 ->paginate(config('global.no_of_records')); 
             }   
-                    
-                    
-
         }
-
 
         $view = $search ? 'list': 'index';
 
