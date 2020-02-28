@@ -9,7 +9,7 @@
                 <th scope="col">@sortablelink('name') </th>
                 <th scope="col">@sortablelink('email') </th>
                 <th scope="col">@sortablelink('phone') </th>
-                <th scope="col">@sortablelink('status')</th>
+                <th scope="col">@sortablelink('user_id','Created By')</th>
                 <th scope="col">@sortablelink('created_at') </th>
               </tr>
             </thead>
@@ -32,10 +32,10 @@
                   {{ $obj->phone }}
                 </td>
                 <td>
-                  @if($obj->status==0)
-                    <span class="badge badge-danger">Blocked</span>
-                  @elseif($obj->status==1)
-                    <span class="badge badge-success">Active</span>
+                  @if($obj->user_id)
+                    <span class="badge badge-success">{{ $obj->referral($obj->user_id)->name }}</span>
+                  @else
+                    <span class="badge badge-primary"> None</span>
                   @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>

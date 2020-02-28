@@ -4,9 +4,11 @@ namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Kyslik\ColumnSortable\Sortable;
 
 class Prospect extends Model
 {
+    use Sortable;
     protected $fillable = [
         'name',
         'email',

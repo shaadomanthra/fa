@@ -3,9 +3,11 @@
 namespace App\Models\Admin;
 
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Followup extends Model
 {
+    use Sortable;
     protected $fillable = [
         'user_id',
         'prospect_id',

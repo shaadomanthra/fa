@@ -12,8 +12,9 @@
                 <hr>
                 @foreach($data['users'] as $k=>$user)
                 <div class="mb-2"><a href="{{ route('user.show',$user->id) }}" class="text-white">{{$user->name}}</a>
-                    @if($user->idno)
-                    <span class="badge badge-info text-white">Enrolled</span>
+                    
+                    @if(is_numeric(substr($user->idno,1,1)))
+                    <span class="badge badge-info text-white">Enrolled </span>
                     @endif<span class="float-right text-info">{{ $user->created_at->diffForHumans()}}</span></div>
                 @if($k==2)
                     @break

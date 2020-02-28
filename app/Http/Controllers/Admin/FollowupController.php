@@ -32,16 +32,16 @@ class FollowupController extends Controller
         $today = $request->today;
 
         if($today){
-            $objs = $obj->whereDate('schedule', Carbon::today())
+            $objs = $obj->sortable()->whereDate('schedule', Carbon::today())
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         }else{
             $ids =[];
-            $objx = $obj->orderBy('created_at','desc')->get()->groupBy('prospect_id');
+            $objx = $obj->sortable()->orderBy('created_at','desc')->get()->groupBy('prospect_id');
             foreach($objx as $ob){
                 array_push($ids, $ob[0]->id);
             }
-            $objs = $obj->whereIn('id',$ids)->orderBy('created_at','desc')
+            $objs = $obj->sortable()->whereIn('id',$ids)->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         }
         

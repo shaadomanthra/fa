@@ -2,6 +2,15 @@
 @include('meta.createedit')
 @section('content')
 
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb border bg-light">
+    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('/admin/prospect')}}">{{ ucfirst($app->module) }}</a></li>
+    <li class="breadcrumb-item">Create</li>
+  </ol>
+</nav> 
 @include('flash::message')
 
 @if($stub=='Create')
@@ -110,36 +119,7 @@
         </div>
       </div>
 
-      <div class="form-group">
-          <label for="formGroupExampleInput ">Module</label><br>
-          <div class="btn-group btn-group-toggle" data-toggle="buttons">
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='full') active @endif @endif @if($stub=='Create') active @endif">
-              <input type="radio" name="module" id="option1" value="full" autocomplete="off" @if(isset($obj)) @if($obj->module=='classroom') checked @endif @endif @if($stub=='Create')checked @endif> Full
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='combo') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="combo" autocomplete="off"  @if(isset($obj)) @if($obj->module=='combo') checked @endif  @endif > Combo
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='listening') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="listening" autocomplete="off"  @if(isset($obj)) @if($obj->module=='listening') checked @endif  @endif > Listening
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='speaking') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="speaking" autocomplete="off"  @if(isset($obj)) @if($obj->module=='speaking') checked @endif  @endif > Speaking
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='reading') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="reading" autocomplete="off"  @if(isset($obj)) @if($obj->module=='reading') checked @endif  @endif > Reading
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='writing') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="writing" autocomplete="off"  @if(isset($obj)) @if($obj->module=='writing') checked @endif  @endif > Writing
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='verbal') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="verbal" autocomplete="off"  @if(isset($obj)) @if($obj->module=='verbal') checked @endif  @endif > Verbal
-            </label>
-            <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->module=='quant') active @endif @endif">
-              <input type="radio" name="module" id="option2" value="quant" autocomplete="off"  @if(isset($obj)) @if($obj->module=='quant') checked @endif  @endif > Quant
-            </label>
-          </div>
-
-        </div>
+    
 
       <div class="row">
         <div class="col-12 col-md-9">
@@ -189,8 +169,8 @@
 
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
               @foreach($employees as $emp)
-              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->user_id==$emp->id) active @endif @endif">
-    <input type="radio" name="user_id" id="option" value="{{$emp->id}}" autocomplete="off"  @if(isset($obj)) @if($obj->user_id==$emp->id) checked @endif  @endif > <i class="fa fa-user"></i> {{$emp->name}}
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->user_id==$emp->id) active @endif @endif @if($emp->id==\auth::user()->id) active @endif">
+    <input type="radio" name="user_id" id="option" value="{{$emp->id}}" autocomplete="off"  @if(isset($obj)) @if($obj->user_id==$emp->id) checked @endif  @endif   @if($emp->id==\auth::user()->id) checked @endif> <i class="fa fa-user"></i> {{$emp->name}}
   </label>
               @endforeach
             </div>
@@ -205,6 +185,9 @@
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='enquiry') active @endif @endif @if($stub=='Create') active @endif">
                 <input type="radio" name="stage" id="option1" value="enquiry" autocomplete="off" @if(isset($obj)) @if($obj->stage=='enquiry') checked @endif @endif @if($stub=='Create') checked @endif> Enquiry
+              </label>
+              <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='invited') active @endif @endif">
+                <input type="radio" name="stage" id="option1" value="invited" autocomplete="off" @if(isset($obj)) @if($obj->stage=='invited') checked @endif @endif >Invited
               </label>
               <label class="btn btn-outline-primary @if(isset($obj)) @if($obj->stage=='demo') active @endif @endif">
                 <input type="radio" name="stage" id="option1" value="demo" autocomplete="off" @if(isset($obj)) @if($obj->stage=='demo') checked @endif @endif >Demo
@@ -309,6 +292,7 @@
         <input type="hidden" name="id" value="{{ $obj->id }}">
       @endif
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="module" value="full">
        <button type="submit" class="btn btn-success btn-lg">Save</button>
 
        

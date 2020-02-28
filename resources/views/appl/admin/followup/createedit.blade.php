@@ -2,6 +2,14 @@
 @include('meta.createedit')
 @section('content')
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb border bg-light">
+    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
+    <li class="breadcrumb-item"><a href="{{ url('/admin/followup')}}">{{ ucfirst($app->module) }}</a></li>
+    <li class="breadcrumb-item">Create</li>
+  </ol>
+</nav>
 @include('flash::message')
   <div class="card">
     <div class="card-body">

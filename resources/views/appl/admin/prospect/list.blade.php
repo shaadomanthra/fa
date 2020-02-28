@@ -5,12 +5,12 @@
             <thead>
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
-                <th scope="col">Name </th>
-                <th scope="col">Source</th>
-                <th scope="col">Center</th>
-                <th scope="col">Stage</th>
+                <th scope="col">@sortablelink('name') </th>
+                <th scope="col">@sortablelink('source','Source')</th>
+                <th scope="col">@sortablelink('center')</th>
+                <th scope="col">@sortablelink('stage')</th>
                 <th scope="col">Followup</th>
-                <th scope="col">Created </th>
+                <th scope="col">@sortablelink('created_at','Created') </th>
               </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                 </td>
 
                 <td>{{ count($obj->followups) }}</td>
-                <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
+                <td>{{ ($obj->created_at) ? $obj->created_at->toDateString() : '' }}</td>
                 
               </tr>
               @endforeach      

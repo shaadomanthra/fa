@@ -46,6 +46,12 @@
 
                 @if(\auth::user()->isAdmin())
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ route('prospect.index') }}"><i class="fa fa-bars"></i> Prospects</a>
+                </li>
+                @endif
+
+                @if(\auth::user()->isAdmin())
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin') }}"><i class="fa fa-adn"></i> Admin</a>
                 </li>
                 @endif

@@ -6,10 +6,10 @@
               <tr>
                 <th scope="col">#({{$objs->total()}})</th>
                 <th scope="col">Prospect Name </th>
-                <th scope="col">Counsellor </th>
+                <th scope="col">@sortablelink('user_id','Counsellor ') </th>
                 <th scope="col">Comment</th>
-                <th scope="col">Call Scheduled for</th>
-                <th scope="col">Created </th>
+                <th scope="col">@sortablelink('schedule','Call Scheduled for') </th>
+                <th scope="col">@sortablelink('created_at','Created ') </th>
               </tr>
             </thead>
             <tbody>
@@ -33,9 +33,9 @@
                
                 </td>
                 <td>
-                  {{ $obj->schedule }}
+                  @if($obj->schedule){{ \Carbon\Carbon::parse($obj->schedule)->format('Y-m-d') }}@endif
                 </td>
-                <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
+                <td>{{ ($obj->created_at) ? $obj->created_at->toDateString() : '' }}</td>
                 
               </tr>
               @endforeach      

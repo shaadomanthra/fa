@@ -67,7 +67,7 @@ class ProspectController extends Controller
         $item = $request->item;
         $user_id = $request->get('user_id');
         if(!$user_id){
-            $objs = $obj->where('name','LIKE',"%{$item}%")
+            $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
@@ -75,11 +75,11 @@ class ProspectController extends Controller
         }
         else{
 
-            $objs = $obj->where('user_id',$user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)
                 ->paginate(config('global.no_of_records'));  
 
             if($item){
-                $objs = $obj->where('user_id',$user_id)
+                $objs = $obj->sortable()->where('user_id',$user_id)
                 ->where('name','LIKE',"%{$item}%")
                     ->orWhere('phone','LIKE',"%{$item}%")
                     ->orWhere('email','LIKE',"%{$item}%")
