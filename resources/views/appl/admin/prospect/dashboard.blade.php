@@ -122,10 +122,10 @@
                   </a>
                 </td>
                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&@if(request()->get('range'))range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['all'] }}</a></td>
-                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enquiry @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enquiry'] }}</a></td>
-                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=invited @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['invited'] }}</a></td>
-                  <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=demo @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['demo'] }}</a></td>
-                   <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enrolled @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enrolled'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enquiry& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enquiry'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=invited& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['invited'] }}</a></td>
+                  <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=demo& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['demo'] }}</a></td>
+                   <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enrolled& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $counter[$employee->id]['enrolled'] }}</a></td>
                 
                 
               </tr>
