@@ -58,6 +58,10 @@ class User extends Authenticatable
         return $this->where('id',$id)->first();
     }
 
+    public function getUserByEmail($email){
+        return $this->where('email',$email)->first();
+    }
+
     public function isAdmin(){
         if(in_array($this->admin,[1,2,3,4]))
             return true;

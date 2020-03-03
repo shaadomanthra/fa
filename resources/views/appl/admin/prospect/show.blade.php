@@ -37,12 +37,22 @@
         </div>
       </div>
 
+    @if(!($user=\auth::user()->getUserByEmail($obj->email)))
      <div class='alert alert-important alert-warning border border-warning p-4' >
       <h5>Assign Test</h5>
       <a href="{{ route('user.create')}}?name={{$obj->name}}&email={{$obj->email}}&phone={{$obj->phone}}">
         <button class='btn btn-outline-secondary btn-sm'>Create User & Assign</button>
       </a>
      </div>
+     @else
+     <div class='alert alert-important alert-warning border border-warning p-4' >
+      <h5 class="">User exists in database </h5>
+      <a href="{{ route('user.show',$user->id)}}">
+        <button class='btn btn-outline-secondary btn-sm'>Check if mock test is assigned</button>
+      </a>
+      
+     </div>
+     @endif
       <div class="card mb-4">
         <div class="card-body">
 
