@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Test\Test;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
+use App\Models\Product\Coupon;
 use App\Models\Test\Attempt;
 use Kyslik\ColumnSortable\Sortable;
 
@@ -238,6 +239,23 @@ class User extends Authenticatable
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $result = curl_exec($ch); // This is the result from the API
         curl_close($ch);
+    }
+
+    public function coupon($coupon){
+        $coupon = Coupon::where('code',$coupon)->first();
+         
+        if($coupon->status==0){
+            abort('403','Coupon code expired');
+        }
+
+        $order = new Order();
+        foreach($coupon->products as $p){
+            $order->coupon($p->id,null,$coupon,$this);
+        }
+
+        foreach($coupon->tests as $t){
+            $order->coupon(null,$t->id,$coupon,$this);
+        }
     }
 
 

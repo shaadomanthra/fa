@@ -37,7 +37,12 @@
         </div>
       </div>
 
-     
+     <div class='alert alert-important alert-warning border border-warning p-4' >
+      <h5>Assign Test</h5>
+      <a href="{{ route('user.create')}}?name={{$obj->name}}&email={{$obj->email}}&phone={{$obj->phone}}">
+        <button class='btn btn-outline-secondary btn-sm'>Create User & Assign</button>
+      </a>
+     </div>
       <div class="card mb-4">
         <div class="card-body">
 

@@ -111,6 +111,8 @@ Route::get('/checkout-access/{product}','Product\OrderController@checkout_access
 Route::post('/order','Product\OrderController@order')->name('product.order');
 Route::get('/order_payment', 'Product\OrderController@instamojo_return');
 Route::post('/order_payment', 'Product\OrderController@instamojo_return');
+Route::get('/couponcode','Product\CouponController@try')->name('coupon.try')->middleware('auth');
+Route::get('/couponcode/code','Product\CouponController@use')->name('coupon.use')->middleware('auth');
 
 
 /* Pages */

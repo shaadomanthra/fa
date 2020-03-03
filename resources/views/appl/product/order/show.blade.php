@@ -47,7 +47,7 @@
             <div class="col-md-8">
               @if(isset($obj->product->id))
               <a href="{{ route('product.show',$obj->product->id) }}">
-                {{ $obj->product->name }}
+                {{ strip_tags($obj->product->name) }}
               </a>
               @endif
             </div>

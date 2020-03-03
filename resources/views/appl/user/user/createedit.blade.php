@@ -41,7 +41,7 @@
             <label for="formGroupExampleInput ">Email</label>
             <input type="text" class="form-control" name="email" id="formGroupExampleInput" placeholder="Enter the Email" 
                 @if($stub=='Create')
-                value="{{ (old('email')) ? old('email') : '' }}"
+                value="{{ (old('email')) ? old('email') : request()->get('email') }}"
                 @else
                 value = "{{ $obj->email }}"
                 @endif
@@ -69,7 +69,7 @@
             <label for="formGroupExampleInput "> Name</label>
             <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Enter the Name" 
                 @if($stub=='Create')
-                value="{{ (old('name')) ? old('name') : '' }}"
+                value="{{ (old('name')) ? old('name') : request()->get('name') }}"
                 @else
                 value = "{{ $obj->name }}"
                 @endif
@@ -80,7 +80,7 @@
             <label for="formGroupExampleInput ">Phone</label>
             <input type="text" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter the phone number" 
                 @if($stub=='Create')
-                value="{{ (old('phone')) ? old('phone') : '' }}"
+                value="{{ (old('phone')) ? old('phone') : request()->get('phone') }}"
                 @else
                 value = "{{ $obj->phone }}"
                 @endif
@@ -109,7 +109,7 @@
           @if($product->status==1)
           <div class="col-12 col-md-4">
           <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="products[]" value="{{$product->id}}" id="defaultCheck1" @if($obj->hasProduct($product->id))) checked @endif>
+            <input class="form-check-input" type="checkbox" name="products[]" value="{{$product->id}}" id="defaultCheck1" @if($obj->hasProduct($product->id))) checked @endif >
             <label class="form-check-label" for="defaultCheck1">
               {{ strip_tags($product->name) }} 
             </label>

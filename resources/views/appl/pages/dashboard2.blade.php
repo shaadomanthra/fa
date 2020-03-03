@@ -49,6 +49,13 @@
         
       </div>
     </div>
+    <div class="card mb-4 mr-2 mr-md-4 p-0 text-white" style="background: #2a79b9;border:0px">
+      <div class="p-4">
+      <h4 class="">Use Coupon </h4>
+      <p class="mb-0">To activate your test or product you can use the coupon code in the below link.</p>
+    </div>
+      <a href="{{ route('coupon.try')}}" class="btn btn-primary" style="border:0px">Activation</a>
+    </div>
   </div>
 
     <div class="col-12  col-md-5 col-lg-4 d-none d-sm-block d-md-none">
@@ -91,6 +98,10 @@
         </form>
         
       </div>
+    </div>
+
+    <div class="bg-primary p-4">
+      sample anotehr
     </div>
   </div>
 

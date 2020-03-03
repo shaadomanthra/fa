@@ -23,9 +23,9 @@
                 </td>
                 <td>
                 @if($obj->test_id)
-                {{ $obj->test->name }} 
+                {{ strip_tags($obj->test->name) }} 
                 @else
-                {{ $obj->product->name }} 
+                {{ strip_tags($obj->product->name) }} 
                 @endif
                 </td>
                 <td>

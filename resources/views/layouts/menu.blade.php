@@ -45,8 +45,31 @@
                 @else
 
                 @if(\auth::user()->isAdmin())
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('prospect.dashboard') }}"><i class="fa fa-bars"></i> Prospects</a>
+                
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class ="fa fa-bars"></i> Prospects <span class="caret"></span>
+                    </a>
+                        
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('prospect.dashboard') }}"
+                           >
+                            Prospect Dashboard
+                        </a>
+                        <a class="dropdown-item" href="{{ route('prospect.index') }}"
+                           >
+                            Prospect List
+                        </a>
+                        <a class="dropdown-item" href="{{ route('prospect.create') }}">
+                            Create Prospect 
+                        </a>
+                        <a class="dropdown-item" href="{{ route('followup.index') }}">
+                            Followup List
+                        </a>
+                        <a class="dropdown-item" href="{{ route('followup.create') }}">
+                            Create Followup
+                        </a>
+                    </div>
                 </li>
                 @endif
 

@@ -75,6 +75,14 @@
         </div>
     </div>
 
+    <div class="form-group row">
+        <label for="code" class="col-md-4 col-form-label text-md-right">Coupon (optional)</label>
+
+        <div class="col-md-8">
+            <input id="code" type="text" class="form-control" placeholder="Enter Coupon Code " name="code" >
+        </div>
+    </div>
+
 
     <div class="form-group row text-md-left">
         <div class="col-md-4 col-form-label text-md-left">&nbsp;

@@ -112,7 +112,7 @@ class HomeController extends Controller
     public function dashboard(Request $request){
 
         
-        $orders = \auth::user()->orders()->where('status',1)->orderBy('created_at','desc')->get();
+        $orders = \auth::user()->orders()->where('status',1)->orderBy('expiry','desc')->get();
 
         $test_ids = array();
         $product_ids = array();
@@ -128,6 +128,7 @@ class HomeController extends Controller
         $i=0;
 
         foreach($orders as $o){
+          if(strtotime($o->expiry) > strtotime(date('Y-m-d'))){
             if($o->test_id){
                 if(!in_array($o->test_id, $test_ids)){
                      array_push($test_ids, $o->test_id);
@@ -157,6 +158,7 @@ class HomeController extends Controller
                         $status[$t->id] = 'Expired';
                 }
             }    
+        }
         }
 
         $tests = Test::whereIn('id',$test_ids)->where('name','LIKE',"%{$item}%")->orderBy('name')->get();

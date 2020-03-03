@@ -191,7 +191,7 @@ class PageController extends Controller
         }
 
        
-
+        $try=1;
         if($obj){
             if(\auth::user())
                 if(\auth::user()->admin==1)

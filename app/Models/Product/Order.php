@@ -3,6 +3,8 @@
 namespace App\Models\Product;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product\Product;
+use App\Models\Test\Test;
 
 class Order extends Model
 {
@@ -10,6 +12,7 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'product_id',
+        'test_id',
         'order_id',
         'txn_id',
         'payment_mode',
@@ -59,5 +62,97 @@ class Order extends Model
         $this->expiry = $valid_till;
               
         $this->save();
+    }
+
+    public function coupon($product_id=null,$test_id=null,$coupon,$user=null){
+            
+            if(!$user)
+                $user = \auth::user();
+            
+            if($product_id){
+              $product = Product::where('id',$product_id)->first();
+              $validity = $product->validity;
+            }
+            else
+              $product = null;
+
+            if($test_id){
+              $test = Test::where('id',$test_id)->first();
+              $validity = $test->validity;
+            }
+            else
+              $test = null;
+
+              //dd($response);
+              $order = new Order();
+              $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+
+              $o_check = Order::where('order_id',$order->order_id)->first();
+              while($o_check){
+                $order->order_id = 'ORD_'.substr(md5(mt_rand()), 0, 10);
+                $o_check = Order::where('order_id',$order->order_id)->first();
+                if(!$o_check)
+                  break;
+              }
+
+
+
+              $order->user_id = $user->id;
+              $order->txn_amount = 0;
+              $order->status=1;
+              $order->txn_id = '';
+              $order->payment_mode = 'COUPON';
+                //update coupon
+                if(!$coupon->unlimited){
+                  $coupon->status = 0;
+                  $coupon->user_id = \auth::user()->id;
+                  $coupon->save();
+                }
+                $order->txn_id = $coupon->code;
+              
+
+              //product check
+            if($product_id){
+              $p_check = Order::where('user_id',$user->id)->where('product_id',$product_id)->orderBy('created_at','desc')->first();
+              if($p_check){
+                $today = date('d-m-Y',time()); 
+                $exp = date('d-m-Y',strtotime($p_check->expiry));
+                if($exp<$today)
+                    $p_check = 0;
+              }else{
+                $p_check=0;
+              }
+            }else
+               $p_check=0;
+
+              $order->product_id = $product_id;
+
+              //test check
+              if($test_id){
+                  $t_check = Order::where('user_id',$user->id)->where('test_id',$test_id)->orderBy('created_at','desc')->first();
+                  if($t_check){
+                    $today = date('d-m-Y',time()); 
+                    $exp = date('d-m-Y',strtotime($t_check->expiry));
+                    if($exp<$today)
+                        $t_check = 0;
+                  }else{
+                    $t_check = 0;
+                  }
+              }else
+                $t_check = 0;
+              $order->test_id = $test_id;
+
+              $valid_till = date('Y-m-d H:i:s', strtotime(date("Y-m-d H:i:s") .' + '.($validity*31).' days'));
+              $order->expiry = $valid_till;
+              
+
+
+                   //dd($order);
+              if(!$p_check && !$t_check)
+              $order->save();
+              return 1;
+
+          
+
     }
 }

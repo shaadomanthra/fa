@@ -25,11 +25,7 @@
 				<button class="btn  btn-sm btn-success">Try Now</button>
 			</a>
 			@else
-			@if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
-			<a href="{{ route('test.try',$test->slug)}}" class="btn btn-primary btn-sm  mb-1"><i class="fa fa-eye"></i> View Response</a>
-			@else
-			<a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-sm btn-primary mb-1"><i class="fa fa-bar-chart "></i> Test Report</a>
-			@endif
+  			-
 			@endif
 		</td>
 		<td>

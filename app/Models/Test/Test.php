@@ -71,15 +71,16 @@ class Test extends Model
             return null;
 
         $orders = $user->orders()->whereIn('product_id',$this->products->pluck('id')->toArray())->orderBy('id','desc')->get();
-        
 
         if($orders)
         foreach($orders as $order){
             if($order->status){
+             
                 return $order;
             }
         }
         $order = $user->orders()->where('test_id',$this->id)->orderBy('id','desc')->first();
+
         if($order){
             return $order;
         }

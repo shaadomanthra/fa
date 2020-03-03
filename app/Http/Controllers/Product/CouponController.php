@@ -117,6 +117,44 @@ class CouponController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function try()
+    {
+        return view('appl.product.coupon.try');
+    }
+
+    public function use()
+    {
+        $code = request()->get('code');
+
+        if(!$code)
+            abort('403','Coupon code cannot be empty');
+
+        $coupon = Obj::where('code',$code)->first();
+         
+        if($coupon->status==0){
+            abort('403','Coupon code expired');
+        }
+
+        $order = new Order();
+        foreach($coupon->products as $p){
+            $order->coupon($p->id,null,$coupon);
+        }
+
+        foreach($coupon->tests as $t){
+            $order->coupon(null,$t->id,$coupon);
+        }
+        //dd($coupon->tests);
+  
+        flash('Successfully activated products/tests')->success();
+        return redirect()->route('home');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {
         $obj = Obj::where('id',$id)->first();

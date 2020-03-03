@@ -37,11 +37,11 @@
               
               @if($obj->test_id)
               <a href="{{ route('test',$obj->test->slug) }}">
-                {{ $obj->test->name }} 
+                {{ strip_tags($obj->test->name) }} 
               </a>
                 @else
                 <a href="{{ route('product.view',$obj->product->slug) }}">
-                {{ $obj->product->name }} 
+                {{ strip_tags($obj->product->name) }} 
               </a>
                 @endif
             </div>

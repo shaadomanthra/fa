@@ -22,20 +22,30 @@
           </p>
           @if(\auth::user())
             @if($order = $obj->order(\auth::user()))
-            <div class="border p-3 rounded mb-3">
-              <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $order->created_at->diffForHumans()}}</span>
-            </div>
-              @if(!\auth::user()->attempt($obj->id))
-                <a href="{{ route('test.instructions',$obj->slug) }}">
-                  <button class="btn btn-lg btn-success">Try Now</button>
-                </a>
+              @if(date('d-m-Y',time())>date('d-m-Y',strtotime($order->expiry)))
+                <div class="border p-3 rounded mb-3">
+                <i class="fa fa-times-circle text-danger"></i> Your service is expired  on <span class="text-secondary">{{ date('d-m-Y',strtotime($order->expiry)) }}</span>
+
+              </div>
+              @include('appl.test.test.buy')
               @else
-                @if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
-                <a href="{{ route('test.try',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-eye"></i> View Response</a>
+                <div class="border p-3 rounded mb-3">
+                <i class="fa fa-check-circle text-success"></i> Your service is activated <span class="text-secondary">{{ $order->created_at->diffForHumans()}}</span>
+              </div>
+                @if(!\auth::user()->attempt($obj->id))
+                  <a href="{{ route('test.instructions',$obj->slug) }}">
+                    <button class="btn btn-lg btn-success">Try Now</button>
+                  </a>
                 @else
-                <a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
+                  @if($test->testtype->name == 'SPEAKING' || $test->testtype->name == 'WRITING')
+                  <a href="{{ route('test.try',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-eye"></i> View Response</a>
+                  @else
+                  <a href="{{ route('test.analysis',$test->slug)}}" class="btn btn-secondary mb-1"><i class="fa fa-bar-chart"></i> Test Report</a>
+                  @endif
                 @endif
+
               @endif
+            
             @else
               @if($obj->price !=0)
               <p class="h3 mb-4"><i class="fa fa-rupee"></i> {{ $obj->price}}</p>

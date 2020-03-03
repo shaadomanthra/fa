@@ -224,6 +224,11 @@ class McqController extends Controller
             $b = summernote_imageupload($user,$request->get('b'));
             $c= summernote_imageupload($user,$request->get('c'));
             $d= summernote_imageupload($user,$request->get('d'));
+
+            foreach(['a','b','c','d'] as $item){
+                if(trim($request->get($item))=='<p><br></p>')
+                    $request->merge([$item=>'']);
+            }
             
             // for multi answer
             $answers = $request->get('answers');
