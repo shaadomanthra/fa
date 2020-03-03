@@ -18,6 +18,7 @@
                   {!! $obj->question !!}
                   </a>
                   
+                   @if($obj->a)
                   <div>
                     @if(strpos($obj->answer, 'A') !== FALSE)
                      <span class="text-success">(A)</span> 
@@ -26,6 +27,8 @@
                     @endif
                     {!! $obj->a !!}
                   </div>
+                  @endif
+                   @if($obj->b)
                   <div>
                     @if(strpos($obj->answer, 'B') !== FALSE)
                      <span class="text-success">(B)</span> 
@@ -34,6 +37,8 @@
                     @endif
                     {!! $obj->b !!}
                   </div>
+                  @endif
+                  @if($obj->c)
                   <div>
                     @if(strpos($obj->answer, 'C') !== FALSE)
                      <span class="text-success">(C)</span> 
@@ -42,6 +47,7 @@
                     @endif
                     {!! $obj->c !!}
                   </div>
+                  @endif
 
                   @if($obj->d)
                   <div>
