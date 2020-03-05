@@ -43,7 +43,11 @@ class UserPolicy
      */
     public function edit(User $user)
     { 
-       return $user->isAdmin();
+       if($user->admin==1)
+       return true;
+
+       if($user->user_id == $user->id)
+        return true;
     }
 
     /**
@@ -55,12 +59,13 @@ class UserPolicy
      */
     public function update(User $user)
     { 
-        return $user->isAdmin();
+       if($user->admin==1)
+       return true;
+
+       if($user->user_id == $user->id)
+        return true;
     }
 
 
-    public function before($user, $ability)
-    {
-        return $user->isAdmin();
-    }
+    
 }

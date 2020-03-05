@@ -4,6 +4,7 @@ namespace App\Policies\Admin;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use App\Models\Admin\Prospect;
 
 class ProspectPolicy
 {
@@ -29,7 +30,7 @@ class ProspectPolicy
      */
     public function create(User $user)
     { 
-        if($user->admin==1)
+        if($user->admin!==0)
         return true;
     }
 
@@ -41,10 +42,13 @@ class ProspectPolicy
      * @param  \App\Post  $post
      * @return bool
      */
-    public function edit(User $user)
+    public function edit(User $user,Prospect $prospect)
     { 
        if($user->admin==1)
        return true;
+
+       if($prospect->user_id == $user->id)
+        return true;
     }
 
     /**
@@ -54,10 +58,13 @@ class ProspectPolicy
      * @param  \App\Post  $post
      * @return bool
      */
-    public function update(User $user)
+    public function update(User $user,Prospect $prospect)
     { 
         if($user->admin==1)
-        return true;
+            return true;
+
+       if($prospect->user_id == $user->id)
+            return true;
     }
 
 

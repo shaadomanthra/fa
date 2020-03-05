@@ -303,6 +303,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $obj= Obj::where('id',$id)->first();
+        
         $this->authorize('update', $obj);
 
         $tests = Test::where('status',1)->get();
