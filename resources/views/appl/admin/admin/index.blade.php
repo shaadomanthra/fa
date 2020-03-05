@@ -70,9 +70,6 @@
             </div>
             </a>
         </div>
-        @endif
-
-        @if(\auth::user()->admin!=4)
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('order.index') }}">
             <div class="border bg-white p-4 rounded mb-4">
@@ -83,6 +80,10 @@
             </div>
             </a>
         </div>
+        @endif
+
+        @if(\auth::user()->admin!=4)
+        
         <div class="col-6 col-md-3 col-lg-3">
             <a href="{{ route('user.index') }}">
             <div class="border bg-white p-4 rounded mb-4">

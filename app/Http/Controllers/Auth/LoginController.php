@@ -57,8 +57,12 @@ class LoginController extends Controller
 
         if(session('link'))
             return redirect(session('link')); 
-        else
+        else{
+            if($user->admin!==0)
+            return redirect()->route('admin');
+            else
             return redirect()->intended($this->redirectPath());
+        }
     }
 
     protected function sendLoginResponse(Request $request)
