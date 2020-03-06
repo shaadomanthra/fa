@@ -44,10 +44,8 @@ class ProspectPolicy
      */
     public function edit(User $user,Prospect $prospect)
     { 
-       if($user->admin==1)
-       return true;
-
-       if($prospect->user_id == $user->id)
+       
+        if($user->admin!==0)
         return true;
     }
 
@@ -60,16 +58,16 @@ class ProspectPolicy
      */
     public function update(User $user,Prospect $prospect)
     { 
-        if($user->admin==1)
-            return true;
-
-       if($prospect->user_id == $user->id)
-            return true;
+        
+        if($user->admin!==0)
+        return true;
     }
 
 
     public function before($user, $ability)
-    {   if($user->admin==1)
+    {   
+        
+        if($user->admin!==0)
         return true;
     }
 }
