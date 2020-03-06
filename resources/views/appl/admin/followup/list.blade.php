@@ -20,12 +20,14 @@
                 <td>
                   @if(isset($obj->prospect))
                   <a href=" {{ route('prospect.show',$obj->prospect_id) }} ">
-                  {{ $obj->prospect->name }}
+                  {{ $obj->prospect->name }} @if($obj->state)<span class="badge badge-warning">open</span>@endif
                   </a>
                   @endif
                 </td>
                 <td>
+                  <a href=" {{ route('followup.index') }}?user_id={{$obj->user->id}} @if(request()->get('today'))&today=1 @endif ">
                   {{ $obj->user->name }}
+                </a>
                  
                 </td>
                 <td>

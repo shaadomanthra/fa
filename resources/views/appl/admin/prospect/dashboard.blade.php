@@ -85,11 +85,11 @@
         </div>
     </div>
 <div  class="row ">
-@if(!$employ)
-  <div class="col-12 col-md-6 mb-4">
 
+  <div class="col-12 col-md-6 mb-4">
+@if(!$employ)
      @if(count($employees))
-        <div class="table-responsive">
+        <div class="table-responsive mb-4">
           <table class="table table-bordered mb-0">
             <thead>
               <tr>
@@ -139,12 +139,9 @@
           No {{ $app->module }} found
         </div>
         @endif
-    
- </div>
 @endif
-  <div class="col-12 col-md">
- 
-    <div class="card mb-3 mb-md-0">
+
+         <div class="card mb-3 mb-md-0">
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
           <div class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }} ({{$objs->total()}}) <a href="{{route($app->module.'.create')}}">
@@ -215,6 +212,135 @@
 
      </div>
    </div>
+    
+ </div>
+
+  <div class="col-12 col-md">
+ 
+  @if(!$employ) 
+     @if(count($employees))
+        <div class="table-responsive mb-4">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Counsellor </th>
+                <th scope="col">Prospect Followup</th>
+                <th scope="col">Total Followups</th>
+                <th scope="col">Open</th>
+                <th scope="col">Incomplete</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($employees as $key=>$employee)  
+              @if(isset($followup_counter[$employee->id]))
+              <tr>
+                <th scope="row">{{  $key+1 }}</th>
+                <td>
+                  <a href="{{ route('prospect.dashboard')}}?user_id={{$employee->id}}">
+                    @if(\Storage::disk('public')->exists('images/'.$employee->id.'.jpg')) 
+         <img src="{{ asset('storage/images/'.$employee->id.'.jpg')}}" class="user " style="width:15px;height:15px;border-radius: 10px;" />
+          @elseif(\Storage::disk('public')->exists('images/'.$employee->id.'.jpeg'))
+            <img src="{{ asset('storage/images/'.$employee->id.'.jpeg')}}" class="user "  style="width:15px;height:15px;border-radius: 10px;"/>
+          @elseif(\Storage::disk('public')->exists('images/'.$employee->id.'.png'))
+              <img src="{{ asset('storage/images/'.$employee->id.'.png')}}" class="user "  style="width:15px;height:15px;border-radius:10px;"/>
+          @else
+              <img src="{{ asset('images/admin/user.png')}}" class="user mt-0" style="width:15px" />
+          @endif
+                  {{ $employee->name }}
+                  </a>
+                </td>
+                <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&@if(request()->get('range'))range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['prospects'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=enquiry& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['followup'] }}</a></td>
+                 <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=invited& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['open'] }}</a></td>
+                  <td><a href="{{route('prospect.index')}}?user_id={{$employee->id}}&stage=demo& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['incomplete'] }}</a></td>
+                
+                
+                
+              </tr>
+              @endif
+              @endforeach      
+            </tbody>
+          </table>
+        </div>
+        @else
+        <div class="card card-body bg-light">
+          No {{ $app->module }} found
+        </div>
+        @endif
+@endif
+
+         <div class="card mb-3 mb-md-0">
+      <div class="card-body mb-0">
+        <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
+          <div class="navbar-brand"><i class="fa fa-bars"></i> Followups ({{$followup_all->total()}}) <a href="{{route('followup.create')}}">
+              <button type="button" class="btn btn-secondary my-2 my-sm-2 mr-sm-3 pl-1 pr-1 pt-0 pb-0"><i class="fa fa-plus"></i></button>
+            </a></div>
+          @can('create',$obj)
+            <a href="{{route('followup.index')}}@if($employ)?user_id={{$employ->id}} @endif">
+              <button type="button" class="btn btn-success my-2 my-sm-2 ">View All</button>
+            </a>
+
+            @endcan
+          
+        </nav>
+
+        <div id="search-items">
+        
+ @if($objs->total()!=0)
+        <div class="table-responsive">
+          <table class="table table-bordered mb-0">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Prospect Name </th>
+                <th scope="col">Counsellor</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Scheduled for</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($followup_all as $key=>$obj)  
+              <tr>
+                <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
+                <td>
+                  @if(isset($obj->prospect))
+                  <a href=" {{ route('prospect.show',$obj->prospect_id) }} ">
+                  {{ $obj->prospect->name }} @if($obj->state)<span class="badge badge-warning">open</span>@endif
+                  </a>
+                  @endif
+                </td>
+                <td>
+                 <a href=" {{ route('followup.index') }}?user_id={{$obj->user->id}} @if(request()->get('today'))&today=1 @endif ">
+                  {{ $obj->user->name }}
+                </a>
+               
+                </td>
+                <td>
+                 {{ $obj->comment }}
+               
+                </td>
+                <td>
+                  @if($obj->schedule){{ \Carbon\Carbon::parse($obj->schedule)->format('Y-m-d') }}@endif
+                </td>
+                
+                
+              </tr>
+              @endforeach      
+            </tbody>
+          </table>
+        </div>
+        @else
+        <div class="card card-body bg-light">
+          No {{ $app->module }} found
+        </div>
+        @endif
+
+       </div>
+
+     </div>
+   </div>
+    
  </div>
  
  

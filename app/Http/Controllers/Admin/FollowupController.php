@@ -31,7 +31,14 @@ class FollowupController extends Controller
         $item = $request->item;
         $today = $request->today;
 
+        $user_id = $request->get('user_id');
+
         if($today){
+            if($user_id)
+                $objs = $obj->sortable()->where('user_id',$user_id)->whereDate('schedule', Carbon::today())
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));  
+            else
             $objs = $obj->sortable()->whereDate('schedule', Carbon::today())
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
@@ -41,6 +48,10 @@ class FollowupController extends Controller
             foreach($objx as $ob){
                 array_push($ids, $ob[0]->id);
             }
+            if($user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)->whereIn('id',$ids)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
             $objs = $obj->sortable()->whereIn('id',$ids)->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records'));  
         }
@@ -100,10 +111,26 @@ class FollowupController extends Controller
             $obj->prospect_id = $prospect;
             $obj->comment = $request->get('comment');
             $obj->schedule = $request->get('schedule');
+            if($obj->schedule)
+                $obj->state = 1;
+            else
+                $obj->state = 0;
 
             //dd($obj);
             /* create a new entry */
             $obj->save();
+
+            $id = $obj->orderBy('id','desc')->first()->id;
+
+            $prev  = Obj::where('prospect_id',$prospect)->where('state',1)->orderBy('id','desc')->get();
+
+            //dd($prev);
+            foreach($prev as $p){
+                if($p->id!=$id){
+                    $p->state=0;
+                    $p->save();
+                }  
+            }
 
             
 

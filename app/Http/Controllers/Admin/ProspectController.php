@@ -24,7 +24,9 @@ class ProspectController extends Controller
         $range = $r->get('range');
 
 
+        $f = new Followup;
         $counter = $obj->getCount($user_id,$range);  
+        $followup_counter = $f->getCount($user_id,$range);
 
         if(!$user_id)
             $objs = $obj->getDataDate($obj,$range)
@@ -33,6 +35,27 @@ class ProspectController extends Controller
         else
             $objs = $obj->getDataDate($obj,$range)->where('user_id',$user_id)->orderBy('created_at','desc')
                     ->paginate(5);   
+
+        $ids =[];
+            $objx = $f->getDataDate($f,$range)->orderBy('created_at','desc')->get()->groupBy('prospect_id');
+            foreach($objx as $ob){
+                array_push($ids, $ob[0]->id);
+            }
+        if(!$user_id){
+            $followup_all = $f->whereIn('id',$ids)->orderBy('created_at','desc')
+                    ->paginate(5);  
+            $followup_today = $f->getDataDate($f,$range)->whereDate('schedule', Carbon::today())
+                    ->orderBy('created_at','desc')
+                    ->paginate(20); 
+        }
+        else{
+            $followup_all = $f->where('user_id',$user_id)->whereIn('id',$ids)->orderBy('created_at','desc')
+                    ->paginate(5); 
+            $followup_today = $f->getDataDate($f,$range)->whereDate('schedule', Carbon::today())->where('user_id',$user_id)->orderBy('created_at','desc')
+                    ->paginate(20); 
+        }
+
+
 
         $employees = User::whereIn('admin',[1,2])->get();
 
@@ -47,6 +70,9 @@ class ProspectController extends Controller
                 ->with('objs',$objs)
                 ->with('obj',$obj)
                 ->with('counter',$counter)
+                ->with('followup_counter',$followup_counter)
+                ->with('followup_all',$followup_all)
+                ->with('followup_today',$followup_today)
                 ->with('employees',$employees)
                 ->with('employ',$employee)
                 ->with('app',$this);

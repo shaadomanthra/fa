@@ -31,6 +31,18 @@
           
         </nav>
 
+        @if(request()->get('user_id') || request()->get('today') )
+          <div class="alert alert-important alert-primary">
+            @if(request()->get('user_id'))
+            <b>Counsellor: </b> {{\auth::user()->getUser(request()->get('user_id'))->name}} &nbsp; &nbsp;
+            @endif
+            
+            @if(request()->get('today'))
+            <span class=""><b>Today: </b>  yes</span>
+            @endif
+          </div>
+        @endif
+
         <div id="search-items">
          @include('appl.'.$app->app.'.'.$app->module.'.list')
        </div>

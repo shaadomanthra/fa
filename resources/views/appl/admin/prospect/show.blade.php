@@ -155,13 +155,19 @@
     <div class="media">
   <img class="mr-3 " src="{{ asset('images/man.png')}}" alt="Counsellor"  width="80px">
   <div class="media-body">
-    <h5 class="mt-0">{{ $f->user->name}} <small class="text-secondary"style="font-size:12px;">{{ $f->created_at->diffForHumans()}}</small></h5>
+    <h5 class="mt-0">{{ $f->user->name}} <small class="text-secondary"style="font-size:12px;">{{ $f->created_at->diffForHumans()}}</small>
+      @if($f->state)
+      <span class="badge badge-warning">open</span>
+      @endif
+    </h5>
     <p class="mt-0 mb-2 bg-white rounded border p-3">
       {{ $f->comment }}
     </p>
     @if($f->schedule)
     <p><i class="fa fa-clock-o"></i> Call Scheduled for :  <b><span class="text-info">{{ $f->schedule }}</span></b></p>
     @endif
+
+
     
   </div>
 </div>
