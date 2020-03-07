@@ -6,6 +6,7 @@
   <ol class="breadcrumb border bg-light">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
+     <li class="breadcrumb-item"><a href="{{ url('/admin/prospect/dashboard')}}">Dashboard</a></li>
     <li class="breadcrumb-item">{{ ucfirst($app->module) }}</li>
   </ol>
 </nav>
