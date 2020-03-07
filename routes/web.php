@@ -155,6 +155,10 @@ Route::get('/category/{category}', 'Blog\CollectionController@list')->name('cate
 Route::get('/tag/{tag}', 'Blog\LabelController@list')->name('tag.list');
 Route::get('/{year}/{month}', 'Blog\CollectionController@yearmonth')->name('year.list');
 
+Route::get('/ieltspage', function(){
+    return view('appl.pages.ielts');
+})->name('ielts.page');
+
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */
 Route::get('/learnersclub', function(){
@@ -162,6 +166,8 @@ Route::get('/learnersclub', function(){
 })->name('listening');
 
 /* Sample Routes */
+
+
 Route::get('/listening', function(){
     return view('appl.pages.listening');
 })->name('listening');
