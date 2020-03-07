@@ -27,6 +27,13 @@ class ProspectController extends Controller
             foreach($pr as $p){
                 $fr = $f->where('prospect_id',$p->id)->orderBy('created_at','desc')->get();
                 foreach($fr as $k=>$fp){
+                    if($k==0){
+                        if(!$fp->schedule)
+                        {
+                            $fp->state=0;
+                            $fp->save();
+                        }
+                    }
                     if($k!=0){
                         $fp->state=0;
                         $fp->save();
