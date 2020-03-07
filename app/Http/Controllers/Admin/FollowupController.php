@@ -25,6 +25,15 @@ class FollowupController extends Controller
      */
     public function index(Obj $obj,Request $request)
     {
+        /* delete old */
+        if(request()->get('oldjan'))
+        {
+            $records = $obj->where('created_at', '<=', '2020-01-31')->delete();
+            //dd($records);
+            
+                    
+        }
+
         $this->authorize('view', $obj);
 
         $search = $request->search;
@@ -225,6 +234,7 @@ class FollowupController extends Controller
      */
     public function destroy($id)
     {
+
         $obj = Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 

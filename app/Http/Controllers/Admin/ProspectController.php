@@ -89,6 +89,13 @@ class ProspectController extends Controller
     {
         $this->authorize('view', $obj);
 
+        if(request()->get('oldjan'))
+        {
+            $records = $obj->where('created_at', '<=', '2020-01-31')->delete();
+            //dd($records);
+            
+        }
+
         $search = $request->search;
         $item = $request->item;
         $stage = $request->stage;
