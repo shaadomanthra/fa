@@ -4,37 +4,37 @@
 @section('content')
 <div class="row mt-4 mb-4">
   <div class="col-12 col-md-6">
-    <div class="mt-4">
+    <div class="mt-2 mt-md-4">
     <h1>Go beyond YouTube <br> with classes designed for you!</h1>
     <h5>Convert your Band 6 scores in Band 9 with proven exam strate</h5>
 
     <div class='row mt-4'>
                             <div class="col-12 col-md-4">
                                 <div class="row">
-                                    <div class="col-6 col-md-4">
+                                    <div class="col-3 col-md-4 mb-4">
                                         <img src="images/general/interview.png" class='float-right' width="40px">
                                     </div>
-                                    <div class="col-6 col-md-8">
+                                    <div class="col-8 col-md-8">
                                         <b>Personalised <br>Sessions</b>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="row">
-                                    <div class="col-6 col-md-4">
+                                    <div class="col-3 col-md-4 mb-4">
                                         <img src="images/general/write.png" class='float-right' width="40px">
                                     </div>
-                                    <div class="col-6 col-md-8">
-                                        <b>Individual <br>Writing <br>Corrections</b>
+                                    <div class="col-8 col-md-8">
+                                        <b>Individual Writing <br>Corrections</b>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4">
                                 <div class="row">
-                                    <div class="col-6 col-md-4">
+                                    <div class="col-3 col-md-4 mb-4">
                                         <img src="images/general/books.png" class='float-right' width="40px">
                                     </div>
-                                    <div class="col-6 col-md-8">
+                                    <div class="col-8 col-md-8">
                                         <b>Exclusive <br>Material</b>
                                     </div>
                                 </div>
