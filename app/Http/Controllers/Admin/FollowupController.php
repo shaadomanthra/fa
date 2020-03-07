@@ -25,24 +25,54 @@ class FollowupController extends Controller
      */
     public function index(Obj $obj,Request $request)
     {
-        /* delete old */
-        if(request()->get('oldjan'))
-        {
-            $records = $obj->where('created_at', '<=', '2020-01-31')->delete();
-            //dd($records);
-            
-                    
-        }
-
+    
         $this->authorize('view', $obj);
 
         $search = $request->search;
         $item = $request->item;
         $today = $request->today;
+        $state = $request->state;
 
         $user_id = $request->get('user_id');
 
-        if($today){
+        if($request->get('view')){
+
+            if($user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
+            $objs = $obj->sortable()->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+
+        }elseif($state==1){
+            if($user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)->where('state',1)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
+            $objs = $obj->sortable()->where('state',1)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+
+
+
+        }else if($state===0){
+            if($user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)->where('state',0)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
+            $objs = $obj->sortable()->where('state',0)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+
+
+        }else if($state==2){
+            $now = \Carbon\Carbon::now()->format('Y-m-d');
+            if($user_id)
+            $objs = $obj->sortable()->where('user_id',$user_id)->where('state',1)->where('schedule','<',$now)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+            else
+            $objs = $obj->sortable()->where('state',1)->where('schedule','<',$now)->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records')); 
+        }
+        else if($today){
             if($user_id)
                 $objs = $obj->sortable()->where('user_id',$user_id)->whereDate('schedule', Carbon::today())
                     ->orderBy('created_at','desc')

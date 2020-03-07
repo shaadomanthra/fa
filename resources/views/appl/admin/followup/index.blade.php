@@ -38,7 +38,23 @@
             @endif
             
             @if(request()->get('today'))
-            <span class=""><b>Today: </b>  yes</span>
+            <span class=""><b>Today: </b>  yes</span> &nbsp; &nbsp;
+            @endif
+
+            @if(!request()->get('state'))
+            <span class=""><b>State: </b>  Complete</span> &nbsp; &nbsp;
+            @endif
+
+            @if(request()->get('state')==1)
+            <span class=""><b>State: </b>  Open</span>&nbsp; &nbsp;
+            @endif
+
+            @if(request()->get('state')==2)
+            <span class=""><b>State: </b>  Incomplete</span>&nbsp; &nbsp;
+            @endif
+
+            @if(request()->get('view'))
+            <span class=""><b>View: </b>  All Prospect Followup Entries</span>&nbsp; &nbsp;
             @endif
           </div>
         @endif
