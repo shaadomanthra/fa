@@ -48,7 +48,10 @@
           <div class="form-group">
             <label for="formGroupExampleInput "> Phone number</label>
             <input type="text" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter the user phone number" 
-                value="{{ request()->get('phone') }}"
+                @if($stub=='Create')
+                value="{{ (old('phone')) ? old('phone') : '' }}"
+                @else  value="{{ request()->get('phone') }}" @endif
+                
               >
           </div>
 

@@ -254,9 +254,6 @@
                  <td><a href="{{route('followup.index')}}?user_id={{$employee->id}}&view=all&@if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['followup'] }}</a></td>
                  <td><a href="{{route('followup.index')}}?user_id={{$employee->id}}&state=1& @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['open'] }}</a></td>
                   <td><a href="{{route('followup.index')}}?user_id={{$employee->id}}&state=2 @if(request()->get('range')) range={{request()->get('range')}}@endif">{{ $followup_counter[$employee->id]['incomplete'] }}</a></td>
-                
-                
-                
               </tr>
               @endif
               @endforeach      
