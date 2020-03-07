@@ -19,12 +19,27 @@ class ProspectController extends Controller
 
     public function dashboard(Obj $obj,Request $r){
 
+        $f = new Followup;
+        /* refresh */
+        if($r->get('refresh')){
+            $pr  = $obj->orderBy('created_at','desc')
+                    ->get();
+            foreach($pr as $p){
+                $fr = $f->where('prospect_id',$p->id)->orderBy('created_at','desc')->get();
+                foreach($fr as $k=>$fp){
+                    if($k!=0){
+                        $fp->state=0;
+                        $fp->save();
+                    }
+                }
+            }
+        }
 
         $user_id = $r->get('user_id');
         $range = $r->get('range');
 
 
-        $f = new Followup;
+        
         $counter = $obj->getCount($user_id,$range);  
         $followup_counter = $f->getCount($user_id,$range);
 
