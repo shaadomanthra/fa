@@ -93,6 +93,19 @@
       </div>
       @endif
 
+       @if(strtolower(request()->get('type'))=='speaking' || !request()->get('type'))
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Speaking Question</label>
+        <textarea class="form-control summernote" name="description"  rows="5">
+            @if($stub=='Create')
+            {{ (old('description')) ? old('description') : '' }}
+            @else
+            {{ $obj->description }}
+            @endif
+        </textarea>
+      </div>
+      @endif
+
       @if(strtolower(request()->get('type'))=='listening' || !request()->get('type'))
       <div class="form-group">
         <label for="formGroupExampleInput ">Audio File</label>
