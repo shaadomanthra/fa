@@ -192,6 +192,9 @@ class SectionController extends Controller
             $user = \auth::user();
             if($request->get('instructions')){
                 $request->merge(['instructions' => summernote_imageupload($user,$request->get('instructions'))]);
+
+                if(!strip_tags(trim($request->get('instructions'))))
+                    $request->merge(['instructions' => '']);
             }
 
             $obj = $obj->update($request->except(['tags'])); 
