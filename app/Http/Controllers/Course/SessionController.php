@@ -94,20 +94,20 @@ class SessionController extends Controller
             
             // update slug with name if its empty
             if(!$request->get('meeting_url')){
-                $request->merge(['meeting_url' => '0')]);
+                $request->merge(['meeting_url' => '0']);
             }
             if(!$request->get('meeting_id')){
-                $request->merge(['meeting_id' => '0')]);
+                $request->merge(['meeting_id' => '0']);
             }
 
             if(!$request->get('meeting_password')){
-                $request->merge(['meeting_password' => '0')]);
+                $request->merge(['meeting_password' => '0']);
             }
 
             if(!$request->get('faculty')){
-                $request->merge(['faculty' => '0')]);
+                $request->merge(['faculty' => '0']);
             }
-            
+
             /* create a new entry */
             $obj = $obj->create($request->except(['file']));
 
@@ -230,18 +230,18 @@ class SessionController extends Controller
             
             // update slug with name if its empty
             if(!$request->get('meeting_url')){
-                $request->merge(['meeting_url' => '0')]);
+                $request->merge(['meeting_url' => '0']);
             }
             if(!$request->get('meeting_id')){
-                $request->merge(['meeting_id' => '0')]);
+                $request->merge(['meeting_id' => '0']);
             }
 
             if(!$request->get('meeting_password')){
-                $request->merge(['meeting_password' => '0')]);
+                $request->merge(['meeting_password' => '0']);
             }
 
             if(!$request->get('faculty')){
-                $request->merge(['faculty' => '0')]);
+                $request->merge(['faculty' => '0']);
             }
 
             $obj->update($request->except(['file'])); 
