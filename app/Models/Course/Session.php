@@ -12,6 +12,7 @@ class Session extends Model
         'description',
         'faculty',
         'track_id',
+        'course_id',
         'user_id',
         'meeting_id',
         'meeting_password',
@@ -30,4 +31,5 @@ class Session extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
 }
