@@ -44,15 +44,15 @@
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting ID</b></div>
-            <div class="col-md-8">@if($obj->meeitng_id) {{ $obj->meeting_id }} @endif</div>
+            <div class="col-md-8">@if($obj->meeting_id) {{ $obj->meeting_id }} @endif</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting Password</b></div>
-            <div class="col-md-8">@if($obj->meeitng_password) {{ $obj->meeting_password }} @endif</div>
+            <div class="col-md-8">@if($obj->meeting_password) {{ $obj->meeting_password }} @endif</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting url</b></div>
-            <div class="col-md-8">@if($obj->meeitng_url) {{ $obj->meeting_url }} @endif</div>
+            <div class="col-md-8">@if($obj->meeting_url) {{ $obj->meeting_url }} @endif</div>
           </div>
         
           <div class="row mb-2">
