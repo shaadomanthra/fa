@@ -88,6 +88,15 @@
                 @endif
               </div>
             </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Tracks</b></div>
+              <div class="col-md-8">
+                @foreach($obj->tracks as $k=>$t)
+                  <span class="badge badge-secondary">{{ $t->name}}</span> &nbsp; 
+                @endforeach
+              </div>
+            </div>
             
             <div class="row mb-2">
               <div class="col-md-4"><b>Status</b></div>
