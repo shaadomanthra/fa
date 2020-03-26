@@ -137,7 +137,7 @@
         <input type="hidden" name="id" value="{{ $obj->id }}">
       @endif
         <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
-        <input type="hidden" name="cours_id" value="0">
+        <input type="hidden" name="course_id" value="0">
         <input type="hidden" name="track_id" value="{{ $app->track_id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-info">Save</button>
