@@ -100,7 +100,8 @@ Route::get('/orders/{order}', 'Product\OrderController@myordersview')->middlewar
 
 Route::resource('/admin/track', 'Course\TrackController')->middleware('auth');
 Route::resource('/admin/track/{track}/session', 'Course\SessionController')->middleware('auth');
-
+Route::get('/session/{session}','Course\SessionController@url')->name('session.url')->middleware('auth');
+Route::get('/session/{session}/join','Course\SessionController@join')->name('session.join')->middleware('auth');
 
 /* product redirect */
 Route::get('products/ielts-short-test', function () {

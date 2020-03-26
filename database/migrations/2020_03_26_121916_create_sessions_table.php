@@ -18,12 +18,12 @@ class CreateSessionsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
-            $table->integer('course_id');
+            $table->integer('track_id');
             $table->integer('user_id');
-            $table->integer('meeting_id');
-            $table->integer('meeting_password');
-            $table->string('meeting_url');
-            $table->string('faculty');
+            $table->integer('meeting_id')->nullable();
+            $table->integer('meeting_password')->nullable();
+            $table->string('meeting_url')->nullable();
+            $table->string('faculty')->nullable();
             $table->integer('status');
             $table->timestamps();
         });

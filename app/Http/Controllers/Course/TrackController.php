@@ -100,7 +100,7 @@ class TrackController extends Controller
      */
     public function show($id)
     {
-        $obj = Obj::where('id',$id)->first();
+        $obj = Obj::where('slug',$id)->first();
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
@@ -162,7 +162,7 @@ class TrackController extends Controller
 
             $obj = $obj->update($request->except(['file'])); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
-            return redirect()->route($this->module.'.show',$id);
+            return redirect()->route($this->module.'.show',$slug);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];

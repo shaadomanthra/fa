@@ -11,17 +11,23 @@ class Session extends Model
         'slug',
         'description',
         'faculty',
-        'course_id',
+        'track_id',
         'user_id',
         'meeting_id',
         'meeting_password',
         'meeting_url',
-        'status',
-        'created_at',
-        'updated_at'
-
+        'status'
         // add all other fields
     ];
 
-    public $timestamps = true;
+
+     public function track()
+    {
+        return $this->belongsTo('App\Models\Course\Track');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

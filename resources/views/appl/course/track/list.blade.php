@@ -16,7 +16,7 @@
                 <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
                 <td>
                   
-                  <a href=" {{ route($app->module.'.show',$obj->id) }} ">
+                  <a href=" {{ route($app->module.'.show',$obj->slug) }} ">
                   <h4 class="mb-0">{{ $obj->name }}</h3>
                   </a>
                   {!! $obj->description !!}

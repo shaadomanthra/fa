@@ -9,6 +9,9 @@
 			<li class="nav-item">
 				<a class="nav-link" id="myproduct-tab" data-toggle="tab" href="#myproduct" role="tab" aria-controls="myproduct" aria-selected="false"><h4 class="mt-2">My Products</h4></a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="mytrack-tab" data-toggle="tab" href="#mytracks" role="tab" aria-controls="mytracks" aria-selected="false"><h4 class="mt-2">My Tracks</h4></a>
+			</li>
 		</ul>
 	</div>
 <div class="tab-content" id="myTabContent">
@@ -41,6 +44,17 @@
 		</form>
     <div id="search-items2" class="">
 		@include('appl.pages.blocks.productlist')
+	</div>
+	</div>
+  </div>
+
+   <div class="tab-pane fade" id="mytracks" role="tabpanel" aria-labelledby="mytrack-tab">
+  	<div class="mt-4">
+  		<div class="border rounded p-3 bg-light mb-3">
+  			List of sessions attended by the user
+  		</div>
+    <div id="search-items2" class="">
+		@include('appl.pages.blocks.trackslist')
 	</div>
 	</div>
   </div>

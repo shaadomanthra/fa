@@ -87,6 +87,14 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Product\Order');
     }
 
+    public function tracks(){
+        return $this->belongsToMany('App\Models\Course\Track');
+    }
+
+    public function sessions(){
+        return $this->belongsToMany('App\Models\Course\Session');
+    }
+
     public function attempts(){
         return $this->hasMany('App\Models\Test\Attempt');
 

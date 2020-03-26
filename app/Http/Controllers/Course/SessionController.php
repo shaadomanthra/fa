@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Course;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Course\Session as Obj;
+use App\Models\Course\Track;
 
 class SessionController extends Controller
 {
@@ -13,7 +15,16 @@ class SessionController extends Controller
 
     public function __construct(){
         $this->app      =   'course';
-        $this->module   =   'track';
+        $this->module   =   'session';
+        if(request()->segment(3) && request()->segment(3)!='join'){
+            $this->track   =   request()->segment(3);
+            $this->track_id = Track::where('slug',$this->track)->first()->id;
+        }else{
+            $this->track = null;
+            $this->track_id = null;
+        }
+        
+
     }
 
     /**
@@ -51,10 +62,17 @@ class SessionController extends Controller
         $obj = new Obj();
         $this->authorize('create', $obj);
 
+        $slug = (rand(10000,100000));
+
+        $exists = Obj::where('slug',$slug)->first();
+        if($exists)
+            $slug = rand(10000,100000);
+
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('editor',true)
+                ->with('slug',$slug)
                 ->with('app',$this);
     }
 
@@ -69,7 +87,6 @@ class SessionController extends Controller
         try{
             
         
-
             // update slug with name if its empty
             if(!$request->get('slug')){
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
@@ -79,7 +96,7 @@ class SessionController extends Controller
             $obj = $obj->create($request->except(['file']));
 
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
-            return redirect()->route($this->module.'.index');
+            return redirect()->route($this->module.'.show',[$this->track,$obj->slug]);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];
@@ -90,15 +107,67 @@ class SessionController extends Controller
         }
     }
 
+     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function url($id)
+    {
+        $obj = Obj::where('slug',$id)->first();
+        $user = \auth::user();
+        $track = $obj->track;
+
+        if(!$track->users->contains($user->id))
+        {
+            return view('appl.'.$this->app.'.'.$this->module.'.noaccess')
+                    ->with('obj',$obj)->with('app',$this);
+        }
+
+        if($obj)
+            return view('appl.'.$this->app.'.'.$this->module.'.url')
+                    ->with('obj',$obj)->with('app',$this);
+        else
+            abort(404);
+    }
+
+
+    public function join($id)
+    {
+        $obj = Obj::where('slug',$id)->first();
+        $user = \auth::user();
+        $track = $obj->track;
+
+        if(!$track->users->contains($user->id))
+        {
+            return view('appl.'.$this->app.'.'.$this->module.'.noaccess')
+                    ->with('obj',$obj)->with('app',$this);
+        }
+
+        if(!$obj->users->contains($user->id))
+            $obj->users()->attach($user->id);
+        
+
+        if($obj->status){
+            if($obj->meeting_url)
+            return redirect()->to($obj->meeting_url);
+            else
+            return redirect()->route('session.url',$obj->slug);
+        }
+        else
+            abort(404);
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($track,$id)
     {
-        $obj = Obj::where('id',$id)->first();
+        $obj = Obj::where('slug',$id)->first();
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
@@ -113,7 +182,7 @@ class SessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($track,$id)
     {
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
@@ -136,31 +205,17 @@ class SessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $track,$id)
     {
         try{
             $obj = Obj::where('id',$id)->first();
 
-             /* delete file request */
-            if($request->get('deletefile')){
-
-                if(Storage::disk('public')->exists($obj->image)){
-                    Storage::disk('public')->delete($obj->image);
-                }
-                redirect()->route($this->module.'.show',[$id]);
-            }
-
             $this->authorize('update', $obj);
-            /* If file is given upload and store path */
-            if(isset($request->all()['file'])){
-                $file      = $request->all()['file'];
-                $path = Storage::disk('public')->putFile('category', $request->file('file'));
-                $request->merge(['image' => $path]);
-            }
+            
 
-            $obj = $obj->update($request->except(['file'])); 
+            $obj->update($request->except(['file'])); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
-            return redirect()->route($this->module.'.show',$id);
+            return redirect()->route($this->module.'.show',[$this->track,$obj->slug]);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];

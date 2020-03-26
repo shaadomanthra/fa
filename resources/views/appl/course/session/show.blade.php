@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $obj->name.' | Test Category | First Academy')
+@section('title', $obj->name.' | First Academy')
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
@@ -8,8 +8,10 @@
   <ol class="breadcrumb border bg-light">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
-    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }}</li>
+    <li class="breadcrumb-item"><a href="{{ route('track.index') }}">Track</a></li>
+    <li class="breadcrumb-item"><a href="{{ route('track.show',$app->track) }}">{{ ucfirst($app->track) }}</a></li>
+    <li class="breadcrumb-item">Session</li>
+    <li class="breadcrumb-item">{{ $obj->slug }}</li>
   </ol>
 </nav>
 
@@ -24,11 +26,12 @@
 
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
+              <a href="{{ route($app->module.'.edit',[$app->track,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
           </p>
+          <p class="mb-0">URL : <a href="{{ route('session.url',$obj->slug)}}">{{ route('session.url',$obj->slug)}}</a></p>
         </div>
       </div>
 
@@ -36,47 +39,27 @@
       <div class="card mb-4">
         <div class="card-body">
           <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
+            <div class="col-md-4"><b>Faculty Name</b></div>
+            <div class="col-md-8">{{ $obj->faculty }}</div>
           </div>
           <div class="row mb-2">
-            <div class="col-md-4"><b>Slug</b></div>
-            <div class="col-md-8">{{ $obj->slug }}</div>
+            <div class="col-md-4"><b>Meeting ID</b></div>
+            <div class="col-md-8">{{ $obj->meeting_id }}</div>
           </div>
-         <div class="row mb-2">
-            <div class="col-md-4"><b>Image</b></div>
-            <div class="col-md-8">
-              @if(\Storage::disk('public')->exists($obj->image) && $obj->image )
-              <div class="bg-light border  p-3 mb-3">
-                <img src="{{ asset('storage/'.$obj->image)}}"  class="w-25 "/>
-              </div>
-              <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
-                 <input type="hidden" name="_method" value="PUT">
-                 <input type="hidden" name="deletefile" value="1">
-                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-sm btn-outline-danger">Delete File</button>
-              </form>
-              @else
-               <span class="text-muted"><i class="fa fa-exclamation-triangle"></i> file path not found </span>
-              @endif
-            </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Meeting Password</b></div>
+            <div class="col-md-8">{{ $obj->meeting_password }}</div>
           </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Meeting url</b></div>
+            <div class="col-md-8">{{ $obj->meeting_url }}</div>
+          </div>
+        
           <div class="row mb-2">
             <div class="col-md-4"><b>Description</b></div>
             <div class="col-md-8">{!! $obj->description !!}</div>
           </div>
-          @if(count($obj->tests))
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Tests</b></div>
-            <div class="col-md-8">
-              @foreach($obj->tests as $test)
-                <a href="{{ route('test.show',$test->id)}}">
-                  {{$test->name }}
-                </a><br>
-              @endforeach
-            </div>
-          </div>
-          @endif
+         
           <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>
             <div class="col-md-8">@if($obj->status==0)
@@ -98,6 +81,10 @@
 
   </div> 
 
+    <div id="search-items">
+         @include('appl.'.$app->app.'.'.$app->module.'.users')
+       </div>
+
 
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -115,7 +102,7 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
-        <form method="post" action="{{route($app->module.'.destroy',$obj->id)}}">
+        <form method="post" action="{{route($app->module.'.destroy',[$app->track,$obj->id])}}">
         <input type="hidden" name="_method" value="DELETE">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         	<button type="submit" class="btn btn-danger">Delete Permanently</button>

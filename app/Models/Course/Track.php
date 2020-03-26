@@ -10,12 +10,17 @@ class Track extends Model
     	'name',
         'slug',
         'description',
-        'status',
-        'created_at',
-        'updated_at'
-
-        // add all other fields
+        'status'
     ];
 
-    public $timestamps = true;
+
+    public function sessions()
+    {
+        return $this->hasMany('App\Models\Course\Session');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User');
+    }
 }

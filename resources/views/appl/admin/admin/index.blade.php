@@ -185,6 +185,17 @@
             </div>
             </a>
         </div>
+
+        <div class="col-6 col-md-3 col-lg-3">
+            <a href="{{ route('track.index') }}">
+            <div class="border bg-white p-4 rounded mb-4">
+                <div>
+                    <img src="{{ asset('images/general/class.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Tracks</div>
+                </div>
+            </div>
+            </a>
+        </div>
         @endif
 
     </div>

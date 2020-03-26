@@ -100,6 +100,25 @@
       
 
       
+    <div class="form-group">
+        <label for="formGroupExampleInput">Tracks</label>
+         <div class=" card p-3">
+          <div class="row">
+          @foreach($tracks as $track)
+          @if($track->status==1)
+          <div class="col-12 col-md-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="tracks[]" value="{{$track->id}}" id="defaultCheck1" @if($obj->tracks->contains($track->id))) checked @endif >
+            <label class="form-check-label" for="defaultCheck1">
+              {{ strip_tags($track->name) }} 
+            </label>
+          </div>
+          </div>
+          @endif
+          @endforeach
+         </div>
+         </div>
+      </div>
 
     <div class="form-group">
         <label for="formGroupExampleInput">Products</label>

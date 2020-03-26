@@ -16,11 +16,14 @@
        </h1>
       
       @if($stub=='Create')
-      <form method="post" action="{{route($app->module.'.store')}}" enctype="multipart/form-data">
+      <form method="post" action="{{route($app->module.'.store',$app->track)}}" enctype="multipart/form-data">
       @else
-      <form method="post" action="{{route($app->module.'.update',$obj->id)}}" enctype="multipart/form-data">
+      <form method="post" action="{{route($app->module.'.update',[$app->track,$obj->id])}}" enctype="multipart/form-data">
       @endif  
-      <div class="form-group">
+
+      <div class='row'>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
         <label for="formGroupExampleInput ">{{ ucfirst($app->module)}} Name</label>
         <input type="text" class="form-control" name="name" id="formGroupExampleInput" placeholder="Enter the Category Name" 
             @if($stub=='Create')
@@ -30,23 +33,40 @@
             @endif
           >
       </div>
-      
-      <div class="form-group">
+
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
         <label for="formGroupExampleInput ">Slug</label>
         <input type="text" class="form-control" name="slug" id="formGroupExampleInput" placeholder="Enter the unique identifier" 
             @if($stub=='Create')
-            value="{{ (old('slug')) ? old('slug') : '' }}"
+            value="{{ (old('slug')) ? old('slug') : $slug }}"
             @else
             value = "{{ $obj->slug }}"
             @endif
           >
       </div>
 
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Image</label>
-        <input type="file" class="form-control" name="file" id="formGroupExampleInput" placeholder="Enter the image path" 
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+        <label for="formGroupExampleInput ">Faculty Name</label>
+        <input type="text" class="form-control" name="faculty" id="formGroupExampleInput" 
+            @if($stub=='Create')
+            value="{{ (old('faculty')) ? old('faculty') : '' }}"
+            @else
+            value = "{{ $obj->faculty }}"
+            @endif
           >
       </div>
+
+        </div>
+
+      </div>
+      
+      
+      
+
 
       <div class="form-group">
         <label for="formGroupExampleInput ">Description</label>
@@ -58,6 +78,49 @@
             @endif
         </textarea>
       </div>
+
+      <div class='row'>
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+        <label for="formGroupExampleInput ">Meeting URL</label>
+        <input type="text" class="form-control" name="meeting_url" id="formGroupExampleInput" 
+            @if($stub=='Create')
+            value="{{ (old('meeting_url')) ? old('meeting_url') : '' }}"
+            @else
+            value = "{{ $obj->meeting_url }}"
+            @endif
+          >
+      </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+        <label for="formGroupExampleInput ">Meeting ID</label>
+        <input type="text" class="form-control" name="meeting_id" id="formGroupExampleInput" 
+            @if($stub=='Create')
+            value="{{ (old('meeting_id')) ? old('meeting_id') : '' }}"
+            @else
+            value = "{{ $obj->meeting_id }}"
+            @endif
+          >
+      </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+        <label for="formGroupExampleInput ">Meeting Password</label>
+        <input type="text" class="form-control" name="meeting_password" id="formGroupExampleInput" 
+            @if($stub=='Create')
+            value="{{ (old('meeting_password')) ? old('meeting_password') : '' }}"
+            @else
+            value = "{{ $obj->meeting_password }}"
+            @endif
+          >
+      </div>
+        </div>
+        
+      </div>
+
+      <div class='p-3 border bg-light rounded mb-3'>If you enter Meeting URL, leave the meeting id & password empty and vice versa.</div>
+      
       
      
 
@@ -73,6 +136,8 @@
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">
       @endif
+        <input type="hidden" name="user_id" value="{{ \auth::user()->id }}">
+        <input type="hidden" name="track_id" value="{{ $app->track_id }}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-info">Save</button>
     </form>

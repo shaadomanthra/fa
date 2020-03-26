@@ -10,6 +10,7 @@ use App\Models\Test\Attempt;
 use App\Models\Product\Order;
 use App\Models\Product\Product;
 use App\Models\Admin\Prospect;
+use App\Models\Course\Track;
 
 use Illuminate\Support\Facades\Hash;
 use App\Mail\usercreate;
@@ -70,12 +71,14 @@ class UserController extends Controller
         $this->authorize('create', $obj);
         $tests = Test::where('status',1)->get();
         $products = Product::where('status',1)->get();
+        $tracks = Track::where('status',1)->get();
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
                 ->with('obj',$obj)
                 ->with('tests',$tests)
                 ->with('products',$products)
+                ->with('tracks',$tracks)
                 ->with('editor',true)
                 ->with('app',$this);
     }
@@ -255,6 +258,16 @@ class UserController extends Controller
                 $user->create_order($user->id,$referral_name,$p,null,$product->validity);
             }
 
+            $tracks = $request->get('tracks');
+            if($tracks){
+                $user->tracks()->detach();
+                foreach($tracks as $t){
+                $user->tracks()->attach($t);
+                }
+            }else{
+                $user->tracks()->detach();
+            }
+
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
         }
@@ -308,6 +321,7 @@ class UserController extends Controller
 
         $tests = Test::where('status',1)->get();
         $products = Product::where('status',1)->get();
+        $tracks = Track::where('status',1)->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
@@ -315,6 +329,7 @@ class UserController extends Controller
                 ->with('obj',$obj)
                 ->with('tests',$tests)
                 ->with('products',$products)
+                ->with('tracks',$tracks)
                 ->with('editor',true)
                 ->with('app',$this);
         else
@@ -347,6 +362,7 @@ class UserController extends Controller
     {
         try{
             $obj = Obj::where('id',$id)->first();
+            $user = $obj;
 
             $this->authorize('update', $obj);
 
@@ -433,6 +449,16 @@ class UserController extends Controller
                 $product = Product::where('id',$p)->first();
                 if(!$obj->hasProduct($p))
                 $obj->create_order($obj->id,$referral_name,$p,null,$product->validity);
+            }
+
+            $tracks = $request->get('tracks');
+            if($tracks){
+                $user->tracks()->detach();
+                foreach($tracks as $t){
+                $user->tracks()->attach($t);
+                }
+            }else{
+                $user->tracks()->detach();
             }
 
 

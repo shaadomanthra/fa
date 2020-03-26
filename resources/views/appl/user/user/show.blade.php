@@ -162,6 +162,8 @@
 
 @include('appl.'.$app->app.'.'.$app->module.'.products')
 
+@include('appl.'.$app->app.'.'.$app->module.'.tracks')
+
       
 
 
