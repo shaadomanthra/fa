@@ -65,7 +65,7 @@
      <p class="p-3"></p>
 <div class="bold s30">Step 1: Explain the reason behind your score. </div>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/visualoffer.png')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/visualoffer.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
