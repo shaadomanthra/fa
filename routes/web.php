@@ -98,6 +98,9 @@ Route::resource('/admin/order', 'Product\OrderController')->middleware('auth');
 Route::get('/orders', 'Product\OrderController@myorders')->middleware('auth')->name('myorders');
 Route::get('/orders/{order}', 'Product\OrderController@myordersview')->middleware('auth')->name('myorder.view');
 
+Route::resource('/admin/track', 'Course\TrackController')->middleware('auth');
+Route::resource('/admin/track/{track}/session', 'Course\SessionController')->middleware('auth');
+
 
 /* product redirect */
 Route::get('products/ielts-short-test', function () {
