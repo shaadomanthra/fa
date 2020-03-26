@@ -92,6 +92,22 @@ class SessionController extends Controller
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);
             }
             
+            // update slug with name if its empty
+            if(!$request->get('meeting_url')){
+                $request->merge(['meeting_url' => '0')]);
+            }
+            if(!$request->get('meeting_id')){
+                $request->merge(['meeting_id' => '0')]);
+            }
+
+            if(!$request->get('meeting_password')){
+                $request->merge(['meeting_password' => '0')]);
+            }
+
+            if(!$request->get('faculty')){
+                $request->merge(['faculty' => '0')]);
+            }
+            
             /* create a new entry */
             $obj = $obj->create($request->except(['file']));
 
@@ -212,6 +228,21 @@ class SessionController extends Controller
 
             $this->authorize('update', $obj);
             
+            // update slug with name if its empty
+            if(!$request->get('meeting_url')){
+                $request->merge(['meeting_url' => '0')]);
+            }
+            if(!$request->get('meeting_id')){
+                $request->merge(['meeting_id' => '0')]);
+            }
+
+            if(!$request->get('meeting_password')){
+                $request->merge(['meeting_password' => '0')]);
+            }
+
+            if(!$request->get('faculty')){
+                $request->merge(['faculty' => '0')]);
+            }
 
             $obj->update($request->except(['file'])); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();

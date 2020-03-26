@@ -40,19 +40,19 @@
         <div class="card-body">
           <div class="row mb-2">
             <div class="col-md-4"><b>Faculty Name</b></div>
-            <div class="col-md-8">{{ $obj->faculty }}</div>
+            <div class="col-md-8">@if($obj->faculty) {{ $obj->faculty }} @endif</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting ID</b></div>
-            <div class="col-md-8">{{ $obj->meeting_id }}</div>
+            <div class="col-md-8">@if($obj->meeitng_id) {{ $obj->meeting_id }} @endif</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting Password</b></div>
-            <div class="col-md-8">{{ $obj->meeting_password }}</div>
+            <div class="col-md-8">@if($obj->meeitng_password) {{ $obj->meeting_password }} @endif</div>
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Meeting url</b></div>
-            <div class="col-md-8">{{ $obj->meeting_url }}</div>
+            <div class="col-md-8">@if($obj->meeitng_url) {{ $obj->meeting_url }} @endif</div>
           </div>
         
           <div class="row mb-2">
