@@ -65,7 +65,7 @@
      <p class="p-3"></p>
 <div class="bold s30">Step 1: Explain the reason behind your score. </div>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/visualoffer3.jpg')}}?new=2" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/1.jpg')}}?new=2" class="w-100 mt-2"/>
   </div>
   </div>
 
@@ -74,7 +74,7 @@
 <div class="bold s30">Step 2: Craft a personalised solution for issues specific to you. </div>
 
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/targetbehavior.png')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/4.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
@@ -83,7 +83,16 @@
 <div class="bold s30">Step 3: Test and adjust to fine tune your output. </div>
 
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/realtimestats.png')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/2.jpg')}}" class="w-100 mt-2"/>
+  </div>
+  </div>
+
+  <div class="text-center mb-4 w-100 mt-5">
+     <p class="p-3"></p>
+<div class="bold s30">Step 3: Test and adjust to fine tune your output. </div>
+
+<div class="mt-4 mb-3">
+    <img src="{{ asset('images/general/3.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
