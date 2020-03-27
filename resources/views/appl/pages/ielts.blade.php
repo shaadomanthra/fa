@@ -6,7 +6,7 @@
 <div class="row mt-4 mb-4">
   <div class="col-12 col-md-6">
     <div class="mt-2 mt-md-4">
-      <h1>Convert your Band <span class="text-primary">6</span> into a Band <span class="text-danger">9</span> with First Academy</h1>
+      <h1>Convert your Band <span class="text-danger">6</span> into<br class="d-none d-md-block">  a Band <span class="text-primary">9</span> with First Academy</h1>
     <h5>Go beyond watching videos!  Improve your score with our proven exam strategies!</h5>
     
 
