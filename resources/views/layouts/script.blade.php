@@ -1205,3 +1205,14 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
 
 </script>
 @endif
+
+<script>
+  $(document).scroll(function() {
+  var y = $(this).scrollTop();
+  if (y > 90) {
+    $('.joinnow').fadeIn();
+  } else {
+    $('.joinnow').fadeOut();
+  }
+});
+  </script>

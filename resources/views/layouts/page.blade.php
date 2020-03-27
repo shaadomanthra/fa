@@ -20,12 +20,28 @@
     <!-- Styles -->
     <link href="{{ asset('css/style_page.min.css') }}?new=1" rel="stylesheet">
     <link href="{{ asset('css/sp2.css') }}?new=1" rel="stylesheet">
-    
-
 </head>
 <body>
     <div id="app">
         @include('layouts.menu')
+        <div class='joinnow' style="display:none;padding: 0;position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;z-index: 10;">
+        <div class="p-3 " style="background:#71bce2;">
+         <div class=" container text-white" style=''>
+            <div class="row no-gutters">
+                <div class="col-7 col-md-10">
+                    <h5 class="mb-0 ">Join the 20,000+ who have benefitted from First Academy </h5> 
+                </div>
+
+                <div class="col-5 col-md-2">
+                    <button class="btn btn-warning w-100"><b>Enroll Now</b></button>
+                </div>
+         </div>
+         </div>
+        </div>
+    </div>
         <main class="py-4 container">
             @yield('content')
         </main>
