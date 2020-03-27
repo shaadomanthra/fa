@@ -135,7 +135,7 @@
               <img src="{{ asset('images/page/success.png')}}" style="width:70px;margin-top: 5px;"/>
             </div>
             <div class='col-9'>
-              <h3><b>Time Testeds</b></h3>
+              <h3><b>Time Tested</b></h3>
               <h5>We have been the best for over 20 years. Unmatched Experience.</h5>
             </div>
           </div>
