@@ -29,13 +29,14 @@
   left: 0;
   width: 100%;z-index: 10;">
         <div class="p-3 " style="background:#71bce2;">
-         <div class=" container text-white" style=''>
+         <div class=" container text-white" style='padding:0px'>
             <div class="row no-gutters">
-                <div class="col-7 col-md-10">
-                    <h5 class="mb-0 ">Join the 20,000+ who have benefitted from First Academy </h5> 
+                <div class="col-8 col-md-10">
+                    <h5 class="mb-0 d-none d-md-block">Join the 20,000+ who have benefitted from First Academy </h5> 
+                      <h5 class="mb-0 d-block d-md-none mt-1">Get the score you want! </h5> 
                 </div>
 
-                <div class="col-5 col-md-2">
+                <div class="col-4 col-md-2">
                     <button class="btn btn-warning w-100"><b>Enroll Now</b></button>
                 </div>
          </div>
