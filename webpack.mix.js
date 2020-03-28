@@ -15,7 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 
 mix.styles(['public/css/app.css',
-    'public/css/style_page.css'
+    'public/css/style_page.css','public/css/sp2.css'
 ], 'public/css/style_page.min.css');
 
 mix.styles(['public/css/app.css','public/css/test.css',

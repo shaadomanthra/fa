@@ -77,7 +77,7 @@
 <div class="bold s30 mb-4">Step 2: Be guided by the best! </div>
 <h4 style="line-height: 30px;">At First Academy, great training is backed up by brilliant, Cambridge certified trainers who understand the test. The training is backed-up by our exclusive, in-house, global material that will make learning even better!</h4>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/4-1.jpg')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/4-2.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 

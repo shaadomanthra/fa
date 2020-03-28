@@ -34,3 +34,6 @@ h5{
      margin-left: auto;
      margin-right: auto;
 }
+.navbar-dark .navbar-nav .nav-link{ color: white; }
+.nav-link{ color:white; }
+a.nav-link{ color: white }
