@@ -68,7 +68,7 @@
 <div class="bold s30 mb-4">Step 1: Understand the reasons behind your score </div>
 <h4 style="line-height: 30px;">Get pointers and explanations based on the IELTS Band Descriptors. These pointers will help you figure out what is going wrong and where. No more fighting blind! Let First Academy help you choose the right weapon!</h4>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/1.jpg')}}?new=2" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/1-4.jpg')}}?new=2" class="w-100 mt-2"/>
   </div>
   </div>
 
@@ -77,7 +77,7 @@
 <div class="bold s30 mb-4">Step 2: Be guided by the best! </div>
 <h4 style="line-height: 30px;">At First Academy, great training is backed up by brilliant, Cambridge certified trainers who understand the test. The training is backed-up by our exclusive, in-house, global material that will make learning even better!</h4>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/4-2.jpg')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/4-4.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
@@ -86,7 +86,7 @@
 <div class="bold s30 mb-4">Step 3:  Anywhere, Anyway, Anytime. </div>
 <h4 style="line-height: 30px;">Take home material, online practice material, class tests, practice labs, material for retail purchase. Choose learning the way you want. There is no stopping your learning.</h4>
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/2.jpg')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/2-4.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
@@ -96,7 +96,7 @@
 <h4 style="line-height: 30px;">From good looking interfaces, to entertaining test instructions, to amusing examples, First Academy tries to keep learning as fun as it should be.</h4>
 
 <div class="mt-4 mb-3">
-    <img src="{{ asset('images/general/3.jpg')}}" class="w-100 mt-2"/>
+    <img src="{{ asset('images/general/3-4.jpg')}}" class="w-100 mt-2"/>
   </div>
   </div>
 
