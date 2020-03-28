@@ -22,7 +22,7 @@
           </p>
           @if(\auth::user())
             @if($order = $obj->order(\auth::user()))
-              @if(date('d-m-Y',time())>date('d-m-Y',strtotime($order->expiry)))
+              @if(time()>strtotime($order->expiry))
                 <div class="border p-3 rounded mb-3">
                 <i class="fa fa-times-circle text-danger"></i> Your service is expired  on <span class="text-secondary">{{ date('d-m-Y',strtotime($order->expiry)) }}</span>
 
