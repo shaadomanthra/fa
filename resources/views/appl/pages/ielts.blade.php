@@ -6,7 +6,7 @@
 <div class="row mt-4 mb-4">
   <div class="col-12 col-md-6">
     <div class="mt-2 mt-md-4">
-      <h1>Convert your Band <span class="text-danger">6</span> into<br class="d-none d-md-block">  a Band <span class="text-primary">9</span> with First Academy</h1>
+      <h1>Convert your Band <span class="text-danger">6</span> into<br class="d-none d-lg-block">  a Band <span class="text-primary">9</span> with First Academy</h1>
     <h5>Go beyond watching videos!  Improve your score with our proven exam strategies!</h5>
     
 
@@ -109,7 +109,7 @@
       <div class="col-12 col-md-6">
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/presentation.png')}}" style="width:70px;margin-top: 5px;"/>
             </div>
             <div class='col-9'>
@@ -120,7 +120,7 @@
         </div>
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/book.png')}}" style="width:70px;margin-top: 5px;"/>
             </div>
             <div class='col-9'>
@@ -131,7 +131,7 @@
         </div>
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/success.png')}}" style="width:70px;margin-top: 5px;"/>
             </div>
             <div class='col-9'>
@@ -144,7 +144,7 @@
       <div class="col-12 col-md-6">
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/certificate.png')}}" style="width:70px"/>
             </div>
             <div class='col-9'>
@@ -155,7 +155,7 @@
         </div>
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/calendar.png')}}" style="width:70px"/>
             </div>
             <div class='col-9'>
@@ -166,7 +166,7 @@
         </div>
         <div class="item mb-4">
           <div class="row">
-            <div class='col-3 col-md-2'>
+            <div class='col-3 col-lg-2'>
               <img src="{{ asset('images/page/grade.png')}}" style="width:70px"/>
             </div>
             <div class='col-9'>
