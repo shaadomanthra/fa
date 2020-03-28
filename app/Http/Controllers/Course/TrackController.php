@@ -60,6 +60,13 @@ class TrackController extends Controller
                 ->with('app',$this);
     }
 
+    public function mytracks()
+    {
+
+        return view('appl.'.$this->app.'.'.$this->module.'.mytracks')
+                ->with('app',$this);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

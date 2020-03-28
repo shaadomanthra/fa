@@ -8,6 +8,7 @@
                 <th scope="col" style="width: 60%">Session </th>
                 <th scope="col" style="width: 10%">Participants</th>
                 <th scope="col" style="width: 20%">Created </th>
+                <th scope="col" style="width: 20%">Status </th>
               </tr>
             </thead>
             <tbody>
@@ -26,6 +27,13 @@
                   {{count($o->users)}}
                 </td>
                 <td>{{ ($o->created_at) ? $o->created_at->format('d-m-Y') : '' }}</td>
+                <td>
+                  @if($o->status==0)
+                    <span class="badge badge-secondary">Closed</span>
+                  @elseif($o->status==1)
+                    <span class="badge badge-success">Active</span>
+                  @endif
+                </td>
               </tr>
               @endforeach      
             </tbody>

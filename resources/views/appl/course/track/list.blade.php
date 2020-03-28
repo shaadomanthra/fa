@@ -5,7 +5,9 @@
             <thead>
               <tr>
                 <th scope="col" style="width: 5%">#({{$objs->total()}})</th>
-                <th scope="col" style="width: 60%">Name </th>
+                <th scope="col" style="width: 40%">Name </th>
+                <th scope="col" style="width: 10%">Sessions</th>
+                <th scope="col" style="width: 10%">Users</th>
                 <th scope="col" style="width: 10%">Status</th>
                 <th scope="col" style="width: 20%">Created at</th>
               </tr>
@@ -21,6 +23,8 @@
                   </a>
                   {!! $obj->description !!}
                 </td>
+                <td>{{ count($obj->sessions)}}</td>
+                <td>{{ count($obj->users)}}</td>
                 <td>
                   @if($obj->status==0)
                     <span class="badge badge-warning">Inactive</span>

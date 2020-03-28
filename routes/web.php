@@ -102,6 +102,7 @@ Route::resource('/admin/track', 'Course\TrackController')->middleware('auth');
 Route::resource('/admin/track/{track}/session', 'Course\SessionController')->middleware('auth');
 Route::get('/session/{session}','Course\SessionController@url')->name('session.url')->middleware('auth');
 Route::get('/session/{session}/join','Course\SessionController@join')->name('session.join')->middleware('auth');
+Route::get('/mytracks','Course\TrackController@mytracks')->name('tracks.url')->middleware('auth');
 
 /* product redirect */
 Route::get('products/ielts-short-test', function () {

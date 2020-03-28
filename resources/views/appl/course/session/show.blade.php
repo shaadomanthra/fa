@@ -63,7 +63,7 @@
           <div class="row mb-2">
             <div class="col-md-4"><b>Status</b></div>
             <div class="col-md-8">@if($obj->status==0)
-                    <span class="badge badge-warning">Inactive</span>
+                    <span class="badge badge-secondary">Closed</span>
                   @elseif($obj->status==1)
                     <span class="badge badge-success">Active</span>
                   @endif</div>
