@@ -163,6 +163,9 @@ Route::get('/{year}/{month}', 'Blog\CollectionController@yearmonth')->name('year
 Route::get('/ieltspage', function(){
     return view('appl.pages.ielts');
 })->name('ielts.page');
+Route::get('/enroll', function(){
+    return view('appl.pages.enroll');
+})->name('enroll.page');
 
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */

@@ -25,6 +25,8 @@
 <body>
     <div id="app">
         @include('layouts.menu')
+
+        @if(request()->segment(1)!='enroll')
         <div class='joinnow' style="display:none;padding: 0;position: fixed;
   top: 0;
   left: 0;
@@ -43,6 +45,7 @@
          </div>
          </div>
         </div>
+        @endif
     </div>
         <main class="py-4 container">
             @yield('content')
