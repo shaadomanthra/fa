@@ -524,9 +524,9 @@ class AttemptController extends Controller
         if($request->get('question')){
           $question = summernote_imageupload(\auth::user(),$request->get('question'));
           $question = '<div class="question"><p><h4>Question</h4></p>'.$question.'</div><hr>';
-          $model->response = $question.'<div class="option response"><p><h4>Task Response</h4></p>'.$request->get('response').'</div>';
+          $model->response = $question.'<div class="option response"><p><h4>User Response</h4></p>'.$request->get('response').'</div>';
         }else
-          $model->response = '<div class="option response"><p><h4>Task Response</h4></p>'.$request->get('response').'</div>';
+          $model->response = '<div class="option response"><p><h4>User Response</h4></p>'.$request->get('response').'</div>';
       }
       $model->test_id = $test->id;
 
