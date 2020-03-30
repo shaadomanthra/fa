@@ -252,7 +252,7 @@ class FileController extends Controller
                 $t = strip_tags($a);
                 $t = str_replace('&hellip;', '...', $t);
                 $t = str_replace('&nbsp;', ' ', $t);
-                if($t!="Task Response" && trim($t)!="" && trim($t)!=" "){
+                if($t!="User Response" && trim($t)!="" && trim($t)!=" "){
                     array_push($data, $t);
                     $section->addText($t);
                     $section->addText('');
@@ -273,7 +273,7 @@ class FileController extends Controller
             $section->addText('');
             $section->addLine(['weight' => 1, 'width' => 450, 'height' => 0]);
             $section->addText('');
-            $section->addText('Task Response'.' ', $styleFont);
+            $section->addText('User Response'.' ', $styleFont);
             $section->addText('');
 
 
@@ -282,7 +282,7 @@ class FileController extends Controller
             foreach($array as $a){
                 $t = strip_tags($a);
                 $t = str_replace('&nbsp;', ' ', $t);
-                if($t!="Task Response"){
+                if($t!="User Response"){
                     array_push($data, $t);
                     $section->addText($t);
                     $section->addText('');
@@ -312,7 +312,7 @@ class FileController extends Controller
                 $t = strip_tags($a);
                 $t = str_replace('&nbsp;', ' ', $t);
 
-                if($t!="Task Response" && $t!="Question" && trim($t)!="" && trim($t)!=" "){
+                if($t!="User Response" && $t!="Question" && trim($t)!="" && trim($t)!=" "){
                     array_push($data, $t);
                     $section->addText($t);
                     $section->addText('');
