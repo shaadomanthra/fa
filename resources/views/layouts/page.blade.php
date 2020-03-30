@@ -26,7 +26,7 @@
     <div id="app">
         @include('layouts.menu')
 
-        @if(request()->segment(1)!='enroll')
+        @if(request()->segment(1)!='enroll' && request()->segment(1)!='enroll2' )
         <div class='joinnow' style="display:none;padding: 0;position: fixed;
   top: 0;
   left: 0;
