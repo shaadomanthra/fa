@@ -19,6 +19,7 @@ Route::get('/layout2', 'HomeController@index')->name('root');
 Route::get('/', 'HomeController@welcome');
 
 Route::get('/home', 'HomeController@dashboard')->name('home')->middleware('auth');
+Route::get('/gre', 'HomeController@gre')->name('home.gre');
 
 // login routes
 Auth::routes();
