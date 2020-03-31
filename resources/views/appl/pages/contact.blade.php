@@ -8,23 +8,40 @@
 <div class="card-body p-4 ">
 
 <div class="row">
-	<div class="col-12 col-md-6 ">
+	<div class="col-12 col-md-7 ">
 		<iframe class="w-100 mb-4" height="200" frameborder="0" style="border:0"
 src="https://www.google.com/maps/embed/v1/place?q=place_id:ChIJx7TARMmQyzsR8BKHnJbVVh4&key=AIzaSyCdRZQkwLoQV_3BtOBWfJA93Thke_iza8Y" allowfullscreen></iframe>
 
 <div class="p-3">
 <h1>Contact Us</h1><br>
-		<h3>First Academy</h3>
+<div class="row">
+  <div class='col-12 col-md-5'>
+    <h3>Ameerpet</h3>
+    <div class="bg-info pt-1 rounded w-25 mb-4"></div>
 707 - 708, Seventh floor<br>
 Pavani Prestige, <br>
 Ameerpet, Hyderabad,<br>
 Telengana, 500016 <br><br>
-Phone: +91 844 844 4535<br>
+Phone: +91 98 666 88 666<br>
 Email: info@firstacademy.in<br>
+  </div>
+   <div class='col-12 col-md-7'>
+    <h3>Madhapur</h3>
+    <div class="bg-info pt-1 rounded w-25 mb-4"></div>
+2nd Floor, Oyester Uptown,<br>
+Beside Durgam Cheruvu Metro Station, <br>
+Opposite Krishe Sapphire,<br>
+Hitech City Road.<br><br>
+Phone: +91 93 93 93 2938<br>
+Email: madhapur@firstacademy.in<br>
+
+  </div>
+</div>
+		
 </div>
 	</div>
 
-	<div class="col-12 col-md-6">
+	<div class="col-12 col-md-5">
 		<div class="bg-light border p-4">
 			<h1> Write to us</h1>
 			<form  method="post" action="{{route('admin.contact')}}">
@@ -35,6 +52,10 @@ Email: info@firstacademy.in<br>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="Enter email" value="@if(\auth::user()) {{\auth::user()->email}} @endif">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Phone Number</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="phone" placeholder="Enter phone number" value="@if(\auth::user()) {{\auth::user()->phone}} @endif">
   </div>
   <div class="form-group">
     <label for="exampleFormControlTextarea1">Message</label>
