@@ -170,6 +170,9 @@ Route::get('/enroll', function(){
 Route::get('/enroll2', function(){
     return view('appl.pages.enroll2');
 })->name('enroll2.page');
+Route::get('/testimonials', function(){
+    return view('appl.pages.testimonials');
+})->name('testimonials.page');
 
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */
