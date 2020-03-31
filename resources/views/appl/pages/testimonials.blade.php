@@ -37,6 +37,15 @@
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="media mb-5">
+        <img src="{{ asset('images/testimonials/meghana.jpg')}}" class="mr-3 " alt="Meghana Chowdary" style="width:60px;border-radius: 60px">
+        <div class="media-body">
+          <h4 class="mt-0 mb-1">Meghana Chowdary <span class="badge badge-warning float-right mr-4"><b>IELTS 7.5</b></span></h4>
+          <h6 class="mt-0  badge badge-success">IELTS: 7.5, December 2017</h6><br>
+          I would rather call it sahithy academy for ielts…she supported me to achieve band 7.5 vthin 20days…not only she,all d other staff are very friendly nd help u in all d aspects during ur course especially teju and Divya ….I would surely recommend FA for Everyone
+        </div>
+      </div>
+
+      <div class="media mb-5">
         <img src="{{ asset('images/testimonials/Himantej.png')}}" class="mr-3 " alt="himantej" style="width:60px;border-radius: 60px">
         <div class="media-body">
           <h4 class="mt-0 mb-1">Himantej Reddy</h4>
@@ -67,14 +76,7 @@ They helped me getting my required score in IELTS.
         </div>
       </div>
 
-      <div class="media mb-5">
-        <img src="{{ asset('images/testimonials/siddartha.jpg')}}" class="mr-3 " alt="Siddartha Mettupalle" style="width:60px;border-radius: 60px">
-        <div class="media-body">
-          <h4 class="mt-0 mb-1">Siddartha Mettupalle</h4>
-          <h6 class="mt-0  badge badge-success">Facebook Review</h6><br>
-          First Academy is a wonderful place for those who want to pursue Master’s abroad. I would like to thank the whole team of First Academy, without whom this process would be very difficult. I thank Sahithy, Teju, Ravali and Bhanu mam for the help while processing my applications.
-        </div>
-      </div>
+     
 
       <div class="media mb-5">
         <img src="{{ asset('images/testimonials/vineel.jpg')}}" class="mr-3 " alt="Vineel Vardhan" style="width:60px;border-radius: 60px">
@@ -87,6 +89,14 @@ They helped me getting my required score in IELTS.
 
     </div>
     <div class="col-12 col-md-6">
+       <div class="media mb-5">
+        <img src="{{ asset('images/testimonials/ali.jpg')}}" class="mr-3 " alt="Syed Mujahid Akbar Ali" style="width:60px;border-radius: 60px">
+        <div class="media-body">
+          <h4 class="mt-0 mb-1">Syed Mujahid Akbar Ali <span class="badge badge-warning float-right mr-3"><b>GRE 320</b></span></h4>
+          <h6 class="mt-0  badge badge-success">GRE : 320</h6><br>
+          The classes are top notch. The examples and quizzes help us learn effectively. Despite work I was still able to cope with the GRE training and got a great score. The consulting package was absolutely hassle free! Special thanks to Teju, Sahiti, Bhanu, and others for helping me.
+        </div>
+      </div>
       <div class="media mb-5">
         <img src="{{ asset('images/testimonials/divyareddy.png')}}" class="mr-3 " alt="Divya Reddy" style="width:60px;border-radius: 60px">
         <div class="media-body">
@@ -96,15 +106,7 @@ They helped me getting my required score in IELTS.
         </div>
       </div>
 
-      <div class="media mb-5">
-        <img src="{{ asset('images/testimonials/meghana.jpg')}}" class="mr-3 " alt="Meghana Chowdary" style="width:60px;border-radius: 60px">
-        <div class="media-body">
-          <h4 class="mt-0 mb-1">Meghana Chowdary</h4>
-          <h6 class="mt-0  badge badge-success">IELTS: 7.5, December 2017</h6><br>
-          I would rather call it sahithy academy for ielts…she supported me to achieve band 7.5 vthin 20days…not only she,all d other staff are very friendly nd help u in all d aspects during ur course especially teju and Divya ….I would surely recommend FA for Everyone
-        </div>
-      </div>
-
+      
       <div class="media mb-5">
         <img src="{{ asset('images/testimonials/ram.jpg')}}" class="mr-3 " alt="Ram Kandittu" style="width:60px;border-radius: 60px">
         <div class="media-body">
@@ -124,14 +126,15 @@ It was so nice. They teach really well! Five Stars.
         </div>
       </div>
 
-      <div class="media mb-5">
-        <img src="{{ asset('images/testimonials/ali.jpg')}}" class="mr-3 " alt="Syed Mujahid Akbar Ali" style="width:60px;border-radius: 60px">
+ <div class="media mb-5">
+        <img src="{{ asset('images/testimonials/siddartha.jpg')}}" class="mr-3 " alt="Siddartha Mettupalle" style="width:60px;border-radius: 60px">
         <div class="media-body">
-          <h4 class="mt-0 mb-1">Syed Mujahid Akbar Ali</h4>
-          <h6 class="mt-0  badge badge-success">GRE : 320</h6><br>
-          The classes are top notch. The examples and quizzes help us learn effectively. Despite work I was still able to cope with the GRE training and got a great score. The consulting package was absolutely hassle free! Special thanks to Teju, Sahiti, Bhanu, and others for helping me.
+          <h4 class="mt-0 mb-1">Siddartha Mettupalle</h4>
+          <h6 class="mt-0  badge badge-success">Facebook Review</h6><br>
+          First Academy is a wonderful place for those who want to pursue Master’s abroad. I would like to thank the whole team of First Academy, without whom this process would be very difficult. I thank Sahithy, Teju, Ravali and Bhanu mam for the help while processing my applications.
         </div>
       </div>
+     
 
     </div>
   </div>

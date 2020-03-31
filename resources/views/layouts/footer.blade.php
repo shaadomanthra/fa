@@ -9,10 +9,10 @@
 	<div class="col-6 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
-          <li><a class="text-muted" href="https://firstacademy.in/team/">Team</a></li>
-          <li><a class="text-muted" href="https://firstacademy.in/scores/">Scores</a></li>
-          <li><a class="text-muted" href="https://firstacademy.in/reviews/">Reviews</a></li>
-          <li><a class="text-muted" href="https://firstacademy.in/blog/">Blog</a></li>
+          <li><a class="text-muted" href="{{ url('team')}}">Team</a></li>
+          <li><a class="text-muted" href="{{ url('scores')}}">Scores</a></li>
+          <li><a class="text-muted" href="{{ url('reviews')}}">Reviews</a></li>
+          <li><a class="text-muted" href="{{route('blog.index')}}">Blog</a></li>
           <li><a class="text-muted" href="{{route('contact')}}">Contact</a></li>
           
         </ul>
