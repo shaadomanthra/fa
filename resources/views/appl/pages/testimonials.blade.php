@@ -37,7 +37,7 @@
   <div class="row">
     <div class="col-12 col-md-6">
       <div class="media mb-5">
-        <img src="{{ asset('images/testimonials/himantej.png')}}" class="mr-3 " alt="himantej" style="width:60px;border-radius: 60px">
+        <img src="{{ asset('images/testimonials/Himantej.png')}}" class="mr-3 " alt="himantej" style="width:60px;border-radius: 60px">
         <div class="media-body">
           <h4 class="mt-0 mb-1">Himantej Reddy</h4>
           <h6 class="mt-0  badge badge-success">Got his USA Visa in a Month</h6><br>
