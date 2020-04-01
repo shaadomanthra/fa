@@ -1,6 +1,6 @@
 
 @extends('layouts.front')
-@section('title', 'Testimonials | First Academy')
+@section('title', 'Reviews | First Academy')
 @section('description', 'First Academy Reviews - Hear what our students have to say about us')
 @section('content')
 

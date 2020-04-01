@@ -206,7 +206,7 @@ class BlogController extends Controller
     {
         try{
             
-           
+           $user = \auth::user();
             $arr["error"] = 0;
             
 
@@ -239,6 +239,16 @@ class BlogController extends Controller
             if(!$request->get('created_at')){
                 $request->merge(['created_at' => date('Y-m-d H:i:s')]);
             }
+
+            if($request->get('body')){
+                $request->merge(['body' => summernote_imageupload($user,$request->get('body'))]);
+            }
+
+            if($request->get('conclusion')){
+                $request->merge(['conclusion' => summernote_imageupload($user,$request->get('conclusion'))]);
+            }
+
+            
 
             if(!$request->get('meta_title')){
                 $request->merge(['meta_title' => $request->get('title')]);
@@ -456,6 +466,15 @@ class BlogController extends Controller
                 $path = Storage::disk('public')->putFile('images', $request->file('file'));
                 $request->merge(['image' => $path]);
             }
+
+            if($request->get('body')){
+                $request->merge(['body' => summernote_imageupload($user,$request->get('body'))]);
+            }
+
+            if($request->get('conclusion')){
+                $request->merge(['conclusion' => summernote_imageupload($user,$request->get('conclusion'))]);
+            }
+            
 
             $obj->update($request->all()); 
 

@@ -173,6 +173,11 @@ Route::get('/enroll2', function(){
 Route::get('/reviews', function(){
     return view('appl.pages.testimonials');
 })->name('testimonials.page');
+
+Route::get('/first', function(){
+    return view('first');
+})->name('first');
+
 Route::get('/team', function(){
     return view('appl.pages.team');
 })->name('team.page');

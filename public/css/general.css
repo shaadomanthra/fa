@@ -28,6 +28,12 @@ body {
 
 }
 
+.heading1{
+	font-size:80px;
+	line-height: 1.2;
+	font-family: 'Montserrat', sans-serif;
+	
+}
 .heading{
 	font-size:60px;
 	line-height: 1.2;

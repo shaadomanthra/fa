@@ -1216,3 +1216,36 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
   }
 });
   </script>
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script type="text/javascript">
+
+var options = {
+  strings: ["<a href='../studyabroad/'>the best advice</a>",
+               "<a href='../courses/'>ready to take-off!!</a>", 
+              "<a href='../scoresreviews/'>the best training</a>",
+               "<a href='../downloads/'>free stuff</a>"],
+  typeSpeed: 100, // typing speed
+            backDelay: 2500, // pause before backspacing
+            loop: true, // loop on or off (true or false)
+            loopCount: false, 
+};
+
+var typed = new Typed('.element', options);
+</script>
+
+<script type="text/javascript">
+
+setTimeout(function(){
+        jQuery(".rotating-text").typed({
+            strings:  ["<a href='../studyabroad/'>the best advice</a>",
+               "<a href='../courses/'>ready to take-off!!</a>", 
+              "<a href='../scoresreviews/'>the best training</a>",
+               "<a href='../downloads/'>free stuff</a>"],
+            typeSpeed: 100, // typing speed
+            backDelay: 2500, // pause before backspacing
+            loop: true, // loop on or off (true or false)
+            loopCount: false, // number of loops, false = infinite
+            
+        });
+    }, 0);
