@@ -1225,7 +1225,7 @@ var options = {
                "<a href='../courses/'>ready to take-off!!</a>", 
               "<a href='../scoresreviews/'>the best training</a>",
                "<a href='../downloads/'>free stuff</a>"],
-  typeSpeed: 100, // typing speed
+          typeSpeed: 100, // typing speed
             backDelay: 2500, // pause before backspacing
             loop: true, // loop on or off (true or false)
             loopCount: false, 
@@ -1234,18 +1234,13 @@ var options = {
 var typed = new Typed('.element', options);
 </script>
 
-<script type="text/javascript">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/waypoint.js"></script>
+<script src="js/jquery.counterup.min.js"></script>
 
-setTimeout(function(){
-        jQuery(".rotating-text").typed({
-            strings:  ["<a href='../studyabroad/'>the best advice</a>",
-               "<a href='../courses/'>ready to take-off!!</a>", 
-              "<a href='../scoresreviews/'>the best training</a>",
-               "<a href='../downloads/'>free stuff</a>"],
-            typeSpeed: 100, // typing speed
-            backDelay: 2500, // pause before backspacing
-            loop: true, // loop on or off (true or false)
-            loopCount: false, // number of loops, false = infinite
-            
-        });
-    }, 0);
+<script type="text/javascript">
+  $('.counter').counterUp({
+    delay: 10,
+    time: 1000
+});
+</script>

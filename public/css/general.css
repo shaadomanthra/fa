@@ -47,6 +47,54 @@ body {
 	font-family: 'Muli', sans-serif;
 }
 
+.heading_one{
+	color:#fff;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+	line-height: 1.2;
+	font-size:80px;
+}
+
+
+.heading_two{
+	color:#fff;
+	font-family: 'Montserrat';
+	font-size:60px;
+	font-weight: 500;
+}
+
+.element a{ color:white; text-decoration: underline;text-decoration-color:#71bce2;}
+
+
+
+/* Cool infinite background scrolling animation.
+ * Twitter: @kootoopas
+ */
+
+
+
+
+
+/* */
+.topbar{
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
 .headin {
   font-weight: 200;
   display: inline-block;
@@ -120,6 +168,21 @@ a.nostyle{ text-decoration: none;  }
 		font-family: 'Anton', sans-serif;
 	}
 
+	.heading_one{
+	color:#fff;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 900;
+	line-height: 1.2;
+	font-size:40px;
+}
+
+
+.heading_two{
+	color:#fff;
+	font-family: 'Montserrat';
+	font-size:25px;
+	font-weight: 500;
+}
 	
 
 }

@@ -25,3 +25,7 @@ mix.styles(['public/css/app.css','public/css/test.css',
 mix.js(['public/js/app.js',
     'public/js/global.js'
 ], 'public/js/script.js');
+
+mix.js(['public/js/jquery.js','public/js/waypoint.js','public/js/jquery.counterup.min.js',
+], 'public/js/script2.js');
+

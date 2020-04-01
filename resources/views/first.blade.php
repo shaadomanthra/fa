@@ -4,61 +4,212 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 <style>
-.element a{ color:white; text-decoration: underline;text-decoration-color:#71bce2;}
 
-.topbar{
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+.topbar1{
+  background: #3399ff;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+
+.circle{
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  animation: ripple 15s infinite;
+  box-shadow: 0px 0px 1px 0px #508fb9;
 }
 
+.small{
+  width: 200px;
+  height: 200px;
+  left: -100px;
+  bottom: -100px;
+}
+
+.medium{
+  width: 400px;
+  height: 400px;
+  left: -200px;
+  bottom: -200px;
+}
+
+.large{
+  width: 600px;
+  height: 600px;
+  left: -300px;
+  bottom: -600px;
+}
+
+.xlarge{
+  width: 800px;
+  height: 800px;
+  left: -400px;
+  bottom: -700px;
+}
+
+.xxlarge{
+  width: 1000px;
+  height: 1000px;
+  left: -500px;
+  bottom: -800px;
+}
+
+.shade1{
+  opacity: 0.2;
+}
+.shade2{
+  opacity: 0.5;
+}
+
+.shade3{
+  opacity: 0.7;
+}
+
+.shade4{
+  opacity: 0.8;
+}
+
+.shade5{
+  opacity: 0.9;
+}
+
+@keyframes ripple{
+  0%{
+    transform: scale(0.8);
+  }
+  
+  50%{
+    transform: scale(1.2);
+  }
+  
+  100%{
+    transform: scale(0.8);
+  }
+}
 </style>
-<div class="topbar" style="  "> 
+<div class="@if(request()->get('n')==1) topbar1 @else topbar @endif" style="  "> 
 <div class="container ">
     <div class="row p-3 p-md-0">
         <div class="col-12 ">
             <div class="p-3 p-md-5"></div>
-    <div class="heading1  text-center" style="color:#fff;font-family: 'Montserrat', sans-serif;font-weight: 900;line-height: 1.2;font-size:80px">
+    <div class="heading_one  text-center" >
     The time to be awesome<br> has come
     </div>
-    <div class="heading1  mb-4 mt-3 text-center" style="color:#fff;font-family: 'Montserrat';font-size:60px;font-weight: 500;">
-   Get <span class="element" style="color: white"></span> 
+    <div class="heading_two  mb-4 mt-3 text-center" >
+   Get <span class="element" ></span> 
     </div>
 
    
-   <div class="p-5"></div>
+   <div class="p-2 p-md-5"></div>
      </div>
        
     </div>
 </div>
 </div>
-<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-5 " style="background: #30b3a9">
- sample
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-3 pb-md-3 mb-3" style="background: #64c293">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="heading_one text-center text-md-left mt-1 mb-3 mb-md-4 mb-md-0" style="font-weight: 500;font-size:30px">
+      Attend a free session
+    </div>
+
+      </div>
+      <div class="col-12 col-md-6">
+
+    
+    <div class="text-center pb-2 pb-md-0 float-md-right">
+    <button class="btn  btn-lg float-center float-md-right  h5 mb-0 " style="background: #fff"><i class="fa fa-ioxhost"></i> &nbsp;Take a free test  </button>
+  </div>
+    <div class="text-center float-md-right">
+    <button class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;">Choose a slot &nbsp; <i class="fa fa-angle-right"></i></button>
+  </div>
+      </div>
+    </div>
+    
+  </div>
+ 
 </div>
 
-<div class="pr-0 pl-0 pt-4 pb-4 pt-md-4 pb-md-3 bg-white">
-  @include('blocks.popular_ielts')
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-4 pb-md-3 bg-white mb-3">
+  <div class="container">
+    <div class="row">
+        <div class="col-12 col-md-3">
+          <img src="{{ asset('images/front/course.png')}}" style="width:50px"/>
+          <h4 class="mt-3 text-primary">Our Courses</h4>
+          <p>Take a look at all the courses we offer. The best coaching, the timings, the courses. Start here if you are yet to take tests related to studying abroad.</p>
+        </div>
+
+         <div class="col-12 col-md-3">
+          <img src="{{ asset('images/general/interview.png')}}" style="width:50px"/>
+          <h4 class="mt-3 text-primary">Personalised Coaching</h4>
+          <p>If you want to be trained personally, or online or if you want to attend only a part of the training, we can help. Do contact us!</p>
+        </div>
+        <div class="col-12 col-md-3">
+          <img src="{{ asset('images/page/grade.png')}}" style="width:50px"/>
+          <h4 class="mt-3 text-primary">Our Scores</h4>
+          <p>Our students have made us really happy with some incredible scores. Take a look at some our scores. There a lot more that we couldn’t display here!</p>
+        </div>
+
+        <div class="col-12 col-md-3">
+          <img src="{{ asset('images/front/love.png')}}" style="width:50px"/>
+          <h4 class="mt-3 text-primary">People love us</h4>
+          <p>We love our students and our students love us back. Look at our reviews and see what they have to say about us!</p>
+        </div>
+    </div>
+  </div>
 </div>
-<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-2" style="background: #f3fbff">
-  @include('blocks.free_listening_tests')
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-5 " style="background: #f3fbff">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
+        <div class="heading1 counter " style="font-size:50px">25,000</div> students and counting
+      </div>
+      <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
+        <div class="heading1 counter" style="font-size:50px">32</div> awards and
+counting
+      </div>
+      <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
+        <div class="heading1 counter" style="font-size:50px">400</div> Top Universities
+worldwide
+      </div>
+      <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
+        <span class="heading1 counter" style="font-size:50px">100</span><span class="heading1 " style="font-size:50px">%</span>  <br>satisfied
+clients
+      </div>
+    </div>
+    
+  </div>
+  
 </div>
-<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-2">
-  @include('blocks.free_reading_tests')
+
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-5 bg-white mb-3">
+  <div class="container">
+    <h2 class="mb-3"><b>Our Story</b></h2>
+    <div class="row">
+        <div class="col-12 col-md-5 mb-4 mb-md-0">
+          <div class="embed-responsive embed-responsive-16by9">
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QNr-147tmv8?showinfo=0" allowfullscreen></iframe>
 </div>
-<div class="pr-2 pl-2 pt-4 pb-4 " style="background: #f3fbff">
-  @include('blocks.experience_best')
+        </div>
+        <div class="col-12 col-md-7">
+          <p>In 2001 two individuals with the experience of having studied and worked in the USA decided to make it easy for students in India to have access to unbiased information about international education.</p>
+          <p>The two member team has now evolved into a cohesive cohort of people from different cultural backgrounds speaking several languages, who understand the importance of cross-cultural sensitivity. This has contributed towards our continued growth and staggering levels of customer satisfaction.</p>
+          <p class="text-success h4" style="line-height: 1.4">If diversity were the measure of team quality, First Academy would be the industry leader.</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-5 " style="background: #f3fbff">
+  <div class="container">
+    <div class="text-center float-md-right">
+    <button class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;">Contact Us &nbsp; <i class="fa fa-angle-right"></i></button>
+  </div>
+    <div class="heading_one text-center text-md-left mt-1 mb-4 mb-md-0" style="font-weight: 500;font-size:30px;color:#2e3135">
+      Want to change the world
+    </div>
+    
+  </div>
 </div>
 
 
@@ -66,6 +217,5 @@
 
 
 
-</script> 
 
 @endsection
