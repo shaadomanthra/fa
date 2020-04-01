@@ -3,89 +3,7 @@
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
-<style>
 
-.topbar1{
-  background: #3399ff;
-}
-
-
-.circle{
-  position: absolute;
-  border-radius: 50%;
-  background: white;
-  animation: ripple 15s infinite;
-  box-shadow: 0px 0px 1px 0px #508fb9;
-}
-
-.small{
-  width: 200px;
-  height: 200px;
-  left: -100px;
-  bottom: -100px;
-}
-
-.medium{
-  width: 400px;
-  height: 400px;
-  left: -200px;
-  bottom: -200px;
-}
-
-.large{
-  width: 600px;
-  height: 600px;
-  left: -300px;
-  bottom: -600px;
-}
-
-.xlarge{
-  width: 800px;
-  height: 800px;
-  left: -400px;
-  bottom: -700px;
-}
-
-.xxlarge{
-  width: 1000px;
-  height: 1000px;
-  left: -500px;
-  bottom: -800px;
-}
-
-.shade1{
-  opacity: 0.2;
-}
-.shade2{
-  opacity: 0.5;
-}
-
-.shade3{
-  opacity: 0.7;
-}
-
-.shade4{
-  opacity: 0.8;
-}
-
-.shade5{
-  opacity: 0.9;
-}
-
-@keyframes ripple{
-  0%{
-    transform: scale(0.8);
-  }
-  
-  50%{
-    transform: scale(1.2);
-  }
-  
-  100%{
-    transform: scale(0.8);
-  }
-}
-</style>
 <div class="@if(request()->get('n')==1) topbar1 @else topbar @endif" style="  "> 
 <div class="container ">
     <div class="row p-3 p-md-0">
@@ -109,7 +27,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-6">
-        <div class="heading_one text-center text-md-left mt-1 mb-3 mb-md-4 mb-md-0" style="font-weight: 500;font-size:30px">
+        <div class="heading_one text-center text-md-left mt-1 mb-3  mb-md-0" style="font-weight: 500;font-size:30px">
       Attend a free session
     </div>
 
@@ -202,12 +120,21 @@ clients
 
 <div class="pr-0 pl-0 pt-4 pb-4 pt-md-5 pb-md-5 " style="background: #f3fbff">
   <div class="container">
-    <div class="text-center float-md-right">
-    <button class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;">Contact Us &nbsp; <i class="fa fa-angle-right"></i></button>
-  </div>
-    <div class="heading_one text-center text-md-left mt-1 mb-4 mb-md-0" style="font-weight: 500;font-size:30px;color:#2e3135">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="heading_one text-center text-md-left mt-1 mb-4 mb-md-0" style="font-weight: 500;font-size:30px;color:#2e3135">
       Want to change the world
     </div>
+
+      </div>
+      <div class="col-12 col-md-6">
+          <div class="text-center float-md-right">
+    <button class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;">Contact Us &nbsp; <i class="fa fa-angle-right"></i></button>
+  </div>
+      </div>
+    </div>
+    
+    
     
   </div>
 </div>

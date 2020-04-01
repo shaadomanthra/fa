@@ -34,6 +34,8 @@
 <body style="background-color: white">
     <div >
         @include('layouts.menu')
+
+        
         <main class="">
             @yield('content')
         </main>
