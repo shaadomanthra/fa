@@ -449,6 +449,7 @@ class BlogController extends Controller
     public function update(Request $request, $id)
     {
         try{
+            $user = \auth::user();
             $obj = Obj::where('id',$id)->first();
             $this->authorize('update', $obj);
 
@@ -474,7 +475,7 @@ class BlogController extends Controller
             if($request->get('conclusion')){
                 $request->merge(['conclusion' => summernote_imageupload($user,$request->get('conclusion'))]);
             }
-            
+
 
             $obj->update($request->all()); 
 
