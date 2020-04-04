@@ -15,8 +15,63 @@
 
 
 
+.bg-p {
+  background-position: bottom;
+  animation: 20s linear 0s infinite bp;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes bp {
+  from {
+    background-position:  198px 0;
+  }
+  
+  to {
+    background-position:  0 198px;
+  }
+}
+
+
+.text {
+  font: 900 25px Ruda;
+  color: white;
+  line-height: 1.4;
+  padding: 1rem;
+  text-align: center;
+}
+.text-link{
+  background: red;
+  display: block;
+  text-align: center;
+  font: 400 18px Ruda;
+  color:white;
+  text-transform: uppercase;
+}
+
+
+
 body {
   background-color: #f3fbff;
+}
+
+.bg-green{ background: #64c293 }
+.fw-800 {font-weight: 800}
+
+.bborder {
+  display: inline-block;
+  padding-bottom: 6px;
+  position: relative;
+}
+.bborder:before{
+    content: "";
+    position: absolute;
+    width: 20%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    border-bottom: 5px solid #71bce2;
+    border-radius:2px 2px;
 }
 
 .user{

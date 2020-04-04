@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" style="background:#71bce2">
+<nav class="navbar navbar-expand-md navbar-dark  shadow-sm" @if(!isset($front)) style="background:#71bce2" @else style="background:#4b4d4e" @endif>
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             <img class="" src="{{ asset('images/logo_white.png') }}" alt="First Academy" width="200" >

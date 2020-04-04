@@ -80,18 +80,18 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
-        <div class="heading1 counter " style="font-size:50px">25,000</div> students and counting
+        <div class="heading1 counter c1" style="font-size:50px">25,000</div> students and counting
       </div>
       <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
-        <div class="heading1 counter" style="font-size:50px">32</div> awards and
+        <div class="heading1 counter c2" style="font-size:50px">32</div> awards and
 counting
       </div>
       <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
-        <div class="heading1 counter" style="font-size:50px">400</div> Top Universities
+        <div class="heading1 counter c3" style="font-size:50px">400</div> Top Universities
 worldwide
       </div>
       <div class="col-12 col-md-3 text-center text-md-left mb-3 mb-md-0">
-        <span class="heading1 counter" style="font-size:50px">100</span><span class="heading1 " style="font-size:50px">%</span>  <br>satisfied
+        <span class="heading1 counter c4" style="font-size:50px">100</span><span class="heading1 " style="font-size:50px">%</span>  <br>satisfied
 clients
       </div>
     </div>
@@ -106,7 +106,7 @@ clients
     <div class="row">
         <div class="col-12 col-md-5 mb-4 mb-md-0">
           <div class="embed-responsive embed-responsive-16by9">
-  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QNr-147tmv8?showinfo=0" allowfullscreen></iframe>
+  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/QNr-147tmv8?showinfo=0&modestbranding=1" allowfullscreen></iframe>
 </div>
         </div>
         <div class="col-12 col-md-7">

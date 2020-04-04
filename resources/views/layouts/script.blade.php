@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 @if(isset($editor))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
-<script type="application/javascript" src="{{asset('js/script.js?new=4')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js?new=5')}}"></script>  
 <script type="application/javascript" src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
 <script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
 <script type="application/javascript" src="{{asset('js/global.js?new=4')}}"></script>  
@@ -171,7 +171,7 @@ $(document).ready(function() {
 </script>
 @elseif(isset($reading))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
-<script type="application/javascript" src="{{asset('js/script.js?new=4')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js?new=5')}}"></script>  
 <script type="application/javascript">
     $( document ).ready(function() {
     var height = $( window ).height();
@@ -433,7 +433,7 @@ $(document).ready(function() {
     });     
 </script>
 @else
-<script src="{{asset('js/script.js?new=4')}}" type="application/javascript"></script>  
+<script src="{{asset('js/script.js?new=5')}}" type="application/javascript"></script>  
 @endif
 
 @if(isset($grammar))
@@ -1223,7 +1223,7 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
 var options = {
   strings: ["<a href='../studyabroad/'>the best advice</a>",
                "<a href='../courses/'>ready to take-off!!</a>", 
-              "<a href='../scoresreviews/'>the best training</a>",
+              "<a href='../reviews/'>the best training</a>",
                "<a href='../downloads/'>free stuff</a>"],
           typeSpeed: 100, // typing speed
             backDelay: 2500, // pause before backspacing
@@ -1231,16 +1231,9 @@ var options = {
             loopCount: false, 
 };
 
+if($('.element').length)
 var typed = new Typed('.element', options);
 </script>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="js/waypoint.js"></script>
-<script src="js/jquery.counterup.min.js"></script>
 
-<script type="text/javascript">
-  $('.counter').counterUp({
-    delay: 10,
-    time: 1000
-});
-</script>
+

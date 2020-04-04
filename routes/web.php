@@ -172,10 +172,10 @@ Route::get('/enroll2', function(){
 })->name('enroll2.page');
 Route::get('/reviews', function(){
     return view('appl.pages.testimonials');
-})->name('testimonials.page');
+})->name('reviews.page');
 
 Route::get('/first', function(){
-    return view('first');
+    return view('first')->with('front',1);
 })->name('first');
 
 Route::get('/team', function(){
@@ -184,6 +184,13 @@ Route::get('/team', function(){
 Route::get('/scores', function(){
     return view('appl.pages.scores');
 })->name('scores.page');
+Route::get('/courses', function(){
+    return view('appl.pages.courses');
+})->name('courses.page');
+
+Route::get('/studyabroad', function(){
+    return view('appl.pages.studyabroad');
+})->name('studyabroad.page');
 
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
 /* learners club */
