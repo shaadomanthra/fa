@@ -8,6 +8,7 @@ use App\Models\Test\Test as Obj;
 use App\Models\Test\Attempt;
 use App\Models\Test\Writing;
 use App\Models\Admin\Admin;
+use App\Models\Admin\Form;
 use App\Models\Product\Coupon;
 
 use App\Mail\contactmessage;
@@ -15,6 +16,7 @@ use App\Mail\ErrorReport;
 
 use Illuminate\Support\Facades\Mail;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -34,6 +36,14 @@ class AdminController extends Controller
 
         $attempts = Attempt::orderBy('created_at','desc')->get();
 
+       
+        
+        $data['new'] = User::whereRaw('length(idno) > 6 OR length(idno) < 1')->orderBy('lastlogin_at','desc')->where('admin','0')->limit(5)->get();
+
+        $data['enrolled'] = User::whereRaw('length(idno) < 6 OR length(idno) > 1')->where('admin','0')->orderBy('lastlogin_at','desc')->limit(5)->get();
+        
+        $data['form'] = Form::orderBy('id','desc')->limit(5)->get();
+
         $latest = [];$count=0;
         foreach($attempts as $a){
             if(!in_array($a->test_id, $test_ids))
@@ -51,7 +61,7 @@ class AdminController extends Controller
        // dd($count);
          
         $data['latest'] = $latest;
-         $data['attempt_total'] = $count; 
+        $data['attempt_total'] = $count; 
   
         $data['coupon'] = Coupon::where('code','FA5Y9')->first();
         return view('appl.admin.admin.index')->with('data',$data);
