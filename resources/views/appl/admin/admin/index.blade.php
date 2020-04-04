@@ -40,7 +40,7 @@
                 @endif  
             </div>
 
-             <div class="bg-success text-light rounded p-4 mb-4">
+             <div class=" text-light rounded p-4 mb-4" style="background-color: #55a95f">
                 <h3 class="mb-0"><i class="fa fa-envelope-o"></i> Forms  </h3>
                 @if($data['form']->count())
                 <hr>
