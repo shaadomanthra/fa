@@ -13,6 +13,7 @@ use App\Models\Test\Attempt;
 use App\Models\Test\Category;
 use App\Models\Test\Group;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class TestController extends Controller
 {
@@ -453,12 +454,25 @@ class TestController extends Controller
         $app = $this;
         $app->test= $test;
 
-        $users = Attempt::where('test_id',$id)->get()->groupBy('user_id');
+         //dd(Carbon::now()->endOfWeek());
 
         $data = [];
         $i=0;
         $score = [];
         $all = $request->get('all');
+        $today = $request->get('today');
+
+        $from = $request->get('from') ? Carbon::parse($request->get('from')) : $request->get('from') ;
+        $to = $request->get('to') ? Carbon::parse($request->get('to')) : $request->get('to');
+
+        if($today)
+            $users = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy('user_id');
+        else if($from)
+        $users = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy('user_id');
+        else    
+        $users = Attempt::where('test_id',$id)->get()->groupBy('user_id');
+
+
         $counter =0;
         $total = 0;
         foreach($users as $i=>$attempt){
@@ -501,6 +515,89 @@ class TestController extends Controller
                 ->with('obj',$test)
                 ->with('users',$data)
                 ->with('score',$score)
+                ->with('app',$app);
+    }
+
+
+    public function qanalytics($id,Obj $obj,Request $request){
+
+        $test = Obj::where('id',$id)->first();
+
+        $app = $this;
+        $app->test= $test;
+
+        $data = [];
+        $i=0;
+        $score = [];
+        $all = $request->get('all');
+        $today = $request->get('today');
+
+        $from = $request->get('from') ? Carbon::parse($request->get('from')) : $request->get('from') ;
+        $to = $request->get('to') ? Carbon::parse($request->get('to')) : $request->get('to');
+
+        if($today){
+            $data['mcq'] = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy('mcq_id');
+            $data['fillup'] = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy('fillup_id');
+        }
+        else if($from){
+           $data['mcq']  = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy('mcq_id');
+           $data['fillup']  = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy('fillup_id');
+        }
+        else{
+            $data['mcq'] = Attempt::where('test_id',$id)->get()->groupBy('mcq_id');
+            $data['fillup'] = Attempt::where('test_id',$id)->get()->groupBy('fillup_id');
+        } 
+
+
+
+
+        $c=0;$ic=0;
+        foreach($test->mcq_order as $t){
+            $id = $t->id;
+            $data['q'][$t->qno]['type']= 'mcq';
+
+            $data['q'][$t->qno]['id'] =$id;
+            $data['q'][$t->qno]['ques'] =$t;
+            $c=0;$ic=0;
+            
+
+            if(isset($data['mcq'][$id]))
+            foreach($data['mcq'][$id] as $q){
+                if($q->accuracy==1)
+                    $c++;
+                else
+                    $ic++;
+            }
+            $data['q'][$t->qno]['correct'] =$c;
+            $data['q'][$t->qno]['incorrect'] =$ic;
+
+        }
+
+        foreach($test->fillup_order as $t){
+            $id = $t->id;
+            $data['q'][$t->qno]['type']= 'fillup';
+
+            $data['q'][$t->qno]['id'] =$id;
+            $data['q'][$t->qno]['ques'] =$t;
+            $c=0;$ic=0;
+            if(isset($data['fillup'][$id]))
+            foreach($data['fillup'][$id] as $q){
+                if($q->accuracy==1)
+                    $c++;
+                else
+                    $ic++;
+            }
+
+            $data['q'][$t->qno]['correct'] =$c;
+            $data['q'][$t->qno]['incorrect'] =$ic;
+        }
+        $total = $c + $ic;
+
+
+        return view('appl.test.test.qanalytics')
+                ->with('obj',$test)
+                ->with('data',$data)
+                ->with('total',$total)
                 ->with('app',$app);
     }
 

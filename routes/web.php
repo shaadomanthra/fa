@@ -49,6 +49,8 @@ Route::resource('/admin/test/{test}/mcq', 'Test\McqController')->middleware('aut
 Route::resource('/admin/test/{test}/fillup', 'Test\FillupController')->middleware('auth');
 Route::get('/admin/test/{test}/questions', 'Test\TestController@questions')->name('test.questions')->middleware('auth');
 Route::get('/admin/test/{test}/analytics', 'Test\TestController@analytics')->name('test.analytics')->middleware('auth');
+Route::get('/admin/test/{test}/qanalytics', 'Test\TestController@qanalytics')->name('test.qanalytics')->middleware('auth');
+
 Route::resource('/admin/file', 'Test\FileController')->middleware('auth');
 Route::get('/admin/{file}/download','Test\FileController@download')->name('file.download');
 Route::get('/admin/{file}/notify','Test\FileController@notify')->name('review.notify');
@@ -90,6 +92,7 @@ Route::get('/test/{test}/review','Test\AttemptController@review')->name('test.re
 
 Route::get('/test/{test}/evaluation','Test\AttemptController@evaluation')->name('attempt.evaluation');
 Route::get('/test/{test}/analysis','Test\AttemptController@analysis')->middleware('auth')->name('test.analysis');
+Route::get('/test/{test}/solutions','Test\AttemptController@solutions')->middleware('auth')->name('test.solutions');
 
 
 /* Product Routes */

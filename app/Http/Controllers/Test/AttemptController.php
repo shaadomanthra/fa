@@ -476,6 +476,7 @@ class AttemptController extends Controller
    }
 
 
+
    /* Function to upload files in server */
    public function upload($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
@@ -1075,6 +1076,10 @@ class AttemptController extends Controller
    /* Function to display the analysis of the test */
    public function analysis($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
+
+      if($request->get('user_id'))
+        $user = User::where('id',$request->get('user_id'))->first();
+      else
       $user = \auth::user();
       $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
 
@@ -1120,11 +1125,78 @@ class AttemptController extends Controller
       
       
       
-      return view('appl.test.attempt.alerts.result')
+      return view('appl.test.attempt.alerts.solutions')
               ->with('result',$result)
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('try',1)
+              ->with('points',$points)
+              ->with('tags',$tags)
+              ->with('secs',$secs)
+              ->with('score',$score);
+   }
+
+
+    /* Function to display the analysis of the test */
+   public function solutions($slug,Request $request){
+      $test = Test::where('slug',$slug)->first();
+      
+      if($request->get('user_id'))
+        $user = User::where('id',$request->get('user_id'))->first();
+      else
+      $user = \auth::user();
+
+      $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
+
+
+      $score = 0;
+      foreach($result as $r){
+        if($r->accuracy==1)
+          $score++;
+      }
+
+      $band =0;
+      $points =0;
+      $type = strtolower($test->testtype->name);
+      if(strtoupper($test->category->name)=='IELTS'){
+      if($type=='listening' || $type=='reading'){
+        $function_name = $type.'_band';
+        $attempt = new Attempt;
+        if($test->marks)
+          $s = $score * (int)(40/$test->marks);
+        else
+          $s = $score;
+        $band = $attempt->$function_name($s);
+      }
+      }
+
+      if(strtoupper($test->category->name)=='PTE'){
+          $points =10;
+          if($type=='listening' || $type=='reading'){
+
+          if($test->marks)
+            $points = $points + round($score * (int)(80/$test->marks));
+          
+
+          }
+        }
+
+     $tags = Attempt::tags($result);
+     $secs = $this->graph($tags);
+
+     //dd($secs);
+      /* sectional score */
+     $section_score = $this->section_score($result);
+      
+      
+      
+      return view('appl.test.attempt.alerts.solutions')
+              ->with('result',$result)
+              ->with('section_score',$section_score)
+              ->with('test',$test)
+              ->with('band',$band)
+              ->with('try',1)
               ->with('points',$points)
               ->with('tags',$tags)
               ->with('secs',$secs)

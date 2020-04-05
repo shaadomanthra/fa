@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $obj->name.' - Analytics | First Academy')
+@section('title', $obj->name.' - Score Analytics | First Academy')
 @section('content')
 
 <nav aria-label="breadcrumb">
@@ -7,7 +7,7 @@
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }} - Analytics</li>
+    <li class="breadcrumb-item">{{ $obj->name }} - Score Analytics</li>
   </ol>
 </nav>
 
@@ -16,12 +16,60 @@
   <div class="row">
     <div class="col-12 col-md-9">
       <div class="card bg-white mb-3">
-        <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-bar-chart "></i> {{ $obj->name }} 
+        <div class="card-body text-secondary pb-0">
+          <p class="h2 mb-0">
+            <p class="h2 "><i class="fa fa-bar-chart "></i> {{ $obj->name }}  @if(request()->get('today'))
+            <span class="badge badge-warning ">Today</span>
+            
+            @elseif(request()->get('from'))
+            <span class="badge badge-warning ">Range</span>
+            @elseif(request()->get('all'))
+            <span class="badge badge-warning ">ALL</span>
+            @else
+            <span class="badge badge-warning ">Top 5</span>
+            @endif
             <a href="{{ route('test.analytics',$obj->id)}}?all=1" class="btn btn-success float-right">View All</a>
+            <a href="{{ route('test.analytics',$obj->id)}}?today=1&all=1" class="btn btn-outline-success float-right mr-2">Today</a>
+            <a href="{{ route('test.analytics',$obj->id)}}" class="btn btn-outline-success float-right mr-2">Top 5</a>
+            </p>
+            
+
+
+            <hr>
+
+                 <form method="get" action="{{ route('test.analytics',$obj->id)}}">
+            <div class="form-row mb-0">
+
+    <div class="col-5 pb-0 mb-0">
+      <label class="sr-only" for="inlineFormInputGroup">FROM</label>
+      <div class="input-group mb-0">
+        <div class="input-group-prepend">
+          <div class="input-group-text">FROM</div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroup" name='from' value="@if(request()->get('from')){{request()->get('from')}} @endif" placeholder="YYYY-MM-DD">
+      </div>
+    </div>
+       <div class="col-5 pb-0 mb-0">
+      <label class="sr-only" for="inlineFormInputGroup">TO</label>
+      <div class="input-group mb-0">
+        <div class="input-group-prepend">
+          <div class="input-group-text">TO</div>
+        </div>
+        <input type="text" class="form-control" id="inlineFormInputGroup" name='to' value="@if(request()->get('to')){{request()->get('to')}} @endif" placeholder="YYYY-MM-DD">
+      </div>
+    </div>
+   
+    <div class="col-md-2 pb-0">
+      <input type="hidden"  name='all' value="1" >
+      <button class='btn btn-primary w-100'>Submit</button>
+    </div>
+  </div>
+</form>
+            
           </p>
         </div>
       </div>
+
 
       <div class="row">
         <div class="col-6 col-md-3 mb-3">

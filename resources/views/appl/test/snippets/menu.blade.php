@@ -15,5 +15,6 @@
 
 <div class="border p-3 rounded">
 	<p class="h5 mb-0">
-	<i class="fa fa-bar-chart"></i> Test Analytics <a href="{{ route('test.analytics',$app->test->id)}} " class="btn btn-outline-success btn-sm">view</a></p>
+	<i class="fa fa-bar-chart"></i> Analytics <a href="{{ route('test.analytics',$app->test->id)}} " class="btn btn-outline-success btn-sm">Score</a> <a href="{{ route('test.qanalytics',$app->test->id)}} " class="btn btn-outline-primary btn-sm">Ques</a></p>
 </div>
+
