@@ -182,7 +182,7 @@ class PageController extends Controller
         if(!$obj)
           abort('404','page not found');
 
-        $try=null;
+        $try=null;$player =null;
         $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){
           if(isset($obj->meta_title)){
@@ -212,6 +212,8 @@ class PageController extends Controller
               $this->test = json_decode(file_get_contents($filename));
               $test = $this->test;
               $testtype = $this->test->testtype;
+              if(strtolower($testtype->name) == 'listening')
+                $player =1;
             }
             else{
               $this->test = Test::where('slug',$obj->test)->first();
@@ -248,6 +250,8 @@ class PageController extends Controller
               }
                $test = $this->test;
                $testtype = $this->test->testtype;
+               if(strtolower($testtype->name) == 'listening')
+                $player =1;
             }else{
               $obj->test = null;
             }
@@ -264,19 +268,19 @@ class PageController extends Controller
 
                 if(\auth::user()->admin==1){
                   return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
+                    ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$player)->with('test',$test)->with('testtype',$testtype);
                 }  
                 else{
                     if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$player)->with('test',$test)->with('testtype',$testtype);
                     else
                       abort(404);
                 }
             }else{
                 if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
-                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
+                        ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$player)->with('test',$test)->with('testtype',$testtype);
                     else
                       abort(404);
             }
