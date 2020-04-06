@@ -47,7 +47,7 @@
         </div>
         @endif
     </div>
-        <main class="py-4 container">
+        <main class="py-3 py-md-4 container">
             @yield('content')
         </main>
         <footer class="bg-white">

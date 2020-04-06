@@ -40,7 +40,17 @@ class PageController extends Controller
          /* update in cache folder */
         if($request->refresh){
             foreach($objs as $obj){ 
-                $filename = $obj->slug.'.json';
+                $p = explode('/',$obj->slug);
+
+                if(count($p)==1){
+                    $filename = $obj->slug.'.json';
+                }
+                else
+                {
+
+                  $slug = implode('_', $p);
+                  $filename = $slug.'.json';
+                }
                 $filepath = $this->cache_path.$filename;
 
                 file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
@@ -87,7 +97,20 @@ class PageController extends Controller
             /* create a new entry */
             $obj = $obj->create($request->all());
 
-            flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
+            /* cache pages */
+            $p = explode('/',$obj->slug);
+            if(count($p)==1){
+              $filename = $obj->slug.'.json';
+            }
+            else
+            {
+              $slug = implode('_', $p);
+              $filename = $slug.'.json';
+            }
+            $filepath = $this->cache_path.$filename;
+            file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
+
+            flash('A new page ('.$obj->slug.') item is created!')->success();
             return redirect()->route($this->module.'.view',$obj->slug);
         }
         catch (QueryException $e){
@@ -105,8 +128,12 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($slug,$s1=null,$s2=null)
     {
+        if($s2){
+          $slug = $slug.'/'.$s1.'/'.$s2;
+        }
+
         $filename = $slug.'.json';
         $filepath = $this->cache_path.$filename;
 
@@ -114,6 +141,17 @@ class PageController extends Controller
             $this->name = $slug;
             return app('App\Http\Controllers\Blog\CollectionController')->year($slug);
             //app()->call('App\Http\Controllers\Blog\CollectionController@year',[$slug]);
+        }
+
+        $p = explode('/',$slug);
+        if(count($p)==1){
+          $filename = $slug.'.json';
+        }
+        else
+        {
+          $slug = implode('_', $p);
+          $filename = $slug.'.json';
+          $filepath = $this->cache_path.$filename;
         }
 
         if(Storage::disk('cache')->exists('pages/'.$filename))
@@ -127,9 +165,7 @@ class PageController extends Controller
                  $obj = Blog::where('slug',$slug)->first();
             }
         }
-
-        //dd($obj->title);
-
+        $try=null;
         $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){
 
@@ -144,7 +180,7 @@ class PageController extends Controller
             $this->app = 'blog';
             $this->module = 'blog';
 
-         $try =0;
+
          if($obj->test){
             $try =1;
             $filename = $this->cache_path_test.'test.'.$obj->test.'.json'; 
@@ -190,13 +226,14 @@ class PageController extends Controller
          }
         }
 
-       
-        $try=1;
+        
         if($obj){
-            if(\auth::user())
-                if(\auth::user()->admin==1)
-                    return view('appl.'.$this->app.'.'.$this->module.'.show')
+            if(\auth::user()){
+
+                if(\auth::user()->admin==1){
+                  return view('appl.'.$this->app.'.'.$this->module.'.show')
                     ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
+                }  
                 else{
                     if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
@@ -204,7 +241,7 @@ class PageController extends Controller
                     else
                       abort(404);
                 }
-            else{
+            }else{
                 if($obj->status==1)
                       return view('appl.'.$this->app.'.'.$this->module.'.show')
                         ->with('obj',$obj)->with('categories',$categories)->with('app',$this)->with('dates',$dates)->with('try',$try)->with('grammar',$try)->with('player',$try)->with('test',$test)->with('testtype',$testtype);
@@ -223,9 +260,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($slug)
+    public function edit($id)
     {
-        $obj= Obj::where('slug',$slug)->first();
+        $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
 
 
@@ -246,22 +283,32 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, $id)
     {
         try{
-            $obj = Obj::where('slug',$slug)->first();
+            $obj = Obj::where('id',$id)->first();
 
             $this->authorize('update', $obj);
             
         
             
             $obj->update($request->all()); 
-            $filename = $slug.'.json';
+
+            /* cache pages */
+            $p = explode('/',$obj->slug);
+            if(count($p)==1){
+              $filename = $obj->slug.'.json';
+            }
+            else
+            {
+              $slug = implode('_', $p);
+              $filename = $slug.'.json';
+            }
             $filepath = $this->cache_path.$filename;
             file_put_contents($filepath, json_encode($obj,JSON_PRETTY_PRINT));
 
-            flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
-            return redirect()->route($this->module.'.view',$slug);
+            flash('('.$obj->slug.') item is updated!')->success();
+            return redirect()->route($this->module.'.view',$obj->slug);
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];
@@ -278,9 +325,9 @@ class PageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy($id)
     {
-        $obj = Obj::where('slug',$slug)->first();
+        $obj = Obj::where('slug',$id)->first();
         $this->authorize('update', $obj);
         
         $obj->delete();

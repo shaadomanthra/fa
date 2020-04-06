@@ -16,7 +16,7 @@
       @if($stub=='Create')
       <form method="post" action="{{route('page.store')}}" enctype="multipart/form-data">
       @else
-      <form method="post" action="{{route($app->module.'.update',$obj->slug)}}" enctype="multipart/form-data">
+      <form method="post" action="{{route($app->module.'.update',$obj->id)}}" enctype="multipart/form-data">
       @endif  
 
       <div class="form-group">

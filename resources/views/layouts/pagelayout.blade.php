@@ -19,51 +19,32 @@
     @if(isset($player))
     <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
     @endif
-
-    @if(isset($datetimepicker))
-    <link rel="stylesheet" type="text/css" href="{{ asset('js/datetimepicker/jquery.datetimepicker.css') }}"/>
-    @endif
     <!-- Styles -->
-    <link href="{{ asset('css/styles.css') }}?new=3" rel="stylesheet">
+    <link href="{{ asset('css/styles.css?new=5') }}" rel="stylesheet">
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
     @if(isset($try) || isset($reading))
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
+    <style>
 
-    @if(isset($code))
-  <link href="{{asset('js/codemirror/lib/codemirror.css')}}" rel="stylesheet">
-  <link href="{{asset('js/codemirror/theme/monokai.css')}}" rel="stylesheet">
-  <link href="{{asset('js/highlight/styles/default.css')}}" rel="stylesheet">
-  <link href="{{asset('js/highlight/styles/tomorrow.css')}}" rel="stylesheet">
-  @endif
-
-    @if(isset($try))
-      <script type="text/x-mathjax-config">
-          MathJax.Hub.Config({
-          extensions: ["tex2jax.js"],
-          jax: ["input/TeX","output/HTML-CSS"],
-          tex2jax: {inlineMath: [["$","$"],["\\(","\\)"],["#","#"]]}
-      });
-    </script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    @endif
-
+</style>
 </head>
-<body>
-    <div id="app">
+<body >
+    <div>
+        @include('layouts.pageadminmenu')
         @include('layouts.menu')
-        <main class="py-3 py-md-4 container">
+        <main class="">
             @yield('content')
         </main>
         <footer class="bg-white">
             <div class="container">
             @include('layouts.footer')
         </div>
-        </footer> 
+        @include('blocks.toast')
+        @include('layouts.script')
+        </footer>
     </div>
-    @include('layouts.script')
-    
 </body>
 </html>

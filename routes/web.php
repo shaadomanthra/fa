@@ -196,6 +196,8 @@ Route::get('/studyabroad', function(){
 })->name('studyabroad.page');
 
 Route::get('/{page}','Admin\PageController@show')->name('page.view');
+Route::get('/{page}/{s1}','Admin\PageController@show')->name('page.s1');
+Route::get('/{page}/{s1}/{s2}','Admin\PageController@show')->name('page.s2');
 /* learners club */
 Route::get('/learnersclub', function(){
     return view('appl.pages.lclub');

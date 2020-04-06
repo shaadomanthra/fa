@@ -1206,6 +1206,8 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
 </script>
 @endif
 
+
+@if(isset($joinnow))
 <script>
   $(document).scroll(function() {
   var y = $(this).scrollTop();
@@ -1215,8 +1217,10 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
     $('.joinnow').fadeOut();
   }
 });
-  </script>
+</script>
+@endif
 
+@if(isset($front))
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script type="text/javascript">
 
@@ -1234,6 +1238,4 @@ var options = {
 if($('.element').length)
 var typed = new Typed('.element', options);
 </script>
-
-
-
+@endif

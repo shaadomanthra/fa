@@ -108,27 +108,33 @@ class CollectionController extends Controller
 
         $objs = Blog::whereMonth('created_at', $month)->whereYear('created_at',$year)->paginate(config('global.no_of_records'));
 
-        $obj=null;
-        
-         $filename = 'dates.json';
+        if(!count($objs)){
+            $slug = $year.'/'.$month;
+            return app('App\Http\Controllers\Admin\PageController')->show($slug);
+        }else{
+            $obj=null;
+            $filename = 'dates.json';
             $filepath = $this->cache_path.$filename;
             $dates = json_decode(file_get_contents($filepath));
 
             $filename = 'categories.json';
             $filepath = $this->cache_path.$filename;
             $categories = json_decode(file_get_contents($filepath));
-        
+            
 
-        $this->app = 'blog';
-        $this->module = 'blog';
-        $month = date('F', mktime(0,0,0,$month, 1, date('Y')));
-        $this->name = $year.' '.$month;
-        return view('appl.blog.blog.index')
-                ->with('objs',$objs)
-                ->with('obj',$obj)
-                ->with('categories',$categories)
-                ->with('dates',$dates)
-                ->with('app',$this);
+            $this->app = 'blog';
+            $this->module = 'blog';
+            $month = date('F', mktime(0,0,0,$month, 1, date('Y')));
+            $this->name = $year.' '.$month;
+            return view('appl.blog.blog.index')
+                    ->with('objs',$objs)
+                    ->with('obj',$obj)
+                    ->with('categories',$categories)
+                    ->with('dates',$dates)
+                    ->with('app',$this);
+
+        }
+        
     }
 
     /**
