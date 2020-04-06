@@ -168,6 +168,7 @@ class PageController extends Controller
         $try=null;
         $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){
+          if(isset($obj->meta_title)){
 
             $filename = 'dates.json';
             $filepath = $this->cache_path.$filename;
@@ -225,6 +226,7 @@ class PageController extends Controller
             $testtype = $this->test->testtype;
 
          }
+        }
         }
 
         
