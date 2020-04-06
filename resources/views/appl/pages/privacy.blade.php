@@ -5,8 +5,8 @@
 
 
 <div class="bg-white">
-<div class="card-body p-5 ">
-<div class="h1">Privacy Policy</div><br>
+<div class="card-body p-4 p-md-5 ">
+<div class="h1 bborder mb-4">Privacy Policy</div><br>
 
 <p>
 The terms "We" / "Us" / "Our"/"Company" individually and collectively refer to First Academy  and the terms "You" /"Your" / "Yourself" refer to the users. </p>

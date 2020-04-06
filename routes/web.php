@@ -127,6 +127,7 @@ Route::get('/couponcode/code','Product\CouponController@use')->name('coupon.use'
 /* Pages */
 
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
+Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
 
 Route::post('/api/register', 'User\UserController@register')->name('apiregister');
