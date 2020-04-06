@@ -10,7 +10,7 @@
   @if(isset($obj->intro))
     {!! $obj->intro!!}
     @if($obj->test)
-             @if($test->testtype='grammar' || $test->testtype='english')
+             @if(strtolower($test->testtype->name)=='grammar' || strtolower($test->testtype->name) =='english')
              <div class="testbox body mt-3 ">
                 @include('appl.blog.snippets.test')
              </div>  

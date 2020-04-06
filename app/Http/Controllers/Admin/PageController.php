@@ -213,7 +213,7 @@ class PageController extends Controller
             }
             else{
               $this->test = Test::where('slug',$obj->test)->first();
-  
+
               if($this->test){
               $this->test->sections = $this->test->sections;
               $this->test->mcq_order = $this->test->mcq_order;
@@ -245,7 +245,7 @@ class PageController extends Controller
                       
               }
                $test = $this->test;
-              $testtype = $this->test->testtype;
+               $testtype = $this->test->testtype;
             }else{
               $obj->test = null;
             }
@@ -257,7 +257,6 @@ class PageController extends Controller
 
          }
 
-        
         if($obj){
             if(\auth::user()){
 
