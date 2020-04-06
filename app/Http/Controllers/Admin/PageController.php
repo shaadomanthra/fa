@@ -210,6 +210,8 @@ class PageController extends Controller
             $filename = $this->cache_path_test.'test.'.$obj->test.'.json'; 
             if(file_exists($filename)){
               $this->test = json_decode(file_get_contents($filename));
+              $test = $this->test;
+              $testtype = $this->test->testtype;
             }
             else{
               $this->test = Test::where('slug',$obj->test)->first();
