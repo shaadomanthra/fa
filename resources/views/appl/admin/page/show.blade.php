@@ -7,7 +7,19 @@
 
 <div class="">
 
+  @if(isset($obj->intro))
+    {!! $obj->intro!!}
+    @if($obj->test)
+             @if($test->testtype='grammar' || $test->testtype='english')
+             <div class="testbox body mt-3 ">
+                @include('appl.blog.snippets.test')
+             </div>  
+             @endif
+             @endif
+    {!! $obj->conclusion!!}
+  @else
       {!!$obj->content!!}
+  @endif
 </div> 
 
   <!-- Modal -->

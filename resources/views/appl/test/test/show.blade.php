@@ -30,6 +30,7 @@
             @endcan
           <p class="h2 mb-2"><i class="fa fa-th "></i> {{ $obj->name }} </p>
           <div class="mb-0">
+            <span><b>ID:</b> <a href="{{ route('test',$obj->slug) }}">{{ $obj->id }}</a></span> |
             <span><b>Slug:</b> <a href="{{ route('test',$obj->slug) }}">{{ $obj->slug }}</a></span> | 
 
             <span><b>Category:</b><span class="text-primary"> <a href="{{ route('category.show',$obj->category->id) }}">

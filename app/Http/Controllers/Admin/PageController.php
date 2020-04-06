@@ -157,6 +157,19 @@ class PageController extends Controller
         if(Storage::disk('cache')->exists('pages/'.$filename))
         {
             $obj = json_decode(file_get_contents($filepath));
+
+
+            if(preg_match('/{+(.*?)}/', $obj->content, $regs))
+            {
+                $test = $regs[1];
+                $c = preg_replace('/{+(.*?)}/', '923', $obj->content);
+                $pieces = explode(923, $c);
+                $obj->intro = $pieces[0];
+                $obj->test = $test;
+                $obj->conclusion = $pieces[1];
+            
+            } 
+
         }else{
 
             $obj = Obj::where('slug',$slug)->first();
@@ -168,7 +181,7 @@ class PageController extends Controller
 
         if(!$obj)
           abort('404','page not found');
-        
+
         $try=null;
         $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){
@@ -186,7 +199,12 @@ class PageController extends Controller
             $this->module = 'blog';
             
 
-         if(isset($obj->test))
+         }else{
+          $obj->description = 'First Academy is the best coaching center for IELTS, GRE, TOEFL, PTE, OET, SAT,  and other international exams in Hyderabad.';
+        }
+        } 
+
+        if(isset($obj->test))
          if($obj->test){
             $try =1;
             $filename = $this->cache_path_test.'test.'.$obj->test.'.json'; 
@@ -195,6 +213,8 @@ class PageController extends Controller
             }
             else{
               $this->test = Test::where('slug',$obj->test)->first();
+  
+              if($this->test){
               $this->test->sections = $this->test->sections;
               $this->test->mcq_order = $this->test->mcq_order;
               $this->test->fillup_order = $this->test->fillup_order;
@@ -224,17 +244,18 @@ class PageController extends Controller
                   }
                       
               }
+               $test = $this->test;
+              $testtype = $this->test->testtype;
+            }else{
+              $obj->test = null;
             }
 
-            $test = $this->test;
-            $testtype = $this->test->testtype;
 
-         }}else{
-          $obj->description = 'First Academy is the best coaching center for IELTS, GRE, TOEFL, PTE, OET, SAT,  and other international exams in Hyderabad.';
-        }
-        }
-        
+          }
 
+           
+
+         }
 
         
         if($obj){
@@ -299,10 +320,10 @@ class PageController extends Controller
             $obj = Obj::where('id',$id)->first();
 
             $this->authorize('update', $obj);
-            
-        
-            
+
             $obj->update($request->all()); 
+
+            
 
             /* cache pages */
             $p = explode('/',$obj->slug);
