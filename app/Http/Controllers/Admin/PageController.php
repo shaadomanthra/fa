@@ -180,7 +180,7 @@ class PageController extends Controller
 
             $this->app = 'blog';
             $this->module = 'blog';
-            $obj->description = 'First Academy is the best coaching center for IELTS, GRE, TOEFL, PTE, OET, SAT,  and other international exams in Hyderabad.';
+            
 
          if(isset($obj->test))
          if($obj->test){
@@ -225,9 +225,12 @@ class PageController extends Controller
             $test = $this->test;
             $testtype = $this->test->testtype;
 
-         }
+         }}else{
+          $obj->description = 'First Academy is the best coaching center for IELTS, GRE, TOEFL, PTE, OET, SAT,  and other international exams in Hyderabad.';
         }
         }
+        
+
 
         
         if($obj){
