@@ -158,7 +158,7 @@ class PageController extends Controller
         {
             $obj = json_decode(file_get_contents($filepath));
 
-
+            if(isset($obj->content))
             if(preg_match('/{+(.*?)}/', $obj->content, $regs))
             {
                 $test = $regs[1];
