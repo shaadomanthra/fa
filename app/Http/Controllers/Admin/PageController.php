@@ -165,6 +165,10 @@ class PageController extends Controller
                  $obj = Blog::where('slug',$slug)->first();
             }
         }
+
+        if(!$obj)
+          abort('404','page not found');
+        
         $try=null;
         $categories = null;$dates=null;$test=null;$testtype=null;
         if(!isset($obj->description)){

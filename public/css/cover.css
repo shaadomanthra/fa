@@ -28,7 +28,7 @@ html,
 body {
   height: 100%;
   background-color: #333;
-  background: linear-gradient(to top, rgba(0, 17, 96,0.7), rgb(35, 111, 177)),url('../images/bg/bg2.jpg');
+  background: linear-gradient(to top, rgba(0, 17, 96,0.7), rgb(35, 111, 177)),url('../images/giphy.gif');
   background-repeat: no-repeat;
   background-size: 1500px 100%;
 
