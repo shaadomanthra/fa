@@ -125,10 +125,7 @@ Route::get('/couponcode/code','Product\CouponController@use')->name('coupon.use'
 
 
 /* Pages */
-Route::get('/terms', function(){ return view('appl.pages.terms');})->name('terms');
-Route::get('/privacy', function(){ return view('appl.pages.privacy');})->name('privacy');
-Route::get('/refund', function(){ return view('appl.pages.refund');})->name('refund');
-Route::get('/disclaimer', function(){ return view('appl.pages.disclaimer');})->name('disclaimer');
+
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
 Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
