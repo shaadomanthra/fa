@@ -18,7 +18,7 @@
     <title>@yield('title')</title>
     <link href="https://fonts.googleapis.com/css?family=Raleway:800|Roboto:900&display=swap" rel="stylesheet">
     <!-- Styles -->
-    <link href="{{ asset('css/style_page.min.css') }}?new=3" rel="stylesheet">
+    <link href="{{ asset('css/style_page.min.css') }}?new=10" rel="stylesheet">
     <link href="{{ asset('css/sp2.css') }}?new=3" rel="stylesheet">
 
 </head>

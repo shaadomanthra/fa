@@ -1,4 +1,14 @@
-
+@font-face {
+  font-family: 'FontAwesome';
+  font-display: swap;
+  src: url(/fonts/vendor/font-awesome/fontawesome-webfont.woff2) format('woff2'),
+       url(/fonts/vendor/font-awesome/fontawesome-webfont.eot) format('eot'),
+       url(/fonts/vendor/font-awesome/fontawesome-webfont.ttf) format('ttf'),
+       url(/fonts/vendor/font-awesome/fontawesome-webfont.svg) format('svg'),
+       url(/fonts/vendor/font-awesome/fontawesome-webfont.woff) format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
 
 
 .bg{
