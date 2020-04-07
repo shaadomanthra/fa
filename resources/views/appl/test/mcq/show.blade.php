@@ -20,6 +20,8 @@
 
     <div class="col-12 col-md-9">
       <div class="card bg-light mb-3">
+        
+
         <div class="card-body text-secondary">
           <p class="h2 mb-0"><i class="fa fa-th "></i> Q{{ $obj->qno }} 
 
@@ -36,59 +38,131 @@
      
       <div class="card mb-4">
         <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Question</b></div>
-            <div class="col-md-8">{!! $obj->question !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option A</b></div>
-            <div class="col-md-8">{!! $obj->a !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option B</b></div>
-            <div class="col-md-8">{!! $obj->b !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option C</b></div>
-            <div class="col-md-8">{!! $obj->c !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option D</b></div>
-            <div class="col-md-8">{!! $obj->d !!}</div>
-          </div>
-          @if($app->test->testtype->name =='GRE')
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option E</b></div>
-            <div class="col-md-8">{!! $obj->e !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option F</b></div>
-            <div class="col-md-8">{!! $obj->f !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option G</b></div>
-            <div class="col-md-8">{!! $obj->g !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option H</b></div>
-            <div class="col-md-8">{!! $obj->h !!}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Option I</b></div>
-            <div class="col-md-8">{!! $obj->i !!}</div>
-          </div>
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="qno">{{$obj->qno}}</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="question">{!! $obj->question !!} </div>
+                    </div>
+                </div>
+                @if($obj->a)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op  @if(strpos($obj->answer,'A')!==false) bg-success border-success @endif">A</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->a !!}</div>
+                    </div>
+                </div>
+                @endif
+                @if($obj->b)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'B')!==false) bg-success border-success @endif"">B</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->b !!}</div>
+                    </div>
+                </div>
+                @endif
+                @if($obj->c)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'C')!==false)  border-success bg-success @endif"">C</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->c !!}</div>
+                    </div>
+                </div>
+                @endif 
+                @if($obj->d)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'D')!==false)  border-success bg-success @endif"">D</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->d !!}</div>
+                    </div>
+                </div>
+                @endif
 
+                @if($obj->e)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'E')!==false)  border-success bg-success @endif"">E</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->e !!}</div>
+                    </div>
+                </div>
+                @endif
+
+                @if($obj->f)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'F')!==false)  border-success bg-success @endif"">F</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->f !!}</div>
+                    </div>
+                </div>
+                @endif
+
+                @if($obj->g)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'G')!==false)  border-success bg-success @endif"">G</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->g !!}</div>
+                    </div>
+                </div>
+                @endif
+
+                @if($obj->h)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'H')!==false)  border-success bg-success @endif"">H</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->h !!}</div>
+                    </div>
+                </div>
+                @endif
+
+                @if($obj->i)
+                <div class="row">
+                    <div class="col-3 col-md-3 col-lg-2">
+                      <div class="op @if(strpos($obj->answer,'I')!==false)  border-success bg-success @endif"">I</div>
+                    </div>
+                    <div class="col-12 col-md-9 col-lg-10">
+                      <div class="option">{!! $obj->i !!}</div>
+                    </div>
+                </div>
+                @endif
+
+          
+          
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          
+          @if($obj->explanation)
           <div class="row mb-2">
             <div class="col-md-4"><b>Explanation</b></div>
             <div class="col-md-8">{!! $obj->explanation !!}</div>
           </div>
+          @endif
 
           <div class="row mb-2">
             <div class="col-md-4"><b>Layout</b></div>
             <div class="col-md-8">{!! $obj->layout !!}</div>
           </div>
 
-          @endif
           <div class="row mb-2">
             <div class="col-md-4"><b>Test</b></div>
             <div class="col-md-8">
