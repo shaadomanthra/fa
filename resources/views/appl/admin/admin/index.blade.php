@@ -231,9 +231,9 @@
 @if(\auth::user()->admin!=4)
 
 <div class="row">
-    <div class="col-12 col-md-6">
+    <div class="col-12 ">
         <div class="">
-    <h5 class="rounded mt-4 border p-2"><i class="fa fa-plus-square-o"></i> New User Logins</h5>
+    <h5 class="rounded mt-4 border p-2"><i class="fa fa-plus-square-o"></i> Latest Logins</h5>
     <div class="table-responsive mb-4">
     <table class="table table-bordered">
   <thead>
@@ -258,35 +258,7 @@
 </div>
 </div>
     </div>
-    <div class="col-12 col-md-6">
 
-                <div class="">
-    <h5 class="rounded mt-4 border p-2"><i class="fa fa-id-card-o"></i> Enrolled User Logins</h5>
-    <div class="table-responsive mb-4">
-    <table class="table table-bordered">
-  <thead>
-    <tr>
-      <th scope="col" style="width:30%">User</th>
-      <th scope="col">Attempted</th>
-      <th scope="col">Last Login</th>
-    </tr>
-  </thead>
-  <tbody class="{{$k=0}}">
-    @foreach($data['enrolled'] as $l)
-    <tr class="{{ $k++}}">
-      
-      <td><a href="{{ route('user.show',$l->id) }}" class="">{{ $l['name']}}</a> </td>
-      <td>{{ count($l->tests()) }} </td>
-      <td>{{ \Carbon\Carbon::parse($l->lastlogin_at)->diffForHumans()}}</td>
-    </tr>
-    @endforeach
-   
-  </tbody>
-</table>
-</div>
-</div>
-
-    </div>
 </div>
 
 <div class="bg-white p-4 rounded">

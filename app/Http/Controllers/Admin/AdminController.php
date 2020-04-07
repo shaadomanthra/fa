@@ -38,9 +38,8 @@ class AdminController extends Controller
 
        
         
-        $data['new'] = User::whereRaw('length(idno) > 6 OR length(idno) < 1')->orderBy('lastlogin_at','desc')->where('admin','0')->limit(5)->get();
+        $data['new'] = User::where('admin','0')->orderBy('lastlogin_at','desc')->limit(5)->get();
 
-        $data['enrolled'] = User::whereRaw('length(idno) < 6 OR length(idno) > 1')->where('admin','0')->orderBy('lastlogin_at','desc')->limit(5)->get();
         
         $data['form'] = Form::orderBy('id','desc')->limit(5)->get();
 
