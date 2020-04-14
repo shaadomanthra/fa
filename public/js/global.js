@@ -288,45 +288,17 @@
 })(jQuery);
 
 jQuery(function($) {
-        $('.c1').countTo({
-            from: 10000,
-            to: 25000,
-            speed: 5000,
+
+        $('.counter').countTo({
+            from: 0,
+            to: $('.counter').text(),
+            speed: 3000,
             refreshInterval: 50,
             onComplete: function(value) {
                 console.debug(this);
             }
         });
 
-         $('.c2').countTo({
-            from: 0,
-            to: 32,
-            speed: 5000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
-
-         $('.c3').countTo({
-            from: 0,
-            to: 400,
-            speed: 5000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
-
-         $('.c4').countTo({
-            from: 0,
-            to: 100,
-            speed: 5000,
-            refreshInterval: 50,
-            onComplete: function(value) {
-                console.debug(this);
-            }
-        });
     });
 
   

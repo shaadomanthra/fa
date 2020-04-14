@@ -15,7 +15,7 @@
 
   <div class="col-md-12">
  
-    <div class="card mb-3 mb-md-0">
+    <div class="card mb-3 mb-md-0 ">
       <div class="card-body mb-0">
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
           <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }} </a>

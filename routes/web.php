@@ -28,6 +28,9 @@ Auth::routes();
 Route::get('/construction', function () {
         return view('appl.pages.construction');
 })->name('construction');
+Route::get('/onlinetraining', function () {
+        return view('appl.pages.onlinetraining');
+})->name('onlinetraining');
 
 /* Admin Routes */
 Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('auth');
