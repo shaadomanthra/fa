@@ -82,6 +82,16 @@ class AdminController extends Controller
 
     public function contact(Request $r){
         
+        $f = new Form();
+        $f->name = $r->name;
+        $f->email = $r->email;
+        $f->phone = $r->phone;
+        $f->college = '';
+        $f->year = 0;
+        $f->subject = 'Contact Form';
+        $f->description = $r->message;
+        $f->save();
+
         Mail::to(config('mail.report'))->send(new contactmessage($r));
         return view('appl.admin.admin.contactmessage');
     }

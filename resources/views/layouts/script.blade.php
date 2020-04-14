@@ -30,7 +30,7 @@ $(document).ready(function() {
 
 @if(isset($editor))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
-<script type="application/javascript" src="{{asset('js/script.js?new=5')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js?new=11')}}"></script>  
 <script type="application/javascript" src="{{asset('js/summernote/summernote-bs4.js')}}"></script>    
 <script type="application/javascript" src="{{asset('js/jquery.form.js')}}"></script> 
 <script type="application/javascript" src="{{asset('js/global.js?new=4')}}"></script>  
@@ -171,7 +171,7 @@ $(document).ready(function() {
 </script>
 @elseif(isset($reading))
 <script type="application/javascript" src="{{asset('js/jquery.js')}}"></script>  
-<script type="application/javascript" src="{{asset('js/script.js?new=5')}}"></script>  
+<script type="application/javascript" src="{{asset('js/script.js?new=11')}}"></script>  
 <script type="application/javascript">
     $( document ).ready(function() {
     var height = $( window ).height();
@@ -433,7 +433,7 @@ $(document).ready(function() {
     });     
 </script>
 @else
-<script src="{{asset('js/script.js?new=5')}}" type="application/javascript"></script>  
+<script src="{{asset('js/script.js?new=11')}}" type="application/javascript"></script>  
 @endif
 
 @if(isset($grammar))
@@ -1237,5 +1237,8 @@ var options = {
 
 if($('.element').length)
 var typed = new Typed('.element', options);
+
+
+
 </script>
 @endif

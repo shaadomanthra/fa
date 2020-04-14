@@ -94,8 +94,13 @@ class PageController extends Controller
     {
         try{
             
+            $string = rtrim($request->get('slug'), "/");
+
+            $request->merge(['slug'=>$string]);
+
             /* create a new entry */
             $obj = $obj->create($request->all());
+
 
             /* cache pages */
             $p = explode('/',$obj->slug);

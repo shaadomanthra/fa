@@ -39,7 +39,8 @@
     <button class="btn  btn-lg float-center float-md-right  h5 mb-0 " style="background: #fff"><i class="fa fa-ioxhost"></i> &nbsp;Take a free test  </button>
   </div>
     <div class="text-center float-md-right">
-    <button class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;">Choose a slot &nbsp; <i class="fa fa-angle-right"></i></button>
+
+    <a href='#' class="btn  btn-lg   h5 mb-0 text-white mr-md-3" style="background: #2d4059;" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Choose Slot">Choose a slot &nbsp; <i class="fa fa-angle-right"></i></a>
   </div>
       </div>
     </div>
@@ -139,6 +140,98 @@ clients
   </div>
 </div>
 
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form method="post" action="{{route('form.ajax')}}">
+    <div class="modal-content">
+      <div class="modal-header bg-light">
+        <h5 class="modal-title" id="exampleModalLabel">Fill the form</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="h5 ">Where would you want to attend a demo?</label><br>
+            <div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="location[]" value="ameerpet">
+  <label class="form-check-label text-secondary" for="inlineCheckbox1">Ameerpet</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckbox2" name="location[]" value="madhapur">
+  <label class="form-check-label text-secondary" for="inlineCheckbox2">Madhapur</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input " type="checkbox" id="inlineCheckbox3" name="location[]" value="online" >
+  <label class="form-check-label text-secondary" for="inlineCheckbox3">Online </label>
+</div>
+          </div>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1" class="h5 ">Which training do you wish to take up?</label><br>
+            <div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxgre" name="training[]" value="gre">
+  <label class="form-check-label text-secondary" for="inlineCheckboxgre">GRE</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxielts" name="training[]" value="ielts">
+  <label class="form-check-label text-secondary" for="inlineCheckboxielts">IELTS</label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxpte" name="training[]" value="pte" >
+  <label class="form-check-label text-secondary" for="inlineCheckboxpte">PTE </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxoet" name="training[]" value="oet" >
+  <label class="form-check-label text-secondary" for="inlineCheckboxoet">OET </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxsat" name="training[]" value="sat" >
+  <label class="form-check-label text-secondary" for="inlineCheckboxsat">SAT </label>
+</div>
+<div class="form-check form-check-inline">
+  <input class="form-check-input" type="checkbox" id="inlineCheckboxother" name="training[]" value="other" >
+  <label class="form-check-label text-secondary" for="inlineCheckboxother">Other </label>
+</div>
+          </div>
+      </div>
+      <div class="modal-body bg-light border-top">
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" name="name" placeholder="Enter your name">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="" name="phone" placeholder="Enter your phone number">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="input" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="" name="email" placeholder="Enter your email">
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+        
+        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="url" value="{{ route('form.ajax')}}">
+        <button type="button" class="btn btn-success btn-ajax">Submit</button>
+        <div class="spinner-border spinner-border-sm float-right" role="status" style="display:none">
+  <span class="sr-only">Loading...</span>
+</div>
+        
+      </div>
+    </div>
+    </form>
+  </div>
+</div>
 
 
 

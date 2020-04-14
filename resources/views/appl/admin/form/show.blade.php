@@ -15,10 +15,8 @@
 
 @include('flash::message')
 
-  <div class="row">
 
-    <div class="col-md-12">
-      <div class="card bg-light mb-3">
+ <div class="card bg-light mb-3">
         <div class="card-body text-secondary">
           <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
 
@@ -32,12 +30,17 @@
         </div>
       </div>
 
+  <div class="row">
+
+    <div class="col-md-6">
+     
+
      
       <div class="card mb-4">
         <div class="card-body">
           <div class="row mb-2">
             <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
+            <div class="col-md-8"><b class="text-primary">{{ $obj->name }}</b></div>
           </div>
          
          <div class="row mb-2">
@@ -50,36 +53,50 @@
             <div class="col-md-8">{{ $obj->phone }}</div>
           </div>
 
-          <div class="row mb-2">
-            <div class="col-md-4"><b>College</b></div>
-            <div class="col-md-8">{{ $obj->college }}</div>
-          </div>
+          
+
+          
 
           <div class="row mb-2">
-            <div class="col-md-4"><b>Year of Passing</b></div>
-            <div class="col-md-8">{{ $obj->year }}</div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Subject</b></div>
-            <div class="col-md-8">{{ $obj->subject }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Description</b></div>
-            <div class="col-md-8">{{ $obj->description }}</div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created at</b></div>
+            <div class="col-md-4"><b>Created</b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
         </div>
       </div>
 
+      <div class="card">
+        <div class='card-body'>
+        <div class="row mb-2">
+            <div class="col-md-4"><b>College</b></div>
+            <div class="col-md-8">@if($obj->college){{ $obj->college }} @else - @endif</div>
+          </div>
+
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Year of Passing</b></div>
+            <div class="col-md-8">@if($obj->year) {{ $obj->year }} @else - @endif</div>
+          </div>
+      </div>
+    </div>
+
+
 
 
     </div>
 
+    <div class="col-md-6">
+      <div class="card">
+        <div class='card-body'>
+        <div class="row mb-2">
+            <div class="col-md-4"><b>Subject</b></div>
+            <div class="col-md-8">{{ $obj->subject }}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Message</b></div>
+            <div class="col-md-8">{{ $obj->description }}</div>
+          </div>
+      </div>
+    </div>
+    </div>
      
 
   </div> 

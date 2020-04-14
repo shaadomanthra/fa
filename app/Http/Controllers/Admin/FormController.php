@@ -64,7 +64,7 @@ class FormController extends Controller
     public function request()
     {
         $obj = new Obj();
-        $tests = Test::where('price',0)->where('status',1)->get()->random(3);;
+        $tests = Test::where('price',0)->where('status',1)->get()->random(3);
 
         return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Create')
@@ -108,6 +108,60 @@ class FormController extends Controller
 
             flash('Your request is registered. Our Counsellors will get in touch with you soon.')->warning();
             return redirect()->route('form.request');
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                flash('Some error in Creating the record')->error();
+                 return redirect()->back()->withInput();;
+            }
+        }
+    }
+
+    public function ajax(Obj $obj, Request $request)
+    {
+        try{
+            
+            if($request->phone==null){
+                $message = 'Phone number cannot be empty';
+            }
+
+            if($request->email==null){
+                $message = 'Email cannot be empty';
+            }
+
+            if($request->name==null){
+                $message = 'Name cannot be empty';
+            }
+
+            if(isset($message))
+            {
+                echo $message;
+            }else{
+
+                $obj->name = $request->name;
+                $obj->phone = $request->phone;
+                $obj->email = $request->email;
+                $obj->subject = 'Ajax Contact Form';
+                $description ='';
+                foreach($request->all() as $k=>$r){
+                    if(is_array($r))
+                        $r = implode(',', $r);
+                    $description = $description. '<div>'.$k.'-'.$r.'</div>' 
+                }
+                $obj->description = $description;
+                $obj->year = 0;
+                $obj->college = '';
+                $obj->save();
+
+                //Mail::to(config('mail.report'))->send(new  RequestForm($request));
+                //Mail::to(config('mail.report2'))->send(new  RequestForm($request));
+
+                $message = 'Your request is registered. Our Counsellors will get in touch with you soon.';
+
+                echo $message;
+            }
+            
         }
         catch (QueryException $e){
            $error_code = $e->errorInfo[1];

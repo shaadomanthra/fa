@@ -226,6 +226,28 @@
       
   });
 
+
+  $(function(){
+    $('.btn-ajax').on('click',function(e){
+      e.preventDefault();
+      $('.spinner-border').show();
+      $name = $('input[name="name"]').val();
+      $email = $('input[name="email"]').val();
+      $phone = $('input[name="phone"]').val();
+      $training = $('input[name="training"]').val();
+      $location = $('input[name="location"]').val();
+      $_token =  $('input[name="_token"]').val();
+      $url = $('input[name="url"]').val();
+      console.log($url);
+      console.log($_token);
+      $.post( $url, {'name':$name,'email':$email,'phone':$phone,'training':$training,'location':$location,'_token':$_token},function( data ) {
+        $( ".modal-body" ).html( data );
+      });
+      
+    });
+      
+  });
+
   $('.view-more').on('click',function(e){
         $(this).hide();
           $('.test_block').show();
