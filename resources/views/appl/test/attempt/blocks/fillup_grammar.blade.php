@@ -2,7 +2,7 @@
 
 @if($test->fillup_order[0]->layout=='duolingo_missing_letter')
 <style>
-  input.duo,input.lightb{width:30px;height:30px;text-align: center;border:1px solid #c9dbe4;margin: 0px;padding:0px; font-size: 18px;margin-top: 0px;font-weight: 800}
+  input.duo,input.lightb{width:30px;height:30px;text-align: center;border:1px solid #c9dbe4;margin: 0px;padding:0px;float: left; font-size: 18px;margin-top: 0px;font-weight: 800}
   .lightb{background: #e7f2f9;color:#52b6e8;}
 </style>
 <div class="card-text mb-5 mb-md-0" style="overflow: auto;">
