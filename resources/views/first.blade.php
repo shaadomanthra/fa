@@ -143,7 +143,7 @@ clients
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <form method="post" action="{{route('form.ajax')}}">
+    <form method="post" action="" class="choose_a_slot">
     <div class="modal-content">
       <div class="modal-header bg-light">
         <h5 class="modal-title" id="exampleModalLabel">Fill the form</h5>
@@ -151,6 +151,9 @@ clients
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="modal-e text-danger p-3">
+      </div>
+      <div class="modal-b p-3">
       <div class="modal-body">
           <div class="form-group">
             <label for="exampleFormControlInput1" class="h5 ">Where would you want to attend a demo?</label><br>
@@ -216,12 +219,15 @@ clients
             </div>
           </div>
       </div>
+      </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         
         
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="url" value="{{ route('form.ajax')}}">
+        <input type="hidden" name="_method" value="PUT">
+        <input type="hidden" name="url" value="{{ route('form.a')}}">
+        <input type="hidden" name="subject" value="Request for demo">
         <button type="button" class="btn btn-success btn-ajax">Submit</button>
         <div class="spinner-border spinner-border-sm float-right" role="status" style="display:none">
   <span class="sr-only">Loading...</span>

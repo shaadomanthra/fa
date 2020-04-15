@@ -118,7 +118,7 @@ class FormController extends Controller
         }
     }
 
-    public function ajax(Obj $obj, Request $request)
+    public function ajaxx(Request $request)
     {
         try{
             
@@ -139,15 +139,17 @@ class FormController extends Controller
                 echo $message;
             }else{
 
+                $obj = new Obj();
                 $obj->name = $request->name;
                 $obj->phone = $request->phone;
                 $obj->email = $request->email;
-                $obj->subject = 'Ajax Contact Form';
+                $obj->subject = $request->subject;
                 $description ='';
                 foreach($request->all() as $k=>$r){
                     if(is_array($r))
                         $r = implode(',', $r);
-                    $description = $description. '<div>'.$k.'-'.$r.'</div>' 
+                    if($k!='_token' && $k!='_method' && $k!='url')
+                    $description = $description. '<div>'.strtoupper($k).' - '.$r.'</div>' ;
                 }
                 $obj->description = $description;
                 $obj->year = 0;

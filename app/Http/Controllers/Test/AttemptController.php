@@ -599,6 +599,7 @@ class AttemptController extends Controller
           $result[$mcq->qno]['id']=$mcq->id;
           $result[$mcq->qno]['mcq_id']=$mcq->id;
           $result[$mcq->qno]['fillup_id']=null;
+          $result[$mcq->qno]['mcq']=$mcq;
           $result[$mcq->qno]['qno']=$mcq->qno;
           $result[$mcq->qno]['type']='mcq';
           $result[$mcq->qno]['answer'] = $mcq->answer;
@@ -621,6 +622,7 @@ class AttemptController extends Controller
             $result[$fillup->qno]['id']=$fillup->id;
             $result[$fillup->qno]['mcq_id']=null;
             $result[$fillup->qno]['fillup_id']=$fillup->id;
+            $result[$fillup->qno]['fillup']=$fillup;
             $result[$fillup->qno]['qno']=$fillup->qno;
             $result[$fillup->qno]['type']='fillup';
             $result[$fillup->qno]['answer'] = $fillup->answer;
@@ -630,10 +632,20 @@ class AttemptController extends Controller
           }
           
         if($fillup->layout=='ielts_two_blank'){
+            
             $fillup->answer= str_replace('[', '&[', $fillup->answer);
             $new_ans = delete_all_between('[',']',$fillup->answer);
             $result[$fillup->qno]['answer'] = $new_ans;
+
             $result[$fillup->qno]['two_blanks'] =1;
+        }
+
+        if($fillup->layout=='duolingo_missing_letter'){
+          
+            $fillup->answer= str_replace('[', '', $fillup->answer);
+            $fillup->answer= str_replace(']', '', $fillup->answer);
+            $result[$fillup->qno]['answer'] = $fillup->answer;
+            $result[$fillup->qno]['duolingo_missing_letter'] =1;
         }
 
         if($fillup->layout=='pte_reorder'){
@@ -710,6 +722,15 @@ class AttemptController extends Controller
             if($res['two_blanks']){
 
               if($this->matchAnswers($res['answer'],$resp)){
+                $data[$i]['accuracy'] =1;
+                $result[$qno]['accuracy'] = 1; 
+                $score++;
+              }
+
+            }else if(isset($res['duolingo_missing_letter'])){
+              $resp = implode('', $resp);
+
+              if($this->compare($res['answer'],$resp)){
                 $data[$i]['accuracy'] =1;
                 $result[$qno]['accuracy'] = 1; 
                 $score++;
@@ -794,7 +815,7 @@ class AttemptController extends Controller
         $secs = $this->graph($tags);
         
 
-         return view('appl.test.attempt.alerts.result')
+         return view('appl.test.attempt.alerts.solutions')
               ->with('result',$result)
               ->with('section_score',$section_score)
               ->with('test',$test)

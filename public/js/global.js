@@ -228,22 +228,38 @@
 
 
   $(function(){
+    $('.modal-e').hide();
     $('.btn-ajax').on('click',function(e){
       e.preventDefault();
       $('.spinner-border').show();
-      $name = $('input[name="name"]').val();
-      $email = $('input[name="email"]').val();
-      $phone = $('input[name="phone"]').val();
-      $training = $('input[name="training"]').val();
-      $location = $('input[name="location"]').val();
-      $_token =  $('input[name="_token"]').val();
+      var dataString = $('.choose_a_slot').serialize();
       $url = $('input[name="url"]').val();
-      console.log($url);
-      console.log($_token);
-      $.post( $url, {'name':$name,'email':$email,'phone':$phone,'training':$training,'location':$location,'_token':$_token},function( data ) {
-        $( ".modal-body" ).html( data );
-      });
-      
+
+      $.ajax({
+            url: $url,
+            type:"GET",
+             beforeSend: function (xhr) {
+            var token = $('meta[name="csrf_token"]').attr('content');
+            if (token) {
+                  return xhr.setRequestHeader('X-CSRF-TOKEN', token);
+            }
+            },
+            data: dataString,
+            success:function(data){
+                if(data.length < 40)
+                {
+                    $('.modal-e').show();
+                    $(this).hide();
+                    $( ".modal-e" ).html( data );
+                }else{
+                    $('.modal-e').hide();
+                    $( ".modal-b" ).html( data );
+                }
+                $('.spinner-border').hide();
+            },error:function(){ 
+                alert("error!!!!");
+            }
+        }); //end of aja    
     });
       
   });

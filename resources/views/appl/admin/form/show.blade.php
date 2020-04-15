@@ -92,7 +92,7 @@
           </div>
           <div class="row mb-2">
             <div class="col-md-4"><b>Message</b></div>
-            <div class="col-md-8">{{ $obj->description }}</div>
+            <div class="col-md-8">{!! $obj->description !!}</div>
           </div>
       </div>
     </div>

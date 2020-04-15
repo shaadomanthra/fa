@@ -37,6 +37,7 @@ Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('
 Route::get('/admin/analytics', 'Admin\AdminController@analytics')->name('admin.analytics')->middleware('auth');
 Route::post('/admin/contact', 'Admin\AdminController@contact')->name('admin.contact');
 Route::post('/admin/notify', 'Admin\AdminController@notify')->name('admin.notify');
+Route::get('/ajax/form','Admin\FormController@ajaxx')->name('form.a');
 
 /* Admin Application Routes */
 Route::resource('/admin/test', 'Test\TestController')->middleware('auth');
@@ -70,7 +71,7 @@ Route::resource('/admin/form', 'Admin\FormController')->middleware('auth');
 
 Route::get('/request-form','Admin\FormController@request')->name('form.request');
 Route::post('/request-form','Admin\FormController@save')->name('form.save');
-Route::post('/ajaxform','Admin\FormController@ajax')->name('form.ajax');
+
 
 /* User Routes */
 Route::resource('/admin/user', 'User\UserController')->middleware('auth');

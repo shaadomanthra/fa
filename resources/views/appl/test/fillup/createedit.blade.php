@@ -134,7 +134,7 @@
           <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif >Dropdown</option>
           <option value="dropin" @if(isset($obj)) @if($obj->layout=='dropin') selected @endif @endif >PTE Drop In</option>
           <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
-
+          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif >Duolingo Missing Letter</option>
         </select>
       </div>
 

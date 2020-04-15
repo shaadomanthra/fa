@@ -20,6 +20,8 @@
         @include('appl.test.attempt.layouts.dropdown') 
       @elseif($f->layout=='paragraph')
         @include('appl.test.attempt.layouts.ielts_paragraph') 
+      @elseif($f->layout=='duolingo_missing_letter')
+        @include('appl.test.attempt.layouts.duolingo_missing_letter') 
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
       @elseif($f->layout=='ielts_two_blank')
