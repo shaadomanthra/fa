@@ -451,6 +451,21 @@ $(document).ready(function() {
 
     });
 
+    $(".duo").keyup(function () {
+        if (this.value.length == this.maxLength) {
+          var $next = $(this).next('.duo');
+          var qid = '.q'+(parseInt($(this).data('id'))+1);
+          var $next_parent = $(qid).children('.duo').first();
+          console.log($next_parent);
+          if ($next.length)
+              $(this).next('.duo').focus();
+          else if($next_parent.length)
+              $next_parent.focus();
+          else
+              $(this).blur();
+        }
+    });
+
     $("#ajaxtest").submit(function(e) {
 
         e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -1103,19 +1118,7 @@ $(document).ready(function () {
 
   
 /* prevent refresh */
-var btn = document.getElementById('submit'),
-    clicked = false;
 
-btn.addEventListener('click', function () {
-  clicked = true;
-});
-
-window.onbeforeunload = function (e) {
-
-  if(!clicked) {
-    return 'If you resubmit this page, progress will be lost.';
-  }
-};
 
 
 $('body').on('keyup keypress', function(e) {

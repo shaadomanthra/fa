@@ -102,7 +102,11 @@ class FillupController extends Controller
           
             $request->session()->put('extract_id', $request->get('extract_id'));
 
-            
+            if(!$request->get('prefix') && !$request->get('label') && !$request->get('suffix') && !$request->get('answer'))
+            {
+                flash('Data cannot be empty')->error();
+                 return redirect()->back()->withInput();
+            }
 
             /* create a new entry */
             $obj = $obj->create($request->except(['tags']));

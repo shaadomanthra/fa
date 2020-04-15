@@ -1,6 +1,8 @@
 
 
-
+@if($test->fillup_order[0]->layout=='duolingo_missing_letter')
+<div class="card-text mb-5 mb-md-0" style="overflow: auto;">
+@endif
 @foreach($test->fillup_order as $f)
 
     @if(isset($f->extract))
@@ -21,6 +23,7 @@
       @elseif($f->layout=='paragraph')
         @include('appl.test.attempt.layouts.ielts_paragraph') 
       @elseif($f->layout=='duolingo_missing_letter')
+
         @include('appl.test.attempt.layouts.duolingo_missing_letter') 
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
@@ -35,5 +38,9 @@
       @endif   
     @endif
     @endforeach
+
+@if($test->fillup_order[0]->layout=='duolingo_missing_letter')
+</div>
+@endif
  
 

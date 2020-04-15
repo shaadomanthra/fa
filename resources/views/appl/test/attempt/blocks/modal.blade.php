@@ -13,7 +13,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" id="submit" class="btn btn-success submit">Submit</button>
+        <button type="submit" id="submit_btn" class="btn btn-success submit">Submit</button>
       </div>
     </div>
   </div>
