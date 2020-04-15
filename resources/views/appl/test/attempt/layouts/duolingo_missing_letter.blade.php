@@ -4,7 +4,7 @@
   @if($f->label ) <div><b>{{$f->label }}</b></div>  @endif 
 
   	
-       @if($f->prefix ) <div style="display:inline-block;margin-top: 5px;float-left">{{$f->prefix }} </div> @endif 
+       @if($f->prefix ) <div style="display:inline-block;margin-top: 5px;float:left">{{$f->prefix }} </div> @endif 
        @if($f->answer) <div style="display:inline-block; margin-right: 10px;border-radius:5px;margin-left: 5px;margin-top: 5px;float:left" class="{{$open=0}} {{$k=0}} q{{$f->qno}}">
        @foreach(str_split($f->answer) as $i=>$k)
         @if($k==']' && $open==1)
