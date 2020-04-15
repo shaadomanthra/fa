@@ -56,14 +56,14 @@
       </div>
       <div class="modal-body">
         <form method="post" class="error" action="{{ route('admin.notify')}}">
-          <div class="form-group">
+          <div class="form-group ">
           <label for="exampleInputEmail1">Name</label>
           <input type="email" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" @if(\auth::user()) value="{{\auth::user()->name}}" @endif>
         
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Phone Number</label>
-          <input type="text" class="form-control" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phone" @if(\auth::user()) value="{{\auth::user()->phone}}" @endif>
+          <label >Phone Number</label>
+          <input type="text" class="form-control" name="phone"  placeholder="Enter phone" @if(\auth::user()) value="{{\auth::user()->phone}}" @endif>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>

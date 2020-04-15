@@ -97,7 +97,7 @@ class AdminController extends Controller
     }
 
     
-    public function notify(Request $r){
+    public function notify(Request $request){
 
         $obj = new Form();
                 $obj->name = $request->name;
@@ -116,7 +116,7 @@ class AdminController extends Controller
                 $obj->college = '';
                 $obj->save();
         
-        Mail::to(config('mail.report'))->send(new  ErrorReport($r));
+        Mail::to(config('mail.report'))->send(new  ErrorReport($request));
         echo "Successfully reported to administrator.";
     }
 

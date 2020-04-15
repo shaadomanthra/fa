@@ -211,6 +211,8 @@
       $('.spinner-border').show();
       $name = $('input[name="name"]').val();
       $email = $('input[name="email"]').val();
+      $phone = $('input[name="phone"]').val();
+      $test = $('input[name="test"]').val();
       $qno = $('input[name="qno"]').val();
       $details = $.trim($(".details").val());
       $_token =  $('input[name="_token"]').val();
@@ -218,7 +220,8 @@
 
       
       
-      $.post( $url, {'name':$name,'email':$email,'qno':$qno,'details':$details,'_token':$_token},function( data ) {
+      $.post( $url, {'name':$name,'email':$email,'qno':$qno,'details':$details,
+        '_token':$_token,'phone':$phone,'test':$test},function( data ) {
         $( ".modal-body" ).html( data );
       });
       
@@ -237,7 +240,7 @@
 
       $.ajax({
             url: $url,
-            type:"GET",
+            type:"POST",
              beforeSend: function (xhr) {
             var token = $('meta[name="csrf_token"]').attr('content');
             if (token) {
