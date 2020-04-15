@@ -98,6 +98,23 @@ class AdminController extends Controller
 
     
     public function notify(Request $r){
+
+        $obj = new Form();
+                $obj->name = $request->name;
+                $obj->phone = $request->phone;
+                $obj->email = $request->email;
+                $obj->subject = 'Error in question';
+                $description ='';
+                foreach($request->all() as $k=>$r){
+                    if(is_array($r))
+                        $r = implode(',', $r);
+                    if($k!='_token' && $k!='_method' && $k!='url')
+                    $description = $description. '<div>'.strtoupper($k).' - '.$r.'</div>' ;
+                }
+                $obj->description = $description;
+                $obj->year = 0;
+                $obj->college = '';
+                $obj->save();
         
         Mail::to(config('mail.report'))->send(new  ErrorReport($r));
         echo "Successfully reported to administrator.";

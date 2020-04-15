@@ -58,12 +58,16 @@
         <form method="post" class="error" action="{{ route('admin.notify')}}">
           <div class="form-group">
           <label for="exampleInputEmail1">Name</label>
-          <input type="email" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name">
+          <input type="email" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" @if(\auth::user()) value="{{\auth::user()->name}}" @endif>
         
         </div>
         <div class="form-group">
+          <label for="exampleInputEmail1">Phone Number</label>
+          <input type="text" class="form-control" name="phone" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter phone" @if(\auth::user()) value="{{\auth::user()->phone}}" @endif>
+        </div>
+        <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" @if(\auth::user()) value="{{\auth::user()->email}}" @endif>
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Question Number</label>
@@ -77,6 +81,7 @@
         
 
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="test" value="{{ $test->name }}">
         <input type="hidden" name="url" value="{{ route('admin.notify')}}">
         <button type="button" class="btn btn-success btn-error-report">Submit</button>
         <div class="spinner-border spinner-border-sm float-right" role="status" style="display:none">

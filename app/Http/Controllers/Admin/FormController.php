@@ -156,8 +156,8 @@ class FormController extends Controller
                 $obj->college = '';
                 $obj->save();
 
-                //Mail::to(config('mail.report'))->send(new  RequestForm($request));
-                //Mail::to(config('mail.report2'))->send(new  RequestForm($request));
+                Mail::to(config('mail.report'))->send(new  RequestForm($request));
+                Mail::to(config('mail.report2'))->send(new  RequestForm($request));
 
                 $message = 'Your request is registered. Our Counsellors will get in touch with you soon.';
 

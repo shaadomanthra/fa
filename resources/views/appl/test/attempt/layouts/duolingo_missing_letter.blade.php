@@ -1,9 +1,5 @@
 
-<style>
-  input{width:30px;height:30px;text-align: center;border:1px solid #c9dbe4;margin: 0px;padding:0px;float: left; font-size: 18px;margin-top: 0px;font-weight: 800}
-  .lightb{background: #e7f2f9;color:#52b6e8;}
 
-</style>
 <span class="card-text question " id="{{$f->qno}}">
   @if($f->label ) <div><b>{{$f->label }}</b></div>  @endif 
 
