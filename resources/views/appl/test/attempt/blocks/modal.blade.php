@@ -57,8 +57,8 @@
       <div class="modal-body">
         <form method="post" class="error" action="{{ route('admin.notify')}}">
           <div class="form-group ">
-          <label for="exampleInputEmail1">Name</label>
-          <input type="email" class="form-control" name="name" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name" @if(\auth::user()) value="{{\auth::user()->name}}" @endif>
+          <label >Name</label>
+          <input type="text" class="form-control" name="name" placeholder="Enter name" @if(\auth::user()) value="{{\auth::user()->name}}" @endif>
         
         </div>
         <div class="form-group">
@@ -66,22 +66,22 @@
           <input type="text" class="form-control" name="phone"  placeholder="Enter phone" @if(\auth::user()) value="{{\auth::user()->phone}}" @endif>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" name="email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" @if(\auth::user()) value="{{\auth::user()->email}}" @endif>
+          <label >Email address</label>
+          <input type="email" class="form-control" name="email" placeholder="Enter email" @if(\auth::user()) value="{{\auth::user()->email}}" @endif>
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Question Number</label>
-          <input type="email" class="form-control" name="qno" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter question number">
+          <label>Question Number</label>
+          <input type="email" class="form-control" name="qno"  placeholder="Enter question number">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">Details</label>
-          <textarea class="form-control details" id="exampleFormControlTextarea1" rows="3" name="details"></textarea>
+          <label >Details</label>
+          <textarea class="form-control details"  rows="3" name="details"></textarea>
         </div>
 
         
 
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="test" value="{{ $test->name }}">
+        <input type="hidden" name="testname" value="{{ $test->name }}">
         <input type="hidden" name="url" value="{{ route('admin.notify')}}">
         <button type="button" class="btn btn-success btn-error-report">Submit</button>
         <div class="spinner-border spinner-border-sm float-right" role="status" style="display:none">
