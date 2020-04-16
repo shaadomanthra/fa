@@ -32,10 +32,12 @@
                   @endif
                 </td>
                 <td>
-                  @if($obj->product)
-                  <a href=" {{ route('product.show',$obj->product->id) }} ">
-                  {{ $obj->product->name }}
-                  </a>
+                  @if($obj->products)
+                  @foreach($obj->products as $p)
+                  <a href=" {{ route('product.show',$p->id) }} ">
+                  {{ strip_tags($p->name) }}
+                  </a><br>
+                  @endforeach
                   @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>

@@ -54,8 +54,9 @@
       </div>
 
       
-
-      <div class="form-group">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
         <label for="formGroupExampleInput" class="mb-0">Details</label>
         <small id="" class="form-text text-muted mb-3">Information to be displayed on individual test page (200 words with SEO keywords) </small>
         <textarea class="form-control summernote" name="details"  rows="5">
@@ -67,8 +68,9 @@
         </textarea>
       </div>
       
-
-      <div class="form-group">
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
         <label for="formGroupExampleInput " class="mb-0">Instructions (optional)</label>
         <small id="" class="form-text text-muted mb-3">Empty instructions will skip the instruction screen</small>
         <textarea class="form-control summernote" name="instructions"  rows="5">
@@ -79,10 +81,16 @@
             @endif
         </textarea>
       </div>
+        </div>
+      </div>
+
+      
+
+      
 
       @if(strtolower(request()->get('type'))=='writing' || !request()->get('type'))
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Writing Question</label>
+      <div class="form-group bg-light p-4 border">
+        <label for="formGroupExampleInput "><h4>Writing Question</h4></label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
             {{ (old('description')) ? old('description') : '' }}
@@ -94,8 +102,9 @@
       @endif
 
        @if(strtolower(request()->get('type'))=='speaking' || !request()->get('type'))
-      <div class="form-group">
-        <label for="formGroupExampleInput ">Speaking Question</label>
+
+      <div class="form-group bg-light p-4 border">
+        <label for="formGroupExampleInput "><h4>Speaking Question</h4></label>
         <textarea class="form-control summernote" name="description"  rows="5">
             @if($stub=='Create')
             {{ (old('description')) ? old('description') : '' }}
@@ -121,32 +130,28 @@
       </div>
 
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Category  </label>
             <select class="form-control" name="category_id">
 
               @foreach($categories as $category)
-              <option value="{{$category->id}}" @if(isset($obj)) @if($category->name==request()->get('category')) selected  @elseif($obj->category_id == $category->id) selected @endif @endif >{{ $category->name }}</option>
+              <option value="{{$category->id}}" @if(isset($obj)) @if(strtolower($category->name)==strtolower(request()->get('category'))) selected  @elseif($obj->category_id == $category->id) selected @endif @endif >{{ $category->name }}</option>
               @endforeach
             </select>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Type</label>
             <select class="form-control" name="type_id">
               @foreach($types as $type)
-              <option value="{{$type->id}}" @if(isset($obj)) @if($type->name==strtoupper(request()->get('type'))) selected @elseif($obj->type_id == $type->id) selected @endif @endif >{{ $type->name }}</option>
+              <option value="{{$type->id}}" @if(isset($obj)) @if(strtoupper($type->name)==strtoupper(request()->get('type'))) selected @elseif($obj->type_id == $type->id) selected @endif @endif >{{ $type->name }}</option>
               @endforeach
             </select>
           </div>
         </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-12 col-md-6">
+         <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Marks</label>
             <input type="text" class="form-control" name="marks" id="formGroupExampleInput" placeholder="Enter the total marks" 
@@ -158,7 +163,7 @@
               >
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Test Time (minutes)</label>
             <input type="text" class="form-control" name="test_time" id="formGroupExampleInput" placeholder="Enter the total time in minutes" 
@@ -172,8 +177,11 @@
         </div>
       </div>
 
+
+    
+
       <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Price</label>
             <input type="text" class="form-control" name="price" id="formGroupExampleInput" placeholder="Enter the price in rupees" 
@@ -185,7 +193,7 @@
               >
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Validity (months)</label>
             <input type="text" class="form-control" name="validity" id="formGroupExampleInput"  
@@ -197,10 +205,7 @@
               >
           </div>
         </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Level</label>
             <select class="form-control" name="level">
@@ -211,7 +216,7 @@
             </select>
           </div>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-3">
           <div class="form-group">
             <label for="formGroupExampleInput ">Status</label>
             <select class="form-control" name="status">
@@ -222,6 +227,7 @@
         </div>
       </div>
 
+      
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">

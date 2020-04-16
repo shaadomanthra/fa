@@ -74,6 +74,10 @@ class SectionController extends Controller
     {
         try{
             
+            if(!$request->get('name')){
+                flash('Name of section cannot be empty')->error();
+                 return redirect()->back()->withInput();;
+            }
             // update slug with name if its empty
             if(!$request->get('slug')){
                 $request->merge(['slug' => strtolower(str_replace(' ','_',$request->get('name')))]);

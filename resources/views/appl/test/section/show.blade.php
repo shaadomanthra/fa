@@ -57,7 +57,7 @@
          
 
            <div class="row mb-2">
-            <div class="col-md-4"><b>Instructions</b></div>
+            <div class="col-md-4"><b>Instructions/Details </b></div>
             <div class="col-md-8">{!! $obj->instructions !!}</div>
           </div>
 
@@ -74,7 +74,7 @@
           </div>
           
           <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
+            <div class="col-md-4"><b>Created </b></div>
             <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
           </div>
         </div>

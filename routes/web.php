@@ -40,9 +40,13 @@ Route::post('/admin/notify', 'Admin\AdminController@notify')->name('admin.notify
 Route::post('/ajax/form','Admin\FormController@ajaxx')->name('form.a');
 
 /* Admin Application Routes */
+Route::get('/admin/test/createlist', function(){
+    return view('appl.test.test.createlist');
+})->middleware('auth')->name('test.createlist');
 Route::resource('/admin/test', 'Test\TestController')->middleware('auth');
 Route::get('/admin/test/{test}/view', 'Test\AttemptController@view')->middleware('auth')->name('test.view');
 Route::get('/admin/test/{test}/cache', 'Test\TestController@cache')->middleware('auth')->name('test.cache');
+
 Route::get('/admin/test/{test}/cache_delete', 'Test\TestController@cache_delete')->middleware('auth')->name('test.cache.delete');
 
 Route::resource('/admin/category', 'Test\CategoryController')->middleware('auth');

@@ -76,7 +76,7 @@
 
         @endif
       </td>
-      <td>{{ $item['answer']}}</td>
+      <td>{{ $item['response']}}</td>
       <td>@if($item['accuracy']==1 || $item['accuracy']>1 ) 
         <span class="text-success"><i class="fa fa-check-circle"></i></span>
       @else 
