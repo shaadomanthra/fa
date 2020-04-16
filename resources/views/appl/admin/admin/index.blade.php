@@ -46,7 +46,9 @@
                 <hr>
                 @foreach($data['form'] as $k=>$w)
                 <div class="mb-2"><a href="{{ route('form.show',$w->id) }}" class="text-white">{{$w->name}} </a><span class="float-right " style="color:#a5e1ba">{{ $w->created_at->diffForHumans()}}</span>
-                <p><small style='color:#a5e1ba'><i class="fa fa-commenting"></i> {{$w->subject}}</small></p>
+                <p><small style='color:#a5e1ba'><i class="fa fa-commenting"></i> {{$w->subject}} 
+                    @if($w->status)<span class="badge badge-primary">closed</span>@else <span class="badge badge-warning">open</span>
+                    @endif </small></p>
                 </div>
                 @if($k==2)
                     @break
