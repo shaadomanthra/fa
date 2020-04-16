@@ -109,12 +109,37 @@
          <textarea class="form-control " name="description"  rows="3">@if($stub=='Create'){{ (old('description')) ? old('description') : '' }}@else{{ $obj->description }}@endif</textarea>
 
       </div>
+
+
     </div>
 
+    @if($stub!='Create')
+    @if(\auth::user())
+      @if(\auth::user()->isAdmin())
+
+        <div class="form-group">
+        <label for="formGroupExampleInput ">Employee Comment</label>
+        
+         <textarea class="form-control " name="comment"  rows="3">@if($stub=='Create'){{ (old('comment')) ? old('comment') : '' }}@else{{ $obj->comment }}@endif</textarea>
+
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Status</label>
+        <select class="form-control" name="status">
+          <option value="1" @if(isset($obj)) @if($obj->status==1) selected @endif @endif >Closed</option>
+          <option value="0" @if(isset($obj)) @if($obj->status==0) selected @endif @endif >Open</option>
+        </select>
+      </div>
+
+      @endif
+    @endif
+    @endif
 
       @if($stub=='Update')
         <input type="hidden" name="_method" value="PUT">
         <input type="hidden" name="id" value="{{ $obj->id }}">
+        <input type="hidden" name="user_id" value="@if(\auth::user()){{ \auth::user()->id }} @endif">
       @endif
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-primary btn-lg">Save</button>

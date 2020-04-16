@@ -24,11 +24,13 @@
 
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
 
-            @can('create',$obj)
-            <a href="{{route($app->module.'.create')}}">
-              <button type="button" class="btn btn-outline-success my-2 my-sm-2 mr-sm-3">Create {{ ucfirst($app->module) }}</button>
-            </a>
-            @endcan
+           <div class="input-group ">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="fa fa-search"></i></div>
+              </div>
+              <input class="form-control " id="search" name="item" autocomplete="off" type="search" placeholder="Search" aria-label="Search" 
+              value="{{Request::get('item')?Request::get('item'):'' }}">
+            </div>
             
             
           </form>

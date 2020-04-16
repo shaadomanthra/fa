@@ -16,6 +16,15 @@ class Form extends Model
         'year',
         'subject',
         'description',
+        'user_id',
+        'comment',
+        'status',
         // add all other fields
     ];
+
+    
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

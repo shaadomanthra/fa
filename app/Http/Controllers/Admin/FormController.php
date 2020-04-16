@@ -32,8 +32,10 @@ class FormController extends Controller
         $search = $request->search;
         $item = $request->item;
         $objs = $obj->where('name','LIKE',"%{$item}%")
+                    ->orWhere('phone','LIKE',"%{$item}%")
+                    ->orWhere('email','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->get();  
+                    ->paginate(config('global.no_of_records'));   
 
         $view = $search ? 'list': 'index';
 
@@ -250,13 +252,14 @@ class FormController extends Controller
         try{
             $obj = Obj::where('id',$id)->first();
 
+
             $this->authorize('update', $obj);
             
             /* Change to uppercase */
             if($request->get('name')){
                 $request->merge(['name' => strtoupper($request->get('name'))]);
-                $request->merge(['value' => strtoupper($request->get('value'))]);
             }
+
             
             $obj = $obj->update($request->all()); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();

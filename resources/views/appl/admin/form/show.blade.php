@@ -84,7 +84,7 @@
     </div>
 
     <div class="col-md-6">
-      <div class="card">
+      <div class="card mb-3">
         <div class='card-body'>
         <div class="row mb-2">
             <div class="col-md-4"><b>Subject</b></div>
@@ -93,6 +93,29 @@
           <div class="row mb-2">
             <div class="col-md-4"><b>Message</b></div>
             <div class="col-md-8">{!! $obj->description !!}</div>
+          </div>
+      </div>
+    </div>
+
+    <div class="card">
+        <div class='card-body'>
+        <div class="row mb-2">
+            <div class="col-md-4"><b>Updated By </b></div>
+            <div class="col-md-8">@if($obj->user) {{ $obj->user->name }} @else - @endif</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Comment</b></div>
+            <div class="col-md-8">{!! $obj->comment !!}</div>
+          </div>
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Status</b></div>
+            <div class="col-md-8">
+               @if($obj->status==0)
+                  <span class="badge badge-warning">Open</span>
+                  @elseif($obj->status==1)
+                  <span class="badge badge-primary">Closed</span>
+                  @endif
+            </div>
           </div>
       </div>
     </div>
