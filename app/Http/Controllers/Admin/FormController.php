@@ -29,6 +29,13 @@ class FormController extends Controller
     public function index(Obj $obj,Request $request)
     {
         
+        if($request->get('closeall')){
+            $objs = $obj->get();
+            foreach($objs as $o){
+                $o->status=1;
+                $o->save();
+            }
+        }
         $search = $request->search;
         $item = $request->item;
         $objs = $obj->where('name','LIKE',"%{$item}%")
