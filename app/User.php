@@ -256,18 +256,21 @@ class User extends Authenticatable
     public function coupon($coupon){
         $coupon = Coupon::where('code',$coupon)->first();
          
-        if($coupon->status==0){
+         if($coupon){
+             if($coupon->status==0){
             abort('403','Coupon code expired');
-        }
+            }
 
-        $order = new Order();
-        foreach($coupon->products as $p){
-            $order->coupon($p->id,null,$coupon,$this);
-        }
+            $order = new Order();
+            foreach($coupon->products as $p){
+                $order->coupon($p->id,null,$coupon,$this);
+            }
 
-        foreach($coupon->tests as $t){
-            $order->coupon(null,$t->id,$coupon,$this);
-        }
+            foreach($coupon->tests as $t){
+                $order->coupon(null,$t->id,$coupon,$this);
+            }
+         }
+       
     }
 
 

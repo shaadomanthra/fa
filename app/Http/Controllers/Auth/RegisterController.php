@@ -90,6 +90,7 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'password' =>  Hash::make($data['password']),
             'activation_token' => mt_rand(10000,99999),
+            'lastlogin_at' => date('Y-m-d H:i:s'),
             'sms_token' => mt_rand(1000,9999)
         ]);
 
