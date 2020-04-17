@@ -22,31 +22,16 @@
         <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
           <a class="navbar-brand"><i class="fa fa-bars"></i> {{ ucfirst($app->module) }} </a>
 
-          <a href="{{route($app->module.'.index')}}?refresh=1">
-              <button type="button" class="btn btn-outline-secondary my-2 my-sm-2 mr-sm-3">Refresh Cache</button>
-            </a>
+          
             
           <form class="form-inline" method="GET" action="{{ route($app->module.'.index') }}">
 
             @can('create',$obj)
             
-
-            <div class="dropdown">
-              <button class="btn btn-outline-success dropdown-toggle my-2 my-sm-2 mr-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Create
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}">Generic</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=listening&category=PTE">PTE Listening</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=reading&category=PTE">PTE Reading</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=listening&category=IELTS">IELTS Listening</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=reading&category=IELTS">IELTS Reading</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=writing&category=IELTS">IELTS Writing</a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=gre&category=GRE">GRE </a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=grammar&category=general">Grammar  </a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=english&category=general">English </a>
-              </div>
-            </div>
+            <a href="{{route($app->module.'.index')}}?refresh=1">
+              <button type="button" class="btn btn-outline-secondary my-2 my-sm-2 mr-sm-3">Refresh Cache</button>
+            </a>
+            <a href="{{ route('test.createlist')}}" class="btn btn-outline-success mr-3">Create </a>
             @endcan
             <div class="input-group ">
               <div class="input-group-prepend">
