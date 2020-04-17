@@ -39,21 +39,14 @@ class ExtractController extends Controller
             if(!$t)
                 dd();
 
-            $obj->name = 'Instructions';
-            $obj->text = '<ul><li>                        
-                    <span style="font-family: &quot;Helvetica&quot;;">Each consecutive underlined section corresponds with an answer choice.</span></li><li><span style="font-family: &quot;Helvetica&quot;;">Select the part of the sentence that has an error.</span></li><li><span style="font-family: &quot;Helvetica&quot;;">or select the </span><b><span style="font-family: &quot;Helvetica&quot;;">last option</span></b><span style="font-family: &quot;Helvetica&quot;;"> if there is no error.</span></li></ul>';
-            $obj->seek_time = 0;
-            $obj->glance_time = 0;
-            $obj->section_id = 0; 
-            $obj->test_id = $t->id;
-            $obj->save();
+            $p = $obj->where('name','Instructions')->first();
 
 
             $f = $t->fillup_q1();
             $m = $t->mcq_q1();
-            if($f){
-                $f->extract_id = $obj->id;
-                $f->save();
+            if($m){
+                $m->extract_id = $p->id;
+                $m->save();
             }
         }
 
