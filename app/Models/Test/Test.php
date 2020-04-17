@@ -96,6 +96,14 @@ class Test extends Model
         return $this->mcq()->orderBy('qno','asc');
     }
 
+    public function fillup_q1() {
+        return $this->fillup()->where('qno',1)->first();
+    }
+
+    public function mcq_q1() {
+        return $this->mcq()->where('qno',1)->first();
+    }
+
     public function quescount(){
         return $this->fillup()->count() + $this->mcq()->count(); 
     }
