@@ -22,7 +22,8 @@
 .fw400{ font-weight: 400 }
 .fw100{ font-weight: 100 }
 .lh15{line-height: 1.2}
-.mleft{  }
+.mleft{ margin-left: -150px }
+.mtop{ margin-top: 100px }
 .w700{ width:700px; }
 .f50{ font-size:40px; }
 .f60{ font-size:60px; }
@@ -31,12 +32,26 @@
 .round{ border:1px solid #fff; border-radius:50px;width:80px; height:80px;text-align: center;padding:10px;padding-left: 10px;padding-top:18px;box-shadow: 1px 5px 10px 1px #e2f4ff;   }
 .bg-blight{background: #f6f9ff;}
 .black{color:#43464c}
+
+@media only screen and (max-width: 1200px) {
+  .mleft{ margin-left: -250px;  }
+.mtop{ margin-top: 100px }
+  }
+
+@media only screen and (max-width: 990px) {
+  .mleft{ margin-left: -350px;  }
+.mtop{ margin-top: 100px }
+  }
+@media only screen and (max-width: 768px) {
+  .mleft{ margin-left: 0px; width:100%;padding:30px; }
+.mtop{ margin-top: 50px }
+  }
 </style>
 <div class="container">
 <div class="row mt-4 mb-4">
   
   <div class="col-12 col-md-6">
-    <img src="{{ asset('images/pageimages/ppc_img.png')}}" class="mleft mt-3 mt-md-5 w700 w-100 "/>
+    <img src="{{ asset('images/pageimages/ppc_img.png')}}" class="mleft mtop w700  " />
   </div>
   <div class="col-12 col-md-6">
     <div class="mt-5 mt-md-5 ml-3">
