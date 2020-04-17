@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 @section('title', 'S'.$obj->sno.' | First Academy')
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
-    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
+<div class="bg-white   mb-4">
+<div class="container">
+<nav >
+  <ol class="breadcrumb bg-white p-0 pt-3 pb-3">
+   <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/test')}}">Test</a></li>
     <li class="breadcrumb-item"><a href="{{ route('test.show',$app->test->id)}}">{{$app->test->name}}</a></li>
@@ -13,114 +15,119 @@
     <li class="breadcrumb-item">S{{ $obj->sno }}</li>
   </ol>
 </nav>
+</div>
+</div>
 
-@include('flash::message')
 
+
+
+
+<div class="container">
+  @include('flash::message')
   <div class="row">
 
-    <div class="col-12 col-md-9">
-      <div class="card bg-light mb-3">
-        <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> S{{ $obj->sno }} 
+    <div class="col-12 col-md-2">
+       <div class="block mb-4">
+      <div class="  p-3" style="background: #d4ffd8">
+        <dl class="row mb-0 no-gutters">
+          <dt class="col-sm-5"><b> Sno</b></dt>
+          <dd class="col-sm "> : @if($obj->sno)
+                {{ $obj->sno }}
+                @else
+                -
+                @endif</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b> Qno</b></dt>
+          <dd class="col-sm"> : @if($obj->qno)
+              {{ $obj->qno }} 
+              @else
+              -
+              @endif</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b> Layout</b></dt>
+          <dd class="col-sm" style="word-wrap: break-word;">
+                : @if($obj->layout) {{ $obj->layout }} @else Default @endif</dd>
+        </dl>
+      </div>
 
+    </div>
+  </div>
+    <div class="col-12 col-md-8">
+    
+    <div class="mb-3">
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
+          <p class="h2 mb-2 d-inline" >
+            <i class="fa fa-gg "></i> 
+            Preview
           </p>
-        </div>
+    </div>
+
+    <div class="p-4 rounded bg-white border-top">
+     @if($f->qno==-1)
+      @include('appl.test.attempt.layouts.fillup_example') 
+    @else
+      @if($f->layout=='gre_sentence')
+        @include('appl.test.attempt.layouts.gre_sentence') 
+      @elseif($f->layout=='dropdown')
+        @include('appl.test.attempt.layouts.dropdown') 
+      @elseif($f->layout=='paragraph')
+        @include('appl.test.attempt.layouts.ielts_paragraph') 
+      @elseif($f->layout=='duolingo_missing_letter')
+
+        @include('appl.test.attempt.layouts.duolingo_missing_letter') 
+      @elseif($f->layout=='cloze_test')
+        @include('appl.test.attempt.layouts.cloze_test') 
+      @elseif($f->layout=='ielts_two_blank')
+      <div class=" question">
+        <div class="card-text">
+        @include('appl.test.attempt.layouts.ielts_two_blank') 
       </div>
-
-     
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Label</b></div>
-            <div class="col-md-8">{{ $obj->label }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Prefix</b></div>
-            <div class="col-md-8">{{ $obj->prefix }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Answer</b></div>
-            <div class="col-md-8">{{ $obj->answer }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Suffix</b></div>
-            <div class="col-md-8">{{ $obj->suffix }}</div>
-          </div>
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Test</b></div>
-            <div class="col-md-8">
-              <a href="{{ route('test.show',$obj->test->id) }}">
-                {{ $obj->test->name }}
-              </a>
-            </div>
-          </div>
-         <div class="row mb-2">
-            <div class="col-md-4"><b>Extract</b></div>
-            <div class="col-md-8">
-              @if($obj->extract)
-              <a href="{{ route('extract.show',[$obj->test->id,$obj->extract->id]) }}">
-                {{ $obj->extract->name }}
-              </a>
-              @else
-              - NA -
-
-              @endif
-            </div>
-          </div>
-
-          @if(count($obj->tags))
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Tags</b></div>
-            <div class="col-md-8">
-              @foreach($obj->tags as $m=>$tag)
-              @if($m==0)
-              <a href="{{ route('tag.show',$tag->id) }}">
-                {{ $tag->value }}
-              </a>
-              @else
-              ,<a href="{{ route('tag.show',$tag->id) }}">
-                {{ $tag->value }}
-              </a>
-              @endif
-              @endforeach
-            </div>
-          </div>
-          @endif
-          
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Qno</b></div>
-            <div class="col-md-8">{{ $obj->qno }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Sno</b></div>
-            <div class="col-md-8">{{ $obj->sno }}</div>
-          </div>
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Layout</b></div>
-            <div class="col-md-8">{{ $obj->layout }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
-          </div>
-        </div>
       </div>
+      @else
+        @include('appl.test.attempt.layouts.gre_blank') 
+      @endif   
+    @endif
+  </div>
+
+  <div class="mt-4"><p class="h2 mb-2 d-inline" >
+            <i class="fa fa-question-circle-o "></i> 
+            Question
+          </p></div>
+  <div class="p-4 rounded bg-white border mt-4 mb-4">
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <p class="text-secondary"><i class="fa fa-angle-right"></i> Label</p>
+        <h5>{{$obj->label}}</h5>
+      </div>
+       <div class="col-12 col-md-3">
+        <p class="text-secondary"><i class="fa fa-angle-right"></i> Prefix</p>
+        <h5>{{$obj->prefix}}</h5>
+      </div>
+       <div class="col-12 col-md-3">
+        <p class="text-secondary"><i class="fa fa-angle-right"></i> Answer</p>
+        <h5>{{$obj->answer}}</h5>
+      </div>
+       <div class="col-12 col-md-3">
+        <p class="text-secondary"><i class="fa fa-angle-right"></i> Suffix</p>
+        <h5>{{$obj->suffix}}</h5>
+      </div>
+    </div>
+  </div>
 
     </div>
 
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
      
-
+</div>
   </div> 
 
 

@@ -48,12 +48,12 @@
 	<input type="hidden" name="ajax" value="1">
 
 	<div class="pr-4 pl-4 pb-4 pt-0">
-	<button class="btn btn-success btn-lg ajaxtestsubmit stop" type="submit" >Submit</button>
+	<button class="btn btn-success btn-lg ajaxtestsubmit " type="submit" >Submit</button>
 	</div>
 	</div>
 
 @elseif($testtype->name=='ENGLISH')
-<div class="border">
+<div class="border ">
 	@foreach($app->test->sections as $s=>$section)
 	    @include('appl.test.attempt.blocks.section_english')
 	@endforeach
@@ -64,7 +64,7 @@
 	<input type="hidden" name="ajax" value="1">
 
 	<div class="pr-4 pl-4 pb-4 pt-0">
-	<button class="btn btn-success btn-lg ajaxtestsubmit stop" type="submit" >Submit</button>
+	<button class="btn btn-success btn-lg ajaxtestsubmit " type="submit" >Submit</button>
 	</div>
 </div>
 @endif

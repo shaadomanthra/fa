@@ -300,9 +300,43 @@ class TestController extends Controller
 
         $app = $this;
         $app->test= $obj;
+         $this->test->sections = $this->test->sections;
+              $this->test->mcq_order = $this->test->mcq_order;
+              $this->test->fillup_order = $this->test->fillup_order;
+              $this->test->testtype = $this->test->testtype;
+              $this->test->category = $this->test->category;
+              //load test and all the extra data
+              $this->test->qcount = 0;
+              if(!$this->test->qcount){
+                  foreach($this->test->mcq_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                  foreach($this->test->fillup_order as $q){
+                        if($q->qno)
+                          if($q->qno!=-1)
+                          $this->test->qcount++;
+                  }
+                
+              }
+              foreach($this->test->sections as $section){ 
+                  $ids = $section->id ;
+                  $this->test->sections->$ids = $section->extracts;
+                  foreach($this->test->sections->$ids as $m=>$extract){
+                      $this->test->sections->$ids->mcq =$extract->mcq_order;
+                      $this->test->sections->$ids->fillup=$extract->fillup_order;
+                  }
+                      
+              }
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$app)->with('player',true);
+                    ->with('obj',$obj)->with('app',$this)
+                    ->with('test',$obj)
+                    ->with('testtype',$obj->testtype)
+                    ->with('player',true)
+                    ->with('grammar',1)
+                    ->with('try',1);
         else
             abort(404);
     }

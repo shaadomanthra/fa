@@ -1,38 +1,28 @@
 
  @if($objs->total()!=0)
-        <div class="table-responsive">
-          <table class="table table-bordered mb-0">
-            <thead>
-              <tr>
-                <th scope="col">#({{$objs->total()}})</th>
-                <th scope="col">Name </th>
-                <th scope="col">Section</th>
-                <th scope="col">Created at</th>
-              </tr>
-            </thead>
-            <tbody>
+
               @foreach($objs as $key=>$obj)  
-              <tr>
-                <th scope="row">{{ $objs->currentpage() ? ($objs->currentpage()-1) * $objs->perpage() + ( $key + 1) : $key+1 }}</th>
-                <td>
-                  <a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">
+              
+
+<div class="p-4 rounded bg-white border-left mb-3">
+  <div class="">
+    <div><h5 class="d-inline"><a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">
                   {{ $obj->name }}
-                  </a>
-                </td>
-                <td>
-                  @if($obj->section)
-                  {{ $obj->section->name }}
-                  @endif
-                </td>
-                <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
-              </tr>
+                  </a></h5>
+                  <span class="float-right"><a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</a></span>
+    </div>
+    <p>{!!$obj->text!!}</p>
+  </div>
+</div>
               @endforeach      
-            </tbody>
-          </table>
-        </div>
+
         @else
         <div class="card card-body bg-light">
-          No {{ $app->module }} found
+          No @if(in_array(strtolower($app->test->testtype->name),['listening','reading']))
+  Extracts
+  @else
+  Passages
+  @endif found
         </div>
         @endif
         <nav aria-label="Page navigation  " class="card-nav @if($objs->total() > config('global.no_of_records'))mt-3 @endif">

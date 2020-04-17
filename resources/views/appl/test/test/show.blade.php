@@ -1,11 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 @section('title', $obj->name.' | Test | First Academy')
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
+<div class="bg-white py-2 mb-4">
+<div class="container">
+<nav >
+  <ol class="breadcrumb bg-white p-0 py-2">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
@@ -13,161 +15,285 @@
   </ol>
 </nav>
 
-@include('flash::message')
-
-  <div class="row">
-
-    <div class="col-12 col-md-9">
-      <div class="card bg-white mb-3">
-        <div class="card-body text-secondary">
-          @can('update',$obj)
+<div class="mb-3">
+  @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}?category={{$obj->category->name}}&type={{$obj->testtype->name}}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Test"></i></a>
-              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="public" target="_blank" ><i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="Public Page"></i></a>
-              <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="view" target="_blank" ><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="Admin View"></i></a>
-              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal"><span data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" ></i></span></a>
+              <a href="{{ route($app->module.'.edit',$obj->id) }}?category={{$obj->category->name}}&type={{$obj->testtype->name}}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Test"></i></a>
+              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="public" target="_blank" ><i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="User view - Details Page"></i></a>
+              <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="view" target="_blank" ><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i></a>
+              <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"><span data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" ></i></span></a>
             </span>
             @endcan
-          <p class="h2 mb-2"><i class="fa fa-th "></i> {{ $obj->name }} </p>
-          <div class="mb-0">
-            <span><b>ID:</b> <a href="{{ route('test',$obj->slug) }}">{{ $obj->id }}</a></span> |
-            <span><b>Slug:</b> <a href="{{ route('test',$obj->slug) }}">{{ $obj->slug }}</a></span> | 
-
-            <span><b>Category:</b><span class="text-primary"> <a href="{{ route('category.show',$obj->category->id) }}">
-              {{ $obj->category->name }}
-            </a></span></span> | 
-
-            <span><b>Type:</b><a href="{{ route('type.show',$obj->testtype->id) }}">
-              {{ $obj->testtype->name }}
-            </a></span> |
-            <span><b>Status:</b>
-              @if($obj->status==0)
+          <p class="h2 mb-2 d-inline" >
+            <i class="fa fa-file-text-o "></i> 
+            {{ $obj->name }} 
+          </p>
+          @if($obj->status==0)
                     <span class="badge badge-warning">Inactive</span>
                   @elseif($obj->status==1)
                     <span class="badge badge-success">Active</span>
                   @endif
-            </span>
 
-          </div>
-          <div class="mb-0">
-            @if($obj->level)
+</div>
+
+</div>
+</div>
+
+<style>
+.block b{color: #22252a}
+</style>
+
+
+<div class="container mb-4">
+  @include('flash::message')
+  <div class="row">
+
+    <div class="col-12 col-md-3">
+
+    <div class="block mb-4">
+      <div class="list-group-item-info   p-3">
+        <dl class="row mb-0 no-gutters">
+          <dt class="col-sm-5"><b><i class="fa fa-anchor"></i> Slug</b></dt>
+          <dd class="col-sm ">{{$obj->slug}}</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-th"></i> Category</b></dt>
+          <dd class="col-sm">{{$obj->category->name}}</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-bars"></i> Type</b></dt>
+          <dd class="col-sm">{{$obj->testtype->name}}</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-clock-o"></i> Created</b></dt>
+          <dd class="col-sm">{{($obj->created_at) ? $obj->created_at->diffForHumans() : ''}}</dd>
+        </dl>
+      </div>
+      <div class="bg-info p-3 pb-2">
+        <dl class="row no-gutters mb-0 text-white">
+          <dt class="col-sm-5"><b><i class="fa fa-bolt"></i> Level</b></dt>
+          <dd class="col-sm mb-0">
+              @if($obj->level)
             <div class="">
-              <B>Level : </B>
-              <span class="text-success">
+              <span class="text-white">
                 @for($i=$obj->level;$i>0;$i--)
                 <i class="fa fa-circle "></i>
                 @endfor
               </span>
-              <span class="text-secondary">
+              <span class="text-white">
                 @for($i=(5-$obj->level);$i>0;$i--)
                 <i class="fa fa-circle-o "></i>
                 @endfor
               </span>
-              | <span><b>Created:</b><span class="text-info">
-              {{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</span>
+              <span class="float-right">{{$obj->level}}</span>
+              
             </span>
             </div>
             @else
-            <B>Level : -</B>
+            <B>-</B>
             @endif
-          </div>
+
+          </dd>
+        </dl>
+      </div>
+    </div>
+
+
+    <div class="block mb-4">
+      <div class="  p-3" style="background: #ffd3d3;">
+        <dl class="row mb-0 no-gutters">
+          <dt class="col-sm-5"><b><i class="fa fa-mortar-board"></i> Marks</b></dt>
+          <dd class="col-sm "> @if($obj->marks)
+                {{ $obj->marks }}
+                @else
+                -
+                @endif</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-clock-o"></i> Test Time</b></dt>
+          <dd class="col-sm"> @if($obj->test_time)
+              {{ $obj->test_time }} min
+              @else
+              -
+              @endif</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-dollar"></i> Price</b></dt>
+          <dd class="col-sm">@if($obj->price===0)
+                <span class="badge badge-warning">FREE</span>
+              @elseif($obj->price)
+                <i class="fa fa-rupee"></i> {{ $obj->price }} 
+              @else
+               -
+              @endif</dd>
+        </dl>
+        <dl class="row no-gutters mb-0">
+          <dt class="col-sm-5"><b><i class="fa fa-calendar"></i> Validity</b></dt>
+          <dd class="col-sm">@if($obj->validity)
+                {{ $obj->validity }} m
+                @else
+                -
+                @endif</dd>
+        </dl>
+      </div>
+      
+      <div class="bg-success p-3 pb-2 mt-4" >
+        <div class="text-white">
+          <div class="mb-3 h3 "><b class="text-white"><i class="fa fa-forumbee"></i> Cache</b></div>
+          
+              
+            @if(file_exists('../storage/app/cache/test/test.'.$obj->slug.'.json'))
+        <p> Awesome ! your test is cached.<br>
+        <small>Updated:  {{\Carbon\Carbon::parse($obj->cache_updated_at)->diffForHumans() }}</small></p>
+        <a href="{{ route('test.cache',$obj->id)}}" class="btn btn-primary">
+          Update 
+        </a>
+        <a href="{{ route('test.cache.delete',$obj->id)}}" class="btn btn-danger">
+          Delete Cache
+        </a>
+        @else
+        <p>Cache can speedup performance by 20% so create one now.</p>
+        <a href="{{ route('test.cache',$obj->id)}}">
+          <button class="btn btn-outline-light">Create Cache</button>
+        </a>
+        @endif
             
-          
-          
         </div>
       </div>
 
-      <div class="card mb-4">
-        <div class="card-body">
-          <h3>Test Details</h3>
-          <p class="text-secondary">This information is visible on individual test page</p>
+        <div class="bg-secondary p-3 pb-2 mt-4" >
+        <div class="text-white">
+          <div class="mb-3 h3 "><b class="text-white"><i class="fa fa-area-chart"></i> Analytics</b></div>
+          
+         <a href="{{ route('test.analytics',$app->test->id)}} " class="btn btn-outline-light mb-3"><i class="fa fa-user"></i> Student wise</a> <a href="{{ route('test.qanalytics',$app->test->id)}} " class="btn btn-outline-light "><i class="fa fa-question-circle-o"></i> Question wise</a>
+            
+        </div>
+      </div>
+
+    </div>
+
+
+    </div>
+    <div class="col-12 col-md">
+      
+
+      <div class="p-3 bg-white mb-4 border-top">
+        <div class="">
+          <h3 class="d-inline">Test Details</h3><a href="{{ route('test',$obj->slug) }}" class="btn btn-sm btn-outline-success float-right" target="_blank">user view</a>
+          <p class="text-primary">This information is visible on individual test page</p>
           @if($obj->details)
-          {!! $obj->details !!}
+          <div class="row">
+            <div class="col-12 col-md">
+              {!! $obj->details !!}
+            </div>
+            @if($obj->image)
+            <div class="col-12 col-md-4">
+               <img 
+      src="{{ asset('/storage/test/'.$obj->slug.'_600.jpg') }} " class="image-thumbnail w-100 d-none d-md-block" alt="{{  $obj->name }}">
+            </div>
+            @endif
+          </div>
+          
           @else
           - 
           @endif
         </div>
       </div>
 
-      <div class="row">
-        <div class="col-6 col-md-3 mb-3">
-          <div class="card">
-            <div class="card-header h5">
-                Marks
-            </div>
-            <div class="card-body">
-              <div class="h1">
-                @if($obj->marks)
-                {{ $obj->marks }}
-                @else
-                -
-                @endif
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card">
-            <div class="card-header h5">
-                Test Time
-            </div>
-            <div class="card-body">
-              <div class="h1">
-              @if($obj->test_time)
-              {{ $obj->test_time }} min
-              @else
-              -
-              @endif
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card">
-            <div class="card-header h5">
-                Price
-            </div>
-            <div class="card-body">
-              <div class="h1">
-              @if($obj->price===0)
-                <span class="badge badge-warning">FREE</span>
-              @elseif($obj->price)
-                <i class="fa fa-rupee"></i> {{ $obj->price }} 
-              @else
-               -
-              @endif
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-6 col-md-3">
-          <div class="card">
-            <div class="card-header h5">
-                Validity
-            </div>
-            <div class="card-body">
-              <div class="h1">
-                @if($obj->validity)
-                {{ $obj->validity }} m
-                @else
-                -
-                @endif
-              </div>
-            </div>
-          </div>
+     
+     
+   
+
+      <div class="p-3 bg-white mb-4 border-top" >
+        <div class="">
+          <h3 class="d-inline">Instructions</h3> <span class="text-muted">(Optional)</span>
+          <p class="text-primary">Empty instructions will skip the instruction screen</p>
+          @if($obj->instructions)
+          {!! $obj->instructions !!}
+          @else
+          - 
+          @endif
         </div>
       </div>
-     
-     @if(strtolower($obj->testtype->name)=='listening' || !$obj->testtype)
-      <div class="card bg-light mb-4">
+
+    @if(in_array(strtolower($obj->testtype->name),['listening','grammar','english']) )
+    <div class="mb-3 mt-4">
+      <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+    </div>
+    <div class="testbox">
+      @include('appl.blog.snippets.test')
+    </div>
+    @endif
+
+     @if(strtolower($obj->testtype->name)=='speaking' || !$obj->testtype)
+     <style>
+      .speaking b{ color:#f1851a; }
+     </style>
+        <div class="mb-3 mt-4">
+      <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+    </div>
+            <div class=" p-4  speaking rounded mb-4 mb-md-0" style="background: #FFF5EB;border-top:3px solid #f7e0c9">
+              <div class="row">
+                <div class="col-12 ">
+                  @if(strlen(strip_tags(trim($obj->description)))>0)
+                  <div class="writing">{!!$obj->description!!}</div>
+                  @else
+                  <h5>Enter your question</h5>
+                  <textarea class="form-control summernote3" name="question" rows=4></textarea>
+                  @endif
+                </div>
+
+              </div>
+            
+            </div>
+
+      @endif
+
+      @if(strtolower($obj->testtype->name)=='gre' || strtolower($obj->testtype->name)=='pte' || strtolower($obj->testtype->name)=='reading')
+      <div class="p-3 bg-white mb-4 border-top" >
+        <div class="mb-3 mt-4">
+      <h3 class="mb-1  pl-1"><i class="fa fa-gg"></i> Preview </h3><small class="mb-3">Due to layout issues reading, gre and pte tests preview is not available. Click the user view button to review the layout and questions.</small><br>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary mt-3" target="_blank">user view</a>
+
+
+    </div>
+    </div>
+      @endif
+
+     @if(strtolower($obj->testtype->name)=='writing' || !$obj->testtype)
+
+        <div class="mb-3 mt-4">
+      <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+    </div>
+            <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;border-top:3px solid #efebd2">
+              <div class="row">
+                <div class="col-12 col-md-2">
+                  <img src="{{  url('/').'/images/general/writing.png'}}" class="  mb-4 mx-auto d-block" style="max-width:100px;"/>
+                </div>
+                <div class="col-12 col-md-10">
+                  @if(strlen(strip_tags(trim($obj->description)))>0)
+                  <div class="writing">{!!$obj->description!!}</div>
+                  @else
+                  <h5>Enter your question</h5>
+                  <textarea class="form-control summernote3" name="question" rows=4></textarea>
+                  @endif
+                </div>
+
+              </div>
+            
+            </div>
+
+      @endif
+
+        @if(strtolower($obj->testtype->name)=='listening' || !$obj->testtype)
+      <div class="card bg-light mb-4 mt-4">
         <div class="card-body">
           <h3 class="mb-3">Audio File</h3>
           @if(\Storage::disk('public')->exists($obj->file) && $obj->file )
-              <div class="bg-light border mb-3">
-                 <audio>
-                  <source src="{{ asset(\storage::disk('public')->url($obj->file))}}" type="audio/mp3">
-                  </audio>
-              </div>
+              
               <form method="post" action="{{route($app->module.'.update',[$obj->id])}}" >
                  <input type="hidden" name="_method" value="PUT">
                  <input type="hidden" name="deletefile" value="1">
@@ -181,65 +307,19 @@
       </div>
       @endif
 
-      <div class="card mb-4">
-        <div class="card-body">
-          <h3>Instructions (Optional)</h3>
-          <p class="text-secondary">Empty instructions will skip the instruction screen</p>
-          @if($obj->instructions)
-          {!! $obj->instructions !!}
-          @else
-          - 
-          @endif
-        </div>
-      </div>
 
-     @if(strtolower($obj->testtype->name)=='writing' || !$obj->testtype)
-      <div class="card mb-4">
-        <div class="card-body">
-          <h3>Writing Question</h3>
-          
-          @if($obj->description)
-          {!! $obj->description !!}
-          @else
-          - 
-          @endif
-        </div>
-      </div>
-      @endif
-
-
-      
-
-      <div class="bg-light p-4 rounded mb-4 border">
-        <h2>Test Cache</h2>
-        
-        @if(file_exists('../storage/app/cache/test/test.'.$obj->slug.'.json'))
-        <p> Awesome ! your test is cached.<br>
-        <small>Updated:  {{\Carbon\Carbon::parse($obj->cache_updated_at)->diffForHumans() }}</small></p>
-        <a href="{{ route('test.cache',$obj->id)}}">
-          <button class="btn btn-outline-success">Update Cache</button>
-        </a>
-        <a href="{{ route('test.cache.delete',$obj->id)}}">
-          <button class="btn btn-outline-danger">Delete Cache</button>
-        </a>
-        @else
-        <p>Cache can speedup performance by 20% so create one now.</p>
-        <a href="{{ route('test.cache',$obj->id)}}">
-          <button class="btn btn-outline-primary">Create Cache</button>
-        </a>
-        @endif
-        
-      </div> 
-
+    
 
     </div>
 
-    <div class="col-12 col-md-3">
+    @if(strtoupper($obj->testtype->name)!='SPEAKING' && strtoupper($obj->testtype->name)!='WRITING')
+    <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
+    @endif
 
      
-
+</div>
   </div> 
 
 
@@ -257,7 +337,7 @@
         This following action is permanent and it cannot be reverted.
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         
         <form method="post" action="{{route($app->module.'.destroy',$obj->id)}}">
         <input type="hidden" name="_method" value="DELETE">

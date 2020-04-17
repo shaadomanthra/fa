@@ -522,6 +522,7 @@ class BlogController extends Controller
             $tooltip = json_decode(file_get_contents($filename));
             //$searchVal =[];
             //$replaceVal = [];
+            if($tooltip)
             foreach($tooltip as $item=>$value){
                 $searchVal = $item;
                 $replaceVal = '<a href="#" data-toggle="tooltip" title="'.$value.'">'.$item.'</a>';

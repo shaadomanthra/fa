@@ -35,6 +35,7 @@
         <input type="text" class="form-control" name="test_" id="formGroupExampleInput" value="{{$app->test->name}}" disabled>
       </div>
 
+      @if(!in_array(strtolower($app->test->testtype->name),['grammar']))
       <div class="form-group">
         <label for="formGroupExampleInput ">Section</label>
         <select class="form-control" name="section_id">
@@ -44,9 +45,16 @@
           @endforeach
         </select>
       </div>
+      @endif
 
       <div class="form-group">
-        <label for="formGroupExampleInput ">Extract</label>
+        <label for="formGroupExampleInput ">
+        @if(in_array(strtolower($app->test->testtype->name),['listening','reading']))
+  Extract
+  @else
+  Passage
+  @endif
+      </label>
         <select class="form-control" name="extract_id">
           <option value="" @if(isset($obj)) @if(!$obj->extract_id) selected @endif @endif >- None -</option>
           @foreach($extracts as $extract)

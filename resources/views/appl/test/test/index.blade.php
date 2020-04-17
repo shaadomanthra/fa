@@ -43,8 +43,8 @@
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=reading&category=IELTS">IELTS Reading</a>
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=writing&category=IELTS">IELTS Writing</a>
                 <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=gre&category=GRE">GRE </a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=general&category=GRAMMAR">Grammar  </a>
-                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=general&category=ENGLISH">English </a>
+                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=grammar&category=general">Grammar  </a>
+                <a class="dropdown-item" href="{{route($app->module.'.create')}}?type=english&category=general">English </a>
               </div>
             </div>
             @endcan

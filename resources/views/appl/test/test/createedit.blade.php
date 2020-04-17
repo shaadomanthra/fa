@@ -98,6 +98,7 @@
             {{ $obj->description }}
             @endif
         </textarea>
+        <div class="mt-3">Enter the writing question with html formating. Leaving the question blank will allow the user to enter his custom question.</div>
       </div>
       @endif
 

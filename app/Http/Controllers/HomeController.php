@@ -121,6 +121,7 @@ class HomeController extends Controller
                 ->with('tests',$objs)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
+                ->with('toast',1)
                 ->with('categories',$categories)
                 ->with('app',$this);
     }

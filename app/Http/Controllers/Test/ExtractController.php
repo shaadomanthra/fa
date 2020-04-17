@@ -34,10 +34,16 @@ class ExtractController extends Controller
         $search = $request->search;
         $item = $request->item;
         
-        $objs = $obj->where('name','LIKE',"%{$item}%")
-                    ->where('test_id',$this->test->id)
+        if($item)
+        $objs = $obj->where('test_id',$this->test->id)
+                    ->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records'));   
+                    ->paginate(config('global.no_of_records'));
+        else   
+        $objs = $obj->where('test_id',$this->test->id)
+                    ->orderBy('created_at','desc')
+                    ->paginate(config('global.no_of_records'));
+
         $view = $search ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)

@@ -1,48 +1,60 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 @include('meta.show')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
+<div class="bg-white py-2 mb-4">
+<div class="container">
+<nav >
+  <ol class="breadcrumb bg-white p-0 pt-2">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/test')}}">Test</a></li>
     <li class="breadcrumb-item"><a href="{{ route('test.show',$app->test->id)}}">{{$app->test->name}}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index',[$app->test->id]) }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }}</li>
+    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index',[$app->test->id]) }}">@if(in_array(strtolower($app->test->testtype->name),['listening','reading']))
+  Extracts
+  @else
+  Passages
+  @endif</a></li>
+    <li class="breadcrumb-item">@if($obj->name) {{ $obj->name }} @else - @endif</li>
   </ol>
 </nav>
+</div>
+</div>
 
-@include('flash::message')
 
-  <div class="row">
 
-    <div class="col-12 col-md-9">
-      <div class="card bg-light mb-3">
-        <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> 
 
-            {{ $obj->name }} 
-         
 
-          @can('update',$obj)
+<div class="container">
+  @include('flash::message')
+<div class="row"> 
+
+     <div class="col-12 col-md-10">
+      <h3 class="py-3"> <i class="fa fa-gg"></i> Preview
+
+      @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
-          </p>
+          </h3>
+     <div class="p-3 bg-white border-top mb-4">
+        <div class="">
         </div>
+  <div class="option rounded p-4 border ">
+    <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $obj->name }} </h4>
+    {!!$obj->text !!}</div>
+
       </div>
 
-     
+
+      @if(!in_array(strtolower($app->test->testtype->name),['grammar','english']))
       <div class="card mb-4">
         <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
-          </div>
+
     
+          @if(!in_array(strtolower($app->test->testtype->name),['grammar']))
           <div class="row mb-2">
             <div class="col-md-4"><b>Section</b></div>
             <div class="col-md-8">
@@ -55,7 +67,9 @@
               @endif
             </div>
           </div>
+          @endif
          
+         @if(in_array(strtolower($app->test->testtype->name),['listening']))
            <div class="row mb-2">
             <div class="col-md-4"><b>Seek Time</b></div>
             <div class="col-md-8">
@@ -67,8 +81,9 @@
            
             </div>
           </div>
+          @endif
 
-          <div class="row mb-2">
+          <div class="row mb-0">
             <div class="col-md-4"><b>Layout</b></div>
             <div class="col-md-8">
               @if($obj->layout)
@@ -79,102 +94,18 @@
            
             </div>
           </div>
-
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Text</b></div>
-            <div class="col-md-8">{!! $obj->text !!}</div>
-          </div>
-
           
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created At</b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
-          </div>
+          
         </div>
       </div>
-
-      @if(count($obj->mcq)>0 || count($obj->fillup)>0)
-      <div class="">
-        <div class="card">
-          <h5 class="card-header">Questions</h5>
-          <div class="card-body">
-             @foreach($obj->fillup as $f)
-            <div class="row mb-2">
-                <div class="col-12 col-md-4">
-                  <div class="card-text float-right" style="text-align:right;"><b>{{ $f->label}}</b></div>
-                </div>
-                <div class="col-12 col-md-8">
-                  <div class="card-text"><ul class="p-0 m-0"><li>
-                  @if($f->prefix ) {{$f->prefix }}  @endif 
-                  @if($f->answer)<u><i>({{$f->qno}}) {{$f->answer }}</i> </u> @endif
-                  @if($f->suffix ){{$f->suffix }}@endif <a href="{{ route('fillup.edit',[$app->test->id,$f->id])}}"><i class="fa fa-pencil-square text-secondary"></i></a>
-                </li></ul>
-                  </div>
-                </div>
-            </div>
-            @endforeach
-
-            @foreach($obj->mcq as $k=>$m)
-            @if($k!=0)<hr>@endif
-            <div class="mb-3">
-                <div class="row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      <div class="qno">{{$m->qno}}</div>
-                    </div>
-                    <div class="col-12 col-md-9 col-lg-10">
-                      <div class="question">{!! $m->question !!} <a href="{{ route('mcq.edit',[$app->test->id,$m->id])}}"><i class="fa fa-pencil-square text-secondary"></i></a></div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op  @if($m->answer=='A') border-success @endif">A</div>
-                    </div>
-                    <div class="col-12 col-md-9 col-lg-10">
-                      <div class="option">{!! $m->a !!}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op @if($m->answer=='B') border-success @endif"">B</div>
-                    </div>
-                    <div class="col-12 col-md-9 col-lg-10">
-                      <div class="option">{!! $m->b !!}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op @if($m->answer=='C') border-success @endif"">C</div>
-                    </div>
-                    <div class="col-12 col-md-9 col-lg-10">
-                      <div class="option">{!! $m->c !!}</div>
-                    </div>
-                </div>
-                @if($m->d)
-                <div class="row">
-                    <div class="col-3 col-md-3 col-lg-2">
-                      <div class="op @if($m->answer=='D') border-success @endif"">D</div>
-                    </div>
-                    <div class="col-12 col-md-9 col-lg-10">
-                      <div class="option">{!! $m->d !!}</div>
-                    </div>
-                </div>
-                @endif
-            </div>
-            
-            @endforeach
-          </div>
-        </div>
-      </div>
-       @endif
-
+      @endif
     </div>
-
-    <div class="col-12 col-md-3">
+       <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
-     
+  </div>
+</div>
 
-  </div> 
 
 
   <!-- Modal -->

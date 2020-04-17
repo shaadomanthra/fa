@@ -43,7 +43,9 @@
             <div class="container">
             @include('layouts.footer')
         </div>
+        @if(isset($toast))
         @include('blocks.toast')
+        @endif
         @include('layouts.script')
         </footer>
 

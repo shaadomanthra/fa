@@ -1,94 +1,72 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 @section('title', $obj->name.' | First Academy')
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
+
+<div class="bg-white py-2 mb-4">
+<div class="container">
+<nav >
+  <ol class="breadcrumb bg-white p-0 pt-2">
     <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/test')}}">Test</a></li>
     <li class="breadcrumb-item"><a href="{{ route('test.show',$app->test->id)}}">{{$app->test->name}}</a></li>
-    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index',[$app->test->id]) }}">{{ ucfirst($app->module) }}</a></li>
-    <li class="breadcrumb-item">{{ $obj->name }}</li>
+    <li class="breadcrumb-item"><a href="{{ route($app->module.'.index',[$app->test->id]) }}">Section</a></li>
+    <li class="breadcrumb-item">@if($obj->name) {{ $obj->name }} @else - @endif</li>
   </ol>
 </nav>
+</div>
+</div>
+
+
+<div class="container">
 
 @include('flash::message')
 
   <div class="row">
 
-    <div class="col-12 col-md-9">
-      <div class="card bg-light mb-3">
-        <div class="card-body text-secondary">
-          <p class="h2 mb-0"><i class="fa fa-th "></i> {{ $obj->name }} 
+    <div class="col-12 col-md-10">
 
-          @can('update',$obj)
+       <h3 class="py-3"> <i class="fa fa-gg"></i> Preview
+
+      @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
               <a href="{{ route($app->module.'.edit',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
               <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
             </span>
             @endcan
-          </p>
-        </div>
+          </h3>
+     <div class="p-3 bg-white border-top mb-4">
+        <div class="part">
+  <h3><i class="fa fa-clone"></i> {{ $obj->name}}</h3>
+  @if(trim(strip_tags($obj->instructions)))
+  <p>{!! $obj->instructions !!}</p>
+  @endif
+  </div>
+
+    @if($obj->seek_time)
+    <div class="mt-3">
+      <b>Seek time :</b> {{$obj->seek_time}} sec
+    </div>
+    @endif
+
       </div>
 
+      
      
-      <div class="card mb-4">
-        <div class="card-body">
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8">{{ $obj->name }}</div>
-          </div>
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Slug</b></div>
-            <div class="col-md-8">{{ $obj->slug }}</div>
-          </div>
-    
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Test</b></div>
-            <div class="col-md-8">
-              <a href="{{ route('test.show',$obj->test->id) }}">
-                {{ $obj->test->name }}
-              </a>
-            </div>
-          </div>
-         
-
-           <div class="row mb-2">
-            <div class="col-md-4"><b>Instructions/Details </b></div>
-            <div class="col-md-8">{!! $obj->instructions !!}</div>
-          </div>
-
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Seek Time</b></div>
-            <div class="col-md-8">
-                @if($obj->seek_time || $obj->seek_time==0)
-                {{ $obj->seek_time}} sec
-               @else
-                - NA -
-               @endif 
-           
-            </div>
-          </div>
-          
-          <div class="row mb-2">
-            <div class="col-md-4"><b>Created </b></div>
-            <div class="col-md-8">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</div>
-          </div>
-        </div>
-      </div>
+      
 
     </div>
 
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
      
 
   </div> 
-
+</div>
 
   <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

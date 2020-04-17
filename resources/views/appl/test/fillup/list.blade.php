@@ -1,48 +1,31 @@
 
  @if($objs->total()!=0)
-        <div class="table-responsive">
-          <table class="table table-bordered mb-0">
-            <thead>
-              <tr>
-                <th scope="col">Sno</th>
-                <th scope="col">Label  </th>
-                <th scope="col">Prefix/Answer/Suffix</th>
-                <th scope="col">Extract/Section</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($objs as $key=>$obj)  
-              <tr>
-                <th scope="row"><a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">{{ $obj->sno }}</a></th>
-                <td class="w-25">
-                  <a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">
-                  @if($obj->label )<b> {{$obj->label }}</b> @endif </a>
-                 
-                </td>
-                <td>@if($obj->prefix ) {{$obj->prefix }}  @endif 
-                  @if($obj->answer) <u><i >({{$obj->qno}}) {{$obj->answer }}</i> </u> @endif
-                  @if($obj->suffix ){{$obj->suffix }}  @endif </td>
-                <td class="w-25">
-                  @if($obj->extract_id)
-                  Extract :<br>
-                  <a href="{{ route('extract.show',[$app->test->id,$obj->extract_id]) }}">
-                  @if(isset($obj->extract))
-                  {{ $obj->extract->name }}
-                  @endif
-                  </a>
-                  @elseif($obj->section_id)
 
-                  Section: <br>
-                   <a href="{{ route('section.show',[$app->test->id,$obj->section_id]) }}">
-                  {{ $obj->section->name }}
-                  </a>
-                  @endif
-                </td>
-              </tr>
-              @endforeach      
-            </tbody>
-          </table>
-        </div>
+              @foreach($objs as $key=>$obj)
+
+              <div class="p-4 rounded bg-white border-left mb-3">
+  <div class="row">
+    <div class="col-2 col-md-1">
+      <a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} " style="font-size:30px;">{{ $obj->sno }}</a></div>
+    <div class="col-10 col-md-11">
+      <div><h5 class="d-inline"> <a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">
+                  @if($obj->label )<b> {{$obj->label }}</b> @endif </a></h5>
+
+                </div>
+                <div>
+                  <p class="d-inline">@if($obj->prefix ) {{$obj->prefix }}  @endif 
+                  @if($obj->answer) <u><i >({{$obj->qno}}) {{$obj->answer }}</i> </u> @endif
+                  @if($obj->suffix ){{$obj->suffix }}  @endif</p>
+<span class="float-right"><a href=" {{ route($app->module.'.show',[$app->test->id,$obj->id]) }} ">{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</a></span>
+                </div>
+
+                  
+    </div>
+    
+  </div>
+</div>  
+              
+              @endforeach     
         @else
         <div class="card card-body bg-light">
           No {{ $app->module }} found

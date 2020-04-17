@@ -28,7 +28,7 @@
                   <img src="{{  url('/').'/images/general/writing.png'}}" class="  mb-4 mx-auto d-block" style="max-width:100px;"/>
                 </div>
                 <div class="col-12 col-md-10">
-                  @if(strlen(strip_tags($test->description))>0)
+                  @if(strlen(trim(strip_tags($test->description)))>0)
                   <div class="writing">{!!$test->description!!}</div>
                   @else
                   <h5>Enter your question</h5>

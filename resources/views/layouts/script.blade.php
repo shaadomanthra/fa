@@ -391,6 +391,7 @@ $(document).ready(function() {
             player.play();
         });
 
+        if($(".stop").length)
         $(".stop").click(function() {
             player.stop();
         });
@@ -485,6 +486,7 @@ $(document).ready(function() {
                     },500);
                   $('.result_container').show();
                    $('.result').html("<div class='p-4'><p>Your score is</p><h1>"+data+"</h1><button class='btn btn-primary retry'>Retry</button></div>");
+                   console.log('ajaxsubmit');
                }
              });
 
@@ -1078,8 +1080,10 @@ var x = setInterval(function() {
     t = t+seconds+"s ";
 
   // Display the result in the element with id="demo"
+  if($('#timer').is(':visible'))
   document.getElementById("timer").innerHTML =  t;
 
+  if($('#timer2').is(':visible'))
   document.getElementById("timer2").innerHTML =  t;
 
   // If the count down is finished, write some text 

@@ -155,7 +155,11 @@ class FillupController extends Controller
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('f',$obj)
+                    ->with('try',1)
+                    ->with('grammar',1)
+                    ->with('test',$this->test)
+                    ->with('app',$this);
         else
             abort(404);
     }

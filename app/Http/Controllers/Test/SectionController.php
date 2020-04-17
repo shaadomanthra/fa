@@ -128,7 +128,9 @@ class SectionController extends Controller
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this)->with('player',true);
+                    ->with('obj',$obj)->with('app',$this)
+                    ->with('player',true)
+                    ->with('try',1);
         else
             abort(404);
     }
