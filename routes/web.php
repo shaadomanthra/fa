@@ -31,6 +31,9 @@ Route::get('/construction', function () {
 Route::get('/onlinetraining', function () {
         return view('appl.pages.onlinetraining');
 })->name('onlinetraining');
+Route::get('/toefl', function () {
+        return view('appl.pages.toefl');
+})->name('toefl');
 
 /* Admin Routes */
 Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('auth');
@@ -58,6 +61,7 @@ Route::resource('/admin/test/{test}/fillup', 'Test\FillupController')->middlewar
 Route::get('/admin/test/{test}/questions', 'Test\TestController@questions')->name('test.questions')->middleware('auth');
 Route::get('/admin/test/{test}/analytics', 'Test\TestController@analytics')->name('test.analytics')->middleware('auth');
 Route::get('/admin/test/{test}/qanalytics', 'Test\TestController@qanalytics')->name('test.qanalytics')->middleware('auth');
+Route::get('/admin/test/{test}/duplicate', 'Test\TestController@duplicate')->name('test.duplicate')->middleware('auth');
 
 Route::resource('/admin/file', 'Test\FileController')->middleware('auth');
 Route::get('/admin/{file}/download','Test\FileController@download')->name('file.download');

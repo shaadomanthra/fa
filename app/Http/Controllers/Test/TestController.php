@@ -412,6 +412,69 @@ class TestController extends Controller
         return redirect()->route($this->module.'.show',$id);
     }
 
+
+    public function duplicate($id)
+    {
+        $obj= Obj::where('id',$id)->first();
+        $this->authorize('update', $obj);
+
+        $str = substr(md5(time()), 0, 7);
+        $test_new = $obj->replicate();
+        $test_new->slug = $obj->slug.'_'.$str;
+        $test_new->name = $obj->name.' - copy';
+        $test_new->save();
+
+        $test = $obj;
+        $test->sections = $obj->sections;
+
+        $s_array =array();
+        if($obj->sections)
+        foreach($obj->sections as $s){
+            $s_new = $s->replicate();
+            $s_new->slug = $s->slug.'_'.$str;
+
+            $s_new->test_id = $test_new->id;
+            $s_new->save();
+            $s_array[$s->id] = $s_new->id;
+
+        }
+
+        $e_array =array();
+        if($obj->extracts)
+        foreach($obj->extracts as $e){
+                $e_new = $e->replicate();
+                $e_new->test_id = $test_new->id;
+                if($e_new->section_id)
+                $e_new->section_id = $s_array[$e_new->section_id];
+                $e_new->save();
+                $e_array[$e->id] = $e_new->id;
+        }
+
+        if($obj->mcq)
+        foreach($obj->mcq as $i => $m){
+            $m_new = $m->replicate();
+            $m_new->test_id = $test_new->id;
+            if($m_new->section_id)
+                $m_new->section_id = $s_array[$m_new->section_id];
+            if($m_new->extract_id)
+                $m_new->extract_id = $e_array[$m_new->extract_id];
+            $m_new->save();
+        }
+
+        if($obj->fillup)
+        foreach($obj->fillup as $i => $m){
+            $m_new = $m->replicate();
+            $m_new->test_id = $test_new->id;
+            if($m_new->section_id)
+                $m_new->section_id = $s_array[$m_new->section_id];
+            if($m_new->extract_id)
+                $m_new->extract_id = $e_array[$m_new->extract_id];
+            $m_new->save();
+        }
+        
+        return redirect()->route($this->module.'.show',$test_new->id);
+    }
+
     public function questions($id,Obj $obj,Request $request){
 
         $search = $request->search;

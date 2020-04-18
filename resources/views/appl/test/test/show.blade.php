@@ -18,10 +18,10 @@
 <div class="mb-3">
   @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',$obj->id) }}?category={{$obj->category->name}}&type={{$obj->testtype->name}}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Test"></i></a>
-              <a href="{{ route('test',$obj->slug) }}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="public" target="_blank" ><i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="User view - Details Page"></i></a>
-              <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="view" target="_blank" ><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i></a>
-              <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"><span data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" ></i></span></a>
+              <a href="{{ route($app->module.'.edit',$obj->id) }}?category={{$obj->category->name}}&type={{$obj->testtype->name}}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit" data-toggle="tooltip" data-placement="top" title="Edit Test"></i> edit</a>
+              
+              <a href="{{ route($app->module.'.duplicate',$obj->id) }}" class="btn btn-outline-primary" data-tooltip="tooltip" data-placement="top" title="view"  ><i class="fa fa-retweet" data-toggle="tooltip" data-placement="top" title="make a copy of the test"></i> duplicate</a>
+              <a href="#" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModal"><span data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash" ></i> delete</span></a>
             </span>
             @endcan
           <p class="h2 mb-2 d-inline" >
@@ -136,7 +136,7 @@
                 @endif</dd>
         </dl>
       </div>
-      
+
       <div class="bg-success p-3 pb-2 mt-4" >
         <div class="text-white">
           <div class="mb-3 h3 "><b class="text-white"><i class="fa fa-forumbee"></i> Cache</b></div>
@@ -165,7 +165,7 @@
         <div class="text-white">
           <div class="mb-3 h3 "><b class="text-white"><i class="fa fa-area-chart"></i> Analytics</b></div>
           
-         <a href="{{ route('test.analytics',$app->test->id)}} " class="btn btn-outline-light mb-3"><i class="fa fa-user"></i> Student wise</a> <a href="{{ route('test.qanalytics',$app->test->id)}} " class="btn btn-outline-light "><i class="fa fa-question-circle-o"></i> Question wise</a>
+         <a href="{{ route('test.analytics',$app->test->id)}} " class="btn btn-outline-light mb-3"><i class="fa fa-user"></i> Student wise &nbsp;-&nbsp;{{$app->test->attemptcount()}}</a> <a href="{{ route('test.qanalytics',$app->test->id)}} " class="btn btn-outline-light "><i class="fa fa-question-circle-o"></i> Question wise</a>
             
         </div>
       </div>
@@ -179,8 +179,8 @@
 
       <div class="p-3 bg-white mb-4 border-top">
         <div class="">
-          <h3 class="d-inline">Test Details</h3><a href="{{ route('test',$obj->slug) }}" class="btn btn-sm btn-outline-success float-right" target="_blank">user view</a>
-          <p class="text-primary">This information is visible on individual test page</p>
+          <h3 class="d-inline">Test Details</h3><a href="{{ route('test',$obj->slug) }}" class="btn btn-sm btn-outline-success float-right" target="_blank"><i class="fa fa-globe" data-toggle="tooltip" data-placement="top" title="User view - Details Page"></i> User view - buy page</a>
+          <p class="text-primary">This information is visible on individual test (buy) page</p>
           @if($obj->details)
           <div class="row">
             <div class="col-12 col-md">
@@ -219,7 +219,7 @@
     @if(in_array(strtolower($obj->testtype->name),['listening','grammar','english']) )
     <div class="mb-3 mt-4">
       <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
-      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i> User view - test page</a>
     </div>
     <div class="testbox">
       @include('appl.blog.snippets.test')
@@ -232,7 +232,7 @@
      </style>
         <div class="mb-3 mt-4">
       <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
-      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i> User view - test page</a>
     </div>
             <div class=" p-4  speaking rounded mb-4 mb-md-0" style="background: #FFF5EB;border-top:3px solid #f7e0c9">
               <div class="row">
@@ -255,7 +255,7 @@
       <div class="p-3 bg-white mb-4 border-top" >
         <div class="mb-3 mt-4">
       <h3 class="mb-1  pl-1"><i class="fa fa-gg"></i> Preview </h3><small class="mb-3">Due to layout issues reading, gre and pte tests preview is not available. Click the user view button to review the layout and questions.</small><br>
-      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary mt-3" target="_blank">user view</a>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary mt-3" target="_blank"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i> User view - test page</a>
 
 
     </div>
@@ -266,7 +266,7 @@
 
         <div class="mb-3 mt-4">
       <h3 class="mb-3  pl-2 d-inline"><i class="fa fa-gg"></i> Preview </h3>
-      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank">user view</a>
+      <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary float-right btn-sm" target="_blank"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i> User view - test page</a>
     </div>
             <div class=" p-4  rounded mb-4 mb-md-0" style="background: #fffadd;border-top:3px solid #efebd2">
               <div class="row">

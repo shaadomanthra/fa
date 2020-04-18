@@ -1,24 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 @section('title', $obj->name.' - Ques Analytics | First Academy')
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
-    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
+<div class="bg-white py-2 mb-4">
+<div class="container">
+<nav >
+ <ol class="breadcrumb bg-white p-0 py-2">
+   <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ route($app->module.'.index') }}">{{ ucfirst($app->module) }}</a></li>
     <li class="breadcrumb-item">{{ $obj->name }} - Question Analytics</li>
   </ol>
 </nav>
 
+<div class="mb-3">
 
-@include('flash::message')
-  <div class="row">
-    <div class="col-12 col-md-9">
-      <div class="card  mb-3">
-        <div class="card-body text-secondary pb-0">
-          <p class="h2 mb-0">
-            <p class="h2 "><i class="fa fa-bar-chart "></i> {{ $obj->name }}  @if(request()->get('today'))
+          <p class="h2 "><i class="fa fa-bar-chart "></i> {{ $obj->name }}  @if(request()->get('today'))
             <span class="badge badge-warning ">Today</span>
             
             @elseif(request()->get('from'))
@@ -30,10 +27,26 @@
             <a href="{{ route('test.qanalytics',$obj->id)}}?all=1" class="btn btn-success float-right">View All</a>
             <a href="{{ route('test.qanalytics',$obj->id)}}?today=1&all=1" class="btn btn-outline-success float-right mr-2">Today</a>
             </p>
+
+</div>
+
+</div>
+</div>
+
+
+<div class="container">
+
+
+
+
+  <div class="row">
+    @include('flash::message')
+    <div class="col-12 col-md-10">
+      <div class="card  mb-3">
+        <div class="card-body text-secondary pb-0">
+          <p class="h2 mb-0">
+           
             
-
-
-            <hr>
 
                  <form method="get" action="{{ route('test.qanalytics',$obj->id)}}">
             <div class="form-row mb-0">
@@ -125,7 +138,7 @@
         @endif
       </div> 
     </div>
-    <div class="col-12 col-md-3">
+    <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
 </div> 

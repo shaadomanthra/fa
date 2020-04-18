@@ -1,13 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.bg')
 
 @section('title', 'Question List | First Academy')
 @section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
 
 @section('content')
 
-<nav aria-label="breadcrumb">
-  <ol class="breadcrumb border bg-light">
-    <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
+<div class="bg-white py-2 mb-4">
+<div class="container">
+<nav >
+ <ol class="breadcrumb bg-white p-0 py-2">
+   <li class="breadcrumb-item"><a href="{{ url('/home')}}">Home</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin')}}">Admin</a></li>
     <li class="breadcrumb-item"><a href="{{ url('/admin/test')}}">Test</a></li>
     <li class="breadcrumb-item"><a href="{{ route('test.show',$test->id)}}">{{$test->name}}</a></li>
@@ -15,20 +17,13 @@
   </ol>
 </nav>
 
-@include('flash::message')
-<div  class="row ">
+<div class="mb-3">
 
-  <div class="col-12 col-md-9">
- 
-    <div class="card mb-3 mb-md-0">
-      <div class="card-body mb-0">
-        <nav class="navbar navbar-light bg-light justify-content-between border mb-3">
-          <a class="navbar-brand"><i class="fa fa-bars"></i>  Questions ({{count($data)}})</a>
+          <p class="h2 d-inline"><i class="fa fa-bars"></i>  Questions ({{count($data)}})
+           
+          
 
-          <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-
- 
-           <div class="btn " role="group">
+          <div class="btn float-right mt-0 pt-0" role="group">
     <button id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Create
     </button>
@@ -39,7 +34,7 @@
   </div>
 
 
-          <form class="form-inline" method="GET" action="{{ route('test.questions',$test->id) }}">
+          <form class="form-inline float-right" method="GET" action="{{ route('test.questions',$test->id) }}">
 
 
             
@@ -52,7 +47,24 @@
             </div>
             
           </form>
-        </nav>
+          </p>
+         
+
+</div>
+
+</div>
+</div>
+
+
+<div class="container">
+
+<div  class="row ">
+  @include('flash::message')
+  <div class="col-12 col-md-10">
+ 
+    <div class="card mb-3 mb-md-0">
+      <div class="card-body mb-0">
+        
 
         <div id="search-items">
          @include('appl.test.test.qlist')
@@ -62,10 +74,11 @@
    </div>
  </div>
 
-  <div class="col-12 col-md-3">
+  <div class="col-12 col-md-2">
       @include('appl.test.snippets.menu')
     </div>
  
+</div>
 </div>
 
 @endsection

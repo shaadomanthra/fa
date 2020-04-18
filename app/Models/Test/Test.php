@@ -4,6 +4,7 @@ namespace App\Models\Test;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use App\Models\Test\Attempt;
 
 class Test extends Model
 {
@@ -59,6 +60,11 @@ class Test extends Model
         return $this->hasMany('App\Models\Test\Fillup');
     }
 
+    public function extracts()
+    {
+        return $this->hasMany('App\Models\Test\Extract');
+    }
+
     public function mcq()
     {
         return $this->hasMany('App\Models\Test\Mcq');
@@ -106,6 +112,11 @@ class Test extends Model
 
     public function quescount(){
         return $this->fillup()->count() + $this->mcq()->count(); 
+    }
+
+    public function attemptcount(){
+        $attempt = new Attempt();
+        return count($attempt->where('test_id',$this->id)->get()->groupBy('user_id')); 
     }
     
 }
