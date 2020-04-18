@@ -844,6 +844,30 @@ class TestController extends Controller
         if(Storage::disk('public')->delete($obj->image)){
             Storage::disk('public')->delete($obj->image);
         }
+
+       
+
+        
+
+        if($obj->mcq)
+        foreach($obj->mcq as $i => $m){
+            $m->delete();
+        }
+
+        if($obj->fillup)
+        foreach($obj->fillup as $i => $m){
+           $m->delete();
+        }
+
+        if($obj->extracts)
+        foreach($obj->extracts as $e){
+            $e->delete();
+        }
+
+         if($obj->sections)
+        foreach($obj->sections as $s){
+            $s->delete();
+        }
         
         $obj->delete();
 

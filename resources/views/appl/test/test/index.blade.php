@@ -59,9 +59,9 @@
 
 <div class="container">
 
-
+@include('flash::message')
 <div  class="row ">
-  @include('flash::message')
+  
   <div class="col-md-12">
  
         <div id="search-items">
