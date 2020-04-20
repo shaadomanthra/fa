@@ -199,7 +199,7 @@
         <div class="row">
           @foreach($tags->groupBy('name') as $name=>$t)
           <div class="col-12 col-md-6">
-          <div class="border rounded p-2 mb-1 bg-light">
+          <div class="border rounded p-2 mb-1 bg-light mb-4">
           <div class="row">
           <div class="col-12 col-md-12">
             <div class="pr-2 pl-2 pt-2"><b class="text-primary ">{{$name}}</b></div>
