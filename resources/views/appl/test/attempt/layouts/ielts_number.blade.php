@@ -10,6 +10,11 @@
       @if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}" data-id="{{$f->qno}}" @if(strlen($f->answer)>20) style="width:300px" @endif>
       @endif
       @if($f->suffix ){!! $f->suffix !!}@endif
+    @elseif($f->layout == 'ielts_number' ||  !$f->layout)
+      @if($f->prefix ) {!! $f->prefix !!}  @endif 
+      @if($f->answer) <input type="text" class="fill input" name="{{$f->qno}}" data-id="{{$f->qno}}" @if(strlen($f->answer)>20) style="width:300px" @endif>
+      @endif
+      @if($f->suffix ){!! $f->suffix !!}@endif
     @elseif($f->layout=='ielts_two_blank')
       @include('appl.test.attempt.layouts.ielts_two_blank') 
     @endif

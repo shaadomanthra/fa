@@ -60,6 +60,10 @@
                    Dropdown - Format 2
                   @elseif($obj->layout=='duolingo_missing_letter')
                   Missing Letters
+                  @elseif($obj->layout=='ielts_label')
+                  Label Columns
+                  @elseif($obj->layout=='ielts_number')
+                  Numbered Blank
                   @else
                   {{ $obj->layout }} 
                   @endif
@@ -76,8 +80,9 @@
     <div class="mb-3">
           @can('update',$obj)
             <span class="btn-group float-right" role="group" aria-label="Basic example">
-              <a href="{{ route($app->module.'.edit',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
-              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i></a>
+              <a href="{{ route($app->module.'.edit',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i> edit</a>
+              <a href="{{ route($app->module.'.d',[$app->test->id,$obj->id]) }}" class="btn btn-outline-secondary" data-tooltip="tooltip" data-placement="top" title="make a copy of the question"><i class="fa fa-retweet"></i> duplicate</a>
+              <a href="#" class="btn btn-outline-secondary" data-toggle="modal" data-target="#exampleModal" data-tooltip="tooltip" data-placement="top" title="Delete" ><i class="fa fa-trash"></i> delete</a>
             </span>
             @endcan
           <p class="h2 mb-2 d-inline" >
@@ -108,6 +113,10 @@
       </div>
       @elseif($f->layout=='two_blank')
         @include('appl.test.attempt.layouts.two_blank') 
+      @elseif($f->layout=='ielts_label')
+        @include('appl.test.attempt.layouts.ielts_label') 
+      @elseif($f->layout=='ielts_number')
+        @include('appl.test.attempt.layouts.ielts_title') 
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   

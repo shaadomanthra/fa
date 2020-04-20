@@ -156,6 +156,26 @@ class McqController extends Controller
         
     }
 
+    public function d($test_id,$id)
+    {
+        $obj = Obj::where('id',$id)->first();
+    
+        $this->authorize('view', $obj);
+
+        $last = Obj::where('test_id',$test_id)->orderBy('id','desc')->first();
+        $str = substr(md5(time()), 0, 7);
+        $f_new = $obj->replicate();
+        $f_new->sno = intval($last->sno)+1;
+        $f_new->qno = intval($last->qno)+1;
+        $f_new->save();
+
+
+        if($obj)
+            return redirect()->route('mcq.index',$test_id);
+        else
+            abort(404);
+    }
+
     /**
      * Display the specified resource.
      *

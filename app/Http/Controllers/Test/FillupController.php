@@ -90,6 +90,18 @@ class FillupController extends Controller
                 ->with('app',$this);
     }
 
+    public function layout()
+    {
+        $obj = new Obj();
+        $this->authorize('create', $obj);
+        $test_id = $this->test->id;
+
+        return view('appl.'.$this->app.'.'.$this->module.'.layout')
+                ->with('stub','Create')
+                ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -138,6 +150,25 @@ class FillupController extends Controller
     }
 
 
+    public function d($test_id,$id)
+    {
+        $obj = Obj::where('id',$id)->first();
+    
+        $this->authorize('view', $obj);
+
+        $last = Obj::where('test_id',$test_id)->orderBy('id','desc')->first();
+        $str = substr(md5(time()), 0, 7);
+        $f_new = $obj->replicate();
+        $f_new->sno = intval($last->sno)+1;
+        $f_new->qno = intval($last->qno)+1;
+        $f_new->save();
+
+
+        if($obj)
+            return redirect()->route('fillup.index',$test_id);
+        else
+            abort(404);
+    }
 
 
 

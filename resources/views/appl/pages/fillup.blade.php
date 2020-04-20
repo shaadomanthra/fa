@@ -22,6 +22,32 @@
 </div>
 
 <div class="item mb-5">
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Label Column </h3>
+	<div class="row">
+		<div class="col-12 col-md-8">
+			<img src="{{ asset('images/tests/fillup/label_column.png')}}" class="w-100 border p-3"/>
+		</div>
+		<div class="col-12 col-md-4">
+			<h5>Details</h5>
+			<div class="h5 text-info" style="line-height: 1.5">In this layout, label is displayed in the left column and the rest of the content in the right column.</div>
+		</div>
+	</div>
+</div>
+
+<div class="item mb-5">
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Numbered Blank </h3>
+	<div class="row">
+		<div class="col-12 col-md-8">
+			<img src="{{ asset('images/tests/fillup/numbered_blank.png')}}" class="w-100 border p-3"/>
+		</div>
+		<div class="col-12 col-md-4">
+			<h5>Details</h5>
+			<div class="h5 text-info" style="line-height: 1.5">In this layout, the question number is prefixed to the answer blank.</div>
+		</div>
+	</div>
+</div>
+
+<div class="item mb-5">
 	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Two blanks - Format 1 </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">

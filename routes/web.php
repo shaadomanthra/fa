@@ -58,6 +58,9 @@ Route::get('/admin/test/{test}/view', 'Test\AttemptController@view')->middleware
 Route::get('/admin/test/{test}/cache', 'Test\TestController@cache')->middleware('auth')->name('test.cache');
 
 Route::get('/admin/test/{test}/cache_delete', 'Test\TestController@cache_delete')->middleware('auth')->name('test.cache.delete');
+Route::get('/admin/test/{test}/fillup_layout', 'Test\FillupController@layout')->name('fillup.layout')->middleware('auth');
+Route::get('/admin/test/{test}/fillup/{fillup}/d', 'Test\FillupController@d')->name('fillup.d')->middleware('auth');
+Route::get('/admin/test/{test}/mcq/{mcq}/d', 'Test\McqController@d')->name('mcq.d')->middleware('auth');
 
 Route::resource('/admin/category', 'Test\CategoryController')->middleware('auth');
 Route::resource('/admin/tag', 'Test\TagController')->middleware('auth');

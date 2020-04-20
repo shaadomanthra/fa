@@ -72,8 +72,15 @@
 
         <div class="col-12 col-md-6">
           <div class="form-group">
-            <img src="{{ asset('images/tests/fillup.jpg')}}" class="w-100">
-            <small class="p-4">Note: The above image is for default layout. <a href="{{ route('fillup')}}">check other layouts</a></small>
+            <label for="formGroupExampleInput " class="">Example:</label>
+            @if(request()->get('layout') )
+              <img src="{{ asset('images/tests/fillup/'.request()->get('layout').'_layout.png')}}" class="w-100 mb-3">
+            @elseif($obj->layout)
+              <img src="{{ asset('images/tests/fillup/'.$obj->layout.'_layout.png')}}" class="w-100 mb-3">
+            @else
+            <img src="{{ asset('images/tests/fillup.jpg')}}" class="w-100 mb-3">
+            @endif
+            <small class="py-4">Note: You the refer this page for other layouts. <a href="{{ route('fillup')}}">check layouts</a></small>
           </div>
 
         </div>
@@ -123,22 +130,24 @@
         <label for="formGroupExampleInput ">Layout </label>
         <select class="form-control" name="layout">
           <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif > Default </option>
-          <option value="ielts_two_blank" @if(isset($obj)) @if($obj->layout=='ielts_two_blank') selected @endif @endif >Two Blanks - format 1</option>
-          <option value="two_blank" @if(isset($obj)) @if($obj->layout=='two_blank') selected @endif @endif >Two Blanks - format 2</option>
-          <option value="paragraph" @if(isset($obj)) @if($obj->layout=='paragraph') selected @endif @endif >Paragraph</option>
+          <option value="ielts_label" @if(isset($obj)) @if($obj->layout=='ielts_label') selected @endif @endif @if(request()->get('layout')=='ielts_label') selected @endif>Label Column</option>
+          <option value="ielts_number" @if(isset($obj)) @if($obj->layout=='ielts_number') selected @endif @endif @if(request()->get('layout')=='ielts_number') selected @endif>Numbered Blank</option>
+          <option value="ielts_two_blank" @if(isset($obj)) @if($obj->layout=='ielts_two_blank') selected @endif @endif @if(request()->get('layout')=='ielts_two_blank') selected @endif>Two Blanks - format 1</option>
+          <option value="two_blank" @if(isset($obj)) @if($obj->layout=='two_blank') selected @endif @endif @if(request()->get('layout')=='two_blank') selected @endif>Two Blanks - format 2</option>
+          <option value="paragraph" @if(isset($obj)) @if($obj->layout=='paragraph') selected @endif @endif @if(request()->get('layout')=='paragraph') selected @endif>Paragraph</option>
 
-          <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Dropdown - Format 1</option>
-          <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif >Dropdown - Format 2</option>
+          <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif @if(request()->get('layout')=='cloze_test') selected @endif>Dropdown - Format 1</option>
+          <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif @if(request()->get('layout')=='dropdown') selected @endif>Dropdown - Format 2</option>
 
-          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif >Missing Letters</option>
+          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif @if(request()->get('layout')=='duolingo_missing_letter') selected @endif>Missing Letters</option>
 
           @if($app->test->category=='GRE')
-          <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
+          <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif @if(request()->get('layout')=='gre_sentence') selected @endif>Gre Sentence</option>
           @endif
 
           @if($app->test->category=='PTE')
-          <option value="dropin" @if(isset($obj)) @if($obj->layout=='dropin') selected @endif @endif >PTE Drop In</option>
-          <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
+          <option value="dropin" @if(isset($obj)) @if($obj->layout=='dropin') selected @endif @endif @if(request()->get('layout')=='pte_dropin') selected @endif>PTE Drop In</option>
+          <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif  @if(request()->get('layout')=='pte_reorder') selected @endif>PTE Reorder</option>
           @endif
         </select>
         <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href="{{ route('fillup')}}"><i class="fa fa-link"></i> help images</a></small>

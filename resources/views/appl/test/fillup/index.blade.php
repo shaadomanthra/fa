@@ -24,7 +24,7 @@
           <form class="form-inline float-right" method="GET" action="{{ route($app->module.'.index',$app->test->id) }}">
 
             @can('create',$obj)
-            <a href="{{route($app->module.'.create',$app->test->id)}}" class="btn btn-outline-success   mr-sm-3">
+            <a href="{{route($app->module.'.layout',$app->test->id)}}" class="btn btn-outline-success   mr-sm-3">
               Create {{ ucfirst($app->module) }}
             </a>
             @endcan

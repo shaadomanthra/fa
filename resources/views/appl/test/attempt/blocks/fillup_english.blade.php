@@ -33,6 +33,10 @@
         @include('appl.test.attempt.layouts.duolingo_missing_letter') 
       @elseif($f->layout=='two_blank')
         @include('appl.test.attempt.layouts.two_blank')  
+      @elseif($f->layout=='ielts_label')
+        @include('appl.test.attempt.layouts.ielts_label')
+      @elseif($f->layout=='ielts_number')
+        @include('appl.test.attempt.layouts.ielts_title')    
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
