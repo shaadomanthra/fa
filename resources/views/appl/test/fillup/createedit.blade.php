@@ -141,7 +141,7 @@
           <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
           @endif
         </select>
-        <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href="{{ asset('images/tests/fillup.jpg')}}"><i class="fa fa-link"></i> help images</a></small>
+        <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href="{{ route('fillup')}}"><i class="fa fa-link"></i> help images</a></small>
       </div>
 
         </div>
@@ -201,9 +201,11 @@
           <div class="col-12 col-md-6">
           <div class="border rounded p-2 mb-1 bg-light">
           <div class="row">
-          <div class="col-12 col-md-2"><b>{{$name}}</b></div>
+          <div class="col-12 col-md-12">
+            <div class="pr-2 pl-2 pt-2"><b class="text-primary ">{{$name}}</b></div>
+            <hr></div>
           @foreach($t as $tag)
-          <div class="col-12 col-md-3">
+          <div class="col-12 col-md-4">
           <div class="form-check">
             <input class="form-check-input" type="checkbox" name="tags[]" value="{{$tag->id}}" id="defaultCheck1" @if($obj->tags->contains($tag->id))) checked @endif>
             <label class="form-check-label" for="defaultCheck1">

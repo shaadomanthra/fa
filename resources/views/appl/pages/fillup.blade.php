@@ -6,10 +6,10 @@
 
 <div class="bg-white">
 <div class="card-body p-4 p-md-5 ">
-<div class="h1  mb-4 text-center">Fill up - Layouts</div><br>
+<div class="h1  mb-4 text-center"><u>Fill up - Layouts</u></div><br>
 
 <div class="item mb-5">
-	<h4 class="">Default </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Default </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 			<img src="{{ asset('images/tests/fillup/default.png')}}" class="w-100 border p-3"/>
@@ -22,7 +22,7 @@
 </div>
 
 <div class="item mb-5">
-	<h4 class="">IELTS two blanks </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Two blanks - Format 1 </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 			<img src="{{ asset('images/tests/fillup/ielts_two_blanks.png')}}" class="w-100 border p-3"/>
@@ -35,7 +35,7 @@
 </div>
 
 <div class="item mb-5">
-	<h4 class="">Title two blanks </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Two blanks - Format 2 </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 			<img src="{{ asset('images/tests/fillup/title_two_blanks.png')}}" class="w-100 border p-3"/>
@@ -49,7 +49,7 @@
 
 
 <div class="item mb-5">
-	<h4 class="">Paragraph </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Paragraph </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 
@@ -68,7 +68,7 @@
 </div>
 
 <div class="item mb-5">
-	<h4 class="">Cloze Test </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Dropdown - Format 1 </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 			<img src="{{ asset('images/tests/fillup/cloze.png')}}" class="w-100 border p-3"/>
@@ -81,7 +81,7 @@
 </div>
 
 <div class="item mb-5">
-	<h4 class="">Dropdown </h4>
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Dropdown - Format 2 </h3>
 	<div class="row">
 		<div class="col-12 col-md-8">
 			<img src="{{ asset('images/tests/fillup/dropdown.png')}}" class="w-100 border p-3"/>
@@ -89,6 +89,19 @@
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
 			<div class="h5 text-info" style="line-height: 1.5">In this layout, the the answer choices should be entered in label column and seperated by slashes. The question number is placed left side of prefix.</div>
+		</div>
+	</div>
+</div>
+
+<div class="item mb-5">
+	<h3 class="text-primary mb-4"><i class="fa fa-bars"></i> Missing Letters </h3>
+	<div class="row">
+		<div class="col-12 col-md-8">
+			<img src="{{ asset('images/tests/fillup/missing_letter.png')}}" class="w-100 border p-3"/>
+		</div>
+		<div class="col-12 col-md-4">
+			<h5>Details</h5>
+			<div class="h5 text-info" style="line-height: 1.5">In this layout, the visible letters in the answer are within square brackets.</div>
 		</div>
 	</div>
 </div>
