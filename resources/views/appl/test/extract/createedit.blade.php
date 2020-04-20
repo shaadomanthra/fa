@@ -37,14 +37,18 @@
      
      @if(count($sections))
 
-       <div class="form-group">
-        <label for="formGroupExampleInput ">Section</label>
-        <select class="form-control" name="section_id">
-          @foreach($sections as $section)
-          <option value="{{$section->id}}" @if(isset($obj)) @if($obj->section_id == $section->id) selected @endif @endif >{{ $section->name }}</option>
-          @endforeach
-        </select>
-      </div>
+      @if(strtoupper($app->test->testtype->name) == 'LISTENING' || strtoupper($app->test->testtype->name) == 'READING')
+         <div class="form-group">
+          <label for="formGroupExampleInput ">Section</label>
+          <select class="form-control" name="section_id">
+            @foreach($sections as $section)
+            <option value="{{$section->id}}" @if(isset($obj)) @if($obj->section_id == $section->id) selected @endif @endif >{{ $section->name }}</option>
+            @endforeach
+          </select>
+        </div>
+        @else
+          <input type="hidden" name="section_id" value="0">
+        @endif
       @else
       <input type="hidden" name="section_id" value="0">
       @endif

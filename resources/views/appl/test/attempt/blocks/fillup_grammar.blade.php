@@ -37,6 +37,8 @@
         @include('appl.test.attempt.layouts.ielts_two_blank') 
       </div>
       </div>
+      @elseif($f->layout=='two_blank')
+        @include('appl.test.attempt.layouts.two_blank')  
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   

@@ -1,18 +1,13 @@
 
-@if(!$m->layout)
-<div class="border p-3 rounded mb-4 text-secondary">Select one answer choice from the given options. </div>
-@elseif($m->layout == 'gre1')
-  <div class="border p-3 rounded mb-4 text-secondary">Select one answer choice for the blank. Fill in the blank in such a way that it best completes the text. </div>
-@elseif($m->layout == 'gre2' || $m->layout == 'gre3')  
-<div class="border p-3 rounded mb-4 text-secondary">
- For each blank, select an answer choice from the corresponding column of choices. Fill all blanks in such a way that they best complete the text. 
-</div>
-@elseif($m->layout == 'gre_maq')  
-<div class="border p-3 rounded mb-4 text-secondary">
-For the following question, select the one or more answer choices that, when inserted into the sentence, fit the meaning of the sentence as a whole and yield complete sentences that are similar in meaning. 
-</div>
-@elseif($m->layout == 'no_instruction') 
+@if(isset($m->extract))
+  <div class="option rounded p-4 border mb-4">
+    <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $m->extract->name }} </h4>
+    {!!$m->extract->text !!}</div>
+    <span class="d-none sentence_holder" data-qno="{{$m->qno}}"></span>
+    <input type="hidden" name="{{$m->qno}}" value=""/>
 @endif
+
+
 
 <div class="mb-3">
   <div class="row">
@@ -267,4 +262,21 @@ For the following question, select the one or more answer choices that, when ins
  
 </table>
 @endif
+
+@if($m->layout == 'gre_numeric')
+<h5><b> Enter your answer</b></h5>
+  <input class='input_ {{$m->qno}} form-control w-25' type="text" name="{{$m->qno}}"  data-id="{{$m->qno}}" value=""/>
+@endif
+
+@if($m->layout == 'gre_fraction')
+<div class="mt-4">
+  <h5><b>Enter your answer in fraction format</b></h5>
+  <input class='input_ {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px"/>
+  <div style="display:block;clear: both;">
+<hr style="width:50px;float: left;clear: both;" >
 </div>
+  <input class='input_ {{$m->qno}} form-control' type="text" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="" style="width:50px;clear: both;"/>
+</div>
+@endif
+
+</div>            

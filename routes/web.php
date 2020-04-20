@@ -35,6 +35,13 @@ Route::get('/toefl', function () {
         return view('appl.pages.toefl');
 })->name('toefl');
 
+Route::get('/help/mcq', function () {
+        return view('appl.pages.mcq');
+})->name('mcq');
+Route::get('/help/fillup', function () {
+        return view('appl.pages.fillup');
+})->name('fillup');
+
 /* Admin Routes */
 Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('auth');
 Route::get('/admin/analytics', 'Admin\AdminController@analytics')->name('admin.analytics')->middleware('auth');

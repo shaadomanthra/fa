@@ -48,7 +48,24 @@
         <dl class="row no-gutters mb-0">
           <dt class="col-sm-5"><b> Layout</b></dt>
           <dd class="col-sm" style="word-wrap: break-word;">
-                : @if($obj->layout) {{ $obj->layout }} @else Default @endif</dd>
+                : 
+                @if($obj->layout) 
+                  @if($obj->layout=='ielts_two_blank')
+                    Two blanks - Format 1
+                  @elseif($obj->layout=='two_blank')
+                    Two blanks - Format 2
+                  @elseif($obj->layout=='cloze_test')
+                   Dropdown - Format 1
+                  @elseif($obj->layout=='dropdown')
+                   Dropdown - Format 2
+                  @elseif($obj->layout=='duolingo_missing_letter')
+                  Missing Letters
+                  @else
+                  {{ $obj->layout }} 
+                  @endif
+                @else 
+                  Default 
+                @endif</dd>
         </dl>
       </div>
 
@@ -80,7 +97,6 @@
       @elseif($f->layout=='paragraph')
         @include('appl.test.attempt.layouts.ielts_paragraph') 
       @elseif($f->layout=='duolingo_missing_letter')
-
         @include('appl.test.attempt.layouts.duolingo_missing_letter') 
       @elseif($f->layout=='cloze_test')
         @include('appl.test.attempt.layouts.cloze_test') 
@@ -90,6 +106,8 @@
         @include('appl.test.attempt.layouts.ielts_two_blank') 
       </div>
       </div>
+      @elseif($f->layout=='two_blank')
+        @include('appl.test.attempt.layouts.two_blank') 
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
@@ -103,8 +121,8 @@
   <div class="p-4 rounded bg-white border mt-4 mb-4">
     <div class="row">
       <div class="col-12 col-md-3">
-        <p class="text-secondary"><i class="fa fa-angle-right"></i> Label</p>
-        <h5>{{$obj->label}}</h5>
+        <p class="text-secondary text-wrap"><i class="fa fa-angle-right"></i> Label</p>
+        <h5 class="text-wrap text-break">{{$obj->label}}</h5>
       </div>
        <div class="col-12 col-md-3">
         <p class="text-secondary"><i class="fa fa-angle-right"></i> Prefix</p>

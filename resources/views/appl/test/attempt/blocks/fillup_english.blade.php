@@ -2,9 +2,9 @@
 
 
 @if($section->fillup_order[0]->layout=='duolingo_missing_letter')
-
 <div class="card-text mb-5 mb-md-0" style="overflow: auto;">
 @endif
+
 @foreach($section->fillup_order as $f)
 
     @if(isset($f->extract))
@@ -13,8 +13,9 @@
     {!!$f->extract->text !!}</div>
     <span class="d-none sentence_holder" data-qno="{{$f->qno}}"></span>
     <input type="hidden" name="{{$f->qno}}" value=""/>
-@endif
+  @endif
 
+ 
     @if($f->qno==-1)
       @include('appl.test.attempt.layouts.fillup_example') 
     @else

@@ -25,38 +25,59 @@
 
       
       <div class="row">
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-md-6">
           <div class="form-group">
         <label for="formGroupExampleInput ">Label</label>
-        <textarea class="form-control " name="label"  rows="3">@if($stub=='Create'){{ (old('label')) ? old('label') : '' }} @else {{ $obj->label }} @endif
-        </textarea>
+        <input type="text" class="form-control" name="label" id="formGroupExampleInput" placeholder="Enter the label" 
+            @if($stub=='Create')
+            value="{{ (old('label')) ? old('label') :'' }}"
+            @else
+            value = "{{ $obj->label }}"
+            @endif
+          >
         
-      </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+            <label for="formGroupExampleInput ">Prefix</label>
+            <textarea class="form-control " name="prefix"  rows="3">@if($stub=='Create'){{ (old('prefix')) ? old('prefix') : '' }} @else {{ $obj->prefix }} @endif
+            </textarea>
+            </div>
+          </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Answer</label>
+            <textarea class="form-control " name="answer"  rows="3">@if($stub=='Create'){{ (old('answer')) ? old('answer') : '' }} @else {{ $obj->answer }} @endif
+            </textarea>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Suffix</label>
+            <textarea class="form-control " name="suffix"  rows="3">@if($stub=='Create'){{ (old('suffix')) ? old('suffix') : '' }} @else {{ $obj->suffix }} @endif
+            </textarea>
+          </div>
+        </div>
+
 
         </div>
-        <div class="col-12 col-md-3">
-          <div class="form-group">
-        <label for="formGroupExampleInput ">Prefix</label>
-        <textarea class="form-control " name="prefix"  rows="3">@if($stub=='Create'){{ (old('prefix')) ? old('prefix') : '' }} @else {{ $obj->prefix }} @endif
-        </textarea>
-      </div>
+        
+        
 
         </div>
-        <div class="col-12 col-md-3">
+
+        <div class="col-12 col-md-6">
           <div class="form-group">
-        <label for="formGroupExampleInput ">Answer</label>
-        <textarea class="form-control " name="answer"  rows="3">@if($stub=='Create'){{ (old('answer')) ? old('answer') : '' }} @else {{ $obj->answer }} @endif
-        </textarea>
-      </div>
+            <img src="{{ asset('images/tests/fillup.jpg')}}" class="w-100">
+            <small class="p-4">Note: The above image is for default layout. <a href="{{ route('fillup')}}">check other layouts</a></small>
+          </div>
 
         </div>
-        <div class="col-12 col-md-3">
-          <div class="form-group">
-        <label for="formGroupExampleInput ">Suffix</label>
-        <textarea class="form-control " name="suffix"  rows="3">@if($stub=='Create'){{ (old('suffix')) ? old('suffix') : '' }} @else {{ $obj->suffix }} @endif
-        </textarea>
-      </div>
-        </div>
+        
       </div> 
 
 </div>
@@ -101,18 +122,24 @@
          <div class="form-group">
         <label for="formGroupExampleInput ">Layout </label>
         <select class="form-control" name="layout">
-          <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif >- None -</option>
-          <option value="ielts_two_blank" @if(isset($obj)) @if($obj->layout=='ielts_two_blank') selected @endif @endif >IELTS Two Blanks</option>
-          <option value="two_blank" @if(isset($obj)) @if($obj->layout=='two_blank') selected @endif @endif >Title Two Blanks</option>
+          <option value="" @if(isset($obj)) @if(!$obj->layout) selected @endif @endif > Default </option>
+          <option value="ielts_two_blank" @if(isset($obj)) @if($obj->layout=='ielts_two_blank') selected @endif @endif >Two Blanks - format 1</option>
+          <option value="two_blank" @if(isset($obj)) @if($obj->layout=='two_blank') selected @endif @endif >Two Blanks - format 2</option>
           <option value="paragraph" @if(isset($obj)) @if($obj->layout=='paragraph') selected @endif @endif >Paragraph</option>
 
-          <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Cloze Test</option>
+          <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif >Dropdown - Format 1</option>
+          <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif >Dropdown - Format 2</option>
 
+          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif >Missing Letters</option>
+
+          @if($app->test->category=='GRE')
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Gre Sentence</option>
-          <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif >Dropdown</option>
+          @endif
+
+          @if($app->test->category=='PTE')
           <option value="dropin" @if(isset($obj)) @if($obj->layout=='dropin') selected @endif @endif >PTE Drop In</option>
           <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
-          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif >Duolingo Missing Letter</option>
+          @endif
         </select>
         <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href=""><i class="fa fa-link"></i> help images</a></small>
       </div>
@@ -127,7 +154,7 @@
        <div class="form-group">
         <label for="formGroupExampleInput ">Section</label>
         <select class="form-control" name="section_id">
-          <option value="" @if(isset($obj)) @if(!$obj->section_id) selected @endif @endif >Default</option>
+          <option value="" @if(isset($obj)) @if(!$obj->section_id) selected @endif @endif >-None-</option>
           @foreach($sections as $section)
           <option value="{{$section->id}}" @if(isset($obj)) @if($obj->section_id == $section->id) selected  @endif @endif  >{{ $section->name }}</option>
           @endforeach
