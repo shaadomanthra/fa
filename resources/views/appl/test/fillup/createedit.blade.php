@@ -80,7 +80,7 @@
             @else
             <img src="{{ asset('images/tests/fillup.jpg')}}" class="w-100 mb-3">
             @endif
-            <small class="py-4">Note: You the refer this page for other layouts. <a href="{{ route('fillup')}}">check layouts</a></small>
+            <small class="py-4">Note: You can refer this page for other layouts. <a href="{{ route('fillup')}}">check layouts</a></small>
           </div>
 
         </div>
