@@ -141,7 +141,7 @@
           <option value="pte_reorder" @if(isset($obj)) @if($obj->layout=='pte_reorder') selected @endif @endif >PTE Reorder</option>
           @endif
         </select>
-        <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href=""><i class="fa fa-link"></i> help images</a></small>
+        <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <br><a href="{{ asset('images/tests/fillup.jpg')}}"><i class="fa fa-link"></i> help images</a></small>
       </div>
 
         </div>
