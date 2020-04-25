@@ -100,7 +100,7 @@ class AttemptController extends Controller
    public function instructions($slug, Request $request){
 
         if(\auth::user())
-        $user = \auth::user();
+          $user = \auth::user();
         else
           $user = null;
 
@@ -124,7 +124,10 @@ class AttemptController extends Controller
         }
 
         //Run prechecks 
-        $this->precheck($request);
+        $status= $this->precheck($request);
+
+        if($status!=1)
+          return redirect($status);
 
         /* User Authorization for test */
         $grantaccess = $request->get('grantaccess');
@@ -207,6 +210,29 @@ class AttemptController extends Controller
     $test = $this->test;
     if(!$test)
       abort('403','Test not Found ');
+
+    
+
+    // check for verified users
+    if(\auth::user()){
+      
+      $verified = false;
+      if(\auth::user()->activation_token==1)
+         $verified = true;
+
+      if(\auth::user()->sms_token==1)
+        $verified = true;
+
+
+      if(!$verified)
+        return route('activation');
+
+    }else{
+      return 1;
+    }
+
+    return 1;
+
    }
 
    /* Test Attempt Function */

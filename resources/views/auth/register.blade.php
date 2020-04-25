@@ -14,6 +14,7 @@
 
     <h1>Register</h1>
     <hr>
+    <div class="bg-light border rounded p-3 mb-3"><small class="text-left"> Note that verification of email or phone number is mandatory to attempt the free or premium tests. So kindly ensure that you enter the correct details.</small></div>
     <div class="form-group row">
         <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -47,6 +48,7 @@
         <div class="col-md-8">
             <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Enter 10 digit phone number">
         </div>
+
         @error('phone')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

@@ -13,9 +13,15 @@
 
 <p>  {{$message}}</p>
 
+@if(\auth::user())
+<a href="{{ route('home') }}">
+<button class="btn btn-primary btn-lg">Dashboard</button>
+</a>
+@else
 <a href="{{ route('login') }}">
 <button class="btn btn-primary btn-lg">Login</button>
 </a>
+@endif
 
 </div>
 </div>

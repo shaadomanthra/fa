@@ -3,9 +3,15 @@
 @section('content')
 
 @include('flash::message')
+
+<div class="alert alert-info alert-important " role="alert">
+ Kindly note that activation of account is compulsory to attempt the tests. In case of any issue kindly write to us at <span class="text-primary">info@firstacademy.in</span> 
+</div>
+
 <div class="row">
 	<div class="col-12 col-md-6">
 		<div class="bg-white">
+
 			<div class="card-body p-4 mb-4 mb-md-0">
 				@if($user->activation_token==1)
 				<h1 >Email Verified </h1>
@@ -63,6 +69,10 @@
 					<button class="btn btn-success" type="submit">Update</button>
 				</form>
 				</div>
+
+				<div class="alert alert-warning alert-important mt-3" role="alert">
+  For international users, kindly send an email to <span class="text-success">info@firstacademy.in</span> to activate your account.
+</div>
 				@endif
 			</div>		
 		</div>
