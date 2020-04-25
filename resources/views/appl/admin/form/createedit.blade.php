@@ -45,7 +45,7 @@
         <div class="col-12 col-md-6">
               <div class="form-group">
         <label for="formGroupExampleInput ">Phone number</label>
-        <input type="number" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter your phone number (10 digits)" 
+        <input type="text" class="form-control" name="phone" id="formGroupExampleInput" placeholder="Enter your phone number (10 digits)" 
             @if($stub=='Create')
             value="{{ (old('phone')) ? old('phone') : '' }}"
             @else
