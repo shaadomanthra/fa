@@ -267,6 +267,15 @@ class FormController extends Controller
                 $request->merge(['name' => strtoupper($request->get('name'))]);
             }
 
+            if(!$request->get('phone')){
+                $request->merge(['phone' => '0']);
+            }
+
+            if(!$request->get('college')){
+                $request->merge(['college' => ' ']);
+            }
+
+
             
             $obj = $obj->update($request->all()); 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
