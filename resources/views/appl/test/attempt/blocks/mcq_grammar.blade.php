@@ -24,7 +24,7 @@
 @if(!$m->layout || $m->layout=='no_instruction')
 
 <table class="table table-bordered mt-2 @if(strlen($m->a)>30) w-100 @else w-50 @endif" >
-  @if($m->a)
+  @if($m->a || $m->a==0)
   <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="A" data-group="1">
         <input class='input {{$m->qno}}_A {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="A"/> {!! $m->a !!}
@@ -32,7 +32,7 @@
   </tr>
   @endif
 
-  @if($m->b)
+  @if($m->b || $m->b==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="B" data-group="1">
         <input class='input {{$m->qno}}_B {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="B"/> {!! $m->b !!}
@@ -40,7 +40,7 @@
   </tr>
   @endif
 
-  @if($m->c)
+  @if($m->c || $m->c==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="C" data-group="1">
         <input class='input {{$m->qno}}_C {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="C"/> {!! $m->c !!}
@@ -48,7 +48,7 @@
   </tr>
   @endif
 
-  @if($m->d)
+  @if($m->d || $m->d==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="D" data-group="1">
         <input class='input {{$m->qno}}_D {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="D"/> {!! $m->d !!}
@@ -56,7 +56,7 @@
   </tr>
   @endif
 
-  @if($m->e)
+  @if($m->e || $m->e==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="E" data-group="1">
         <input class='input {{$m->qno}}_E {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="E"/> {!! $m->e !!}
@@ -64,7 +64,7 @@
   </tr>
   @endif
 
-  @if($m->f)
+  @if($m->f || $m->f==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
         <input class='input {{$m->qno}}_F {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
@@ -78,7 +78,7 @@
 @if($m->layout == 'gre1')
 
 <table class="table table-bordered @if(strlen($m->a)>30) w-100 @else w-50 @endif" >
-  @if($m->a)
+  @if($m->a || $m->a==0)
   <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="A" data-group="1">
         <input class='input {{$m->qno}}_A {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="A"/> {!! $m->a !!}
@@ -86,7 +86,7 @@
   </tr>
   @endif
 
-  @if($m->b)
+  @if($m->b || $m->b==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="B" data-group="1">
         <input class='input {{$m->qno}}_B {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="B"/> {!! $m->b !!}
@@ -94,7 +94,7 @@
   </tr>
   @endif
 
-  @if($m->c)
+  @if($m->c || $m->c==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="C" data-group="1">
         <input class='input {{$m->qno}}_C {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="C"/> {!! $m->c !!}
@@ -102,7 +102,7 @@
   </tr>
   @endif
 
-  @if($m->d)
+  @if($m->d || $m->d==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="D" data-group="1">
         <input class='input {{$m->qno}}_D {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="D"/> {!! $m->d !!}
@@ -110,7 +110,7 @@
   </tr>
   @endif
 
-  @if($m->e)
+  @if($m->e || $m->e==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="E" data-group="1">
         <input class='input {{$m->qno}}_E {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="E"/> {!! $m->e !!}
@@ -118,7 +118,7 @@
   </tr>
   @endif
 
-  @if($m->f)
+  @if($m->f || $m->f==0)
    <tr>
     <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
         <input class='input {{$m->qno}}_F {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
@@ -214,7 +214,7 @@
 @if($m->layout == 'gre_maq')
 <table class="table table-bordered mt-4 @if(strlen($m->a)>30) w-100 @else w-50 @endif" >
   
-      @if($m->a)
+      @if($m->a || $m->a==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="A" data-group="1">
         <input class='input {{$m->qno}}_A {{$m->qno}}_1' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="A"/> {!! $m->a !!}
@@ -222,7 +222,7 @@
       </tr>
       @endif
 
-      @if($m->b)
+      @if($m->b || $m->b==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_2 option" data-id="{{$m->qno}}" data-option="B" data-group="2">
         <input class='input {{$m->qno}}_B {{$m->qno}}_2' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="B"/> {!! $m->b !!}
@@ -230,7 +230,7 @@
       </tr>
       @endif
 
-      @if($m->c)
+      @if($m->c || $m->c==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_3 option" data-id="{{$m->qno}}" data-option="C" data-group="3">
         <input class='input {{$m->qno}}_C {{$m->qno}}_3' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="C"/> {!! $m->c !!}
@@ -238,7 +238,7 @@
       </tr>
       @endif
 
-      @if($m->d)
+      @if($m->d || $m->d==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_4 option" data-id="{{$m->qno}}" data-option="D" data-group="4">
         <input class='input {{$m->qno}}_D {{$m->qno}}_4' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="D"/> {!! $m->d !!}
@@ -246,7 +246,7 @@
       </tr>
       @endif
 
-      @if($m->e)
+      @if($m->e || $m->e==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_5 option" data-id="{{$m->qno}}" data-option="E" data-group="5">
         <input class='input {{$m->qno}}_E {{$m->qno}}_5' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="E"/> {!! $m->e !!}
@@ -254,7 +254,7 @@
       </tr>
       @endif
 
-      @if($m->f)
+      @if($m->f || $m->f==0)
       <tr>
       <td class="td_option td_{{$m->qno}}_6 option" data-id="{{$m->qno}}" data-option="F" data-group="6">
         <input class='input {{$m->qno}}_F {{$m->qno}}_4' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}

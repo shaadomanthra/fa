@@ -44,7 +44,25 @@
         <dl class="row no-gutters mb-0">
           <dt class="col-sm-5"><b> Layout</b></dt>
           <dd class="col-sm" style="word-wrap: break-word;">
-                : {{ $obj->layout }}</dd>
+                : @if(!$obj->layout || $obj->layout=='no_instruction' || $obj->layout=='gre1')
+                Default 
+                @elseif($obj->layout=='gre2')
+                2 columns 6 options 
+                @elseif($obj->layout=='gre3')
+                3 columns 9 options
+                @elseif($obj->layout=='gre_maq')
+                Multi Answer
+                @elseif($obj->layout=='gre_numeric')
+                Numeric Entry
+                @elseif($obj->layout=='gre_fraction')
+                Fraction
+                @elseif($obj->layout=='gre_sentence')
+                Sentence Selection
+                @elseif($obj->layout=='pte_maq')
+                PTE Multi Answer
+                @elseif($obj->layout=='pte_mcq')
+                PTE MCQ
+                @else {{ $obj->layout }} @endif</dd>
         </dl>
       </div>
 

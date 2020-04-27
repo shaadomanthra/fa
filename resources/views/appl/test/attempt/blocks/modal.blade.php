@@ -81,7 +81,7 @@
         
 
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="testname" value="{{ $test->name }}">
+        <input type="hidden" name="test" value="{{ $test->name }}">
         <input type="hidden" name="url" value="{{ route('admin.notify')}}">
         <button type="button" class="btn btn-success btn-error-report">Submit</button>
         <div class="spinner-border spinner-border-sm float-right" role="status" style="display:none">

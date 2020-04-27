@@ -217,10 +217,14 @@ class FormController extends Controller
     public function show($id)
     {
         $obj = Obj::where('id',$id)->first();
+        $user = \auth::user()->where('email',$obj->email)->first();
+        if(!$user)
+            $user = \auth::user()->where('phone',$obj->phone)->first();
+
         $this->authorize('view', $obj);
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.show')
-                    ->with('obj',$obj)->with('app',$this);
+                    ->with('obj',$obj)->with('app',$this)->with('user',$user);
         else
             abort(404);
     }

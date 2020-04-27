@@ -40,12 +40,23 @@
         <div class="card-body">
           <div class="row mb-2">
             <div class="col-md-4"><b>Name</b></div>
-            <div class="col-md-8"><b class="text-primary">{{ $obj->name }}</b></div>
+            <div class="col-md-8">
+              @if($user)
+              <a href="{{ route('user.show',$user->id)}}">{{ $obj->name }}</a>
+              @else
+              <b class="text-primary">{{ $obj->name }}</b>
+              @endif
+            </div>
           </div>
          
          <div class="row mb-2">
             <div class="col-md-4"><b>Email</b></div>
-            <div class="col-md-8">{{ $obj->email }}</div>
+
+            <div class="col-md-8">@if($user)
+              <a href="{{ route('user.show',$user->id)}}">{{ $obj->email }}</a>
+              @else
+              <b class="text-primary">{{ $obj->email }}</b>
+              @endif</div>
           </div>
 
           <div class="row mb-2">

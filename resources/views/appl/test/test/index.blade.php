@@ -65,7 +65,7 @@
   <div class="col-md-12">
  
         <div id="search-items">
-         @include('appl.'.$app->app.'.'.$app->module.'.list2')
+         @include('appl.'.$app->app.'.'.$app->module.'.list')
        </div>
 
  </div>

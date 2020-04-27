@@ -108,12 +108,29 @@ class AdminController extends Controller
                 foreach($request->all() as $k=>$r){
                     if(is_array($r))
                         $r = implode(',', $r);
-                    if($k!='_token' && $k!='_method' && $k!='url')
+                    if($k =='test'){
+                        $test = Obj::where('name',$r)->first();
+                        if($test)
+                        $description = $description.'<div>'.strtoupper($k).' - <a href="'.route('test.show',$test->id).'">'.$test->name.'</a>';
+                        else
+                        $description = $description. '<div>'.strtoupper($k).' - '.$r.'</div>' ;
+                    }else if($k == 'email'){
+                        $u = \auth::user()->where('email',$r)->first();
+                      
+                        if($u)
+                        $description = $description.'<div>'.strtoupper($k).' - <a href="'.route('user.show',$u->id).'">'.$u->email.'</a>';
+                        else
+                        $description = $description. '<div>'.strtoupper($k).' - '.$r.'</div>' ;
+                    }
+                    else if($k!='_token' && $k!='_method' && $k!='url')
                     $description = $description. '<div>'.strtoupper($k).' - '.$r.'</div>' ;
+
+
                 }
                 $obj->description = $description;
                 $obj->year = 0;
                 $obj->college = '';
+
                 $obj->save();
         
         Mail::to(config('mail.report'))->send(new  ErrorReport($request));
