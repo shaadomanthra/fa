@@ -60,6 +60,7 @@ Route::get('/admin/test/{test}/cache', 'Test\TestController@cache')->middleware(
 
 Route::get('/admin/test/{test}/cache_delete', 'Test\TestController@cache_delete')->middleware('auth')->name('test.cache.delete');
 Route::get('/admin/test/{test}/fillup_layout', 'Test\FillupController@layout')->name('fillup.layout')->middleware('auth');
+Route::get('/admin/test/{test}/mcq_layout', 'Test\McqController@layout')->name('mcq.layout')->middleware('auth');
 Route::get('/admin/test/{test}/fillup/{fillup}/d', 'Test\FillupController@d')->name('fillup.d')->middleware('auth');
 Route::get('/admin/test/{test}/mcq/{mcq}/d', 'Test\McqController@d')->name('mcq.d')->middleware('auth');
 

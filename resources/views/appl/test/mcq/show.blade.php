@@ -105,7 +105,16 @@
           
           <div class="row mb-2">
             <div class="col-md-4"><b>Answer</b></div>
-            <div class="col-md-8">{{ $obj->answer }}</div>
+
+            <div class="col-md-8">
+            @if($obj->layout=='gre_sentence' || $obj->layout=='gre_numeric')
+              {!! $obj->a !!}
+            @elseif($obj->layout=='gre_fraction')
+              {!! $obj->a !!} / {!! $obj->b !!}
+            @else
+              {{ $obj->answer }}
+            @endif
+            </div>
           </div>
 
          

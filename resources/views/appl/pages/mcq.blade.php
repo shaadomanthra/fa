@@ -29,7 +29,7 @@
 		</div>
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
-			<div class="h5 text-info" style="line-height: 1.5">In this layout, label is displayed in the left column and the rest of the content in the right column.</div>
+			<div class="h5 text-info" style="line-height: 1.5">The layout would appear as in the image on the left side.</div>
 		</div>
 	</div>
 </div>
@@ -42,7 +42,7 @@
 		</div>
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
-			<div class="h5 text-info" style="line-height: 1.5">In this layout, the question number is prefixed to the answer blank.</div>
+			<div class="h5 text-info" style="line-height: 1.5">The layout would appear as in the image on the left side.</div>
 		</div>
 	</div>
 </div>
@@ -55,7 +55,7 @@
 		</div>
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
-			<div class="h5 text-info" style="line-height: 1.5">In this layout the label & qno are not displayed. For the two blanks to appear the answer column should follow the format "answer1 [some text] answer2"</div>
+			<div class="h5 text-info" style="line-height: 1.5">The layout would appear as in the image on the left side.</div>
 		</div>
 	</div>
 </div>
@@ -68,7 +68,7 @@
 		</div>
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
-			<div class="h5 text-info" style="line-height: 1.5">In this layout the label & qno are displayed. For the two blanks to appear the answer column should follow the format "answer1 [some text] answer2"</div>
+			<div class="h5 text-info" style="line-height: 1.5">The layout would appear as in the image on the left side.</div>
 		</div>
 	</div>
 </div>
@@ -81,7 +81,8 @@
 		</div>
 		<div class="col-12 col-md-4">
 			<h5>Details</h5>
-			<div class="h5 text-info" style="line-height: 1.5">In this layout the label & qno are displayed. For the two blanks to appear the answer column should follow the format "answer1 [some text] answer2"</div>
+			<div class="h5 text-info" style="line-height: 1.5"><p>For this layout to work, create the passage first then connect the passage to question.</p>
+				<p>Incase if you edit the passage, it would disconnect the question & passage so after updating the passage edit the question and connect it once again with passage and save it.</p></div>
 		</div>
 	</div>
 </div>

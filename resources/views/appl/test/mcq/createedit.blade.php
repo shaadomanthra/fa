@@ -99,15 +99,28 @@
     </div>
 
       <div class="row">
-        @foreach(['a','b','c','d','e','f','g','h','i'] as $opt)
+      
+
+
+        @if(!$obj->layout || $obj->layout=='no_instruction' || $obj->layout=='gre1' || $obj->layout=='gre2' || $obj->layout=='gre3' || $obj->layout=='gre_maq')
+        @foreach(['a','b','c','d','e','f'] as $opt)
         <div class="col-12 col-md-4">
       <div class="form-group">
-        <label for="formGroupExampleInput ">Option {{ strtoupper($opt)}}</label>
-<textarea class="form-control @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="2">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+        <label for="formGroupExampleInput ">Option {{ strtoupper($opt)}}</label><textarea class="form-control @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="2">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
       </div>
     </div>
       @endforeach
+      @endif
 
+      @if($obj->layout=='gre3' || $obj->layout=='gre_maq')
+      @foreach(['g','h','i'] as $opt)
+        <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Option {{ strtoupper($opt)}}</label><textarea class="form-control @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="2">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+      </div>
+    </div>
+      @endforeach
+      @endif
         
       </div>
 
@@ -121,8 +134,61 @@
         <div class="col-12 col-md-4">
           <div class="form-group">
         <label for="formGroupExampleInput">Answers</label>
-         <div class=" card p-3">
+         <div class=" card bg-light p-3">
           <div class="row">
+
+          @if($obj->layout=='gre_numeric')
+        @foreach(['a'] as $opt)
+        <div class="col-12 ">
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Numeric Answer</label><textarea class="form-control w-100 @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="1">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+      </div>
+    </div>
+      @endforeach
+      @endif
+
+      @if($obj->layout=='gre_sentence')
+        @foreach(['a'] as $opt)
+        <div class="col-12 ">
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Sentence</label><textarea class="form-control w-100 @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="1">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+      </div>
+    </div>
+      @endforeach
+      @endif
+
+      @if($obj->layout=='gre_fraction')
+        @foreach(['a'] as $opt)
+        <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Numerator</label><textarea class="form-control @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="1">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+      </div>
+    </div>
+      @endforeach
+      @foreach(['b'] as $opt)
+        <div class="col-12 col-md-6">
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Denominator</label><textarea class="form-control @if(request()->get('editor')) summernote @endif" name="{{$opt}}"  rows="1">@if($stub=='Create'){{ (old($opt)) ? old($opt) : '' }} @else{{$obj->$opt }} @endif </textarea>
+      </div>
+    </div>
+      @endforeach
+      @endif
+      
+      @if(!$obj->layout || $obj->layout=='no_instruction' || $obj->layout=='gre1' || $obj->layout=='gre2')
+        @foreach(['a','b','c','d','e','f'] as $ans)
+          <div class="col-12 col-md-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="answers[]" value="{{strtoupper($ans)}}" id="defaultCheck1" @if(strpos($obj->answer,strtoupper($ans))!==FALSE) checked @endif>
+            <label class="form-check-label" for="defaultCheck1">
+              {{ strtoupper($ans) }}
+            </label>
+          </div>
+          </div>
+          @endforeach
+
+      @endif
+
+      @if( $obj->layout=='gre3' || $obj->layout=='gre_maq')
           @foreach(['a','b','c','d','e','f','g','h','i'] as $ans)
           <div class="col-12 col-md-4">
           <div class="form-check">
@@ -133,6 +199,9 @@
           </div>
           </div>
           @endforeach
+      @endif
+
+      
          </div>
          </div>
       </div>
@@ -141,15 +210,13 @@
            <div class="form-group">
         <label for="formGroupExampleInput ">Layout</label>
         <select class="form-control" name="layout">
-          <option value="" @if(isset($obj)) @if(!$obj->layout || $obj->layout=='no_instruction' || $obj->layout=='gre1') selected @endif @endif >Default</option>
+          <option value="" @if(isset($obj)) @if(!$obj->layout || $obj->layout=='no_instruction' || $obj->layout=='gre1' || $obj->layout=='pte_maq') selected @endif @endif >Default</option>
           <option value="gre2" @if(isset($obj)) @if($obj->layout=='gre2') selected @endif @endif >2 Column 6 Options</option>
-          <option value="gre3" @if(isset($obj)) @if($obj->layout=='gre3') selected @endif @endif >3 Columns 9 Options</option>
-          <option value="gre_maq" @if(isset($obj)) @if($obj->layout=='gre_maq') selected @endif @endif >Multi Answer</option>
+          <option value="gre3" @if(isset($obj)) @if($obj->layout=='gre3') selected @endif @endif >3 Column 9 Options</option>
+          <option value="gre_maq" @if(isset($obj)) @if($obj->layout=='gre_maq' || $obj->layout=='pte_mcq') selected @endif @endif >Multi Answer</option>
           <option value="gre_numeric" @if(isset($obj)) @if($obj->layout=='gre_numeric') selected @endif @endif >Numeric Entry</option>
           <option value="gre_fraction" @if(isset($obj)) @if($obj->layout=='gre_fraction') selected @endif @endif >Fraction</option>
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif >Sentence Selection</option>
-          <option value="pte_maq" @if(isset($obj)) @if($obj->layout=='pte_maq') selected @endif @endif >PTE Multi Answer</option>
-          <option value="pte_mcq" @if(isset($obj)) @if($obj->layout=='pte_mcq') selected @endif @endif >PTE Single Answer</option>
         </select>
       </div>
       <small class="text-secondary"> Layout is the template design on how the question should look in the user view.  <a href="{{ route('mcq')}}"><i class="fa fa-link"></i> help images</a></small>
@@ -187,7 +254,7 @@
           
           <div class="col-12 col-md-6">
           <div class="form-group border rounded p-3">
-            <label for="formGroupExampleInput " class="">Layout Preview: </label>
+            <label for="formGroupExampleInput " class="">Layout Preview:</label>
             @if(request()->get('layout'))
               <img src="{{ asset('images/tests/mcq/'.request()->get('layout').'.png')}}" class="w-100 mb-3">
             @elseif($obj->layout)

@@ -54,6 +54,18 @@ class McqController extends Controller
                 ->with('app',$this);
     }
 
+    public function layout()
+    {
+        $obj = new Obj();
+        $this->authorize('create', $obj);
+        $test_id = $this->test->id;
+
+        return view('appl.'.$this->app.'.'.$this->module.'.layout')
+                ->with('stub','Create')
+                ->with('obj',$obj)
+                ->with('app',$this);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -74,6 +86,9 @@ class McqController extends Controller
             $this->qno =1;
             $this->sno = 1;
         }
+
+        if(request()->get('layout'))
+            $obj->layout = request()->get('layout');
 
         $extracts = Extract::where('test_id',$this->test->id)->get();
         $sections = Section::where('test_id',$this->test->id)->get();
