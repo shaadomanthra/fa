@@ -1,7 +1,7 @@
 @extends('layouts.front')
-@section('title', 'First Academy - The best practice tests for IELTS | OET and other tests')
-@section('description', 'Take a free IELTS | OET test completely free. Full-length OET practice test for free! Free IELTS writing band scores. Test your vocabulary for OET and IELTS.')
-@section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
+@section('title', 'Piofx Media - Assessments for all')
+@section('description', 'Assessments for all, powered by a team that crafts training tools for the <br>world's most widely accepted tests')
+
 @section('content')
 
 <div class="" style="background:#fbf1df;"> 
