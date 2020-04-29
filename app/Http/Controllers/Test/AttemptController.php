@@ -1202,6 +1202,11 @@ class AttemptController extends Controller
         $user= Session::where('id',$session_id)->first();
       }
 
+      if(!$user){
+        $session_id =  $request->session()->getID();
+        $user= Session::where('id',$session_id)->first();
+      }
+
 
       if(count($result)==0)
         abort('404','No test analysis found');

@@ -11,7 +11,7 @@
    <div class="card  mb-0 mb-lg-4" >
     <div class="card-body p-4 p-md-5">
       <div class="row">
-        <div class="col @if($obj->image) col-md-8 @endif">
+        <div class="col @if($obj->image) col-md-9 col-lg-10 @endif">
          <h1 class="h1 mb-0"> {{ $obj->name }} 
           @can('update',$obj)
           <a href="{{ route('test.edit',$obj->id) }}" class="h5" data-tooltip="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></a>
@@ -27,7 +27,7 @@
       @endif
       </div>
       @if($obj->image)
-      <div class="col-12  col-md-4">
+      <div class="col-12  col-md-3 col-lg-2">
         @include('appl.test.test.blocks.image')
       </div>
       @endif

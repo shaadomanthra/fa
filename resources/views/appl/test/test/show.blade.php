@@ -4,7 +4,7 @@
 @section('keywords', 'IELTS Practice Test, OET Practice Online, OET Online Training, Vocabulary for IELTS, Vocabulary for OET')
 @section('content')
 
-<div class="bg-white py-2 mb-4">
+<div class="bg-white py-2 mb-0">
 <div class="container">
 <nav >
   <ol class="breadcrumb bg-white p-0 py-2">
@@ -28,21 +28,30 @@
             <i class="fa fa-file-text-o "></i> 
             {{ $obj->name }} 
           </p>
-          @if($obj->status==0)
+          
+
+</div>
+
+</div>
+</div>
+<div class="mb-4 border-bottom">
+<div class="container ">
+  <div class="py-3">
+    <a href="{{ route('test',$obj->slug) }}" class="f20" target="_blank" data-toggle="tooltip" data-placement="top" title="Test Link">
+  <i class="fa fa-share-square"></i> {{route('test',$obj->slug)}}</a>&nbsp;
+@if($obj->status==0)
                     <span class="badge badge-warning">Inactive</span>
                   @elseif($obj->status==1)
                     <span class="badge badge-success">Active</span>
                     @elseif($obj->status==2)
-                    <span class="badge badge-primary">Open</span>
+                    <span class="badge badge-warning">Open</span>
                   @endif
-
 </div>
-
+  </div>
 </div>
-</div>
-
 <style>
 .block b{color: #22252a}
+.f20{ font-size: 18px; }
 </style>
 
 

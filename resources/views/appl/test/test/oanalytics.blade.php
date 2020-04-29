@@ -4,19 +4,19 @@
 
 <style>
 .box{ background: #f9f9f9;
-box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px;float: right; }
+box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px; }
 </style>
 <div class="bg-white py-2 mb-4">
-  <div class="container">
+  <div class="container px-4 px-md-0">
 
 
     <div class="mb-3 mt-4 row">
       <div class="col-12 col-md-6 ">
-      <h2 class="mt-4"><i class="fa fa-bar-chart "></i> {{ $obj->name }}  </h2>
-      <a href="{{ route('test',$app->test->slug)}}"><i class="fa fa-angle-left"></i> back to test</a>
+      <h2 class="mt-4 "><i class="fa fa-bar-chart "></i> {{ $obj->name }}  </h2>
+      <a href="{{ route('test',$app->test->slug)}}" class=""><i class="fa fa-angle-left"></i> back to test</a>
      </div>
       <div class="col-12 col-md-6 ">
-        <div class=" float-right box text-center">
+        <div class=" float-md-right box text-center mt-4 mt-md-0">
           <div class=" h5 mb-0">
                 Participants
              
