@@ -13,7 +13,14 @@
         <form class="form-signin " method="POST" action="{{ route('login') }}">
 
     @csrf
+
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
     <img class="mb-4 mt-3" src="{{ asset('images/logo.png') }}" alt="" width="250" >
+@else
+    <img class="mb-4 mt-3" src="{{ asset('images/piofx.png') }}" alt="" width="150" >
+@endif
+
+    
     <hr>
     @if (session('status'))
                         <div class="alert alert-success">
