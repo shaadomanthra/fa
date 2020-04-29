@@ -21,7 +21,14 @@
     @endif
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Anton|Bungee+Outline|Chivo:400,900|Lato:400,900&display=swap" rel="stylesheet">
+
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/styles_piofx.css') }}" rel="stylesheet">
+    @endif
+
+    
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif

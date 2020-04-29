@@ -10,9 +10,7 @@
 			<li class="nav-item">
 				<a class="nav-link" id="myproduct-tab" data-toggle="tab" href="#myproduct" role="tab" aria-controls="myproduct" aria-selected="false"><h4 class="mt-2">My Products</h4></a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="mytrack-tab" data-toggle="tab" href="#mytracks" role="tab" aria-controls="mytracks" aria-selected="true"><h4 class="mt-2">My Tracks</h4></a>
-			</li>
+			
 		</ul>
 	</div>
 <div class="tab-content" id="myTabContent">

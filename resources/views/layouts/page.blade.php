@@ -21,6 +21,12 @@
     <link href="{{ asset('css/style_page.min.css') }}?new=10" rel="stylesheet">
     <link href="{{ asset('css/sp2.css') }}?new=3" rel="stylesheet">
 
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/styles_piofx.css') }}" rel="stylesheet">
+    @endif
+
 </head>
 <body>
     <div id="app">

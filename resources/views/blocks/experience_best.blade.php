@@ -1,5 +1,5 @@
 <div class="container">
-	<h3 class="mb-4">Experience the best at First Academy</h3>
+	<h3 class="mb-4">Experience the best at {{ getenv('APP_NAME') }}</h3>
 	<div class="row">
 		<div class="col-12 col-md-6 col-lg-4">
 			<div class="text-dark h5"><b><i class="fa fa-graduation-cap"></i> Cambridge Certified Faculty</b></div>

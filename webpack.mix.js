@@ -22,6 +22,10 @@ mix.styles(['public/css/app.css','public/css/test.css',
     'public/css/general.css'
 ], 'public/css/styles.css');
 
+mix.styles(['public/css/app.css','public/css/test.css',
+    'public/css/piofx.css'
+], 'public/css/styles_piofx.css');
+
 mix.js(['public/js/app.js',
     'public/js/global.js'
 ], 'public/js/script.js');

@@ -24,7 +24,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('js/datetimepicker/jquery.datetimepicker.css') }}"/>
     @endif
     <!-- Styles -->
-    <link href="{{ asset('css/styles.css') }}?new=12" rel="stylesheet">
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/styles_piofx.css') }}" rel="stylesheet">
+    @endif
+
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
@@ -54,10 +59,10 @@
 <body>
     <div id="app">
         @include('layouts.menu')
-        <main class="py-3 py-md-4 container">
+        <main class="py-3 py-md-4 container main">
             @yield('content')
         </main>
-        <footer class="bg-white">
+        <footer class="bg-white footer">
             <div class="container">
             @include('layouts.footer')
         </div>

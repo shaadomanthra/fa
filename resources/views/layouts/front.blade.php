@@ -20,7 +20,12 @@
     <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
     @endif
     <!-- Styles -->
-    <link href="{{ asset('css/styles.css?new=2') }}" rel="stylesheet">
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/styles_piofx.css') }}" rel="stylesheet">
+    @endif
+
     @if(isset($editor))
     <link href="{{asset('js/summernote/summernote-bs4.css')}}" rel="stylesheet">
     @endif
@@ -43,7 +48,11 @@
             <div class="container">
             @include('layouts.footer')
         </div>
-        @include('blocks.toast')
+        @if(isset($toast))
+            @if($toast)
+            @include('blocks.toast')
+            @endif
+        @endif
         @include('layouts.script')
         </footer>
 

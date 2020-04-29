@@ -164,8 +164,8 @@
             <a href="{{ route('editor.index') }}">
             <div class="border bg-white p-4 rounded mb-3 mr-2">
                 <div>
-                    <img src="{{ asset('images/admin/editor.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Editor</div>
+                    <img src="{{ asset('images/admin/settings.png') }}" class="w-100 mb-3" >
+                    <div class="text-center">Settings</div>
                 </div>
             </div>
             </a>
@@ -205,27 +205,7 @@
             </a>
         </div>
 
-        <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ route('track.index') }}">
-            <div class="border bg-white p-4 rounded mb-3 mr-2">
-                <div>
-                    <img src="{{ asset('images/general/class.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Tracks</div>
-                </div>
-            </div>
-            </a>
-        </div>
-
-         <div class="col-4 col-md-3 col-lg-2">
-            <a href="{{ url('#') }}">
-            <div class="border bg-white p-4 rounded mb-3 mr-2">
-                <div>
-                    <img src="{{ asset('images/admin/settings.png') }}" class="w-100 mb-3" >
-                    <div class="text-center">Settings</div>
-                </div>
-            </div>
-            </a>
-        </div>
+        
         @endif
 
     </div>

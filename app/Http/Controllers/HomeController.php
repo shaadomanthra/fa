@@ -31,9 +31,12 @@ class HomeController extends Controller
     public function index()
     {
         $view = 'welcome2';
-        $tests = Test::where('status',1)->orderBy('id','desc')->limit(18)->get();
-        return view($view)
+            $tests = Test::where('status',1)->orderBy('id','desc')->limit(18)->get();
+            return view($view)
                 ->with('tests',$tests);
+
+
+        
     }
 
     public function gre(){
@@ -57,6 +60,7 @@ class HomeController extends Controller
 
      public function welcome(Request $request)
     {
+
         $view = 'welcome4';
         $this->app = 'test';
         $this->module = 'test';
@@ -117,11 +121,21 @@ class HomeController extends Controller
         $view = $search ? 'appl.test.test.public_list': 'welcome4';
 
        
+        $toast =1;
+        if($_SERVER['HTTP_HOST'] != 'project.test' && $_SERVER['HTTP_HOST'] != 'prep.firstacademy.in'){
+            if(!$search )
+            $view = 'welcome_piofx';
+            $toast =0;
+
+        }
+
+
+
         return view($view)
                 ->with('tests',$objs)
                 ->with('objs',$objs)
                 ->with('obj',$obj)
-                ->with('toast',1)
+                ->with('toast',$toast)
                 ->with('categories',$categories)
                 ->with('app',$this);
     }

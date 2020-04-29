@@ -17,7 +17,12 @@
     <title>@yield('title')</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/styles.css') }}?new=10" rel="stylesheet">
+    @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/styles_piofx.css') }}" rel="stylesheet">
+    @endif
+    
   </head>
   <body class="py-5 text-center">
        @yield('content')
