@@ -1,5 +1,5 @@
 @extends('layouts.bg')
-@section('title', $obj->name.' - Score Analytics | First Academy')
+@section('title', $obj->name.' - Score Analytics | '.getenv('APP_NAME'))
 @section('content')
 
 <style>

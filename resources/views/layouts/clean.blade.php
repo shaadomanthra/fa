@@ -3,6 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    @if($_SERVER['HTTP_HOST'] == 'onlinelibrary.test' || $_SERVER['HTTP_HOST'] == 'piofx.com' )
+      <link rel="shortcut icon" href="{{asset('/favicon_piofx.ico')}}" />
+      @else
+      <link rel="shortcut icon" href="{{asset('/favicon.ico')}}" />
+      @endif
+      
     <!-- CSRF Token -->
     <meta name="description" content="@yield('description')">
     <meta name="keywords" content="@yield('keywords')">

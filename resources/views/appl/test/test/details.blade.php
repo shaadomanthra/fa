@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', $test->name.' - First Academy')
+@section('title', $test->name.' - '.getenv('APP_NAME'))
 @section('description', $test->details)
 @section('keywords', $test->name)
 
