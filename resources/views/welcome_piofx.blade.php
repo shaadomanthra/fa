@@ -1,7 +1,6 @@
 @extends('layouts.front')
 @section('title', 'Piofx Media - Assessments for all')
-@section('description', 'Assessments for all, powered by a team that crafts training tools for the <br>world's most widely accepted tests')
-
+@section('description', 'Assessments for all, powered by a team that crafts training tools for the <br>worlds most widely accepted tests')
 @section('content')
 
 <div class="" style="background:#fbf1df;"> 
@@ -9,8 +8,10 @@
     <div class="row p-3 p-md-0">
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
+            @guest
             <img class="mb-5" src="{{ asset('images/piofx.png') }}" alt="First Academy" width="100" >
-    <div class="heading  " style="color:#8e867d;font-family: 'Chivo', sans-serif;font-weight: 900;line-height: 1.2">
+            @endguest
+    <div class="heading  mt-5" style="color:#8e867d;font-family: 'Chivo', sans-serif;font-weight: 900;line-height: 1.2">
     Tests for assessments all, big and small!
     </div>
     <div class="heading2  mb-4 mt-3" style="color:#bcb4a6">
