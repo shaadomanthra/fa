@@ -5,6 +5,7 @@ namespace App\Models\Test;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use App\Models\Test\Attempt;
+use App\Models\Admin\Session;
 
 class Test extends Model
 {
@@ -118,5 +119,19 @@ class Test extends Model
         $attempt = new Attempt();
         return count($attempt->where('test_id',$this->id)->get()->groupBy('user_id')); 
     }
+
+    public function sessionAttempt(){
+        $session_id = request()->session()->getID();
+        $attempt = Attempt::where('test_id',$this->id)->where('session_id',$session_id)->get();
+        return $attempt; 
+    }
+
+    public function sessionData(){
+        $session_id = request()->session()->getID();
+        $u = Session::where('id',$session_id)->first();
+        return $u; 
+    }
+
+
     
 }

@@ -16,7 +16,7 @@ class Track extends Model
 
     public function sessions()
     {
-        return $this->hasMany('App\Models\Course\Session');
+        return $this->hasMany('App\Models\Course\Sess');
     }
 
     public function users()

@@ -31,16 +31,6 @@ class TestController extends Controller
    public function details($slug,Request $request){
         $obj = Obj::where('slug',$slug)->first();
 
-        if(request()->get('update_2')){
-            $attempt = Attempt::whereNull('Response')->get();
-            //dd($attempt[0]);
-            foreach($attempt as $a){
-                $a->accuracy =0;
-                $a->save();
-            }
-            flash('answers is updated!')->success();
-        }
-
         if(!$obj)
             abort('404');
         
@@ -547,10 +537,19 @@ class TestController extends Controller
     public function analytics($id,Obj $obj,Request $request){
 
         $test = Obj::where('id',$id)->first();
+        if(!$test){
+             $test = Obj::where('slug',$id)->first();
+             $id = $test->id;
+        }
+
 
         $app = $this;
         $app->test= $test;
 
+        if($test->status!=2)
+            $group = 'user_id';
+        else
+            $group = 'session_id';
          //dd(Carbon::now()->endOfWeek());
 
         $data = [];
@@ -563,11 +562,11 @@ class TestController extends Controller
         $to = $request->get('to') ? Carbon::parse($request->get('to')) : $request->get('to');
 
         if($today)
-            $users = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy('user_id');
+            $users = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy($group);
         else if($from)
-        $users = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy('user_id');
+        $users = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy($group);
         else    
-        $users = Attempt::where('test_id',$id)->get()->groupBy('user_id');
+        $users = Attempt::where('test_id',$id)->get()->groupBy($group);
 
 
         $counter =0;
@@ -577,8 +576,13 @@ class TestController extends Controller
             $data[$i]['score'] =0;
             $score[$i]=0;
             foreach($attempt as $a){
-                if(!isset($data[$i]['user']))
+                if(!isset($data[$i]['user'])){
+
+                    if($a->user)
                     $data[$i]['user'] = $a->user;
+                    else
+                    $data[$i]['session'] = $a->session;  
+                }
                 if($a->accuracy==1){
                         $data[$i]['score']++;
                         $score[$i]++;
@@ -608,9 +612,63 @@ class TestController extends Controller
         if($data['lowest']==400)
             $data['lowest'] ='-';
 
-        return view('appl.test.test.analytics')
+        if($test->status==2){
+            $view = 'oanalytics';
+
+            $data['mcq'] = Attempt::where('test_id',$id)->get()->groupBy('mcq_id');
+            $data['fillup'] = Attempt::where('test_id',$id)->get()->groupBy('fillup_id');
+            $c=0;$ic=0;
+            foreach($test->mcq_order as $t){
+                $id = $t->id;
+                $data['q'][$t->qno]['type']= 'mcq';
+
+                $data['q'][$t->qno]['id'] =$id;
+                $data['q'][$t->qno]['ques'] =$t;
+                $c=0;$ic=0;
+                
+
+                if(isset($data['mcq'][$id]))
+                foreach($data['mcq'][$id] as $q){
+                    if($q->accuracy==1)
+                        $c++;
+                    else
+                        $ic++;
+                }
+                $data['q'][$t->qno]['correct'] =$c;
+                $data['q'][$t->qno]['incorrect'] =$ic;
+
+            }
+
+            foreach($test->fillup_order as $t){
+                $id = $t->id;
+                $data['q'][$t->qno]['type']= 'fillup';
+
+                $data['q'][$t->qno]['id'] =$id;
+                $data['q'][$t->qno]['ques'] =$t;
+                $c=0;$ic=0;
+                if(isset($data['fillup'][$id]))
+                foreach($data['fillup'][$id] as $q){
+                    if($q->accuracy==1)
+                        $c++;
+                    else
+                        $ic++;
+                }
+
+                $data['q'][$t->qno]['correct'] =$c;
+                $data['q'][$t->qno]['incorrect'] =$ic;
+            }
+            $total = $c + $ic;
+
+        }
+        else
+            $view = 'analytics';
+
+
+        return view('appl.test.test.'.$view)
                 ->with('obj',$test)
                 ->with('users',$data)
+                ->with('data',$data)
+                ->with('total',$total)
                 ->with('score',$score)
                 ->with('app',$app);
     }
@@ -619,6 +677,10 @@ class TestController extends Controller
     public function qanalytics($id,Obj $obj,Request $request){
 
         $test = Obj::where('id',$id)->first();
+        if(!$test){
+             $test = Obj::where('slug',$id)->first();
+             $id = $test->id;
+        }
 
         $app = $this;
         $app->test= $test;

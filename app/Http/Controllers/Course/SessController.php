@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Course\Session as Obj;
 use App\Models\Course\Track;
 
-class SessionController extends Controller
+class SessController extends Controller
 {
    /*
          Controller

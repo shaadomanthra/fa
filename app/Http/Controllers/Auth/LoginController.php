@@ -45,6 +45,7 @@ class LoginController extends Controller
         $user->lastlogin_at = date('Y-m-d H:i:s');
         $user->save();
         
+        $request->session()->put('username', $user->name);
         /*
         if($user->admin==1)
             return redirect()->intended($this->redirectPath());

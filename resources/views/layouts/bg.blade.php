@@ -36,14 +36,14 @@
 </style>
 </head>
 <body >
-    <div >
+    <div id="app">
         @include('layouts.menu')
 
         
-        <main class="">
+        <main class="main">
             @yield('content')
         </main>
-        <footer class="bg-white">
+        <footer class="bg-white footer">
             <div class="container">
             @include('layouts.footer')
         </div>

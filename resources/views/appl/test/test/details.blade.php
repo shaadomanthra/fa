@@ -4,6 +4,8 @@
 @section('keywords', $test->name)
 
 @section('content')
+
+@include('flash::message')
 <div  class="row ">
   <div class="col-md-12">
    <div class="card  mb-0 mb-lg-4" >
@@ -18,7 +20,11 @@
         <p>
           {!! $obj->details !!} 
         </p>
+      @if($obj->status==2)
+        @include('appl.test.test.blocks.open')
+      @else
         @include('appl.test.test.blocks.access')
+      @endif
       </div>
       @if($obj->image)
       <div class="col-12  col-md-4">

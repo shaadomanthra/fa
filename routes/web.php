@@ -116,7 +116,8 @@ Route::get('/test/{test}/delete','Test\AttemptController@file_delete')->name('at
 Route::get('/test/{test}/review','Test\AttemptController@review')->name('test.review');
 
 Route::get('/test/{test}/evaluation','Test\AttemptController@evaluation')->name('attempt.evaluation');
-Route::get('/test/{test}/analysis','Test\AttemptController@analysis')->middleware('auth')->name('test.analysis');
+Route::get('/test/{test}/analysis','Test\AttemptController@analysis')->name('test.analysis');
+Route::get('/test/{test}/analytics','Test\TestController@analytics')->name('test.oanalytics');
 Route::get('/test/{test}/solutions','Test\AttemptController@solutions')->middleware('auth')->name('test.solutions');
 
 

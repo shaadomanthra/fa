@@ -92,7 +92,7 @@ class User extends Authenticatable
     }
 
     public function sessions(){
-        return $this->belongsToMany('App\Models\Course\Session');
+        return $this->belongsToMany('App\Models\Course\Sess');
     }
 
     public function attempts(){

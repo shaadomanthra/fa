@@ -34,7 +34,7 @@ class AdminController extends Controller
        
         $data['writing']= Attempt::whereIn('test_id',$test_ids)->whereNull('answer')->orderBy('created_at','desc')->get();
 
-        $attempts = Attempt::orderBy('created_at','desc')->get();
+        $attempts = Attempt::where('user_id','!=',0)->orderBy('created_at','desc')->get();
 
        
         

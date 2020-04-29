@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateUsersTable3 extends Migration
+class UpdateAttemptsTableN23 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class UpdateUsersTable3 extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('phone')->nullable();
-            $table->string('sms_token')->nullable();
+        Schema::table('attempts', function (Blueprint $table) {
+            $table->string('session_id')->nullable();
+            $table->integer('dynamic')->nullable();
         });
     }
 
@@ -26,8 +26,6 @@ class UpdateUsersTable3 extends Migration
      */
     public function down()
     {
-        Schema::table('extracts', function (Blueprint $table) {
-            $table->dropColumn(['phone','sms_token']);
-        });
+        //
     }
 }

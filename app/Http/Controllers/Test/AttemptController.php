@@ -13,6 +13,7 @@ use App\Models\Test\Type;
 use App\Models\Test\Attempt;
 use App\Models\Product\Product;
 use App\Models\Product\Order;
+use App\Models\Admin\Session;
 use App\User;
 
 use App\Mail\uploadfile;
@@ -104,6 +105,8 @@ class AttemptController extends Controller
         else
           $user = null;
 
+
+
         $test = $this->test;
         $product = $this->product;
 
@@ -123,6 +126,47 @@ class AttemptController extends Controller
           $price = $test->price;
         }
 
+
+        if($test->status==2){
+
+          $name = $request->get('name');
+
+          $phone = $request->get('phone');
+
+          if(!$name || !$phone )
+            {
+                flash('Name or phone number cannot be empty')->error();
+                 return redirect()->back()->withInput();
+            }
+
+          if(!is_numeric($phone)){
+                flash('Phone number must be numeric. Characters not allowed.')->error();
+                 return redirect()->back()->withInput();
+            }
+
+          if(strlen($phone)!=10){
+                flash('Phone number must be 10 digits')->error();
+                 return redirect()->back()->withInput();
+            } 
+          $session = Session::where('id',$request->session()->getID())->first();
+          if(!$session){
+              $session = new Session();
+              $session->name = $name;
+              $session->phone =$phone;
+              $session->id = $request->session()->getID();
+              $session->ip_address = $request->ip();
+              $session->user_agent=$request->server('HTTP_USER_AGENT');
+              $session->last_activity = 1;
+              $session->payload = 1;
+              $session->save();
+          }else{
+            $session->last_activity = 1;
+            $session->save();
+          }
+
+          $request->session()->put('open', $request->session()->getID());
+
+        }
         //Run prechecks 
         $status= $this->precheck($request);
 
@@ -239,19 +283,20 @@ class AttemptController extends Controller
    public function try($slug,Request $request){
     $test = $this->test;
     $product = $this->product;
+    $session_id = $request->session()->getID();
 
     $product_id = $test_id = null;
 
-        if($test){
-          $id = $test->id;
-          $test_id = $id;
-          $price = $test->price;
-        }
-        else{
-          $id = $product->id;
-          $product_id = $id;
-          $price = $product->price;
-        }
+    if($test){
+      $id = $test->id;
+      $test_id = $id;
+      $price = $test->price;
+    }
+    else{
+      $id = $product->id;
+      $product_id = $id;
+      $price = $product->price;
+    }
     
     if(\auth::user()){
       $user = \auth::user();
@@ -283,7 +328,9 @@ class AttemptController extends Controller
 
     /* If Attempted show report */
     if($user)
-    $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+      $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
+    else if($test->status==2)
+      $attempt = Attempt::where('test_id',$this->test->id)->where('session_id',$session_id)->first();
     else
       $attempt = null;
 
@@ -593,6 +640,7 @@ class AttemptController extends Controller
    /* Function to save data in database */
    public function store($slug,Request $request){
       
+      $session_id = $request->session()->getID();
       $result = array();
       $score =0;
       $test = $this->test;
@@ -602,16 +650,19 @@ class AttemptController extends Controller
       $product = $test->product;
 
 
-      
-
       $user = \auth::user();
 
       if(!$user){
           $user = new User();
-          $user->id = -1;
+          $user->id = 0;
       }
 
-      $attempt = Attempt::where('test_id',$this->test->id)->where('user_id',$user->id)->first();
+      if($test->status==2)
+        $attempt = Attempt::where('test_id',$this->test->id)->where('session_id',$session_id)->first();
+      else  
+        $attempt = Attempt::where('test_id',$this->test->id)->where('user_id',$user->id)->first();
+
+
       if($attempt){
         if($product)
       return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
@@ -700,7 +751,8 @@ class AttemptController extends Controller
         $data[$i]['response'] = null;
         $data[$i]['accuracy'] =$res['accuracy'];
 
-        
+        if ($request->session()->has('open') && $test->status==2)
+          $data[$i]['session_id'] = $request->session()->getID();
 
 
         $resp = $request->get($qno);
@@ -1124,12 +1176,35 @@ class AttemptController extends Controller
    public function analysis($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
 
+
       if($request->get('user_id'))
         $user = User::where('id',$request->get('user_id'))->first();
       else
-      $user = \auth::user();
-      $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
+        $user = \auth::user();
 
+      if($request->get('session_id')){
+        $session_id = $request->get('session_id');
+        $user=null;
+      }
+      else
+      $session_id = $request->session()->getID();
+
+    
+
+      if($user)
+        $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
+      else
+        $result = Attempt::where('test_id',$test->id)->where('session_id',$session_id)->get();
+
+
+      if($request->get('session_id')){
+        $session_id = $request->get('session_id');
+        $user= Session::where('id',$session_id)->first();
+      }
+
+
+      if(count($result)==0)
+        abort('404','No test analysis found');
 
       $score = 0;
       foreach($result as $r){
@@ -1177,6 +1252,7 @@ class AttemptController extends Controller
               ->with('section_score',$section_score)
               ->with('test',$test)
               ->with('band',$band)
+              ->with('user',$user)
               ->with('try',1)
               ->with('points',$points)
               ->with('tags',$tags)

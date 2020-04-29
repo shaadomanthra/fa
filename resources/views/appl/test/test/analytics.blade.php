@@ -163,7 +163,13 @@
     @foreach($score as $k=>$s)
     <tr>
       <th scope="row">{{$i++}}</th>
-      <td><a href="{{ route('user.show',$users[$k]['user']['id'])}}">{{ $users[$k]['user']['name']}}</a></td>
+      <td>
+        @if($app->test->status==2)
+        <a href="{{ route('test.analysis',$app->test->slug)}}?session_id={{$users[$k]['id']}}">{{ $users[$k]['session']['name']}}</a>
+        @else
+        <a href="{{ route('user.show',$users[$k]['user']['id'])}}">{{ $users[$k]['user']['name']}}</a>
+        @endif
+      </td>
 
       @if($obj->testtype->name!='WRITING' && $obj->testtype->name!='SPEAKING')
       <td>{{ $s}}</td>

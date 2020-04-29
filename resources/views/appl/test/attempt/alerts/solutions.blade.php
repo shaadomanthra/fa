@@ -13,6 +13,7 @@
           <div class="col-12 col-md-6">
             <h3 class="text-center text-md-left mb-md-4 mt-2  p-4">
               <i class="fa fa-bar-chart"></i> {{ $test->name}} - Report
+
               <br>
               @if(isset($admin))
               <a href="{{ route('test.show',$test->id)}}">
@@ -32,6 +33,7 @@
               </a>
               @endif
             </h3>
+
           </div>
           <div class="col-12 col-md-6">
              <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded ">
@@ -51,6 +53,10 @@
             @endif
           </div>
         </div>
+
+        @if($test->status==2)
+        <div class="bg-light rounded mb-3 p-2 border">Name: <b>{{$user->name}}</b> &nbsp;&nbsp;&nbsp;Phone: <b>{{$user->phone}}</b> &nbsp;&nbsp;&nbsp;<span class="float-right">IP: <b>{{$user->ip_address}}</b></span> </div>
+        @endif
 
         @include('appl.test.attempt.blocks.solutions')
         

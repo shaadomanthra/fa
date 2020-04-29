@@ -15,6 +15,7 @@
           <div class="col-12 col-md-6">
             <h3 class="text-center text-md-left mb-md-4 mt-2  p-4">
               <i class="fa fa-bar-chart"></i> {{ $test->name}} - Report
+              
               <br>
               @if(isset($admin))
               <a href="{{ route('test.show',$test->id)}}">

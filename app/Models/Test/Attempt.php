@@ -18,6 +18,8 @@ class Attempt extends Model
         'response',
         'answer',
         'accuracy',
+        'session_id',
+        'dynamic'
         // add all other fields
     ];
 
@@ -36,6 +38,11 @@ class Attempt extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function session()
+    {
+        return $this->belongsTo('App\Models\Admin\Session');
     }
 
     public function writing()

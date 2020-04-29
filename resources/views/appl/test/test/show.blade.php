@@ -32,6 +32,8 @@
                     <span class="badge badge-warning">Inactive</span>
                   @elseif($obj->status==1)
                     <span class="badge badge-success">Active</span>
+                    @elseif($obj->status==2)
+                    <span class="badge badge-primary">Open</span>
                   @endif
 
 </div>

@@ -129,8 +129,6 @@ class HomeController extends Controller
 
         }
 
-
-
         return view($view)
                 ->with('tests',$objs)
                 ->with('objs',$objs)
@@ -191,6 +189,8 @@ class HomeController extends Controller
             }    
         }
         }
+
+
 
         $tests = Test::whereIn('id',$test_ids)->where('name','LIKE',"%{$item}%")->orderBy('name')->get();
         $products = Product::whereIn('id',$product_ids)->where('name','LIKE',"%{$item2}%")->orderBy('name')->get();
