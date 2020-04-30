@@ -1,5 +1,5 @@
 @extends('layouts.login')
-@section('title', 'Login | First Academy')
+@section('title', 'Login | '.getenv('APP_NAME'))
 @section('description', 'Log in using the email address and password you registered with in order to access your practice tests at first academy.')
 @section('keywords', 'Login, login first academy, register first academy')
 

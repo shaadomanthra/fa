@@ -1,5 +1,5 @@
 @extends('layouts.login')
-@section('title', 'Register | First Academy')
+@section('title', 'Register | '.getenv('APP_NAME'))
 @section('description', 'Don\'t have the First Academy account? Create one for FREE.')
 @section('keywords', 'Register first academy, signup first academy, registration first academy')
 @section('content')
