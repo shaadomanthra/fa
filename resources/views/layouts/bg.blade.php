@@ -34,9 +34,17 @@
     @if(isset($try) || isset($reading))
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
-    <style>
 
-</style>
+    @if(isset($try))
+      <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({
+          extensions: ["tex2jax.js"],
+          jax: ["input/TeX","output/HTML-CSS"],
+          tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+      });
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    @endif
 </head>
 <body >
     <div id="app">
