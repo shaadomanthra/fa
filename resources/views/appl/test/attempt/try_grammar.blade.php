@@ -18,7 +18,7 @@
 <div class="container" style="padding-left:0px;padding-right:0px;">
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
-    <div class="row">
+    <div class="row p-0 m-0">
         <div class="col-12 col-md-8 col-lg-8">
             
             <div class="mb-3">
@@ -38,6 +38,7 @@
                 @endif
                 </div>
             </div>
+            <div class="p-5 d-block d-md-none"></div>
 
         </div>
         <div class="col-12 col-md-4 col-lg-4">
