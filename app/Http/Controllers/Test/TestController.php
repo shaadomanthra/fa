@@ -542,7 +542,6 @@ class TestController extends Controller
              $id = $test->id;
         }
 
-
         $app = $this;
         $app->test= $test;
 
@@ -564,9 +563,9 @@ class TestController extends Controller
         if($today)
             $users = Attempt::where('test_id',$id)->whereDate('created_at', Carbon::today())->get()->groupBy($group);
         else if($from)
-        $users = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy($group);
+            $users = Attempt::where('test_id',$id)->whereBetween('created_at', [$from, $to])->get()->groupBy($group);
         else    
-        $users = Attempt::where('test_id',$id)->get()->groupBy($group);
+            $users = Attempt::where('test_id',$id)->get()->groupBy($group);
 
 
         $counter =0;
@@ -577,9 +576,6 @@ class TestController extends Controller
             $score[$i]=0;
             foreach($attempt as $a){
                 if(!isset($data[$i]['user'])){
-
-                    
-                    
                     if($test->status==2)
                     $data[$i]['session'] = $a->session; 
                     else{
@@ -592,9 +588,28 @@ class TestController extends Controller
                         $score[$i]++;
                         $total++;
                 }
+                if(in_array($a->answer,['A','B','C','D','E','F','G','H','
+                    I'])){
+                    if(!isset($data['qno'][$a->qno][$a->response]))
+                        $data['qno'][$a->qno][$a->response] = 1;
+                    else{
+                        $data['qno'][$a->qno][$a->response]++;
+                    }
+                }elseif(strpos($a->answer, ',')!==false){
+                    $bits = explode(',',$a->response);
+                    foreach($bits as $b){
+                        if(!isset($data['qno'][$a->qno][$b]))
+                            $data['qno'][$a->qno][$b] = 1;
+                        else{
+                            $data['qno'][$a->qno][$b]++;
+                        }
+                    }
+                }
             }
             $counter++;
         }
+
+        
 
         arsort($score);
         $data['highest'] = 0;
@@ -664,11 +679,22 @@ class TestController extends Controller
             }
             $total = $c + $ic;
 
+            if($total!=0)
+            foreach($data['qno'] as $k=>$qno){
+                foreach(['A','B','C','D','E','F','G','H','
+                    I'] as $o){
+                    if(isset($qno[$o]))
+                    $data['percent'][$k][$o] = round($qno[$o]/$total*100,0);
+                    else
+                    $data['percent'][$k][$o] =0;  
+                }
+            }
+
         }
         else
             $view = 'analytics';
 
-        
+      
 
         return view('appl.test.test.'.$view)
                 ->with('obj',$test)
