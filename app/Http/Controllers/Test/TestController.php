@@ -676,6 +676,7 @@ class TestController extends Controller
                 ->with('data',$data)
                 ->with('total',$total)
                 ->with('score',$score)
+                ->with('try',1)
                 ->with('app',$app);
     }
 
