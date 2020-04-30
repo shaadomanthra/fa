@@ -74,7 +74,7 @@ box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px; }
       <td>{{ $s}}</td>
       @endif
     </tr>
-    @if($i==6 && !request()->get('top5'))
+    @if($i==6 && request()->get('top5'))
       @break
     @endif
     @endforeach
