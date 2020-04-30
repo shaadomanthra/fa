@@ -55,7 +55,9 @@
         </div>
 
         @if($test->status==2)
+        @if(isset($user->name))
         <div class="bg-light rounded mb-3 p-2 border">Name: <b>{{$user->name}}</b> &nbsp;&nbsp;&nbsp;Phone: <b>{{$user->phone}}</b> &nbsp;&nbsp;&nbsp;<span class="float-md-right">IP: <b>{{$user->ip_address}}</b></span> </div>
+        @endif
         @endif
 
         @include('appl.test.attempt.blocks.solutions')
