@@ -117,13 +117,13 @@ box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px; }
           @if($item['ques']->layout!='gre_numeric' && $item['ques']->layout!='gre_fraction')
           @foreach(['a','b','c','d','e','f','g','h','i'] as $opt)
             @if(isset($item['ques']->$opt))
-            @if($item['ques']->$opt || $item['ques']->$opt==='0' )<div class="@if(strpos($item['ques']->answer, $opt) !== FALSE) text-success @endif  p-1 mb-1 rounded" style="background: linear-gradient(90deg, #e5f5ff {{$data['percent'][$q][strtoupper($opt)]}}%, #f9f9f9 0%)">({{strtoupper($opt)}}){{$item['ques']->$opt}} <span class="float-right f12">{{$data['percent'][$q][strtoupper($opt)]}}%</span></div> @endif
+            @if($item['ques']->$opt || $item['ques']->$opt==='0' )<div class="@if(strpos($item['ques']->answer, strtoupper($opt)) !== FALSE) text-success @endif  p-1 mb-1 rounded" style="background: linear-gradient(90deg, @if(strpos($item['ques']->answer, strtoupper($opt)) !== FALSE) #dbf2d9 @else #ffdbdb @endif {{$data['percent'][$q][strtoupper($opt)]}}%, #f9f9f9 0%)">({{strtoupper($opt)}}){{$item['ques']->$opt}} <span class="float-right f12">{{$data['percent'][$q][strtoupper($opt)]}}%</span></div> @endif
             @endif
 
           @endforeach
-          @elseif($item['ques']->layout!='gre_numeric')
+          @elseif($item['ques']->layout=='gre_numeric')
           <div class="p-1">Answer: &nbsp;<b>{{$item['ques']['a']}}</b></div>
-          @elseif($item['ques']->layout!='gre_fraction')
+          @elseif($item['ques']->layout=='gre_fraction')
           <div class="p-1">Answer: &nbsp;<b>{{$item['ques']['a']}}/{{$item['ques']['b']}}</b></div>
           @endif
           
