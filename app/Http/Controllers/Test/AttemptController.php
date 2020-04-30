@@ -902,6 +902,7 @@ class AttemptController extends Controller
               ->with('tags',$tags)
               ->with('secs',$secs)
               ->with('admin',1)
+              ->with('try',true)
               ->with('score',$score);
       }
 
