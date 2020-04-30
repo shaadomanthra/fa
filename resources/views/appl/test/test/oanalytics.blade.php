@@ -113,15 +113,15 @@ box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px; }
         @else
           @if($item['ques']->question)<b class='h6' style="line-height: 1.5">{!! $item['ques']->question !!}</b> @endif
           <div>
-          @if($item['ques']->a || $item['ques']->a==='0')<div class="@if(strpos($item['ques']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['ques']->a}}</div> @endif
-          @if($item['ques']->b || $item['ques']->b==='0')<div class="@if(strpos($item['ques']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['ques']->b}}</div> @endif
-          @if($item['ques']->c || $item['ques']->c==='0')<div class="@if(strpos($item['ques']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['ques']->c}}</div> @endif
-          @if($item['ques']->d || $item['ques']->d==='0')<div class="@if(strpos($item['ques']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['ques']->d}}</div> @endif
-          @if($item['ques']->e || $item['ques']->e==='0')<div class="@if(strpos($item['ques']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['ques']->e}}</div> @endif
-          @if($item['ques']->f || $item['ques']->f==='0')<div class="@if(strpos($item['ques']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['ques']->f}}</div> @endif
-          @if($item['ques']->g || $item['ques']->g==='0')<div class="@if(strpos($item['ques']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['ques']->g}}</div> @endif
-          @if($item['ques']->h || $item['ques']->h==='0')<div class="@if(strpos($item['ques']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['ques']->h}}</div> @endif
-          @if($item['ques']->i || $item['ques']->i==='0')<div class="@if(strpos($item['ques']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['ques']->i}}</div> @endif
+          @if($item['ques']->a || strip_tags($item['ques']->a)==='0' || $item['ques']->a===0)<div class="@if(strpos($item['ques']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['ques']->a}}</div> @endif
+          @if($item['ques']->b || strip_tags($item['ques']->b)==='0' || $item['ques']->b===0)<div class="@if(strpos($item['ques']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['ques']->b}}</div> @endif
+          @if($item['ques']->c || strip_tags($item['ques']->c)==='0' || $item['ques']->c===0)<div class="@if(strpos($item['ques']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['ques']->c}}</div> @endif
+          @if($item['ques']->d || strip_tags($item['ques']->d)==='0' || $item['ques']->d===0)<div class="@if(strpos($item['ques']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['ques']->d}}</div> @endif
+          @if($item['ques']->e || strip_tags($item['ques']->e)==='0' || $item['ques']->e===0)<div class="@if(strpos($item['ques']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['ques']->e}}</div> @endif
+          @if($item['ques']->f || strip_tags($item['ques']->f)==='0' || $item['ques']->f===0)<div class="@if(strpos($item['ques']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['ques']->f}}</div> @endif
+          @if($item['ques']->g || strip_tags($item['ques']->g)==='0' || $item['ques']->g===0)<div class="@if(strpos($item['ques']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['ques']->g}}</div> @endif
+          @if($item['ques']->h || strip_tags($item['ques']->h)==='0' || $item['ques']->h===0)<div class="@if(strpos($item['ques']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['ques']->h}}</div> @endif
+          @if($item['ques']->i || strip_tags($item['ques']->i)==='0' || $item['ques']->i===0)<div class="@if(strpos($item['ques']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['ques']->i}}</div> @endif
           </div>
         @endif</td>
       <td><span class="" style="color: #65ca65"><i class="fa fa-check-circle"></i> {{$item['correct']}}</span> &nbsp;&nbsp;<span class="float-right" style="color: #f16767"><i class="fa fa-times-circle"></i> {{$item['incorrect']}}</span><br>

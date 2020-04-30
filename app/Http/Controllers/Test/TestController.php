@@ -578,10 +578,14 @@ class TestController extends Controller
             foreach($attempt as $a){
                 if(!isset($data[$i]['user'])){
 
-                    if($a->user)
-                    $data[$i]['user'] = $a->user;
-                    else
-                    $data[$i]['session'] = $a->session;  
+                    
+                    
+                    if($test->status==2)
+                    $data[$i]['session'] = $a->session; 
+                    else{
+                        if($a->user)
+                            $data[$i]['user'] = $a->user;
+                    } 
                 }
                 if($a->accuracy==1){
                         $data[$i]['score']++;
@@ -591,6 +595,7 @@ class TestController extends Controller
             }
             $counter++;
         }
+
         arsort($score);
         $data['highest'] = 0;
         $data['lowest'] =400;
@@ -663,6 +668,7 @@ class TestController extends Controller
         else
             $view = 'analytics';
 
+        
 
         return view('appl.test.test.'.$view)
                 ->with('obj',$test)

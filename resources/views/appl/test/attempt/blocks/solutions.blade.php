@@ -25,15 +25,15 @@
         @else
           @if($item['mcq']->question)<b class='h6' style="line-height: 1.5">{!! $item['mcq']->question !!}</b> @endif
           <div>
-          @if($item['mcq']->a)<div class="@if(strpos($item['mcq']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['mcq']->a}}</div> @endif
-          @if($item['mcq']->b)<div class="@if(strpos($item['mcq']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['mcq']->b}}</div> @endif
-          @if($item['mcq']->c)<div class="@if(strpos($item['mcq']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['mcq']->c}}</div> @endif
-          @if($item['mcq']->d)<div class="@if(strpos($item['mcq']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['mcq']->d}}</div> @endif
-          @if($item['mcq']->e)<div class="@if(strpos($item['mcq']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['mcq']->e}}</div> @endif
-          @if($item['mcq']->f)<div class="@if(strpos($item['mcq']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['mcq']->f}}</div> @endif
-          @if($item['mcq']->g)<div class="@if(strpos($item['mcq']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['mcq']->g}}</div> @endif
-          @if($item['mcq']->h)<div class="@if(strpos($item['mcq']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['mcq']->h}}</div> @endif
-          @if($item['mcq']->i)<div class="@if(strpos($item['mcq']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['mcq']->i}}</div> @endif
+          @if($item['mcq']->a || strip_tags($item['mcq']->a)==='0' || $item['mcq']->a==0)<div class="@if(strpos($item['mcq']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['mcq']->a}}</div> @endif
+          @if($item['mcq']->b || $item['mcq']->b==='0')<div class="@if(strpos($item['mcq']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['mcq']->b}}</div> @endif
+          @if($item['mcq']->c || $item['mcq']->c==='0')<div class="@if(strpos($item['mcq']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['mcq']->c}}</div> @endif
+          @if($item['mcq']->d || $item['mcq']->d==='0')<div class="@if(strpos($item['mcq']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['mcq']->d}}</div> @endif
+          @if($item['mcq']->e || $item['mcq']->e==='0')<div class="@if(strpos($item['mcq']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['mcq']->e}}</div> @endif
+          @if($item['mcq']->f || $item['mcq']->f==='0')<div class="@if(strpos($item['mcq']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['mcq']->f}}</div> @endif
+          @if($item['mcq']->g || $item['mcq']->g==='0')<div class="@if(strpos($item['mcq']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['mcq']->g}}</div> @endif
+          @if($item['mcq']->h || $item['mcq']->h==='0')<div class="@if(strpos($item['mcq']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['mcq']->h}}</div> @endif
+          @if($item['mcq']->i || $item['mcq']->i==='0')<div class="@if(strpos($item['mcq']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['mcq']->i}}</div> @endif
           </div>
 
 
@@ -62,15 +62,15 @@
         @elseif(isset($item['mcq']))
           @if($item['mcq']->question)<b class='h6' style="line-height: 1.5">{!! $item['mcq']->question !!}</b> @endif
           <div>
-          @if($item['mcq']->a)<div class="@if(strpos($item['mcq']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['mcq']->a}}</div> @endif
-          @if($item['mcq']->b)<div class="@if(strpos($item['mcq']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['mcq']->b}}</div> @endif
-          @if($item['mcq']->c)<div class="@if(strpos($item['mcq']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['mcq']->c}}</div> @endif
-          @if($item['mcq']->d)<div class="@if(strpos($item['mcq']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['mcq']->d}}</div> @endif
-          @if($item['mcq']->e)<div class="@if(strpos($item['mcq']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['mcq']->e}}</div> @endif
-          @if($item['mcq']->f)<div class="@if(strpos($item['mcq']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['mcq']->f}}</div> @endif
-          @if($item['mcq']->g)<div class="@if(strpos($item['mcq']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['mcq']->g}}</div> @endif
-          @if($item['mcq']->h)<div class="@if(strpos($item['mcq']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['mcq']->h}}</div> @endif
-          @if($item['mcq']->i)<div class="@if(strpos($item['mcq']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['mcq']->i}}</div> @endif
+          @if($item['mcq']->a || $item['mcq']->a==='0')<div class="@if(strpos($item['mcq']->answer, 'A') !== FALSE) text-success @endif">(A){{$item['mcq']->a}}</div> @endif
+          @if($item['mcq']->b || $item['mcq']->b==='0')<div class="@if(strpos($item['mcq']->answer, 'B') !== FALSE) text-success @endif">(B){{$item['mcq']->b}}</div> @endif
+          @if($item['mcq']->c || $item['mcq']->c==='0')<div class="@if(strpos($item['mcq']->answer, 'C') !== FALSE) text-success @endif">(C){{$item['mcq']->c}}</div> @endif
+          @if($item['mcq']->d || $item['mcq']->d==='0')<div class="@if(strpos($item['mcq']->answer, 'D') !== FALSE) text-success @endif">(D){{$item['mcq']->d}}</div> @endif
+          @if($item['mcq']->e || $item['mcq']->e==='0')<div class="@if(strpos($item['mcq']->answer, 'E') !== FALSE) text-success @endif">(E){{$item['mcq']->e}}</div> @endif
+          @if($item['mcq']->f || $item['mcq']->f==='0')<div class="@if(strpos($item['mcq']->answer, 'F') !== FALSE) text-success @endif">(F){{$item['mcq']->f}}</div> @endif
+          @if($item['mcq']->g || $item['mcq']->g==='0')<div class="@if(strpos($item['mcq']->answer, 'G') !== FALSE) text-success @endif">(G){{$item['mcq']->g}}</div> @endif
+          @if($item['mcq']->h || $item['mcq']->h==='0')<div class="@if(strpos($item['mcq']->answer, 'H') !== FALSE) text-success @endif">(H){{$item['mcq']->h}}</div> @endif
+          @if($item['mcq']->i || $item['mcq']->i==='0')<div class="@if(strpos($item['mcq']->answer, 'I') !== FALSE) text-success  @endif">(I){{$item['mcq']->i}}</div> @endif
           </div>
 
 
