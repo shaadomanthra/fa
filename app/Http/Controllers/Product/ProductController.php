@@ -275,6 +275,9 @@ class ProductController extends Controller
            
         }else{
             $obj = Obj::where('slug',$slug)->first();  
+            if(!$obj)
+                abort(404);
+            
             $obj->groups = $obj->groups;
             foreach($obj->groups as $m=>$group){
                 $obj->groups->tests = $group->tests;

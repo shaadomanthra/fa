@@ -141,6 +141,7 @@
         <input type="hidden" name="id" value="{{ $obj->id }}">
         <input type="hidden" name="user_id" value="@if(\auth::user()){{ \auth::user()->id }} @endif">
       @endif
+      <input type="hidden" name="source" value="{{request()->get('source')}}">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
        <button type="submit" class="btn btn-primary btn-lg">Save</button>
     </form>

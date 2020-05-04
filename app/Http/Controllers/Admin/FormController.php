@@ -108,6 +108,17 @@ class FormController extends Controller
                      return redirect()->back()->withInput();
             }
 
+            if($request->year){
+                if(!is_numeric($request->year)){
+                   flash('Year of passing has to be a number')->error();
+                     return redirect()->back()->withInput(); 
+                }
+                
+            }
+
+            if($request->get('source')){
+                $request->merge(['description'=>"<p>".$request->get('description')."</p><p>Source:<b>".$request->get('source')."</b></p>"]);
+            }
             
             /* create a new entry */
             $obj = $obj->create($request->all());
