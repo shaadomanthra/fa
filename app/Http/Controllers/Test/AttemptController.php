@@ -1093,6 +1093,8 @@ class AttemptController extends Controller
         $answers = explode(",",$answer);
       else if(strpos($answer, '/') !== false)
         $answers = explode("/",$answer);
+      else
+        $answers = $answer;
       /* multi answer if response is array */
       if(is_array($response)){
         
