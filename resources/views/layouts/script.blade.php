@@ -1080,6 +1080,7 @@ var x = setInterval(function() {
   if(seconds !=0)
     t = t+seconds+"s ";
 
+  console.log(t);
   // Display the result in the element with id="demo"
   if($('#timer').is(':visible'))
   document.getElementById("timer").innerHTML =  t;
