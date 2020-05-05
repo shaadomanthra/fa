@@ -1192,13 +1192,19 @@ class AttemptController extends Controller
       else
       $session_id = $request->session()->getID();
 
-    
+
 
       if($user)
         $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
       else
         $result = Attempt::where('test_id',$test->id)->where('session_id',$session_id)->get();
 
+      if($request->get('delete') && $request->get('session_id'))
+        if(\auth::user()->isAdmin()){
+          Attempt::where('test_id',$test->id)->where('session_id',$session_id)->delete();
+          return redirect()->route('test.show',$test->id);
+        }
+      
 
       if($request->get('session_id')){
         $session_id = $request->get('session_id');

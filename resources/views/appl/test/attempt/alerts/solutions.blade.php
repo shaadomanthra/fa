@@ -56,7 +56,13 @@
 
         @if($test->status==2)
         @if(isset($user->name))
-        <div class="bg-light rounded mb-3 p-2 border">Name: <b>{{$user->name}}</b> &nbsp;&nbsp;&nbsp;Phone: <b>{{$user->phone}}</b> &nbsp;&nbsp;&nbsp;<span class="float-md-right">IP: <b>{{$user->ip_address}}</b></span> </div>
+        <div class="bg-light rounded mb-3 p-2 border">Name: <b>{{$user->name}}</b> &nbsp;&nbsp;&nbsp;Phone: <b>{{$user->phone}}</b> &nbsp;&nbsp;&nbsp;
+          @if(\auth::user())
+            @if(\auth::user()->isAdmin())
+              <a href="{{route('test.analysis',$test->slug)}}?delete=1&session_id={{request()->get('session_id')}}"><i class="fa fa-trash"></i> delete</a>
+            @endif
+          @endif
+          <span class="float-md-right">IP: <b>{{$user->ip_address}}</b></span> </div>
         @endif
         @endif
 
