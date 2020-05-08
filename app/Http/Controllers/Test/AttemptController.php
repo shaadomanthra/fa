@@ -763,6 +763,8 @@ class AttemptController extends Controller
           else 
             $data[$i]['response']  = $resp;
 
+          $result[$qno]['response'] =  $data[$i]['response'] ;
+
           if($res['mcq_id']){
             if($test->category->name=='PTE'){
               $score_bit = $this->matchOptionsPTE($res['answer'],$resp);

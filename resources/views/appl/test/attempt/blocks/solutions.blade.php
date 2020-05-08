@@ -49,6 +49,7 @@
       @endif</td>
     </tr>
     @elseif(isset($item['qno']))
+    
     <tr>
       <th scope="row">{{ $item['qno']}}</th>
       <td class="">
