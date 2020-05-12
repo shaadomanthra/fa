@@ -121,6 +121,8 @@
                 Faculty
                 @elseif($obj->admin==3)
                 Telecaller
+                @elseif($obj->admin==5)
+                Client
                 @endif
                 </span>
               </div>

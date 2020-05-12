@@ -325,6 +325,7 @@ class TestController extends Controller
                     ->with('test',$obj)
                     ->with('testtype',$obj->testtype)
                     ->with('player',true)
+                    ->with('testedit',true)
                     ->with('grammar',1)
                     ->with('try',1);
         else

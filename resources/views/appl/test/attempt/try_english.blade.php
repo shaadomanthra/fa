@@ -19,7 +19,7 @@
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
 
     <div class="row p-0 m-0">
-        <div class="col-12 col-md-8 col-lg-8">
+        <div class="col-12 col-md-8 col-lg-8" >
            
             
             @foreach($test->sections as $s=>$section)

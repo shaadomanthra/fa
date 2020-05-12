@@ -157,6 +157,24 @@ class SectionController extends Controller
             abort(404);
     }
 
+     public function ajaxupdate(Request $request, $test_id,$id)
+    {
+        try{
+            $obj = Obj::where('id',$id)->first();
+            
+            $obj->update($request->all()); 
+            echo 1;
+            dd();
+        }
+        catch (QueryException $e){
+           $error_code = $e->errorInfo[1];
+            if($error_code == 1062){
+                 flash('Some error in updating the record')->error();
+                 return redirect()->back()->withInput();
+            }
+        }
+    }
+
     /**
      * Update the specified resource in storage.
      *

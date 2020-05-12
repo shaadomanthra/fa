@@ -63,6 +63,8 @@ Route::get('/admin/test/{test}/fillup_layout', 'Test\FillupController@layout')->
 Route::get('/admin/test/{test}/mcq_layout', 'Test\McqController@layout')->name('mcq.layout')->middleware('auth');
 Route::get('/admin/test/{test}/fillup/{fillup}/d', 'Test\FillupController@d')->name('fillup.d')->middleware('auth');
 Route::get('/admin/test/{test}/mcq/{mcq}/d', 'Test\McqController@d')->name('mcq.d')->middleware('auth');
+Route::get('/admin/test/{test}/section/{id}/ajax', 'Test\SectionController@ajaxupdate')->name('section.ajaxupdate')->middleware('auth');
+Route::get('/admin/test/{test}/fillup/{id}/ajax', 'Test\FillupController@ajaxupdate')->name('fillup.ajaxupdate')->middleware('auth');
 
 Route::resource('/admin/category', 'Test\CategoryController')->middleware('auth');
 Route::resource('/admin/tag', 'Test\TagController')->middleware('auth');
@@ -125,6 +127,7 @@ Route::get('/test/{test}/solutions','Test\AttemptController@solutions')->middlew
 Route::resource('/admin/product', 'Product\ProductController')->middleware('auth');
 Route::resource('/admin/coupon', 'Product\CouponController')->middleware('auth');
 Route::resource('/admin/order', 'Product\OrderController')->middleware('auth');
+Route::resource('/admin/client', 'Product\ClientController')->middleware('auth');
 Route::get('/orders', 'Product\OrderController@myorders')->middleware('auth')->name('myorders');
 Route::get('/orders/{order}', 'Product\OrderController@myordersview')->middleware('auth')->name('myorder.view');
 

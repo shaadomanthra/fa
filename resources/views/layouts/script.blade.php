@@ -1229,6 +1229,62 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
 </script>
 @endif
 
+@if(isset($testedit))
+<script>
+  $(document).ready(function(){
+      
+    $('.btn-section-save').on('click',function(){
+      var url = $(this).data('url');
+      var id = $(this).data('id');
+      var _token = $(this).data('token');
+      var name = $('.sec_name_'+id).text();
+      var instructions = $('.sec_instructions_'+id).text();
+
+      $.ajax({
+               type: "GET",
+               url: url,
+               data: {"name":name,"instructions":instructions,"_token":_token}, 
+               success: function(data)
+               {
+                  alert('success');
+               }
+             });
+    });
+
+    $('.btn-fillup-save').on('click',function(){
+      var url = $(this).data('url');
+      var id = $(this).data('id');
+      var _token = $(this).data('token');
+      var label = $('.f_label_'+id).text();
+      var prefix = $('.f_prefix_'+id).text();
+      var suffix = $('.f_suffix_'+id).text();
+      var answer = $('.f_answer_'+id).val();
+
+      if(!$('.f_answer_'+id).length){
+        alert('This question type is not editable...talk to Teja he will enable it :)');
+        return;
+      }
+      if(!answer){
+        alert('Answer not given');
+        return;
+      }
+
+      $.ajax({
+               type: "GET",
+               url: url,
+               data: {"label":label,"prefix":prefix,"answer":answer,"suffix":suffix,"_token":_token}, 
+               success: function(data)
+               {
+                  alert('success');
+               }
+             });
+    });
+
+  });
+
+</script>
+@endif
+
 @if(isset($front))
 <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
 <script type="text/javascript">

@@ -8,14 +8,14 @@
 @foreach($section->fillup_order as $f)
 
     @if(isset($f->extract))
-  <div class="option rounded p-4 border mb-4">
+  <div class="option rounded p-4 border mb-4" >
     <h4 class="mb-3"><i class="fa fa-check-square-o"></i> {{ $f->extract->name }} </h4>
     {!!$f->extract->text !!}</div>
     <span class="d-none sentence_holder" data-qno="{{$f->qno}}"></span>
     <input type="hidden" name="{{$f->qno}}" value=""/>
   @endif
 
- 
+  <div class="wrap" @if(isset($testedit) && request()->get('live_edit')) contenteditable="true"  @endif>
     @if($f->qno==-1)
       @include('appl.test.attempt.layouts.fillup_example') 
     @else
@@ -41,8 +41,13 @@
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   
     @endif
+
+    @if(isset($testedit) && request()->get('live_edit'))
+    <div class="save_button" style="right:-140px"><button class="btn btn-fillup-save btn-outline-secondary" type="button" data-token="{{ csrf_token() }}" data-id="{{$f->id}}" data-url="{{route('fillup.ajaxupdate',[$test->id,$f->id])}}">Save Q{{$f->qno}}</button></div>
+  @endif
+    </div>
     @endforeach
- 
+  
 @if($section->fillup_order[0]->layout=='duolingo_missing_letter')
 </div>
 @endif
