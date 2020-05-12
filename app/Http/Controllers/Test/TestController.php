@@ -61,6 +61,19 @@ class TestController extends Controller
                 $this->cache_refresh($obj->id);
             flash('cache is updated!')->success();
         }
+
+        if($request->get('imageupdate')){
+            foreach($objs as $obj){
+                if($request->get('details')){
+                    $user = \auth::user();
+                    /* upload images if any */
+                    $obj->details = summernote_imageupload($user,$obj->details);
+                }
+                $obj->save();
+                 
+            }
+            flash('images updated!')->success();
+        }
         
         $view = $search ? 'list': 'index';
 
