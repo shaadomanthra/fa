@@ -256,6 +256,15 @@ class TestController extends Controller
             /* merge the updated data in request */
             $request->merge(['description' => $text]);
 
+            if($request->get('details')){
+                $user = \auth::user();
+                /* upload images if any */
+                $text = summernote_imageupload($user,$request->get('details'));
+                
+                /* merge the updated data in request */
+                $request->merge(['details' => $text]);
+            }
+
             /* create a new entry */
             $obj = $obj->create($request->all());
 
@@ -901,6 +910,15 @@ class TestController extends Controller
                 
                 /* merge the updated data in request */
                 $request->merge(['description' => $text]);
+            }
+
+            if($request->get('details')){
+                $user = \auth::user();
+                /* upload images if any */
+                $text = summernote_imageupload($user,$request->get('details'));
+                
+                /* merge the updated data in request */
+                $request->merge(['details' => $text]);
             }
 
             if(isset($request->all()['file_'])){
