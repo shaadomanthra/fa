@@ -21,7 +21,7 @@
   <footer class="mastfoot mt-auto">
     <div class="inner">
       <p>
-Copyright © <a href="{{ url('/')}}">First Academy</a>. All Rights Reserved. Designed and developed by Piofx</p>
+Copyright © <a href="{{ url('/')}}">Piofx</a>. All Rights Reserved. Designed and developed by Piofx</p>
     </div>
   </footer>
 </div>
