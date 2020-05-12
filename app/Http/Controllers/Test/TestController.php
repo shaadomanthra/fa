@@ -64,11 +64,10 @@ class TestController extends Controller
 
         if($request->get('imageupdate')){
             foreach($objs as $obj){
-                if($request->get('details')){
                     $user = \auth::user();
                     /* upload images if any */
                     $obj->details = summernote_imageupload($user,$obj->details);
-                }
+                
                 $obj->save();
                  
             }
