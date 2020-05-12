@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Client as Obj;
 use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
 {
@@ -17,6 +18,7 @@ class ClientController extends Controller
         $this->app      =   'product';
         $this->module   =   'client';
         $this->cache_path =  '../storage/app/cache/clients/';
+        $this->image_path =  '../storage/app/public/clients/';
     }
 
     /**
@@ -78,8 +80,22 @@ class ClientController extends Controller
             $obj = $obj->create($request->all());
 
             /* update in cache folder */
-            $filename = $this->cache_path.$obj->slug.'.json'; 
-            file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
+            $domains = explode(',', $request->get('domains'));
+            /* update in cache folder */
+            foreach($domains as $d){
+                $filename = $this->cache_path.$d.'.json'; 
+                file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));  
+            }
+
+            
+
+            /* If image is given upload and store path */
+            if(isset($request->all()['image_'])){
+                $file      = $request->all()['image_'];
+                $filename = $obj->id.'.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('clients', $request->file('image_'),$filename);
+            }
+
             flash('A new ('.$this->app.'/'.$this->module.') item is created!')->success();
             return redirect()->route($this->module.'.index');
         }
@@ -123,16 +139,14 @@ class ClientController extends Controller
     {
         $obj= Obj::where('id',$id)->first();
         $this->authorize('update', $obj);
-        $products  = Product::where('status',1)->get();
-        $tests  = Test::where('status',1)->get();
+        $users = User::whereIn('admin',[5])->get();
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.createedit')
                 ->with('stub','Update')
+                ->with('users',$users)
                 ->with('obj',$obj)
                 ->with('editor',true)
-                ->with('products',$products)
-                ->with('tests',$tests)
                 ->with('app',$this);
         else
             abort(404);
@@ -152,15 +166,22 @@ class ClientController extends Controller
 
 
             $this->authorize('update', $obj);
-            
-           
 
             $obj->update($request->except(['products'])); 
 
+            $domains = explode(',', $request->get('domains'));
             /* update in cache folder */
-            $filename = $this->cache_path.$obj->slug.'.json'; 
-            file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));
-
+            foreach($domains as $d){
+                $filename = $this->cache_path.$d.'.json'; 
+                file_put_contents($filename, json_encode($obj,JSON_PRETTY_PRINT));  
+            }
+            
+            /* If image is given upload and store path */
+            if(isset($request->all()['image_'])){
+                $file      = $request->all()['image_'];
+                $filename = $obj->id.'.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('clients', $request->file('image_'),$filename);
+            }
 
             flash('('.$this->app.'/'.$this->module.') item is updated!')->success();
             return redirect()->route($this->module.'.show',$id);

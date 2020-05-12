@@ -9,16 +9,18 @@
         <div class="col-12 col-md-8">
             <div class="p-3 p-md-3"></div>
             @guest
-            <img class="mb-5" src="{{ asset('images/piofx.png') }}" alt="First Academy" width="100" >
+            <img class="" src="@if(request()->session()->get('client')) {{ request()->session()->get('client')->logo }} @else {{ asset('images/piofx.png') }} @endif" alt="Piofx" width="100" >
+
             @endguest
     <div class="heading  mt-5" style="color:#8e867d;font-family: 'Chivo', sans-serif;font-weight: 900;line-height: 1.2">
     Tests for assessments all, big and small!
+
     </div>
     <div class="heading2  mb-4 mt-3" style="color:#bcb4a6">
     Powered by a team that crafts training tools for the <br>world's most widely accepted tests!
     </div>
 
-    <a href="{{ url('contact')}}">
+    <a href="{{ url('login')}}">
     <button class="btn  btn-success  btn-lg p-2 pr-4 pl-4 mb-5" style="color: #fff;font-weight: 900;"><b>Get Started for Free</b></button>
     </a>
    <div class="p-4"></div>

@@ -17,7 +17,7 @@
     @if($_SERVER['HTTP_HOST'] == 'project.test' || $_SERVER['HTTP_HOST'] == 'prep.firstacademy.in')
     <img class="mb-4 mt-3" src="{{ asset('images/logo.png') }}" alt="" width="250" >
 @else
-    <img class="mb-4 mt-3" src="{{ asset('images/piofx.png') }}" alt="" width="150" >
+    <img class="" src="@if(request()->session()->get('client')) {{ request()->session()->get('client')->logo }} @else {{ asset('images/piofx.png') }} @endif" alt="Piofx" width="150" >
 @endif
 
     

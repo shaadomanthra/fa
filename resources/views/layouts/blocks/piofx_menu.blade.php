@@ -2,11 +2,13 @@
 <nav class="navbar navbar-expand-md navbar-light  shadow-sm"  style="background:#fbf1df" >
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img class="" src="{{ asset('images/piofx.png') }}" alt="Piofx" width="100" >
+            <img class="" src="@if(request()->session()->get('client')) {{ request()->session()->get('client')->logo }} @else {{ asset('images/piofx.png') }} @endif" alt="Piofx" width="100" >
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
+
+
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
@@ -37,34 +39,7 @@
                 @endif
                 @else
 
-                @if(\auth::user()->isAdmin())
-                
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        <i class ="fa fa-bars"></i> Prospects <span class="caret"></span>
-                    </a>
-                        
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('prospect.dashboard') }}"
-                           >
-                            Prospect Dashboard
-                        </a>
-                        <a class="dropdown-item" href="{{ route('prospect.index') }}"
-                           >
-                            Prospect List
-                        </a>
-                        <a class="dropdown-item" href="{{ route('prospect.create') }}">
-                            Create Prospect 
-                        </a>
-                        <a class="dropdown-item" href="{{ route('followup.index') }}">
-                            Followup List
-                        </a>
-                        <a class="dropdown-item" href="{{ route('followup.create') }}">
-                            Create Followup
-                        </a>
-                    </div>
-                </li>
-                @endif
+               
 
                 @if(\auth::user()->isAdmin())
                 <li class="nav-item">

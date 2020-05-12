@@ -51,6 +51,17 @@
             <div class="col-md-8"><pre class="p-3 bg-dark text-light"><code>{!! $obj->config !!}</code></pre></div>
           </div>
 
+          <div class="row mb-2">
+            <div class="col-md-4"><b>Image</b></div>
+            <div class="col-md-8">
+              @if(Storage::disk('public')->exists('clients/'.$obj->id.'.jpg'))
+                <img src="{{ asset('storage/clients/'.$obj->id.'.jpg')}}" />
+              @elseif(Storage::disk('public')->exists('clients/'.$obj->id.'.png'))
+              <img src="{{ asset('storage/clients/'.$obj->id.'.png')}}" />
+              @endif
+            </div>
+          </div>
+
 
           <div class="row mb-2">
             <div class="col-md-4"><b>User</b></div>

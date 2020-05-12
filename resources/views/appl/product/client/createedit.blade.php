@@ -54,7 +54,13 @@
 
       <div class="form-group">
             <label for="formGroupExampleInput ">Config</label>
-            <textarea class="form-control " name="config"  rows="3">@if($stub=='Create'){{ (old('config')) ? old('config') : '' }}@else @if(isset($obj->comment)) {{ $obj->comment }}@endif @endif</textarea>
+            <textarea class="form-control " name="config"  rows="3">@if($stub=='Create'){{ (old('config')) ? old('config') : '' }}@else @if(isset($obj->config)) {{ $obj->config }}@endif @endif</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Image</label>
+        <input type="file" class="form-control" name="image_" id="formGroupExampleInput" placeholder="Enter the image path" 
+          >
       </div>
 
       

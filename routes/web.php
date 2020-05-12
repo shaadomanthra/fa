@@ -10,11 +10,14 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Http\Middleware\Subdomain;
 
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+
+Route::group(['middleware' => Subdomain::class], function () {
+
 Route::get('/layout2', 'HomeController@index')->name('root');
 Route::get('/', 'HomeController@welcome');
 
@@ -242,3 +245,5 @@ Route::get('/reading', function(){
 Route::get('/pricing', function(){
     return view('appl.pages.pricing');
 })->name('pricing');
+
+});
