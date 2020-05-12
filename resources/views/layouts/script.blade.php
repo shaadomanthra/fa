@@ -1235,6 +1235,7 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
       
     $('.btn-section-save').on('click',function(){
       var url = $(this).data('url');
+      var text = $(this).text();
       var id = $(this).data('id');
       var _token = $(this).data('token');
       var name = $('.sec_name_'+id).text();
@@ -1246,13 +1247,15 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
                data: {"name":name,"instructions":instructions,"_token":_token}, 
                success: function(data)
                {
-                  alert('success');
+                  console.log('success');
+                  
                }
              });
     });
 
     $('.btn-fillup-save').on('click',function(){
       var url = $(this).data('url');
+      var text = $(this).text();
       var id = $(this).data('id');
       var _token = $(this).data('token');
       var label = $('.f_label_'+id).text();
@@ -1275,7 +1278,7 @@ $('#datetimepicker').datetimepicker({value: {{date("Y")}}+'/'+{{date("m")}}+'/'+
                data: {"label":label,"prefix":prefix,"answer":answer,"suffix":suffix,"_token":_token}, 
                success: function(data)
                {
-                  alert('success');
+                  console.log('success');
                }
              });
     });
