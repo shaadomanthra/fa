@@ -228,10 +228,16 @@ class User extends Authenticatable
     }
 
 
-    public function resend_sms($numbers,$code){
+     public function resend_sms($numbers,$code){
+        $url = "https://2factor.in/API/V1/7722ff6e-9912-11ea-9fa5-0200cd936042/SMS/".$numbers."/".$code;
+        $d = file_get_contents($url);
+        
+    }
+
+    public function resend_sms2($numbers,$code){
                 // Authorisation details.
-            $username = "info@firstacademy.in";
-    $hash = "5f40765f506a1348748d2adc498e88275b5a046763fd8b948ee289970e1cc938";
+        $username = "info@firstacademy.in";
+        $hash = "5f40765f506a1348748d2adc498e88275b5a046763fd8b948ee289970e1cc938";
 
 
         // Config variables. Consult http://api.textlocal.in/docs for more info.

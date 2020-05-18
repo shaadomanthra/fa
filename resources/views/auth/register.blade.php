@@ -44,9 +44,10 @@
     </div>
     <div class="form-group row">
         <label for="email" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+        
         @if(isset($message)){{$message }}@endif
         <div class="col-md-8">
-            <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Enter 10 digit phone number">
+            <input id="phone" type="number" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required placeholder="Enter phone number">
         </div>
 
         @error('phone')
@@ -54,6 +55,7 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
+        <small class="text-md-right col-md-12 mt-2 text-primary">Kindly enter phone number with international calling extension <br>(eg: For india +918888888888) </small>
     </div>
     <div class="form-group row">
         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

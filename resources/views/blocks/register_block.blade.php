@@ -17,7 +17,7 @@
   <div class="form-group">
     <label for="exampleInputEmail1">Phone</label>
     <input type="phone" class="form-control" id="phone"  name="phone" placeholder="Enter phone number">
-     <small id="emailHelp" class="form-text text-muted">OTP will be sent to this number.</small>
+     <small id="emailHelp" class="form-text text-muted">OTP will be sent to this number. Kindly enter phone number with international calling extension (eg: For india +918888888888) </small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
