@@ -230,8 +230,20 @@ class User extends Authenticatable
 
      public function resend_sms($numbers,$code){
         $url = "https://2factor.in/API/V1/7722ff6e-9912-11ea-9fa5-0200cd936042/SMS/".$numbers."/".$code;
-        $d = file_get_contents($url);
+        $d = $this->curl_get_contents($url);
         
+    }
+
+    function curl_get_contents($url)
+    {
+      $ch = curl_init($url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+      curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+      $data = curl_exec($ch);
+      curl_close($ch);
+      return $data;
     }
 
     public function resend_sms2($numbers,$code){
