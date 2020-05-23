@@ -67,7 +67,10 @@ input.duo,input.lightb{width:30px;height:30px;text-align: center;border:1px soli
 
 body {
   background-color: #f3fbff;
+  font-family: 'Merriweather', serif;
 }
+
+h1,h2,h3,.h1,.h2,.h3{font-family: 'Oswald', sans-serif;}
 
 .bg-green{ background: #64c293 }
 .fw-800 {font-weight: 800}

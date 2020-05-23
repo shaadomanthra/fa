@@ -18,6 +18,7 @@ use App\Mail\EmailActivation;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -492,6 +493,13 @@ class UserController extends Controller
 
              /* If image is given upload and store path */
             if(isset($request->all()['file'])){
+                if(Storage::disk('public')->exists('images/'.$obj->id.'.jpg')){
+                    Storage::disk('public')->delete('images/'.$obj->id.'.jpg');
+                }
+
+                if(Storage::disk('public')->exists('images/'.$obj->id.'.png')){
+                    Storage::disk('public')->delete('images/'.$obj->id.'.png');
+                }
                 $file      = $request->all()['file'];
                 $extension = $file->getClientOriginalExtension();
                 $filename  = $obj->id.'.' . $extension;
