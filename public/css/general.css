@@ -70,7 +70,7 @@ body {
   font-family: 'Merriweather', serif;
 }
 
-h1,h2,h3,.h1,.h2,.h3{font-family: 'Oswald', sans-serif;}
+h1,h2,h3,h4,h5.h1,.h2,.h3,.h4,.h5{font-family: 'Oswald', sans-serif;,line-height: 1.8}
 
 .bg-green{ background: #64c293 }
 .fw-800 {font-weight: 800}

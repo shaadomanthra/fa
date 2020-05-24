@@ -36,7 +36,7 @@ class BlogController extends Controller
         
         $filename = 'blogindex.json';
         $filepath = $this->cache_path.$filename;
-        if(Storage::disk('cache')->exists('pages/'.$filename) && !$request->refresh && !$search)
+        if(Storage::disk('cache')->exists('pages/'.$filename) && !$request->refresh && !$item)
         {
             $objs = json_decode(file_get_contents($filepath));
             $objs = $this->paginateAnswers($objs,config('global.no_of_records'));
