@@ -18,7 +18,7 @@
       <div class=" mb-3">
         <div class="pl-2 text-dark">
             
-          <p class="h1 mb-0 bborder"> {{ $obj->title }} 
+          <h1 class="h1 mb-0 bborder"> {{ $obj->title }} 
 
           @auth
           @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
@@ -34,7 +34,7 @@
             @endif
           @endauth
            
-          </p>
+          </h1>
           <div class="mt-3"><i class="fa fa-calendar"></i> &nbsp;{{ \Carbon\Carbon::parse($obj->created_at)->format('M d Y') }} &nbsp;&nbsp;
 
             @if(count($obj->categories)!=0)|&nbsp;&nbsp; Category: 
