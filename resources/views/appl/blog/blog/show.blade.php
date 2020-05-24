@@ -18,7 +18,7 @@
       <div class=" mb-3">
         <div class="pl-2 text-dark">
             
-          <p class="h1 mb-0 bborder"><b> {{ $obj->title }} </b> 
+          <p class="h1 mb-0 bborder"> {{ $obj->title }} 
 
           @auth
           @if(\auth::user()->admin==1 ||\auth::user()->admin==2)
