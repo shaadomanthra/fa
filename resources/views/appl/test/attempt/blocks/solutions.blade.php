@@ -41,6 +41,13 @@
           <div class="p-1">Answer: &nbsp;<b>{{$item['mcq']['a']}}/{{$item['mcq']['b']}}</b></div>
           @endif
 
+          @if($item['mcq']->explanation)
+          <div class="bg-light rounded p-3 mt-3">
+          <div><b>Explanation</b></div>
+          <div>{{$item['mcq']->explanation}}</div>
+        </div>
+          @endif
+
          
           </div>
 
