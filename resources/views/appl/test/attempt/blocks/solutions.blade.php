@@ -44,7 +44,7 @@
           @if($item['mcq']->explanation)
           <div class="bg-light rounded p-3 mt-3">
           <div><b>Explanation</b></div>
-          <div>{{$item['mcq']->explanation}}</div>
+          <div>{!! $item['mcq']->explanation !!}</div>
         </div>
           @endif
 
