@@ -127,6 +127,7 @@ box-shadow: 1px 1px 1px  1px  silver; border-radius:5px;padding: 15px; }
           <div class="p-1">Answer: &nbsp;<b>{{$item['ques']['a']}}/{{$item['ques']['b']}}</b></div>
           @endif
           
+          
 
 
           
