@@ -31,12 +31,12 @@
           @if($item['mcq']->layout!='gre_numeric' && $item['mcq']->layout!='gre_fraction' && $item['mcq']->layout!='gre_sentence')
           @foreach(['a','b','c','d','e','f','g','h','i'] as $opt)
             @if(isset($item['mcq']->$opt))
-            @if($item['mcq']->$opt || $item['mcq']->$opt==='0' )<div class="@if(strpos($item['mcq']->answer, strtoupper($opt)) !== FALSE) text-success @endif  p-1 mb-1 rounded" >({{strtoupper($opt)}}){{$item['mcq']->$opt}} </div> @endif
+            @if($item['mcq']->$opt || $item['mcq']->$opt==='0' )<div class="@if(strpos($item['mcq']->answer, strtoupper($opt)) !== FALSE) text-success @endif  p-1 mb-1 rounded" >({!! strtoupper($opt)}}){{$item['mcq']->$opt !!} </div> @endif
             @endif
 
           @endforeach
           @elseif($item['mcq']->layout=='gre_numeric')
-          <div class="p-1">Answer: &nbsp;<b>{{$item['ques']['a']}}</b></div>
+          <div class="p-1">Answer: &nbsp;<b>{{$item['mcq']['a']}}</b></div>
           @elseif($item['mcq']->layout=='gre_fraction')
           <div class="p-1">Answer: &nbsp;<b>{{$item['mcq']['a']}}/{{$item['mcq']['b']}}</b></div>
           @endif
