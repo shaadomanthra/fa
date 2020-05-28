@@ -340,7 +340,6 @@ class UserController extends Controller
     public function useredit()
     {
         $obj= \auth::user();
-        $this->authorize('update', $obj);
 
         if($obj)
             return view('appl.'.$this->app.'.'.$this->module.'.edit')
@@ -506,7 +505,6 @@ class UserController extends Controller
                 $path      = $file->storeAs('public/images/', $filename);
             }
             
-            $this->authorize('update', $obj);
 
             $obj->update($request->all()); 
 
