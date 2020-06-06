@@ -538,6 +538,8 @@ $(document).ready(function() {
 @elseif(isset($gre))
 <script type="application/javascript">
 
+
+
     $('.input_').on('input',function(e){
             var value = $(this).val();
 
@@ -866,6 +868,26 @@ $(document).ready(function() {
 <script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
 <script type="application/javascript">
 $(function() {
+
+  if($(".duo").length)
+  $(".duo").keyup(function () {
+        if (this.value.length == this.maxLength) {
+          var $next = $(this).next('.duo');
+          var qid = '.q'+(parseInt($(this).data('id'))+1);
+          var $next_parent = $(qid).children('.duo').first();
+          console.log($next_parent);
+          if ($next.length)
+              $(this).next('.duo').focus();
+          else if($next_parent.length)
+              $next_parent.focus();
+          else
+              $(this).blur();
+        }
+    });
+
+  
+  
+
   if($( "#sortable-1a" ).length){
     $( "#sortable-1a, #sortable-1b" ).sortable({
       connectWith: "#sortable-1a, #sortable-1b",
@@ -938,6 +960,25 @@ $( function() {
 
 </script>
 <script type="application/javascript">
+
+  startProgress();
+
+  function startProgress($id=1){
+    if($('.progress-bar').length){
+      $scount = $('.greblock_'+$id).data('scount');
+      $width = 100 / parseInt($scount);
+      $('.progress-bar').css('width',$width+"%");
+    }
+  }
+
+  function updateProgress($id){
+    if($('.progress-bar').length){
+      $scount = $('.greblock_'+$id).data('scount');
+      $sno = $('.greblock_'+$id).data('section');
+      $width = 100 / parseInt($scount) * $sno;
+      $('.progress-bar').css('width',$width+"%");
+    }
+  }
  
   $(".td_option").click(function() {
         $id = $(this).data('id');
@@ -992,6 +1033,8 @@ $( function() {
         $section = $('.greblock_'+$qno).data('section');
         $sno = $('.greblock_'+$qno).data('sno');
 
+        updateProgress($section);
+
         if($qno){
             $('.gre_qno').html($sno);
             $('.gre_section').html($section);
@@ -1025,7 +1068,7 @@ $( function() {
       $qno = $(this).data('qno');
       $section = $('.greblock_'+$qno).data('section');
       $sno = $('.greblock_'+$qno).data('sno');
-
+      updateProgress($section);
       if($qno){
         $('.gre_section').html($section);
 
@@ -1106,34 +1149,13 @@ function addMinutes(date, minutes) {
 
 /* prevent copy */
 
-$('body').bind('copy paste',function(e) {
-    e.preventDefault(); return false; 
-});
-
-$(document).ready(function () {
-    //Disable full page
-    $("body").on("contextmenu",function(e){
-        return false;
-    });
-    
-    //Disable part of page
-    $("#id").on("contextmenu",function(e){
-        return false;
-    });
-});
 
   
 /* prevent refresh */
 
 
 
-$('body').on('keyup keypress', function(e) {
-  var keyCode = e.keyCode || e.which;
-  if (keyCode === 13) { 
-    e.preventDefault();
-    return false;
-  }
-});
+
 
 
 </script>

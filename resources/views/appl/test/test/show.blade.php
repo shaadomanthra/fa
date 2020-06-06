@@ -262,10 +262,10 @@
 
       @endif
 
-      @if(strtolower($obj->testtype->name)=='gre' || strtolower($obj->testtype->name)=='pte' || strtolower($obj->testtype->name)=='reading')
+      @if(strtolower($obj->testtype->name)=='gre' || strtolower($obj->testtype->name)=='pte' || strtolower($obj->testtype->name)=='reading' || strtolower($obj->testtype->name)=='duolingo')
       <div class="p-3 bg-white mb-4 border-top" >
         <div class="mb-3 mt-4">
-      <h3 class="mb-1  pl-1"><i class="fa fa-gg"></i> Preview </h3><small class="mb-3">Due to layout issues reading, gre and pte tests preview is not available. Click the user view button to review the layout and questions.</small><br>
+      <h3 class="mb-1  pl-1"><i class="fa fa-gg"></i> Preview </h3><small class="mb-3">Due to layout issues reading, gre, duolingo and pte tests preview is not available. Click the user view button to review the layout and questions.</small><br>
       <a href="{{ route($app->module.'.view',$obj->slug) }}" class="btn btn-outline-primary mt-3" target="_blank"><i class="fa fa-eye" data-toggle="tooltip" data-placement="top" title="User View - Test Page"></i> User view - test page</a>
 
 

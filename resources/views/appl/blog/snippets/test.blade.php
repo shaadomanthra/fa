@@ -67,6 +67,7 @@
 	<button class="btn btn-success btn-lg ajaxtestsubmit " type="submit" >Submit</button>
 	</div>
 </div>
+
 @endif
 </form>
 </div>
