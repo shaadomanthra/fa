@@ -44,6 +44,7 @@
         .select_word_selected{background:#ff5722;color:white;border-color:#ff5722;}
         .duo-heading{font-size: 20px}
         .hr{border: 1px solid #faf1eb;margin: 30px 0px}
+        .wrap{display: inline}
     </style>
     
 </head>
