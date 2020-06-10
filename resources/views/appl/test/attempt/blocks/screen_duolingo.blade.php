@@ -41,7 +41,7 @@
 				
 				<div class="col-12 ">
 				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1">
-					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver" >
+					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver @if(count($test->sections)<2) btn-submit-duo @endif" >
 						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> <span class="next_text">@if(count($test->sections)<2) Submit @else Next @endif</span>
 						</div>
 					</div>
