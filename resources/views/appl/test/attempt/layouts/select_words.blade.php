@@ -1,6 +1,6 @@
 <div class="row question">
   <div class="col-12 " id="{{$f->qno}}">
-    <div class="py-5 text-center duo-heading"><b>Select the real English words in this list</b></div>
+    <div class="pt-3 pb-5 text-center duo-heading"><b>Select the real English words in this list</b></div>
     <div class="card-text row" >
       @foreach(explode('/',$f->label) as $k=>$l)
       <div class="col-6 col-md-3 mb-3">
