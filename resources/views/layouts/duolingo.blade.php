@@ -45,6 +45,9 @@
         .duo-heading{font-size: 20px}
         .hr{border: 1px solid #faf1eb;margin: 30px 0px}
         .wrap{display: inline}
+        .bg-silver{background: #eee}
+        .btn-submit-duo{background:#ff5722;color:white; }
+
     </style>
     
 </head>

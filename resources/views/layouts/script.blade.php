@@ -1206,6 +1206,11 @@ $( function() {
           $('.gre_prev').data('qno',($qno-2));
           $('.gre_next').data('qno',0);
           $(this).addClass('disabled');
+
+          if($('.next_text').length){
+            $('.next_text').html('Submit');
+            $('.next-btn').addClass('btn-submit-duo');
+          }
           
         }   
 

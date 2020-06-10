@@ -1,8 +1,10 @@
 <div class="my-3 mt-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
 	<div class="bg-white  p-5">
 
+		@if($test->test_time)
 		<div class="mb-3 text-secondary" style="font-size: 18px;"><span class="d-block  "><span class="time_count" id="timer">0:00:00</span> <span class="time_count d-none" id="timer2"></span>&nbsp;</span></div>
-		<div class="progress mb-4" style="height:5px;">
+		@endif
+		<div class="progress mb-4" style="height:5px;@if(count($test->sections)<2)display:none;@endif">
   <div class="progress-bar" role="progressbar" style="width: 0%;background: #ff8159" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 	@foreach($test->sections as $s=>$section)
@@ -39,8 +41,8 @@
 				
 				<div class="col-12 ">
 				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1">
-					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0" style="background: #eee">
-						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> Next 
+					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver" >
+						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> <span class="next_text">@if(count($test->sections)<2) Submit @else Next @endif</span>
 						</div>
 					</div>
 				</a>
