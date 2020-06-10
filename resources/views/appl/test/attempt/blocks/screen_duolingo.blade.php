@@ -1,5 +1,5 @@
-<div class="my-3 mt-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
-	<div class="bg-white  p-5">
+<div class="my-3 mt-md-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
+	<div class="bg-white  p-3 py-5 p-md-5">
 
 		@if($test->test_time)
 		<div class="mb-3 text-secondary" style="font-size: 18px;"><span class="d-block  "><span class="time_count" id="timer">0:00:00</span> <span class="time_count d-none" id="timer2"></span>&nbsp;</span></div>

@@ -2,6 +2,7 @@
 
 
 @if($section->fillup_order[0]->layout=='duolingo_missing_letter')
+<div class="py-5 text-center duo-heading"><b>Type the missing letters to complete the text below</b></div>
 <div class="card-text mb-5 mb-md-0" style="overflow: auto;">
 @endif
 
