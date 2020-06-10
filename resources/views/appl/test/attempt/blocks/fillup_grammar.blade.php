@@ -42,7 +42,9 @@
       @elseif($f->layout=='ielts_label')
         @include('appl.test.attempt.layouts.ielts_label') 
       @elseif($f->layout=='ielts_number')
-        @include('appl.test.attempt.layouts.ielts_title')   
+        @include('appl.test.attempt.layouts.ielts_title')  
+      @elseif($f->layout=='listen_audio_options')
+        @include('appl.test.attempt.layouts.listen_audio_options')   
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   

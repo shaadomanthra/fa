@@ -17,9 +17,12 @@ class Attempt extends Model
         'qno',
         'response',
         'answer',
+        'score',
         'accuracy',
         'session_id',
-        'dynamic'
+        'dynamic',
+        'comment',
+        'status'
         // add all other fields
     ];
 

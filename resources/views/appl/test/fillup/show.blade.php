@@ -148,6 +148,46 @@
     </div>
   </div>
 
+<style>
+
+.circle-audio-player {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.cplayer {
+  padding: 4px;
+}
+.citem{background: #f8f8f8;margin-right: 5px;padding:20px;}
+
+</style>
+
+ 
+  <div class="p-4 rounded bg-white border mt-4 mb-4">
+  <h2>Audio</h2>
+  <hr>
+    @if(\Storage::disk('public')->exists('extracts/'.$obj->id.'_q.mp3') )
+    Question<br>
+    <div id="playerContainer_q" class="cplayer" data-src="{{ asset('/storage/extracts/'.$obj->id.'_q.mp3') }}"></div>
+    @endif
+
+    <div class="row">
+      
+    @foreach(["a","b","c","d","e","f","g","h","i","j",'k',"l"] as $item)
+    
+    
+    @if(\Storage::disk('public')->exists('extracts/'.$obj->id.'_'.$item.'.mp3') )
+    <div class="col-md-3 citem">
+    {{ 'Option - '.$item}}<br>
+      <div id="playerContainer_{{$item}}" class="cplayer" data-src="{{ asset('/storage/extracts/'.$obj->id.'_'.$item.'.mp3') }}"></div>
+      </div>
+    @endif
+  
+    @endforeach
+  </div>
+  </div>
+  
+
     </div>
 
     <div class="col-12 col-md-2">

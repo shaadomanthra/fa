@@ -444,6 +444,7 @@ class AttemptController extends Controller
                   ->with('timer',$user)
                   ->with('time',$test->test_time)
                   ->with('view',true)
+                  ->with('editor',true)
                   ->with('player',1);
       }
 
@@ -543,6 +544,7 @@ class AttemptController extends Controller
                   ->with('timer',$user)
                   ->with('time',$test->test_time)
                   ->with('view',true)
+                  ->with('editor',true)
                   ->with('player',1);
       }
 
@@ -640,6 +642,7 @@ class AttemptController extends Controller
    /* Function to save data in database */
    public function store($slug,Request $request){
       
+      //dd($request->all());
       $session_id = $request->session()->getID();
       $result = array();
       $score =0;
@@ -682,6 +685,7 @@ class AttemptController extends Controller
           $result[$mcq->qno]['answer'] = $mcq->answer;
           $result[$mcq->qno]['response']= '';
           $result[$mcq->qno]['accuracy']= 0;
+          $result[$mcq->qno]['status'] = 1;
         }
         // GRE numeric and fraction answer
         if(!strip_tags($mcq->answer)){
@@ -706,6 +710,7 @@ class AttemptController extends Controller
             $result[$fillup->qno]['response']= '';
             $result[$fillup->qno]['accuracy']= 0;
             $result[$fillup->qno]['two_blanks'] =0;
+            $result[$fillup->qno]['status'] = 1;
           }
           
         if($fillup->layout=='ielts_two_blank'){
@@ -728,6 +733,14 @@ class AttemptController extends Controller
         if($fillup->layout=='pte_reorder'){
           $result[$fillup->qno]['pte_reorder'] =1;
         }
+
+        if($fillup->layout == 'write' || $fillup->layout == 'speak'){
+          $result[$fillup->qno]['status'] = 0;
+        }
+
+        if($fillup->layout=='select_words' || $fillup->layout=='listen_audio_options'){
+          $result[$fillup->qno]['duo_multianswer'] =1;
+        }
       }
 
       
@@ -749,6 +762,9 @@ class AttemptController extends Controller
         $data[$i]['updated_at'] = $date_time;
         $data[$i]['answer'] =$res['answer'];
         $data[$i]['response'] = null;
+        $data[$i]['score'] = null;
+        $data[$i]['comment'] = '';
+        $data[$i]['status'] = $res['status'];
         $data[$i]['accuracy'] =$res['accuracy'];
 
         if ($request->session()->has('open') && $test->status==2)
@@ -824,6 +840,14 @@ class AttemptController extends Controller
               $result[$qno]['accuracy'] = $qscore;
               $score = $score+$qscore;
 
+            }else if(isset($res['duo_multianswer'])){
+
+              $qscore = $this->matchAnswers($res['answer'],$resp);
+
+              $data[$i]['accuracy'] =$qscore;
+              $result[$qno]['accuracy'] = $qscore;
+              $score = $score+$qscore;
+
             }
             else{
 
@@ -842,6 +866,11 @@ class AttemptController extends Controller
         
         $i++;
         }
+
+        if(is_array($result[$qno]['response'])){
+          $result[$qno]['response'] = implode(',', $result[$qno]['response']);
+        }
+        
       }
 
       $this->section_score($data);

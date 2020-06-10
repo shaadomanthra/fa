@@ -115,6 +115,24 @@ $(document).ready(function() {
 
               });
 
+            $('.summernote4').summernote({
+              placeholder: 'Enter your response ... ',
+              tabsize: 2,
+                height: 100,                // set editor height
+                minHeight: null,             // set minimum height of editor
+                maxHeight: null,             // set maximum height of editor
+                focus: true,
+                toolbar: [],
+                callbacks: {
+                  onPaste: function (e) {
+                    var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+                    e.preventDefault();
+                    document.execCommand('insertText', false, bufferText);
+                  }
+                }
+
+              });
+
             $('.summernote3').summernote({
               placeholder: 'Enter the question...',
               tabsize: 2,
@@ -142,6 +160,15 @@ $(document).ready(function() {
       $(document).on("keyup", function(){
         if($(".summernote2").length){
         var text = $(".summernote2").summernote("code");
+        text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
+        var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
+        //Update Count value
+        $(".word-count").text(words);
+      }
+
+
+      if($(".summernote4").length){
+        var text = $(".summernote4").summernote("code");
         text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
         var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
         //Update Count value
@@ -371,6 +398,8 @@ $(document).ready(function() {
 <script type="application/javascript" src="{{asset('js/global.js?new=4')}}"></script>  
 
 <script type="application/javascript">
+  @if(isset($test))
+  @if($test->testtype->name!='DUOLINGO')
     $(document).ready(function(){
         const controls = [// Restart playback
         'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'pip', 'airplay', 'fullscreen',]
@@ -431,14 +460,52 @@ $(document).ready(function() {
             }
         });  
 
-    });     
+    });   
+
+    @endif 
+    @endif 
 </script>
 @else
 <script src="{{asset('js/script.js?new=11')}}" type="application/javascript"></script>  
 @endif
 
 @if(isset($grammar))
+
+<script src="{{asset('js/circular.js')}}" type="application/javascript"></script>
 <script type="application/javascript">
+
+  
+
+
+
+  @foreach(["a","b","c","d","e","f","g","h","i","j",'k',"l"] as $item)
+
+    if($('#playerContainer_{{$item}}').length){
+      audioPath = $('#playerContainer_{{$item}}').data('src');
+      console.log(audioPath);
+      var cap = new CircleAudioPlayer({
+        audio: audioPath,
+        size: 120,
+        borderWidth: 4,
+        size:50,
+      });
+      cap.appendTo(playerContainer_{{$item}});
+    }
+
+  @endforeach
+
+  if($('#playerContainer_q').length){
+    audioPath = $('#playerContainer_q').data('src');
+    console.log(audioPath);
+    var cap = new CircleAudioPlayer({
+      audio: audioPath,
+      size: 120,
+      borderWidth: 8,
+
+    });
+    cap.appendTo(playerContainer_q);
+  }
+
 
     $(document).on('click','.retry',function(){
         $('#ajaxtest')[0].reset();
@@ -885,6 +952,45 @@ $(function() {
         }
     });
 
+var isPlaying = false;
+
+$(document).on('click','.audioed',function(){
+      
+      var myAudio = document.getElementById("audio_");
+      togglePlay(myAudio)
+    
+      myAudio.onplaying = function() {
+        isPlaying = true;
+      };
+      myAudio.onpause = function() {
+        isPlaying = false;
+      };
+
+    });
+
+function togglePlay(myAudio) {
+        console.log(isPlaying);
+        if (isPlaying) {
+          myAudio.pause()
+        } else {
+          myAudio.play();
+        }
+      };
+
+
+  // select words
+  $(document).on('click','.select_word',function(){
+    $subid = $(this).data('subid');
+    if($(this).hasClass('select_word_selected')){
+      $('.'+$subid).prop("checked", false);
+
+      $(this).removeClass('select_word_selected');
+    }
+    else{
+      $('.'+$subid).prop("checked", true);
+      $(this).addClass('select_word_selected');
+    }
+  });
   
   
 
@@ -1068,6 +1174,14 @@ $( function() {
       $qno = $(this).data('qno');
       $section = $('.greblock_'+$qno).data('section');
       $sno = $('.greblock_'+$qno).data('sno');
+      
+      //end duolingo test
+      if(!$sno){
+          if($(this).data('duo')){
+            $('#test_submit').modal();
+          }
+        } 
+
       updateProgress($section);
       if($qno){
         $('.gre_section').html($section);
@@ -1075,7 +1189,12 @@ $( function() {
         $('.qblock').hide();
         $('.greblock_'+$qno).show();
         $qno = $qno +1;
-              //update the navbar
+
+        
+
+        
+
+        //update the navbar
         if($('.greblock_'+$qno).length){
             $('.gre_prev').data('qno',($qno-2));
             $('.gre_next').data('qno',$qno);
@@ -1086,8 +1205,13 @@ $( function() {
           $('.gre_prev').data('qno',($qno-2));
           $('.gre_next').data('qno',0);
           $(this).addClass('disabled');
-        }       
+          
+        }   
+
+           
       }
+
+
     });
 
 </script>

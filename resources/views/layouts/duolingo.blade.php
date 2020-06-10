@@ -9,9 +9,6 @@
     <meta name="author" content="First Academy Team">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    @if(isset($player))
-    <link rel='stylesheet' href='{{ asset("css/player.css") }}'>
-    @endif
     <!-- Styles -->
     <link href="{{ asset('css/styles.css?new=1') }}" rel="stylesheet">
     @if(isset($editor))
@@ -31,6 +28,23 @@
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     @endif
+
+    <style>
+        .text-primary{color:#ff8159;}
+        b{color:#636569;}
+        .lightb{background: #fff3ef;color:#ff5722;}
+        input.duo{border-color:#ffd8cb;}
+        input.lightb{border-color:#ffd8cb;}
+        a.white{color: silver}
+        a.white:hover{color: silver}
+        a.disabled{color:silver;}
+        a.disabled:hover{color:silver;}
+        .select_word{border:2px solid silver;}
+        .select_word:hover{border-color:#ff8159;cursor: pointer}
+        .select_word_selected{background:#ff5722;color:white;border-color:#ff5722;}
+        .duo-heading{font-size: 20px}
+        .hr{border: 1px solid #faf1eb;margin: 30px 0px}
+    </style>
     
 </head>
 <body style="background: #eee">

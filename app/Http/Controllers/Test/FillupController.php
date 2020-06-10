@@ -9,6 +9,7 @@ use App\Models\Test\Extract;
 use App\Models\Test\Section;
 use App\Models\Test\Tag;
 use App\Models\Test\Test;
+use Illuminate\Support\Facades\Storage;
 
 class FillupController extends Controller
 {
@@ -123,6 +124,22 @@ class FillupController extends Controller
             /* create a new entry */
             $obj = $obj->create($request->except(['tags']));
 
+            /* If file is given upload and store path */
+            if(isset($request->all()['file_'])){
+                $file      = $request->all()['file_'];
+                $filename = $obj->id.'_q.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_'),$filename);
+            }
+
+            if(isset($request->all()['file2_'])){
+                $alpha = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"];
+                foreach($request->all()['file2_'] as $i=>$file){
+                    $k = $alpha[$i];
+                    $filename = $obj->id.'_'.$k.'.'.$file->getClientOriginalExtension();
+                    $path_ = Storage::disk('public')->putFileAs('extracts', $file,$filename); 
+                }
+                
+            }
 
             // attach the tags
             $tags = $request->get('tags');
@@ -272,6 +289,13 @@ class FillupController extends Controller
             {
                 if($obj->extract)
                 $obj->extract->extract_update($obj->qno);
+            }
+
+            /* If file is given upload and store path */
+            if(isset($request->all()['file_'])){
+                $file      = $request->all()['file_'];
+                $filename = $obj->id.'_q.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_'),$filename);
             }
 
             $obj = $obj->update($request->except(['tags'])); 

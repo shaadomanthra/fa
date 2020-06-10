@@ -41,28 +41,35 @@
         <div class="row">
           <div class="col-12 col-md-4">
             <div class="form-group">
-            <label for="formGroupExampleInput ">Prefix</label>
-            <textarea class="form-control " name="prefix"  rows="3">@if($stub=='Create'){{ (old('prefix')) ? old('prefix') : '' }} @else {{ $obj->prefix }} @endif
-            </textarea>
+            <label for="formGroupExampleInput ">Prefix</label><textarea class="form-control " name="prefix"  rows="3">@if($stub=='Create'){{ (old('prefix')) ? old('prefix') : '' }} @else {{ $obj->prefix }} @endif</textarea>
             </div>
           </div>
 
         <div class="col-12 col-md-4">
           <div class="form-group">
-            <label for="formGroupExampleInput ">Answer</label>
-            <textarea class="form-control " name="answer"  rows="3">@if($stub=='Create'){{ (old('answer')) ? old('answer') : '' }} @else {{ $obj->answer }} @endif
-            </textarea>
+            <label for="formGroupExampleInput ">Answer</label><textarea class="form-control " name="answer"  rows="3">@if($stub=='Create'){{ (old('answer')) ? old('answer') : '' }} @else {{ $obj->answer }} @endif</textarea>
           </div>
         </div>
 
         <div class="col-12 col-md-4">
           <div class="form-group">
-            <label for="formGroupExampleInput ">Suffix</label>
-            <textarea class="form-control " name="suffix"  rows="3">@if($stub=='Create'){{ (old('suffix')) ? old('suffix') : '' }} @else {{ $obj->suffix }} @endif
-            </textarea>
+            <label for="formGroupExampleInput ">Suffix</label><textarea class="form-control " name="suffix"  rows="3">@if($stub=='Create'){{(old('suffix')) ? old('suffix') : '' }} @else {{ $obj->suffix }} @endif</textarea>
           </div>
         </div>
-
+        <div class="col-12 ">
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Question Audio File (optional)</label>
+            <input type="file" class="form-control" name="file_" id="formGroupExampleInput" placeholder="Enter the audio path" 
+              >
+          </div>
+        </div>
+        <div class="col-12 ">
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Options Audio File (optional)</label>
+            <input type="file" class="form-control" name="file2_[]" id="formGroupExampleInput" placeholder="Enter the audio path" multiple 
+              >
+          </div>
+        </div>
 
         </div>
         
@@ -136,10 +143,22 @@
           <option value="two_blank" @if(isset($obj)) @if($obj->layout=='two_blank') selected @endif @endif @if(request()->get('layout')=='two_blank') selected @endif>Two Blanks - format 2</option>
           <option value="paragraph" @if(isset($obj)) @if($obj->layout=='paragraph') selected @endif @endif @if(request()->get('layout')=='paragraph') selected @endif>Paragraph</option>
 
+          <option value="listen_audio_options" @if(isset($obj)) @if($obj->layout=='listen_audio_options') selected @endif @endif @if(request()->get('layout')=='listen_audio_options') selected @endif>Listen Audio Options</option>
+
+          <option value="listen_audio_question" @if(isset($obj)) @if($obj->layout=='listen_audio_question') selected @endif @endif @if(request()->get('layout')=='listen_audio_question') selected @endif>Listen Audio Question</option>
+
+          <option value="select_words" @if(isset($obj)) @if($obj->layout=='select_words') selected @endif @endif @if(request()->get('layout')=='select_words') selected @endif>Select Words</option>
+
+          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif @if(request()->get('layout')=='duolingo_missing_letter') selected @endif>Missing Letters</option>
+
+          <option value="speak" @if(isset($obj)) @if($obj->layout=='speak') selected @endif @endif @if(request()->get('layout')=='speak') selected @endif>Speak</option>
+
+           <option value="write" @if(isset($obj)) @if($obj->layout=='write') selected @endif @endif @if(request()->get('layout')=='write') selected @endif>Write</option>
+
           <option value="cloze_test" @if(isset($obj)) @if($obj->layout=='cloze_test') selected @endif @endif @if(request()->get('layout')=='cloze_test') selected @endif>Dropdown - Format 1</option>
           <option value="dropdown" @if(isset($obj)) @if($obj->layout=='dropdown') selected @endif @endif @if(request()->get('layout')=='dropdown') selected @endif>Dropdown - Format 2</option>
 
-          <option value="duolingo_missing_letter" @if(isset($obj)) @if($obj->layout=='duolingo_missing_letter') selected @endif @endif @if(request()->get('layout')=='duolingo_missing_letter') selected @endif>Missing Letters</option>
+          
 
           @if($app->test->category=='GRE')
           <option value="gre_sentence" @if(isset($obj)) @if($obj->layout=='gre_sentence') selected @endif @endif @if(request()->get('layout')=='gre_sentence') selected @endif>Gre Sentence</option>
