@@ -1179,6 +1179,7 @@ $( function() {
       if(!$sno){
           if($(this).data('duo')){
             $('#test_submit').modal();
+            return false;
           }
         } 
 
