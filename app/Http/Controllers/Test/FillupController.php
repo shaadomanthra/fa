@@ -132,7 +132,7 @@ class FillupController extends Controller
             }
 
             if(isset($request->all()['file2_'])){
-                $alpha = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"];
+                $alpha = ["a","b","c","d","e","f","g","h","i","j","k","l"];
                 foreach($request->all()['file2_'] as $i=>$file){
                     $k = $alpha[$i];
                     $filename = $obj->id.'_'.$k.'.'.$file->getClientOriginalExtension();
@@ -296,6 +296,24 @@ class FillupController extends Controller
                 $file      = $request->all()['file_'];
                 $filename = $obj->id.'_q.'.$file->getClientOriginalExtension();
                 $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_'),$filename);
+            }
+
+            
+
+            if(isset($request->all()['file2_'])){
+                $alpha = ["a","b","c","d","e","f","g","h","i","j","k","l"];
+                foreach($alpha as $k){
+                    $filename = $obj->id.'_'.$k.'.mp3';
+                    if(Storage::disk('public')->exists('extracts/'.$filename))
+                        Storage::disk('public')->delete('extracts/'.$filename);
+                }
+                foreach($request->all()['file2_'] as $i=>$file){
+                    
+                    $k = $alpha[$i];
+                    $filename = $obj->id.'_'.$k.'.'.$file->getClientOriginalExtension();
+                    $path_ = Storage::disk('public')->putFileAs('extracts', $file,$filename); 
+                }
+                
             }
 
             $obj = $obj->update($request->except(['tags'])); 

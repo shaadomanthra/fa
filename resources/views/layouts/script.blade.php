@@ -955,8 +955,8 @@ $(function() {
 var isPlaying = false;
 
 $(document).on('click','.audioed',function(){
-      
-      var myAudio = document.getElementById("audio_");
+      $id = $(this).data('id');
+     var myAudio = document.getElementById("audio_"+$id);
       togglePlay(myAudio)
     
       myAudio.onplaying = function() {
@@ -989,6 +989,21 @@ function togglePlay(myAudio) {
     else{
       $('.'+$subid).prop("checked", true);
       $(this).addClass('select_word_selected');
+    }
+  });
+
+  // select audio
+  $(document).on('click','.checkitem',function(){
+    $class = $(this).data('class');
+    if($(this).hasClass('checkitem_selected')){
+      $('.'+$class).prop("checked", false);
+      $(this).removeClass('checkitem_selected');
+      $('.a_'+$class).removeClass('audioitem_selected');
+    }
+    else{
+      $('.'+$class).prop("checked", true);
+      $(this).addClass('checkitem_selected');
+      $('.a_'+$class).addClass('audioitem_selected');
     }
   });
   

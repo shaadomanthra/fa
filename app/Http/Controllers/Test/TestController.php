@@ -967,13 +967,9 @@ class TestController extends Controller
             Storage::disk('public')->delete($obj->file);
 
         // remove image
-        if(Storage::disk('public')->delete($obj->image)){
+        if(Storage::disk('public')->exists($obj->image)){
             Storage::disk('public')->delete($obj->image);
         }
-
-       
-
-        
 
         if($obj->mcq)
         foreach($obj->mcq as $i => $m){

@@ -158,7 +158,7 @@
 .cplayer {
   padding: 4px;
 }
-.citem{background: #f8f8f8;margin-right: 5px;padding:20px;}
+
 
 </style>
 
@@ -177,10 +177,12 @@
     
     
     @if(\Storage::disk('public')->exists('extracts/'.$obj->id.'_'.$item.'.mp3') )
-    <div class="col-md-3 citem">
-    {{ 'Option - '.$item}}<br>
+    <div class="col-md-3 ">
+      <div class="mb-3 bg-light  p-3 rounded">
+    <div class="mb-2">{{ 'Option - '.strtoupper($item)}}</div>
       <div id="playerContainer_{{$item}}" class="cplayer" data-src="{{ asset('/storage/extracts/'.$obj->id.'_'.$item.'.mp3') }}"></div>
       </div>
+    </div>
     @endif
   
     @endforeach
