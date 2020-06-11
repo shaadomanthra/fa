@@ -31,6 +31,7 @@ Auth::routes();
 Route::get('/construction', function () {
         return view('appl.pages.construction');
 })->name('construction');
+
 Route::get('/onlinetraining', function () {
         return view('appl.pages.onlinetraining');
 })->name('onlinetraining');

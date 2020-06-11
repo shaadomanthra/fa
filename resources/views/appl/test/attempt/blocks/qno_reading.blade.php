@@ -12,7 +12,7 @@
 
                     <div class="col-2 col-md-4">
 
-                       <span class="badge badge-warning float-right " id="timer"></span>
+                       <span class="badge badge-warning float-right " id="timer">00:00</span>
         <span class="badge badge-warning float-center d-none" id="timer2">00:00</span>
 
                     </div>
