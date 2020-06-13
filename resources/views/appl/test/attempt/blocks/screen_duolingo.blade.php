@@ -5,7 +5,7 @@
 		<div class="mb-3 text-secondary" style="font-size: 18px;"><span class="d-block  "><span class="time_count" id="timer">0:00:00</span> <span class="time_count d-none" id="timer2"></span>&nbsp;</span></div>
 		@endif
 		<div class="progress mb-4" style="height:5px;@if(count($test->sections)<2)display:none;@endif">
-  <div class="progress-bar" role="progressbar" style="width: 0%;background: #ff8159" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar {{$m=1}}" role="progressbar" style="width: 0%;background: #ff8159" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 	@foreach($test->sections as $s=>$section)
 	

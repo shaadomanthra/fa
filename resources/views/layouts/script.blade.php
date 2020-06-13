@@ -970,17 +970,23 @@ $(function() {
         }
     });
 
-if($('#playerContainer_q').length){
-    audioPath = $('#playerContainer_q').data('src');
-    console.log(audioPath);
-    var cap = new CircleAudioPlayer({
-      audio: audioPath,
-      size: 120,
-      borderWidth: 8,
 
-    });
-    cap.appendTo(playerContainer_q);
-  }
+
+  @foreach(["1","2","3","4","5","6","7","8","9","10",'11',"12"] as $item)
+
+    if($('#playerContainer_{{$item}}').length){
+      audioPath = $('#playerContainer_{{$item}}').data('src');
+      console.log(audioPath);
+      var cap = new CircleAudioPlayer({
+        audio: audioPath,
+        size: 120,
+        borderWidth: 4,
+        size:50,
+      });
+      cap.appendTo(playerContainer_{{$item}});
+    }
+
+  @endforeach
 
 
 var isPlaying = false;
