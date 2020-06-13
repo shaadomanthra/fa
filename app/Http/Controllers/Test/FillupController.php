@@ -131,6 +131,13 @@ class FillupController extends Controller
                 $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_'),$filename);
             }
 
+            if(isset($request->all()['file_img_'])){
+                $file      = $request->all()['file_img_'];
+                $filename = $obj->id.'_q.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_img_'),$filename);
+                image_jpg($path_,'300');
+            }
+
             if(isset($request->all()['file2_'])){
                 $alpha = ["a","b","c","d","e","f","g","h","i","j","k","l"];
                 foreach($request->all()['file2_'] as $i=>$file){
@@ -298,6 +305,12 @@ class FillupController extends Controller
                 $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_'),$filename);
             }
 
+            if(isset($request->all()['file_img_'])){
+                $file      = $request->all()['file_img_'];
+                $filename = $obj->id.'_q.'.$file->getClientOriginalExtension();
+                $path_ = Storage::disk('public')->putFileAs('extracts', $request->file('file_img_'),$filename);
+                image_jpg($path_,'300');
+            }
             
 
             if(isset($request->all()['file2_'])){

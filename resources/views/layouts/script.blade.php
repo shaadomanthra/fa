@@ -118,17 +118,22 @@ $(document).ready(function() {
             $('.summernote4').summernote({
               placeholder: 'Enter your response ... ',
               tabsize: 2,
-                height: 100,                // set editor height
+                height: 150,                // set editor height
                 minHeight: null,             // set minimum height of editor
                 maxHeight: null,             // set maximum height of editor
                 focus: true,
                 toolbar: [],
+               
                 callbacks: {
                   onPaste: function (e) {
                     var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
                     e.preventDefault();
                     document.execCommand('insertText', false, bufferText);
-                  }
+                  },
+                   onChange: function(e) {
+                    var id = $(this).data('id');
+                    count_words(this,id);
+                  },
                 }
 
               });
@@ -155,9 +160,18 @@ $(document).ready(function() {
 
               });
 
+            function count_words(item,id){
+              var text = $(item).summernote("code");
+              text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
+              var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
+              //Update Count values
+              $(".wc_"+id).text(words);
+            }
+
           });
 
       $(document).on("keyup", function(){
+
         if($(".summernote2").length){
         var text = $(".summernote2").summernote("code");
         text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
@@ -169,6 +183,7 @@ $(document).ready(function() {
 
       if($(".summernote4").length){
         var text = $(".summernote4").summernote("code");
+        
         text = text.replace(/<p[^>]*>/g, '').replace(/<\/p>/g, ' ');
         var words = countWords(text.replace(/<\/?[^>]+(>|$)/g, ""));
         //Update Count value
@@ -176,6 +191,8 @@ $(document).ready(function() {
       }
 
       });
+
+      
 
         $('#write').submit(function() {
               if ($('input[name=accept]:checkbox').is(':checked')) {
@@ -932,6 +949,7 @@ $(document).ready(function() {
 
 
 @elseif(isset($pte))
+<script src="{{asset('js/circular.js')}}" type="application/javascript"></script>
 <script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
 <script type="application/javascript">
 $(function() {
@@ -951,6 +969,19 @@ $(function() {
               $(this).blur();
         }
     });
+
+if($('#playerContainer_q').length){
+    audioPath = $('#playerContainer_q').data('src');
+    console.log(audioPath);
+    var cap = new CircleAudioPlayer({
+      audio: audioPath,
+      size: 120,
+      borderWidth: 8,
+
+    });
+    cap.appendTo(playerContainer_q);
+  }
+
 
 var isPlaying = false;
 

@@ -52,6 +52,15 @@
         .checkitem{border:2px solid silver;padding:8px 12px;border-radius: 0px 5px 5px 0px; color:silver;cursor: pointer;}
         .checkitem_selected{border:2px solid #ff5722; background: #ff5722;color:white;}
         .audioitem_selected{border:2px solid #ff5722;border-right:0;}
+        .img_container{ width:160px;height:160px;border-radius: 5px;background-size:160px 160px; }
+        .circle-audio-player {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.cplayer {
+  padding: 4px;
+}
     </style>
     
 </head>

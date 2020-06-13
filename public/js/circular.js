@@ -35,10 +35,10 @@
 
 // settings
 var DEFAULTS = {
-	borderColor: "#ffffff",
-	playedColor: "#71bce2",
-	backgroundColor: "rgba(113,188,226,.2)",
-	iconColor: "#ffffff",
+	borderColor: "#ffd8cb",
+	playedColor: "#dd400f",
+	backgroundColor: "rgba(255,87,34,0.5)",
+	iconColor: "#ffff",
 	borderWidth: 2,
 	size: 48,
 	className: 'circle-audio-player'

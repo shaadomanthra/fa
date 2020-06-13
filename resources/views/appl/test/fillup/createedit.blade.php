@@ -56,6 +56,13 @@
             <label for="formGroupExampleInput ">Suffix</label><textarea class="form-control " name="suffix"  rows="3">@if($stub=='Create'){{(old('suffix')) ? old('suffix') : '' }} @else {{ $obj->suffix }} @endif</textarea>
           </div>
         </div>
+         <div class="col-12 ">
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Image (optional)</label>
+            <input type="file" class="form-control" name="file_img_" id="formGroupExampleInput" placeholder="Enter the image path" 
+              >
+          </div>
+        </div>
         <div class="col-12 ">
           <div class="form-group">
             <label for="formGroupExampleInput ">Question Audio File (optional)</label>

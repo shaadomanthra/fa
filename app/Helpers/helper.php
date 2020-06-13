@@ -30,6 +30,29 @@ if (! function_exists('image_resize')) {
     }
 }
 
+if (! function_exists('image_jpg')) {
+    function image_jpg($image_path,$size)
+    {
+        $base_folder = '/app/public/';
+        $path = storage_path() . $base_folder . $image_path;
+
+        $explode= explode('.', $image_path);
+        
+        $new_path = storage_path() . $base_folder .$explode[0];
+
+
+        $imgr2 = Image::make($path)->encode('jpg', 100);
+        $imgr2->resize($size, null, function ($constraint) {
+                        $constraint->aspectRatio();
+                        $constraint->upsize();
+        });
+        $imgr2->save($new_path.'_'.$size.'.jpg');      
+        
+
+        return true;
+    }
+}
+
 if (! function_exists('random_color')) {
 
 function random_color() {
