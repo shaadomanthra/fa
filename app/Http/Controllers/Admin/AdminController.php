@@ -63,7 +63,20 @@ class AdminController extends Controller
         $data['attempt_total'] = $count; 
   
         $data['coupon'] = Coupon::where('code','FA5Y9')->first();
-        return view('appl.admin.admin.index')->with('data',$data);
+
+        $user = \auth::user();
+
+        $view = 'appl.admin.admin.index';
+        /* code specific to piofx */
+        if($_SERVER['HTTP_HOST'] == 'onlinelibrary.test' || $_SERVER['HTTP_HOST'] == 'piofx.com' )
+        {
+            if($user->admin==1)
+                $view = 'appl.admin.bfs.index_superadmin';
+            if($user->admin==4)
+                $view = 'appl.admin.bfs.index_trainer';
+        }
+
+        return view($view)->with('data',$data);
         
     }
 

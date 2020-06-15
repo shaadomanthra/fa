@@ -140,7 +140,7 @@ class HomeController extends Controller
 
     public function dashboard(Request $request){
 
-        
+        $user = \auth::user();
         $orders = \auth::user()->orders()->where('status',1)->orderBy('expiry','desc')->get();
 
         $test_ids = array();
@@ -211,6 +211,13 @@ class HomeController extends Controller
        }
        else
         $view = 'appl.pages.dashboard2';
+
+        /* code specific to piofx */
+        if($_SERVER['HTTP_HOST'] == 'onlinelibrary.test' || $_SERVER['HTTP_HOST'] == 'piofx.com' )
+        {
+            if($user->role==0)
+                $view = 'appl.admin.bfs.index_student';
+        }
 
         return view($view)
                 ->with('tests',$tests)

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Course;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Course\Session as Obj;
+use App\Models\Course\Sess as Obj;
 use App\Models\Course\Track;
 
 class SessController extends Controller

@@ -392,7 +392,7 @@ class AttemptController extends Controller
 
 
 
-   if($view == 'listening' || $view == 'grammar' || $view =='english')
+   if($view == 'listening' || $view == 'grammar' || $view =='english' || $view=='survey')
     return view('appl.test.attempt.try_'.$view)
             ->with('player',true)
             ->with('try',true)
@@ -924,7 +924,12 @@ class AttemptController extends Controller
         $secs = $this->graph($tags);
         
 
-         return view('appl.test.attempt.alerts.solutions')
+        if($test->testtype->name=='SURVEY')
+          $view = 'thankyou';
+        else
+          $view = 'solutions';
+
+         return view('appl.test.attempt.alerts.'.$view)
               ->with('result',$result)
               ->with('section_score',$section_score)
               ->with('test',$test)
@@ -1290,9 +1295,14 @@ class AttemptController extends Controller
       /* sectional score */
      $section_score = $this->section_score($result);
       
+      if($test->testtype->name=='SURVEY')
+          $view = 'thankyou';
+        else
+          $view = 'solutions';
+
+
       
-      
-      return view('appl.test.attempt.alerts.solutions')
+      return view('appl.test.attempt.alerts.'.$view)
               ->with('result',$result)
               ->with('section_score',$section_score)
               ->with('test',$test)
@@ -1358,6 +1368,12 @@ class AttemptController extends Controller
      $section_score = $this->section_score($result);
       
       
+      if($test->testtype->name=='SURVEY')
+          $view = 'thankyou';
+        else
+          $view = 'solutions';
+
+
       
       return view('appl.test.attempt.alerts.solutions')
               ->with('result',$result)

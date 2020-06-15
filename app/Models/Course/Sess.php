@@ -4,7 +4,7 @@ namespace App\Models\Course;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Session extends Model
+class Sess extends Model
 {
     protected $fillable = [
     	'name',

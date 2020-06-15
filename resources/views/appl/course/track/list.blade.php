@@ -23,7 +23,7 @@
                   </a>
                   {!! $obj->description !!}
                 </td>
-                <td>{{ count($obj->sessions)}}</td>
+                <td>{{ count($obj->sess)}}</td>
                 <td>{{ count($obj->users)}}</td>
                 <td>
                   @if($obj->status==0)
