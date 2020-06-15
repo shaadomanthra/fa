@@ -1,6 +1,6 @@
 
 
-@if(count($products))
+
 <div class="table-responsive">
 <table class="table table-bordered">
   <thead>
@@ -32,10 +32,4 @@
   </tbody>
 </table>
 </div>
-@else
-<div class="card">
-	<div class="card-body">
-		- No products -
-	</div>
-</div>
-@endif
+
