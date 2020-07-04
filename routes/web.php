@@ -46,6 +46,8 @@ Route::get('/help/fillup', function () {
         return view('appl.pages.fillup');
 })->name('fillup');
 
+Route::post('audioblob','Test\AttemptController@saveAudio')->name('audio.blob');
+
 
 /* Admin Routes */
 Route::get('/admin', 'Admin\AdminController@index')->name('admin')->middleware('auth');

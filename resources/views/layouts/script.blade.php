@@ -491,10 +491,6 @@ $(document).ready(function() {
 <script src="{{asset('js/circular.js')}}" type="application/javascript"></script>
 <script type="application/javascript">
 
-  
-
-
-
   @foreach(["a","b","c","d","e","f","g","h","i","j",'k',"l"] as $item)
 
     if($('#playerContainer_{{$item}}').length){
@@ -502,14 +498,15 @@ $(document).ready(function() {
       console.log(audioPath);
       var cap = new CircleAudioPlayer({
         audio: audioPath,
-        size: 120,
+        size: 50,
         borderWidth: 4,
-        size:50,
       });
       cap.appendTo(playerContainer_{{$item}});
     }
 
   @endforeach
+
+  
 
   if($('#playerContainer_q').length){
     audioPath = $('#playerContainer_q').data('src');
@@ -951,6 +948,7 @@ $(document).ready(function() {
 @elseif(isset($pte))
 <script src="{{asset('js/circular.js')}}" type="application/javascript"></script>
 <script type="application/javascript" src="{{asset('js/jquery-ui-min.js')}}"></script>  
+<script type="application/javascript" src="{{asset('js/audio.js')}}"></script>  
 <script type="application/javascript">
 $(function() {
 
@@ -972,7 +970,7 @@ $(function() {
 
 
 
-  @foreach(["1","2","3","4","5","6","7","8","9","10",'11',"12"] as $item)
+  @foreach(range(0,40) as $item)
 
     if($('#playerContainer_{{$item}}').length){
       audioPath = $('#playerContainer_{{$item}}').data('src');
@@ -980,8 +978,7 @@ $(function() {
       var cap = new CircleAudioPlayer({
         audio: audioPath,
         size: 120,
-        borderWidth: 4,
-        size:50,
+        borderWidth: 10,
       });
       cap.appendTo(playerContainer_{{$item}});
     }
@@ -1118,7 +1115,8 @@ $( function() {
 
 </script>
 <script type="application/javascript">
-
+$(function() {
+  var x = null;
   startProgress();
 
   function startProgress($id=1){
@@ -1127,15 +1125,27 @@ $( function() {
       $width = 100 / parseInt($scount);
       $('.progress-bar').css('width',$width+"%");
     }
+
+    $time = $('.section_data_1').data('time');
+    if($time)
+    section_timer($time)
   }
 
   function updateProgress($id){
     if($('.progress-bar').length){
       $scount = $('.greblock_'+$id).data('scount');
       $sno = $('.greblock_'+$id).data('section');
+      $ques_no = $('.gre_next').data('ques-no');
+      $ques = $('.greblock_'+$ques_no).data('question');
       $width = 100 / parseInt($scount) * $sno;
       $('.progress-bar').css('width',$width+"%");
     }
+    if($('.duo_section').length){
+      $('.duo_section').data('section',$sno);
+      $('.duo_section').data('question',$ques);
+    }
+
+
   }
  
   $(".td_option").click(function() {
@@ -1223,7 +1233,12 @@ $( function() {
 
 
     $('.gre_next').on('click',function(e){
-      $qno = $(this).data('qno');
+        $qno = $(this).data('qno');
+        next($qno);
+    });
+
+    function next($qno){
+      
       $section = $('.greblock_'+$qno).data('section');
       $sno = $('.greblock_'+$qno).data('sno');
       
@@ -1235,6 +1250,36 @@ $( function() {
           }
         } 
 
+      // stop audio
+      audio_stop();
+
+      
+      // duo timer
+      if($('.section_data_'+$sno).length){
+        $time = $('.section_data_'+$sno).data('time');
+        clearTimer();
+        if($time)
+          section_timer($time);
+
+        $layout = $('.section_data_'+$sno).data('layout').trim();
+  
+        // check if its speak question
+        if($layout=='speak'){
+          $('.record-btn').show();
+          $('.gre_next').hide();
+        }
+
+      }else{
+        if($('.section_data').length){
+          if(!$sno){
+            $('#test_submit').modal();
+          }
+          
+        }
+      }
+
+
+
       updateProgress($section);
       if($qno){
         $('.gre_section').html($section);
@@ -1244,19 +1289,18 @@ $( function() {
         $qno = $qno +1;
 
         
-
-        
-
         //update the navbar
         if($('.greblock_'+$qno).length){
             $('.gre_prev').data('qno',($qno-2));
             $('.gre_next').data('qno',$qno);
+            $('.gre_next').data('ques-no',($qno-1));
             if($qno-2!=0)
                 $('.gre_prev').removeClass('disabled');
         }
         else{
           $('.gre_prev').data('qno',($qno-2));
           $('.gre_next').data('qno',0);
+          $('.gre_next').data('ques-no',($qno-1));
           $(this).addClass('disabled');
 
           if($('.next_text').length){
@@ -1264,14 +1308,256 @@ $( function() {
             $('.next-btn').addClass('btn-submit-duo');
           }
           
-        }   
+        }
 
-           
+
+        
+
+      }
+    }
+
+    $('.btn-submit-duo').on('click',function(e){
+      $('#test_submit').modal();
+      e.preventDefault();
+    });
+
+    
+
+
+
+      function section_timer($time){
+
+        var countDownDate = addMinutes(new Date(),$time);
+
+        window.x = setInterval(function() {
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        var t="" ;
+        if(hours!=0)
+          t = hours+"h ";
+        if(minutes !=0)
+          t = t+minutes+"m ";
+        if(seconds !=0)
+          t = t+seconds+"s ";
+
+        // Display the result in the element with id="demo"
+        if($('#timer3').is(':visible'))
+        document.getElementById("timer3").innerHTML =  t;
+
+        if($('#timer4').is(':visible'))
+        document.getElementById("timer4").innerHTML =  t;
+
+        // If the count down is finished, write some text 
+        if (distance < 0 ) {
+          clearInterval(x);
+          $qno = $('.gre_next').data('qno');
+          document.getElementById("timer3").innerHTML = "";
+          document.getElementById("timer4").innerHTML = "";
+          next($qno);
+          
+
+          // alert('The Test time has expired. ');
+          // $('.test').submit();
+
+        }
+      }, 1000);
+
       }
 
 
+
+      function addMinutes(date, minutes) {
+        return new Date(date.getTime() + minutes*60000);
+      }
+
+      function clearTimer(){
+        clearInterval(window.x);
+        if($('#timer3').is(':visible')){
+          document.getElementById("timer3").innerHTML = "";
+          document.getElementById("timer4").innerHTML = "";
+        }
+        
+      }
+
+
+// set up basic variables for app
+
+
+const soundClips = document.querySelector('.sound-clips');
+const canvas = document.querySelector('.visualizer');
+const mainSection = document.querySelector('.main-controls');
+
+// disable stop button while not recording
+
+
+
+// visualiser setup - create web audio api context and canvas
+
+let audioCtx;
+const canvasCtx = canvas.getContext("2d");
+
+//main block for doing the audio recording
+
+if (navigator.mediaDevices.getUserMedia) {
+  console.log('getUserMedia supported.');
+
+  const constraints = { audio: true };
+  let chunks = [];
+
+  let onSuccess = function(stream) {
+    mediaRecorder = new MediaRecorder(stream);
+
+    visualize(stream);
+    $('.visualizer').hide();
+
+    $(document).on('click','.record-btn',function(){
+        audio_start();
     });
 
+    
+
+
+
+    mediaRecorder.onstop = function(e) {
+      console.log("data available after MediaRecorder.stop() called.");
+
+      const blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+      chunks = [];
+
+      section = $('.duo_section').data('section');
+      question = $('.duo_section').data('question');
+      testid = $('.duo_section').data('testid');
+      userid = $('.duo_section').data('userid');
+      url = $('.duo_section').data('url');
+      _token = $('.duo_section').data('token');
+      name = 'sample.ogg';
+      var formData = new FormData();
+        formData.append('audio',blob);
+        formData.append('name',name);
+       var xhr=new XMLHttpRequest();
+      xhr.onload=function(e) {
+          if(this.readyState === 4) {
+              console.log("Server returned: ",e.target.responseText);
+          }
+      };
+      var fd=new FormData();
+      fd.append("_token",_token);
+      fd.append("testid",testid);
+      fd.append("userid",userid);
+      fd.append("section",section);
+      fd.append("question",question);
+      fd.append("audio",blob, "filename.ogg");
+      xhr.open("POST",url,true);
+      xhr.send(fd);
+
+      
+    }
+
+    mediaRecorder.ondataavailable = function(e) {
+      chunks.push(e.data);
+    }
+  }
+
+  let onError = function(err) {
+    console.log('The following error occured: ' + err);
+  }
+
+  navigator.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+
+} else {
+   console.log('getUserMedia not supported on your browser!');
+}
+
+function audio_start(){
+      console.log('clicked start');
+      mediaRecorder.start();
+      console.log(mediaRecorder.state);
+      console.log("recorder started ");
+      $('.visualizer').show();
+      $('.recording_message').show();
+      $('.recording_message').toggleClass('blink');
+      $('.record-btn').hide();
+      $('.gre_next').show();
+}
+
+function audio_stop(){
+  if($('.visualizer').is(':visible')){
+      console.log('clicked stop');
+      mediaRecorder.stop();
+      console.log(mediaRecorder.state);
+      console.log("recorder stopped ");
+      $('.visualizer').hide();
+      $('.recording_message').hide();
+      $('.recording_message').toggleClass('blink');
+  }   
+}
+
+function visualize(stream) {
+  if(!audioCtx) {
+    audioCtx = new AudioContext();
+  }
+
+  const source = audioCtx.createMediaStreamSource(stream);
+
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 2048;
+  const bufferLength = analyser.frequencyBinCount;
+  const dataArray = new Uint8Array(bufferLength);
+
+  source.connect(analyser);
+  //analyser.connect(audioCtx.destination);
+
+  draw()
+
+  function draw() {
+    const WIDTH = canvas.width
+    const HEIGHT = canvas.height;
+
+    requestAnimationFrame(draw);
+
+    analyser.getByteTimeDomainData(dataArray);
+
+    canvasCtx.fillStyle = 'rgb(255, 255, 255)';
+    canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
+
+    canvasCtx.lineWidth = 2;
+    canvasCtx.strokeStyle = 'rgb(255, 129, 89)';
+
+    canvasCtx.beginPath();
+
+    let sliceWidth = WIDTH * 1.0 / bufferLength;
+    let x = 0;
+
+
+    for(let i = 0; i < bufferLength; i++) {
+
+      let v = dataArray[i] / 128.0;
+      let y = v * HEIGHT/2;
+
+      if(i === 0) {
+        canvasCtx.moveTo(x, y);
+      } else {
+        canvasCtx.lineTo(x, y);
+      }
+
+      x += sliceWidth;
+    }
+
+    canvasCtx.lineTo(canvas.width, canvas.height/2);
+    canvasCtx.stroke();
+
+  }
+}
+
+});
 </script>
 @endif
 
@@ -1328,16 +1614,6 @@ var x = setInterval(function() {
 function addMinutes(date, minutes) {
     return new Date(date.getTime() + minutes*60000);
 }
-
-/* prevent copy */
-
-
-  
-/* prevent refresh */
-
-
-
-
 
 
 </script>

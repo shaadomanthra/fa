@@ -440,10 +440,10 @@ class AttemptController extends Controller
                   ->with('test',$test)
                   ->with('product',$product)
                   ->with('attempt',$attempt)
+                  ->with('app',$this)
                   ->with('pte',$pte)
                   ->with('timer',$user)
                   ->with('time',$test->test_time)
-                  ->with('view',true)
                   ->with('editor',true)
                   ->with('player',1);
       }
@@ -879,6 +879,7 @@ class AttemptController extends Controller
         echo $score;
         dd();
       }
+
       if(!$request->get('admin'))
         Attempt::insert($data); 
       
@@ -1330,6 +1331,11 @@ class AttemptController extends Controller
 
       $score = 0;
       foreach($result as $r){
+        if(!$r->status)
+        {
+          $score = 0;
+          break;
+        }
         if($r->accuracy==1)
           $score++;
       }
@@ -1432,6 +1438,18 @@ class AttemptController extends Controller
          
    }
 
+   public function saveAudio(Request $request){
+    $section = $request->get('section');
+    $question = $request->get('question');
+    $testid = $request->get('testid');
+    $userid = $request->get('userid');
+       if(isset($request->all()['audio'])){
+                $file      = $request->all()['audio'];
+                $filename  = $userid.'_'.$question.'.wav';
+                $path = Storage::disk('public')->putFileAs('responses', $request->file('audio'),$filename);
+        }
+        echo $path;
+   }
    /**
      * Display the specified resource.
      *

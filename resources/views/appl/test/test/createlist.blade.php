@@ -66,7 +66,7 @@
   				</div>
   				<div class="col-9">
   					<div><h3 class="bborder mb-4">Other </h3></div>
-  					
+  					<a href="{{ route('test.create')}}?category=duolingo&type=DUOLINGO" class="btn btn-outline-primary btn-lg mb-3 mr-2">Duolingo</a>
   					<a href="{{ route('test.create')}}?category=general&type=grammar" class="btn btn-outline-primary btn-lg mb-3 mr-2">Simple Test - Grammar</a>
   					<a href="{{ route('test.create')}}?category=general&type=english" class="btn btn-outline-primary btn-lg mb-3 mr-2">Sectional Test - English</a>
   					 

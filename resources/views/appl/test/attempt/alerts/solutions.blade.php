@@ -38,7 +38,11 @@
           <div class="col-12 col-md-6">
              <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded ">
               <div class="">Score</div>
+              @if($score)
               <div class="display-4">{{ $score }} / {{ $test->marks}} </div>
+              @else
+              <div class="h5 badge badge-warning mt-3">Under Review</div>
+              @endif
             </div>
             @if($band)
             <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded mr-0 mr-md-4">

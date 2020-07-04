@@ -69,6 +69,18 @@
           >
            <small  class="form-text text-muted">Mention the music track seek position in seconds. Enter -1 if you dont want to show the play button for the section.</small>
       </div>
+      @elseif(strtoupper($app->test->testtype->name)=='DUOLINGO')
+      <div class="form-group">
+        <label for="formGroupExampleInput ">Timer</label>
+        <input type="text" class="form-control" name="seek_time" id="formGroupExampleInput" placeholder="Enter the time in seconds" 
+            @if($stub=='Create')
+            value="{{ (old('seek_time')) ? old('seek_time') : '' }}"
+            @else
+            value = "{{ $obj->seek_time }}"
+            @endif
+          >
+           <small  class="form-text text-muted">Mention who long the user can see this section</small>
+      </div>
       @endif
         </div>
       </div>

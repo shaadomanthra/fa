@@ -14,6 +14,7 @@
 @endguest
 
 
+
 <div class="container " style="padding-left:0px;padding-right:0px;max-width:900px;">
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
    @if(isset($view))

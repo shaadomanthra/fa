@@ -4,8 +4,8 @@
 <div class="col-6 col-md-3">
 
 @if(\Storage::disk('public')->exists('extracts/'.$f->id.'_q.mp3') )
-    <div id="playerContainer_{{$m}}" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
-    <span class="{{$m=$m+1}}"></span>
+    <div id="playerContainer_{{$f->qno}}" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
+    <span class=""></span>
     @endif
 
 </div>

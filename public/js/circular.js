@@ -40,7 +40,7 @@ var DEFAULTS = {
 	backgroundColor: "rgba(255,87,34,0.5)",
 	iconColor: "#ffff",
 	borderWidth: 2,
-	size: 48,
+	size: 150,
 	className: 'circle-audio-player'
 };
 

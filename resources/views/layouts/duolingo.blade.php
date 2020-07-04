@@ -47,6 +47,7 @@
         .wrap{display: inline}
         .bg-silver{background: #eee}
         .btn-submit-duo{background:#ff5722;color:white; }
+        .btn-orange{background:#ff5722;color:white;}
         .audioed{ cursor: pointer; }
         .audioitem{border:2px solid silver;border-right:0;padding:8px 13px;border-radius: 5px 0px 0px 5px;}
         .checkitem{border:2px solid silver;padding:8px 12px;border-radius: 0px 5px 5px 0px; color:silver;cursor: pointer;}
@@ -60,6 +61,14 @@
 }
 .cplayer {
   padding: 4px;
+}
+    .blink {
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+  50% {
+    opacity: 0.0;
+  }
 }
     </style>
     

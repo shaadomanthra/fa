@@ -18,7 +18,7 @@
         @if($item->fillup)
           @if($item->fillup->label)<b class=''>{{$item->fillup->label}}</b> @endif
           <div>
-          @if($item->fillup->prefix)<span>{{$item->fillup->prefix}}</span> @endif
+          @if($item->fillup->prefix)<span>{!! $item->fillup->prefix !!}</span> @endif
           @if($item->fillup->answer)<span class="text-success "><u>{{$item->fillup->answer}}</u></span> @endif
           @if($item->fillup->suffix)<span>{{$item->fillup->suffix}}</span> @endif
           </div>
@@ -54,7 +54,19 @@
 
         @endif
       </td>
-      <td>{!! $item->response !!}</td>
+      <td>
+        @if($item->response) {!! $item->response !!} 
+        @else
+        @if(isset($item->fillup->id))
+          @if(\Storage::disk('public')->exists('responses/'.\auth::user()->id.'_'.$item->fillup->id.'.wav'))
+          <audio controls>
+              <source src="{{ asset('/storage/responses/'.\auth::user()->id.'_'.$item->fillup->id.'.wav')}}" type="audio/ogg">
+            Your browser does not support the audio element.
+            </audio>
+          @endif
+        @endif
+        @endif
+      </td>
       <td>
       @if($item->status)
         @if($item->accuracy==1) 
@@ -78,7 +90,7 @@
         @if(isset($item['fillup']))
           @if($item['fillup']->label)<b class=''>{{$item['fillup']->label}}</b> @endif
           <div>
-          @if($item['fillup']->prefix)<span>{{$item['fillup']->prefix}}</span> @endif
+          @if($item['fillup']->prefix)<span>{!! $item['fillup']->prefix !!}</span> @endif
           @if($item['fillup']->answer)<span class="text-success "><u>{{$item['fillup']->answer}}</u></span> @endif
           @if($item['fillup']->suffix)<span>{{$item['fillup']->suffix}}</span> @endif
           </div>
@@ -100,7 +112,18 @@
 
         @endif
       </td>
-      <td>{!! $item['response'] !!}</td>
+      <td>
+      @if($item['response']) {!! $item['response'] !!} 
+        @else
+          @if(isset($item['fillup']->id))
+          @if(\Storage::disk('public')->exists('responses/'.\auth::user()->id.'_'.$item['fillup']->id.'.wav'))
+            <audio controls>
+              <source src="{{ asset('/storage/responses/'.\auth::user()->id.'_'.$item['fillup']->id.'.wav')}}" type="audio/ogg">
+            Your browser does not support the audio element.
+            </audio>
+          @endif
+          @endif
+        @endif</td>
       <td>
         @if($item['status'])
           @if($item['accuracy']==1 || $item['accuracy']>1 ) 
