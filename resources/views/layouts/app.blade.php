@@ -41,7 +41,7 @@
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
 
-    @if(isset($code))
+  @if(isset($code))
   <link href="{{asset('js/codemirror/lib/codemirror.css')}}" rel="stylesheet">
   <link href="{{asset('js/codemirror/theme/monokai.css')}}" rel="stylesheet">
   <link href="{{asset('js/highlight/styles/default.css')}}" rel="stylesheet">
