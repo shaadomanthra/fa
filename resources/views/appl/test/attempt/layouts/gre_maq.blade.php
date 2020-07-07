@@ -43,31 +43,31 @@
       @if($m->f || $m->f===0)
       <tr>
       <td class="td_option td_{{$m->qno}}_6 option" data-id="{{$m->qno}}" data-option="F" data-group="6">
-        <input class='input {{$m->qno}}_F {{$m->qno}}_4' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
+        <input class='input {{$m->qno}}_F {{$m->qno}}_6' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="F"/> {!! $m->f !!}
       </td>
       </tr>
       @endif
 
       @if($m->g || $m->g==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
-        <input class='input {{$m->qno}}_G {{$m->qno}}_1' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="G"/> {!! $m->g !!}
+    <td class="td_option td_{{$m->qno}}_7 option" data-id="{{$m->qno}}" data-option="F" data-group="7">
+        <input class='input {{$m->qno}}_G {{$m->qno}}_7' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="G"/> {!! $m->g !!}
     </td>
   </tr>
   @endif
 
   @if($m->h || $m->h==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
-        <input class='input {{$m->qno}}_H {{$m->qno}}_1' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="H"/> {!! $m->h !!}
+    <td class="td_option td_{{$m->qno}}_8 option" data-id="{{$m->qno}}" data-option="F" data-group="8">
+        <input class='input {{$m->qno}}_H {{$m->qno}}_8' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="H"/> {!! $m->h !!}
     </td>
   </tr>
   @endif
 
   @if($m->i || $m->i==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
-        <input class='input {{$m->qno}}_I {{$m->qno}}_1' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="I"/> {!! $m->i !!}
+    <td class="td_option td_{{$m->qno}}_9 option" data-id="{{$m->qno}}" data-option="F" data-group="9">
+        <input class='input {{$m->qno}}_I {{$m->qno}}_9' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="I"/> {!! $m->i !!}
     </td>
   </tr>
   @endif
