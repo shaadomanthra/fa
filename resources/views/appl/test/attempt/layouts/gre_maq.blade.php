@@ -47,5 +47,29 @@
       </td>
       </tr>
       @endif
+
+      @if($m->g || $m->g==='0')
+   <tr>
+    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
+        <input class='input {{$m->qno}}_G {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="G"/> {!! $m->g !!}
+    </td>
+  </tr>
+  @endif
+
+  @if($m->h || $m->h==='0')
+   <tr>
+    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
+        <input class='input {{$m->qno}}_H {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="H"/> {!! $m->h !!}
+    </td>
+  </tr>
+  @endif
+
+  @if($m->i || $m->i==='0')
+   <tr>
+    <td class="td_option td_{{$m->qno}}_1 option" data-id="{{$m->qno}}" data-option="F" data-group="1">
+        <input class='input {{$m->qno}}_I {{$m->qno}}_1' type="radio" name="{{$m->qno}}"  data-id="{{$m->qno}}" value="I"/> {!! $m->i !!}
+    </td>
+  </tr>
+  @endif
  
 </table>
