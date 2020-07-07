@@ -11,7 +11,7 @@
 
 
 
-<div class="mb-3 qwrap_{{$m->qno}}" data-layout="{{$m->layout}}" data-id="{{$f->id}}">
+<div class="mb-3 qwrap_{{$m->qno}}" data-layout="{{$m->layout}}" data-id="{{$m->id}}">
   <div class="row">
         <div class="col-4 col-md-3 col-lg-2">
           <div id="{{$m->qno}}" class="qno">{{$m->qno}}</div>
