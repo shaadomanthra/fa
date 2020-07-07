@@ -167,7 +167,9 @@
         @if($app->test->status==2)
         <a href="{{ route('test.analysis',$app->test->slug)}}?session_id={{$users[$k]['id']}}">{{ $users[$k]['session']['name']}}</a>
         @else
+        @if(isset($users[$k]['user']))
         <a href="{{ route('user.show',$users[$k]['user']['id'])}}">{{ $users[$k]['user']['name']}}</a>
+        @endif
         @endif
       </td>
 
