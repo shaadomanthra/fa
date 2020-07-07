@@ -50,7 +50,7 @@
 
       @if($m->g || $m->g==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_7 option" data-id="{{$m->qno}}" data-option="F" data-group="7">
+    <td class="td_option td_{{$m->qno}}_7 option" data-id="{{$m->qno}}" data-option="G" data-group="7">
         <input class='input {{$m->qno}}_G {{$m->qno}}_7' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="G"/> {!! $m->g !!}
     </td>
   </tr>
@@ -58,7 +58,7 @@
 
   @if($m->h || $m->h==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_8 option" data-id="{{$m->qno}}" data-option="F" data-group="8">
+    <td class="td_option td_{{$m->qno}}_8 option" data-id="{{$m->qno}}" data-option="H" data-group="8">
         <input class='input {{$m->qno}}_H {{$m->qno}}_8' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="H"/> {!! $m->h !!}
     </td>
   </tr>
@@ -66,7 +66,7 @@
 
   @if($m->i || $m->i==='0')
    <tr>
-    <td class="td_option td_{{$m->qno}}_9 option" data-id="{{$m->qno}}" data-option="F" data-group="9">
+    <td class="td_option td_{{$m->qno}}_9 option" data-id="{{$m->qno}}" data-option="I" data-group="9">
         <input class='input {{$m->qno}}_I {{$m->qno}}_9' type="checkbox" name="{{$m->qno}}[]"  data-id="{{$m->qno}}" value="I"/> {!! $m->i !!}
     </td>
   </tr>
