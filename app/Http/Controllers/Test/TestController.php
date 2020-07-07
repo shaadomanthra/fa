@@ -75,7 +75,13 @@ class TestController extends Controller
             flash('images updated!')->success();
         }
         
-        $view = ($search && !$sort) ? 'list': 'index';
+        if($search)
+            if($sort)
+                $view = 'index';
+            else
+                $view = 'list';
+        else
+            $view = 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
