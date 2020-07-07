@@ -34,7 +34,6 @@
     @if(isset($try) || isset($reading))
     <link rel='stylesheet' href='{{ asset("css/try.css") }}'>
     @endif
-    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/progres-bar.css') }}" rel="stylesheet">
     @if(isset($try))
       <script type="text/x-mathjax-config">
