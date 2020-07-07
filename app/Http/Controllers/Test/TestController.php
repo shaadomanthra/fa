@@ -51,6 +51,7 @@ class TestController extends Controller
 
         $search = $request->search;
         $item = $request->item;
+        $sort = $request->sort;
 
         $objs = $obj->sortable()->where('name','LIKE',"%{$item}%")
                     ->orderBy('created_at','desc')
@@ -74,7 +75,7 @@ class TestController extends Controller
             flash('images updated!')->success();
         }
         
-        $view = $search ? 'list': 'index';
+        $view = ($search && !$sort) ? 'list': 'index';
 
         return view('appl.'.$this->app.'.'.$this->module.'.'.$view)
                 ->with('objs',$objs)
