@@ -126,6 +126,8 @@ class AttemptController extends Controller
           $price = $test->price;
         }
 
+        if($test->price==0)
+          $price=0;
 
         if($test->status==2){
 
