@@ -64,6 +64,17 @@
             </div>
            @endif
 
+           <div class="form-group">
+            <label for="formGroupExampleInput ">Comments</label>
+            <input type="text" class="form-control" name="comment" id="formGroupExampleInp" placeholder="Enter comments" 
+                @if($stub=='Create')
+                value="{{ (old('comment')) ? old('comment') : request()->get('comment') }}"
+                @else
+                value = "{{ $obj->comment }}"
+                @endif
+              >
+          </div>
+
 
         </div>
         <div class="col-12 col-md-6">
@@ -94,6 +105,14 @@
             <select class="form-control" name="status">
               <option value="1" @if(isset($obj)) @if($obj->status==1) selected @else selected @endif  @endif >Active</option>
               <option value="0" @if(isset($obj)) @if($obj->status===0) selected @endif @endif >Blocked</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="formGroupExampleInput ">Enrolled</label>
+            <select class="form-control" name="enrolled">
+              <option value="1" @if(isset($obj)) @if($obj->enrolled==1) selected @else selected @endif  @endif >YES</option>
+              <option value="0" @if(isset($obj)) @if($obj->enrolled===0) selected @endif @endif >NO</option>
             </select>
           </div>
 

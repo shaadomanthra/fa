@@ -99,6 +99,15 @@
             </div>
             
             <div class="row mb-2">
+              <div class="col-md-4"><b>Enrolled</b></div>
+              <div class="col-md-8">@if($obj->enrolled==0)
+                      <span class="badge badge-secondary">NO</span>
+                    @elseif($obj->enrolled==1)
+                      <span class="badge badge-success">YES</span>
+                    @endif</div>
+            </div>
+
+            <div class="row mb-2">
               <div class="col-md-4"><b>Status</b></div>
               <div class="col-md-8">@if($obj->status==0)
                       <span class="badge badge-danger">Blocked</span>
@@ -148,6 +157,11 @@
              <div class="row mb-2">
               <div class="col-md-4"><b>Last Login At</b></div>
               <div class="col-md-8">{{ ($obj->lastlogin_at) ? \Carbon\Carbon::parse($obj->lastlogin_at)->diffForHumans() : ' - ' }}</div>
+            </div>
+
+            <div class="row mb-2">
+              <div class="col-md-4"><b>Comments</b></div>
+              <div class="col-md-8">{{ $obj->comment}}</div>
             </div>
 
             @if($obj->auto_password)

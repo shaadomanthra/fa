@@ -25,7 +25,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password','phone','lastlogin_at','status',
-        'activation_token','sms_token','user_id','idno','admin','auto_password',
+        'activation_token','sms_token','user_id','idno','admin','auto_password','enrolled','comment','info',
     ];
 
      public $sortable = ['idno',

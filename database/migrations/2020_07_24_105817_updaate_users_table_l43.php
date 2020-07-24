@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateScchedulesG56Table extends Migration
+class UpdaateUsersTableL43 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,11 @@ class UpdateScchedulesG56Table extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            $table->integer('enrolled')->nullable()->default(0);
+            $table->longText('comment')->nullable();
+            $table->string('info')->nullable();
+        });
     }
 
     /**

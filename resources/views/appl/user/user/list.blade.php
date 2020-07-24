@@ -11,6 +11,7 @@
                 <th scope="col">@sortablelink('phone') </th>
                 <th scope="col">@sortablelink('user_id','Created By')</th>
                 <th scope="col">@sortablelink('created_at') </th>
+                 <th scope="col">Comment </th>
               </tr>
             </thead>
             <tbody>
@@ -39,6 +40,7 @@
                   @endif
                 </td>
                 <td>{{ ($obj->created_at) ? $obj->created_at->diffForHumans() : '' }}</td>
+                <td>{{ ($obj->comment) ? $obj->comment : '' }}</td>
               </tr>
               @endforeach      
             </tbody>

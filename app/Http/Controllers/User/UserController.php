@@ -231,6 +231,8 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'phone' => $request->get('phone'),
             'status'=>$request->get('status'),
+            'enrolled'=>$request->get('enrolled'),
+            'comment'=>$request->get('comment'),
             'idno'=>strtoupper($request->get('idno')),
             'user_id'=>\auth::user()->id,
             'activation_token'=>1,
