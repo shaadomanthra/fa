@@ -15,7 +15,7 @@
 
 
 
-<div class="container " style="padding-left:0px;padding-right:0px;max-width:900px;">
+<div class="container {{$p=1}}" style="padding-left:0px;padding-right:0px;max-width:900px;">
     <form id="test" class="test" action="{{route('attempt.store',$app->test->slug)}}" method="post">  
    @if(isset($view))
             <input type="hidden" name="admin" value="1">

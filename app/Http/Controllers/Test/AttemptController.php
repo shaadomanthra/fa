@@ -1057,6 +1057,8 @@ class AttemptController extends Controller
         $answers = explode("/",$answer);
       else if(strpos($answer, '&') !== false)
         $answers = explode("&",$answer);
+      else
+        $answers = $answer;
 
       /* pre check */
       if(is_array($answers) && is_array($response)){

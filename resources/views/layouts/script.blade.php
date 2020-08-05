@@ -970,7 +970,7 @@ $(function() {
 
 
 
-  @foreach(range(0,40) as $item)
+  @foreach(range(0,50) as $item)
 
     if($('#playerContainer_{{$item}}').length){
       audioPath = $('#playerContainer_{{$item}}').data('src');
@@ -1327,7 +1327,7 @@ $(function() {
 
       function section_timer($time){
 
-        var countDownDate = addMinutes(new Date(),$time);
+        var countDownDate = addSeconds(new Date(),$time);
 
         window.x = setInterval(function() {
         // Get todays date and time
@@ -1374,8 +1374,8 @@ $(function() {
 
 
 
-      function addMinutes(date, minutes) {
-        return new Date(date.getTime() + minutes*60000);
+      function addSeconds(date, seconds) {
+        return new Date(date.getTime() + seconds*1000);
       }
 
       function clearTimer(){

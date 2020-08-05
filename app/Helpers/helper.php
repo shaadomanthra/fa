@@ -40,18 +40,17 @@ if (! function_exists('image_jpg')) {
         
         $new_path = storage_path() . $base_folder .$explode[0];
 
-
         $imgr2 = Image::make($path)->encode('jpg', 100);
-        $imgr2->resize($size, null, function ($constraint) {
+            $imgr2->resize($size, null, function ($constraint) {
                         $constraint->aspectRatio();
                         $constraint->upsize();
-        });
-        $imgr2->save($new_path.'_'.$size.'.jpg');      
+            });
+            $imgr2->save($new_path.'_'.$size.'.jpg'); 
         
-
         return true;
     }
 }
+
 
 if (! function_exists('random_color')) {
 

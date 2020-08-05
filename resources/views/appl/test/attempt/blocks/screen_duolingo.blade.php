@@ -1,9 +1,9 @@
 
 <div class="my-3 mt-md-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
 	<div class="bg-white  p-3 py-5 p-md-5 duo_section" data-section="1"  data-testid="{{$test->id}}" data-url="{{ route('audio.blob')}}" data-token="{{ csrf_token() }}" data-userid="{{ \auth::user()->id }}">
-		@if($test->test_time)
+		
 		<div class="mb-3 text-secondary" style="font-size: 18px;"><span class="d-block  "><span class="time_count" id="timer3"></span> <span class="time_count d-none" id="timer4"></span>&nbsp;</span></div>
-		@endif
+
 		<div class="progress mb-4" style="height:5px;@if(count($test->sections)<2)display:none;@endif">
   <div class="progress-bar {{$m=1}}" role="progressbar" style="width: 0%;background: #ff8159" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
@@ -45,13 +45,13 @@
 			<div class="row no-gutters">
 				<div class="col-12 ">
 				<a href="#" class="white disabled record-btn" data-qno="2" data-duo="1" style="
-					@if(isset($test->sections->first()->fillup_order[0]->qno)) @if($test->sections->first()->fillup_order[0]->layout=='speak') sample @else display:none; @endif @else display:none; @endif"s>
+					@if(isset($test->sections[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') sample @else display:none; @endif @else display:none; @endif"s>
 					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 btn-orange" >
 						<div class="text-center p-2"><i class="fa fa-circle"></i> <span>Record</span>
 						</div>
 					</div>
 				</a>
-				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1" data-ques-no="1" style="@if(isset($test->sections->first()->fillup_order[0]->qno)) @if($test->sections->first()->fillup_order[0]->layout=='speak') display:none @else  @endif @endif">
+				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1" data-ques-no="1" style="@if(isset($test->section[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') display:none @else  @endif @endif">
 					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver @if(count($test->sections)<2) btn-submit-duo @endif"  >
 						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> <span class="next_text">@if(count($test->sections)<2) Submit @else Next @endif</span>
 						</div>
