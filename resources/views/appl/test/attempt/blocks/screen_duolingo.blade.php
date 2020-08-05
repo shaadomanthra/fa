@@ -41,17 +41,30 @@
 			&nbsp;
 			<canvas class="visualizer" height="40px" width="100px" style="display: none;margin-top: 0px"></canvas>
 		</div>
+		
 		<div class="col-12 col-md-2">
 			<div class="row no-gutters">
 				<div class="col-12 ">
 				<a href="#" class="white disabled record-btn" data-qno="2" data-duo="1" style="
-					@if(isset($test->sections[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') sample @else display:none; @endif @else display:none; @endif"s>
+					@if(isset($test->sections[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') sample @else display:none; @endif @else display:none; @endif"
+
+					>
 					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 btn-orange" >
 						<div class="text-center p-2"><i class="fa fa-circle"></i> <span>Record</span>
 						</div>
 					</div>
 				</a>
-				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1" data-ques-no="1" style="@if(isset($test->section[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') display:none @else  @endif @endif">
+				
+				<a href="#" class="white gre_next disabled" data-qno="2" data-duo="1" data-ques-no="1" 
+					style="@if(isset($test->sections[0]->fillup_order[0]->layout)) 
+							@if($test->sections[0]->fillup_order[0]->layout=='speak')  
+								display:none;
+							@else 
+							apple
+							@endif  
+							@else
+							mango
+						    @endif " >
 					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver @if(count($test->sections)<2) btn-submit-duo @endif"  >
 						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> <span class="next_text">@if(count($test->sections)<2) Submit @else Next @endif</span>
 						</div>
