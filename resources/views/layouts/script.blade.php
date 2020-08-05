@@ -970,7 +970,7 @@ $(function() {
 
 
 
-  @foreach(range(0,50) as $item)
+  @foreach(range(0,60) as $item)
 
     if($('#playerContainer_{{$item}}').length){
       audioPath = $('#playerContainer_{{$item}}').data('src');

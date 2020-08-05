@@ -17,7 +17,7 @@
 @endif
 <div class="col ">
 @if(\Storage::disk('public')->exists('extracts/'.$f->id.'_q.mp3') )
-<div id="playerContainer_{{$f->qno}}" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
+<div id="playerContainer_{{$s}}" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
     <span class=""></span>
 @elseif(\Storage::disk('public')->exists('extracts/'.$f->id.'_q_300.jpg')) 
 <div class="text-center">
