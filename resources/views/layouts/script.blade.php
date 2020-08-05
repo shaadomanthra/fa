@@ -975,12 +975,15 @@ $(function() {
     if($('#playerContainer_{{$item}}').length){
       audioPath = $('#playerContainer_{{$item}}').data('src');
       console.log(audioPath);
-      var cap = new CircleAudioPlayer({
-        audio: audioPath,
-        size: 120,
-        borderWidth: 10,
-      });
-      cap.appendTo(playerContainer_{{$item}});
+      if(audioPath){
+        var cap = new CircleAudioPlayer({
+          audio: audioPath,
+          size: 120,
+          borderWidth: 10,
+        });
+        cap.appendTo(playerContainer_{{$item}});
+      }
+      
     }
 
   @endforeach
