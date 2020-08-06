@@ -49,7 +49,7 @@
 					@if(isset($test->sections[0]->fillup_order[0]->qno)) @if($test->sections[0]->fillup_order[0]->layout=='speak') sample @else display:none; @endif @else display:none; @endif"
 
 					>
-					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 btn-orange" >
+					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 btn-orange-record" >
 						<div class="text-center p-2"><i class="fa fa-circle"></i> <span>Record</span>
 						</div>
 					</div>
@@ -65,7 +65,7 @@
 							@else
 							mango
 						    @endif " >
-					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn bg-silver @if(count($test->sections)<2) btn-submit-duo @endif"  >
+					<div class=" rounded  p-1 ml-1 mb-0 mb-md-0 next-btn btn-orange @if(count($test->sections)<2) btn-submit-duo @endif"  >
 						<div class="text-center p-2"><i class="fa fa-arrow-right "></i> <span class="next_text">@if(count($test->sections)<2) Submit @else Next @endif</span>
 						</div>
 					</div>

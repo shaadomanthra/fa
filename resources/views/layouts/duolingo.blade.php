@@ -29,48 +29,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     @endif
 
-    <style>
-        .text-primary{color:#ff8159;}
-        b{color:#636569;}
-        .lightb{background: #fff3ef;color:#ff5722;}
-        input.duo{border-color:#ffd8cb;}
-        input.lightb{border-color:#ffd8cb;}
-        a.white{color: silver}
-        a.white:hover{color: silver}
-        a.disabled{color:silver;}
-        a.disabled:hover{color:silver;}
-        .select_word{border:2px solid silver;}
-        .select_word:hover{border-color:#ff8159;cursor: pointer}
-        .select_word_selected{background:#ff5722;color:white;border-color:#ff5722;}
-        .duo-heading{font-size: 20px}
-        .hr{border: 1px solid #faf1eb;margin: 30px 0px}
-        .wrap{display: inline}
-        .bg-silver{background: #eee}
-        .btn-submit-duo{background:#ff5722;color:white; }
-        .btn-orange{background:#ff5722;color:white;}
-        .audioed{ cursor: pointer; }
-        .audioitem{border:2px solid silver;border-right:0;padding:8px 13px;border-radius: 5px 0px 0px 5px;}
-        .checkitem{border:2px solid silver;padding:8px 12px;border-radius: 0px 5px 5px 0px; color:silver;cursor: pointer;}
-        .checkitem_selected{border:2px solid #ff5722; background: #ff5722;color:white;}
-        .audioitem_selected{border:2px solid #ff5722;border-right:0;}
-        .img_container{ width:160px;height:160px;border-radius: 5px;background-size:160px 160px; }
-        .circle-audio-player {
-  display: block;
-  margin: 0 auto;
-  cursor: pointer;
-}
-.cplayer {
-  padding: 4px;
-}
-    .blink {
-  animation: blinker 1s linear infinite;
-}
-@keyframes blinker {
-  50% {
-    opacity: 0.0;
-  }
-}
-    </style>
+
     
 </head>
 <body style="background: #eee">

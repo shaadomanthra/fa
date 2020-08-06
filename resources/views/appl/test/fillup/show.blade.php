@@ -117,6 +117,16 @@
         @include('appl.test.attempt.layouts.ielts_label') 
       @elseif($f->layout=='ielts_number')
         @include('appl.test.attempt.layouts.ielts_title') 
+      @elseif($f->layout=='listen_audio_options')
+        @include('appl.test.attempt.layouts.listen_audio_options') 
+      @elseif($f->layout=='listen_audio_question')
+        @include('appl.test.attempt.layouts.listen_audio_question')   
+      @elseif($f->layout=='speak')
+        @include('appl.test.attempt.layouts.speak')  
+      @elseif($f->layout=='write')
+        @include('appl.test.attempt.layouts.write')  
+      @elseif($f->layout=='select_words')
+        @include('appl.test.attempt.layouts.select_words')  
       @else
         @include('appl.test.attempt.layouts.gre_blank') 
       @endif   

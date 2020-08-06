@@ -206,6 +206,16 @@ class FillupController extends Controller
     {
         $obj = Obj::where('id',$id)->first();
 
+        if(request()->get('deleteimages')){
+            $filename = $obj->id.'_q_300.png';
+            
+            if(Storage::disk('public')->exists('extracts/'.$filename))
+                Storage::disk('public')->delete('extracts/'.$filename);
+
+            $filename = $obj->id.'_q_300.jpg';
+            if(Storage::disk('public')->exists('extracts/'.$filename))
+                Storage::disk('public')->delete('extracts/'.$filename);
+        }
 
         $this->authorize('view', $obj);
         if($obj)
