@@ -86,7 +86,7 @@
     
     <tr>
       <th scope="row">{{ $item['qno']}}</th>
-      <td class="">
+      <td class="text-wrap text-break">
         @if(isset($item['fillup']))
           @if($item['fillup']->label)<b class=''>{{$item['fillup']->label}}</b> @endif
           <div>
