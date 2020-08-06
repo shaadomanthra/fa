@@ -1,4 +1,8 @@
-
+<style>
+	b{
+		color:#636569;
+	}
+</style>
 <div class="my-3 mt-md-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
 	<div class="bg-white  p-3 py-5 p-md-5 duo_section" data-section="1"  data-testid="{{$test->id}}" data-url="{{ route('audio.blob')}}" data-token="{{ csrf_token() }}" data-userid="{{ \auth::user()->id }}">
 		
