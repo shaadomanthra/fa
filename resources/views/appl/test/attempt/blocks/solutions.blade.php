@@ -14,7 +14,7 @@
     @if(isset($item->qno))
     <tr>
       <th scope="row">{{ $item->qno}}</th>
-      <td>
+      <td class="text-wrap text-break">
         @if($item->fillup)
           @if($item->fillup->label)<b class=''>{{$item->fillup->label}}</b> @endif
           <div>
