@@ -37,11 +37,12 @@
           </div>
           <div class="col-12 col-md-6">
              <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded ">
-              <div class="">Score</div>
+              
               @if($test->testtype->name=='DUOLINGO')
+                <div class="">Score Range</div>
                 <div class="display-4">{{ $test->duolingoRange($score) }}</div>
               @else
-
+                <div class="">Score</div>
 
                 @if($score)
                 <div class="display-4">{{ $score }} / {{ $test->marks}} </div>
@@ -82,12 +83,19 @@
         @include('appl.test.attempt.blocks.solutions')
       @else
         <div class="mt-4">
+          <h4 class="pl-3">What does the score mean?</h4>
         {!! $test->duolingoComment($score) !!}
       </div>
-      <div class="alert alert-important alert-warning">
-        <p>
-        For a more detailed score and comments, purchase or premium duolingo tests.</p>
-        <a  href="#" class="btn btn-success ">Buy Now</a>
+      <div class="alert alert-important alert-danger mt-4 p-md-4">
+        <h3>Get more with our Expert Evaluation </h3>
+         <ol>
+          <li>Personalised Comments</li>
+<li>High Score Tips</li>
+<li>Writing Assessment</li>
+<li>Speaking Pointers</li>
+<li>Sample Responses</li>
+</ol>
+        <a  href="https://prep.firstacademy.in/products/det-expert-evaluation" class="btn btn-success ">Buy Now</a>
         
       </div>
 
