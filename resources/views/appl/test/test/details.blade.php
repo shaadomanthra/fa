@@ -1,7 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.meta')
 @section('title', $test->name.' - '.getenv('APP_NAME'))
 @section('description', $test->details)
 @section('keywords', $test->name)
+@if(\Storage::disk('public')->exists('/storage/test/'.$test->slug.'_300.jpg'))
+  @section('image', asset('/storage/test/'.$test->slug.'_300.jpg')) 
+@endif
 
 @section('content')
 

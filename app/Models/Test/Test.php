@@ -132,6 +132,38 @@ class Test extends Model
         return $u; 
     }
 
+      public function duolingoRange($score){
+
+        if($score>0 && $score<=60)
+            return '10 - 55';
+        else if($score>61 && $score<=90)
+            return '60 - 85';
+        else if($score>91 && $score<=120)
+            return '90 - 115';
+        else 
+            return '120 - 160';
+    }
+
+    public function duolingoComment($score){
+
+        if($score>0 && $score<=60)
+            $comment = "<ul><li>Can understand very basic English words and phrases.</li>
+                        <li>Can understand straightforward information and express themselves in familiar contexts.</li></ul>";
+        else if($score>61 && $score<=90)
+            $comment = "<ul><li>Can understand the main points of concrete speech or writing on routine matters such as work and school.</li>
+                        <li>Can describe experiences, ambitions, opinions, and plans, although with some awkwardness or hesitation.</li></ul>";
+        else if($score>91 && $score<=120)
+            $comment = "<ul><li>Can fulfill most communication goals, even on unfamiliar topics.</li>
+                        <li>Can understand the main ideas of both concrete and abstract writing.</li>
+                        <li>Can interact with proficient speakers fairly easily.</li></ul>";
+        else 
+            $comment = "<ul><li>Can understand a variety of demanding written and spoken language including some specialized language use situations.</li>
+                        <li>Can grasp implicit, figurative, pragmatic, and idiomatic language.</li>
+                        <li>Can use language flexibly and effectively for most social, academic, and professional purposes.</li></ul>";
+
+        return $comment;
+    }
+
 
     
 }

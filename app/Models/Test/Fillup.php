@@ -39,4 +39,6 @@ class Fillup extends Model
     {
         return $this->belongsToMany('App\Models\Test\Tag');
     }
+
+  
 }

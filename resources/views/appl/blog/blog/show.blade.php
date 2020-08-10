@@ -1,6 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.meta')
 @section('title', $obj->meta_title.' | First Academy')
 @section('description', $obj->meta_description)
+@if(\Storage::disk('public')->exists($obj->image) && $obj->image )
+  @section('image', asset('storage/'.$obj->image))                 
+@endif
 @section('content')
 
 <nav aria-label="">

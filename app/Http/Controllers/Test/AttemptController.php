@@ -251,7 +251,7 @@ class AttemptController extends Controller
    }
 
    /* pre checks for the test */
-   public function precheck(Request $request){
+  public function precheck(Request $request){
     
     $test = $this->test;
     if(!$test)
@@ -279,10 +279,10 @@ class AttemptController extends Controller
 
     return 1;
 
-   }
+  }
 
    /* Test Attempt Function */
-   public function try($slug,Request $request){
+  public function try($slug,Request $request){
     $test = $this->test;
     $product = $this->product;
     $session_id = $request->session()->getID();
@@ -450,11 +450,11 @@ class AttemptController extends Controller
                   ->with('player',1);
       }
 
-   }
+  }
 
 
    /* Test View Function - Here you cannot attempt test */
-   public function view($slug,Request $request){
+  public function view($slug,Request $request){
       $test = $this->test;
 
       $user = \auth::user();
@@ -848,7 +848,9 @@ class AttemptController extends Controller
 
               $data[$i]['accuracy'] =$qscore;
               $result[$qno]['accuracy'] = $qscore;
-              $score = $score+$qscore;
+              if($qscore)
+                $score = $score+0.5;
+        
 
             }
             else{
@@ -908,6 +910,17 @@ class AttemptController extends Controller
 
         if(strtoupper($test->category->name)=='PTE'){
           $points =10;
+          if($type=='listening' || $type=='reading'){
+
+          if($test->marks)
+            $points = $points + round($score * (int)(80/$test->marks));
+          
+
+          }
+        }
+
+        if(strtoupper($test->category->name)=='DUOLINGO'){
+          $points =25;
           if($type=='listening' || $type=='reading'){
 
           if($test->marks)
@@ -1302,7 +1315,7 @@ class AttemptController extends Controller
       
       if($test->testtype->name=='SURVEY')
           $view = 'thankyou';
-        else
+      else
           $view = 'solutions';
 
 

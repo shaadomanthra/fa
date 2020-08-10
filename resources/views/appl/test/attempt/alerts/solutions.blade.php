@@ -38,10 +38,16 @@
           <div class="col-12 col-md-6">
              <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded ">
               <div class="">Score</div>
-              @if($score)
-              <div class="display-4">{{ $score }} / {{ $test->marks}} </div>
+              @if($test->testtype->name=='DUOLINGO')
+                <div class="display-4">{{ $test->duolingoRange($score) }}</div>
               @else
-              <div class="h5 badge badge-warning mt-3">Under Review</div>
+
+
+                @if($score)
+                <div class="display-4">{{ $score }} / {{ $test->marks}} </div>
+                @else
+                <div class="h5 badge badge-warning mt-3">Under Review</div>
+                @endif
               @endif
             </div>
             @if($band)
@@ -50,10 +56,12 @@
               <div class="display-4">{{ $band }} </div>
             </div>
             @elseif($points)
+            @if($test->testtype->name!='DUOLINGO')
             <div class="text-center  mt-3 mb-3 mt-md-0 mb-md-0 float-md-right border bg-light p-3 rounded mr-0 mr-md-4">
               <div class="">&nbsp;&nbsp;&nbsp; Points &nbsp;&nbsp;&nbsp;</div>
               <div class="display-4">{{ $points }} </div>
             </div>
+            @endif
             @endif
           </div>
         </div>
@@ -70,7 +78,20 @@
         @endif
         @endif
 
+      @if($test->testtype->name!='DUOLINGO')
         @include('appl.test.attempt.blocks.solutions')
+      @else
+        <div class="mt-4">
+        {!! $test->duolingoComment($score) !!}
+      </div>
+      <div class="alert alert-important alert-warning">
+        <p>
+        For a more detailed score and comments, purchase or premium duolingo tests.</p>
+        <a  href="#" class="btn btn-success ">Buy Now</a>
+        
+      </div>
+
+      @endif
         
 
       </div>
