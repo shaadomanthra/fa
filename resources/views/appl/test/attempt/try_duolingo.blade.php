@@ -12,8 +12,10 @@
 
   @guest
   <div class="alert alert-warning alert-dismissible alert-important fade show mt-4" role="alert">
-    <strong>Note:</strong> Only registered users can attempt this test. Kindly login. 
-    <a href="{{ route('login')}}" class="float-md-right">
+    <strong>Note:</strong> 
+    <p>Some features of the Duolingo English Test prevent us from presenting the most optimised experience for non-logged in users.</p>
+    <p>We request you to log-in for the best test experience!</p> 
+    <a href="{{ route('login')}}" class="mt-3">
       Login now
     </a>
   </div>
