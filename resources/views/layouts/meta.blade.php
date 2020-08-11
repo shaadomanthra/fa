@@ -31,7 +31,7 @@
   <meta property="og:description" content="@yield('description')" />
   <meta property="og:image" content="@yield('image')" />
   <meta property="og:url" content="{{ request()->url() }}" />
-  <meta property="og:site_name" content="{{env('APP_NAME');}}" />
+  <meta property="og:site_name" content="{{env('APP_NAME')}}" />
 
     
     @if(isset($player))
