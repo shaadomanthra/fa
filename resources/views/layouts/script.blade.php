@@ -1604,7 +1604,7 @@ $(function(){
     startbutton = document.getElementById('startbutton');
     console.log('webcam started');
     try {
-    navigator.mediaDevices.getUserMedia({video: true, audio: true})
+    navigator.mediaDevices.getUserMedia({video: true, audio: false})
     .then(function(stream) {
       video.srcObject = stream;
       video.play();
