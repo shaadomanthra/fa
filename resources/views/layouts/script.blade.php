@@ -1609,7 +1609,7 @@ $(function(){
       video.srcObject = stream;
       video.play();
     }).catch(e => {
-      $('#camera_test').modal();
+      $('.camera').hide();
         // $('.testpage').html('<div class="container"><div class="border border-secondary rounded p-5 m-5">Camera not accessible.</div></div>');
         
     console.log(e);

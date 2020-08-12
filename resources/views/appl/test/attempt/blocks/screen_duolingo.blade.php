@@ -19,7 +19,7 @@
 <div class="my-3 mt-md-5" style="box-shadow: 1px 1px 2px 2px #e1e1e1;">
 	<div class="bg-white  p-3 py-5 p-md-5 duo_section" data-section="1"  data-testid="{{$app->test->id}}" data-url="{{ route('audio.blob')}}" data-token="{{ csrf_token() }}" data-userid="@if(\auth::user()) {{ \auth::user()->id }} @endif">
 		<div class="float-right rounded camera" style="width:50px;height:50px;margin-top: -15px">
-			<video id="video" class="mb-3 bg-light w-100" data-token="{{ csrf_token() }}" data-hred="" data-count="0" data-c="0" data-username="{{\auth::user()->username}}" data-test="">Video stream not available.</video>
+			<video id="video" class="mb-3  w-100" data-token="{{ csrf_token() }}" data-hred="" data-count="0" data-c="0" data-username="{{\auth::user()->username}}" data-test="">Video stream not available.</video>
     <canvas id="canvas" class="" style='display: none' width="50" height="50">
   	</canvas>
 		</div>
