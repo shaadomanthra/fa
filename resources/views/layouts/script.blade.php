@@ -1571,12 +1571,6 @@ function visualize(stream) {
 });
 </script>
 
-
-
-
-@endif
-
-
 <script>
 $(function(){
 
@@ -1710,6 +1704,11 @@ $(function(){
 
  });
 </script>
+
+@endif
+
+
+
 
 
 @if(isset($timer))
