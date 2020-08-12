@@ -6,7 +6,9 @@
 <div class="col-12 @if($f->label) col-md-5 @else col-md-3 @endif">
 @if($f->label ) <div class="h5 mt-3">{{$f->label }}</div>  @else
 <div class="text-center">
-<div class="img_container float-md-right mb-3" style="background-image: url('{{ asset('/storage/extracts/'.$f->id.'_q_300.jpg') }}')"></div>
+<div class="img_container float-md-right mb-3" style="">
+	<img src="{{ asset('/storage/extracts/'.$f->id.'_q_300.jpg') }}" class="w-100" style="border-radius:5px;">
+</div>
 </div>
 @endif 
 </div>

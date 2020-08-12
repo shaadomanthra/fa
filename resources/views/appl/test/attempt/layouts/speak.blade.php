@@ -17,11 +17,15 @@
 @endif
 <div class="col ">
 @if(\Storage::disk('public')->exists('extracts/'.$f->id.'_q.mp3') )
-<div id="playerContainer_{{$s}}" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
+
+<div id="@if(isset($s))playerContainer_{{$s}}@else playerContainer_0 @endif" class="cplayer mb-3" data-src="{{ asset('/storage/extracts/'.$f->id.'_q.mp3') }}"></div>
     <span class=""></span>
 @elseif(\Storage::disk('public')->exists('extracts/'.$f->id.'_q_300.jpg')) 
-<div class="text-center">
-<div class="img_container mb-3" style="background-image: url('{{ asset('/storage/extracts/'.$f->id.'_q_300.jpg') }}');margin:0px auto;"></div>
+<div class="text-center" style="margin:auto ;">
+
+<div class=" mb-3" style="text-align: center;">
+	<img src="{{ asset('/storage/extracts/'.$f->id.'_q_300.jpg') }}" class="" style="max-width:160px;border-radius:5px;">
+</div>
 </div>
 @elseif($f->label ) <div class="h5 mt-3">{{$f->label }}</div> 
 @elseif($f->prefix)

@@ -1148,6 +1148,14 @@ $(function() {
       $('.duo_section').data('question',$ques);
     }
 
+    $layout = $('.section_data_'+$id).data('layout').trim();
+  
+        // check if its speak question
+    if($layout!='speak'){
+          $('.record-btn').hide();
+          $('.gre_next').show();
+    }
+
 
   }
  
@@ -1562,7 +1570,147 @@ function visualize(stream) {
 
 });
 </script>
+
+
+
+
 @endif
+
+
+<script>
+$(function(){
+
+  var width = 50;    // We will scale the photo width to this
+  var height = 50;     // This will be computed based on the input stream
+
+  // |streaming| indicates whether or not we're currently streaming
+  // video from the camera. Obviously, we start at false.
+
+  var streaming = false;
+
+  // The various HTML elements we need to configure or control. These
+  // will be set by the startup() function.
+
+  var video = null;
+  var canvas = null;
+  var photo = null;
+  var startbutton = null;
+
+  function startup() {
+    video = document.getElementById('video');
+    canvas = document.getElementById('canvas');
+    photo = document.getElementById('photo');
+    text = document.getElementById('text');
+    startbutton = document.getElementById('startbutton');
+    console.log('webcam started');
+    try {
+    navigator.mediaDevices.getUserMedia({video: true, audio: true})
+    .then(function(stream) {
+      video.srcObject = stream;
+      video.play();
+    }).catch(e => {
+      $('#camera_test').modal();
+        // $('.testpage').html('<div class="container"><div class="border border-secondary rounded p-5 m-5">Camera not accessible.</div></div>');
+        
+    console.log(e);
+});
+    }
+    catch(err) {
+      $('.testpage').hide();
+      console.log("An error occurred: " + err);
+    }
+
+    video.addEventListener('canplay', function(ev){
+      if (!streaming) {
+        height = video.videoHeight / (video.videoWidth/width);
+      
+        // Firefox currently has a bug where the height can't be read from
+        // the video, so we will make assumptions if this happens.
+      
+        if (isNaN(height)) {
+          height = width / (4/3);
+        }
+      
+        video.setAttribute('width', width);
+        video.setAttribute('height', height);
+        canvas.setAttribute('width', width);
+        canvas.setAttribute('height', height);
+        streaming = true;
+      }
+    }, false);
+
+    video.onloadedmetadata = () => {
+        canvas.width = 50;
+        canvas.height = 50;
+    };
+
+    
+  }
+
+  // Fill the photo with an indication that none has been
+  // captured.
+
+  function clearphoto() {
+    var context = canvas.getContext('2d');
+    context.fillStyle = "#AAA";
+    context.fillRect(0, 0, canvas.width, canvas.height);
+
+    var data = canvas.toDataURL('image/jpeg',0.5);
+    photo.setAttribute('src', data);
+  }
+  
+  // Capture a photo by fetching the current contents of the video
+  // and drawing it into a canvas, then converting that to a PNG
+  // format data URL. By drawing it on an offscreen canvas and then
+  // drawing that to the screen, we can change its size and/or apply
+  // other changes before drawing it.
+
+  function takepicture() {
+
+    var context = canvas.getContext('2d');
+
+    var $counter = parseInt($('#video').data('c'));
+
+    if (width && height) {
+ 
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(video, 0, 0, width, height);
+    
+      var data = canvas.toDataURL('image/jpeg',0.5);
+
+      photo.setAttribute('src', data);
+
+      var url = $('#photo').data('hred');
+      var image = $('#photo').attr('src');
+      $token = $('#photo').data('token');
+
+      // var url = $('#video').data('hred');
+      // $token = $('#video').data('token');
+      $c = parseInt($('#video').data('c'))+1;
+      $username = $('#video').data('username');
+      $test = $('#video').data('test');
+      $name = $username+'_'+$test+'_'+$c;
+
+      $.post( url ,{'name': $name ,'image':image,'_token':$token}, function( data ) {
+            console.log(data);
+
+      });
+
+      $('#video').data('c',$c);
+      console.log($name);
+      console.log($c);
+    }else{
+      $('#camera_test').modal();
+    } 
+  }
+  // Set up our event listener to run the startup process
+  // once loading is complete.
+  window.addEventListener('load', startup, false);
+
+ });
+</script>
+
 
 @if(isset($timer))
 @if($time)
