@@ -8,9 +8,7 @@ use App\Models\Test\Category;
 use App\Models\Test\Attempt;
 use App\Models\Product\Product;
 use Illuminate\Support\Facades\DB;
-use App\Models\Gre\Grequestion;
-use App\Models\Gre\Grecategory;
-use App\Models\Gre\Grepassage;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
@@ -39,17 +37,7 @@ class HomeController extends Controller
         
     }
 
-    public function gre(){
-        if(request()->get('n')){
-            $c = Grecategory::where('id',request()->get('n'))->first();
-        $q =  Grequestion::where('grecategory_id',request()->get('n')-1)->get();
-        }else{
-            $c = Grecategory::first();
-            $q =  Grequestion::where('grecategory_id',$c->id)->get();
-        }
-
-        return view('appl.pages.gre')->with('try',1)->with('ques',$q)->with('category',$c);
-    }
+    
 
     public function welcome2()
     {
@@ -108,15 +96,27 @@ class HomeController extends Controller
                     ->where('status',1)
                     ->orderBy('created_at','desc')
                     ->paginate(config('global.no_of_records')); 
-            else
-            $objs = $obj->where('name','LIKE',"%{$item}%")
-                    ->where('status',1)
-                    ->orderBy('created_at','desc')
-                    ->paginate(config('global.no_of_records')); 
+            else{
+
+                $objs = Cache::get('tests_active');
+                if(!$objs){
+                    $objs = $obj->where('name','LIKE',"%{$item}%")
+                                ->where('status',1)
+                                ->orderBy('created_at','desc')
+                                ->paginate(config('global.no_of_records')); 
+                    Cache::forever('tests_active',$objs);
+                }
+                
+            }
+            
         }
 
+        $categories = Cache::get('categories');
+        if(!$categories){
+            $categories = Category::where('status',1)->get();
+            Cache::forever('categories',$categories);
+        }
         
-        $categories = Category::where('status',1)->get();
         
         $view = $search ? 'appl.test.test.public_list': 'welcome4';
 
