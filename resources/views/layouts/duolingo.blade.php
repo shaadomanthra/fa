@@ -8,7 +8,6 @@
     <meta name="keywords" content="@yield('keywords')">
     <meta name="author" content="First Academy Team">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta http-equiv="Content-Security-Policy" content="default-src self https://xplore.co.in; child-src 'none'; object-src 'none'">
     <title>@yield('title')</title>
     <!-- Styles -->
     <link href="{{ asset('css/styles.css?new=1') }}" rel="stylesheet">
