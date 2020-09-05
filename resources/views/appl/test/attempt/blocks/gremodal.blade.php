@@ -22,30 +22,61 @@
 
 
 @else
-<div class="modal fade" id="test_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  @if(isset($user))
+  <div class="modal fade" id="test_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Login Now</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Test Submission</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        Only logged in users can submit the test.
+        The following test will be submitted. The action is permanent and it cannot be reverted.
       </div>
       <div class="modal-footer">
+        <input type="hidden" name="name" value="{{ request()->get('name') }}">
+        <input type="hidden" name="username" value="{{ request()->get('username') }}">
+        <input type="hidden" name="id" value="{{ request()->get('id') }}">
+        <input type="hidden" name="uri" value="{{ request()->get('uri') }}">
+        <input type="hidden" name="source" value="{{ request()->get('source') }}">
+        <input type="hidden" name="private" value="{{ request()->get('private') }}">
+        <input type="hidden" name="open" value="1">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a href="{{ route('login')}}">
-        <button type="button" class="btn btn-success">Login</button>
-        </a>
-        <a href="{{ route('register')}}">
-        <button type="button" class="btn btn-primary">Register</button>
-        </a>
+        <button type="submit" id="submit_btn" class="btn btn-success">Confirm Submission</button>
       </div>
     </div>
   </div>
 </div>
+
+  @else
+  <div class="modal fade" id="test_submit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Login Now</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Only logged in users can submit the test. 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <a href="{{ route('login')}}">
+          <button type="button" class="btn btn-success">Login</button>
+          </a>
+          <a href="{{ route('register')}}">
+          <button type="button" class="btn btn-primary">Register</button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endif
 @endauth
 
 <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

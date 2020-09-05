@@ -1447,6 +1447,7 @@ if (navigator.mediaDevices.getUserMedia) {
       question = $('.duo_section').data('question');
       testid = $('.duo_section').data('testid');
       userid = $('.duo_section').data('userid');
+      console.log(userid);
       url = $('.duo_section').data('url');
       _token = $('.duo_section').data('token');
       name = 'sample.ogg';

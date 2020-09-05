@@ -187,7 +187,7 @@
             <label for="formGroupExampleInput ">Price</label>
             <input type="text" class="form-control" name="price" id="formGroupExampleInput" placeholder="Enter the price in rupees" 
                 @if($stub=='Create')
-                value="{{ (old('price')) ? old('price') : '' }}"
+                value="{{ (old('price')) ? old('price') : '0' }}"
                 @else
                 value = "{{ $obj->price }}"
                 @endif
@@ -223,7 +223,8 @@
             <select class="form-control" name="status">
               <option value="0" @if(isset($obj)) @if($obj->status==0) selected @endif @endif >Inactive</option>
               <option value="1" @if(isset($obj)) @if($obj->status==1) selected @endif @endif >Active </option>
-              <option value="2" @if(isset($obj)) @if($obj->status==2) selected @endif @endif >Open</option>
+              <option value="2" @if(isset($obj)) @if($obj->status==2) selected @endif @endif >Open (No Login Required)</option>
+              <option value="3" @if(isset($obj)) @if($obj->status==3) selected @endif @endif >Private (API driven)</option>
             </select>
           </div>
         </div>
