@@ -286,6 +286,7 @@ class AttemptController extends Controller
     $test = $this->test;
     $product = $this->product;
     $session_id = $request->session()->getID();
+    $url = $request->get('uri');
 
     $product_id = $test_id = null;
 
@@ -384,7 +385,7 @@ class AttemptController extends Controller
          return redirect()->route('test.analysis',['test'=>$this->test->slug]); 
       }else{
         if($test->status==3)
-          return redirect()->route('test.analysis',['test'=>$this->test->slug,'open'=>1,'private'=>$request->get('private')]); 
+          return redirect()->to($url."?status=0&reference=".$session_id."&test=".$this->test->id);
       }
     }
 
