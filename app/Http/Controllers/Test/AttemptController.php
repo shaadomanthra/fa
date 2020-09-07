@@ -1328,6 +1328,9 @@ class AttemptController extends Controller
         $user=null;
       }
       else{
+        if($request->get('source') && $request->get('id'))
+          $session_id = $request->get('source').'_'.$request->get('id');
+        else
           $session_id = $request->session()->getID();
       }
 
@@ -1343,8 +1346,7 @@ class AttemptController extends Controller
         }
       
 
-      if($request->get('session_id')){
-        $session_id = $request->get('session_id');
+      if($session_id){
         $user= Session::where('id',$session_id)->first();
       }
 
@@ -1361,6 +1363,11 @@ class AttemptController extends Controller
       foreach($result as $r){
         if($r->accuracy==1)
           $score++;
+      }
+
+      if($request->get('json')){
+        echo json_encode(['score'=>$score]);
+        exit();
       }
 
       $band =0;
