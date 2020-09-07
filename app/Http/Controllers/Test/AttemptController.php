@@ -320,15 +320,17 @@ class AttemptController extends Controller
           }
 
 
-      if($test->status==3 && $request->get('id')){
+      
+    }
+
+    if($test->status==3 && $request->get('id')){
         $session_id = $request->get('source').'_'.$request->get('id');
         $user = new User;
         $user->email = $request->get('source').'_'.$request->get('id');
         $user->username = $request->get('username');
         $user->name = $request->get('name');
-      }else
-        $user = null;
-    }
+    }else
+      $user = null;
 
 
     if($test->status==3 && $request->get('id')){
