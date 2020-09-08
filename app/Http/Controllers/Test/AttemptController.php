@@ -323,6 +323,7 @@ class AttemptController extends Controller
       
     }
 
+    if(!\auth::user()){
     if($test->status==3 && $request->get('id')){
         $session_id = $request->get('source').'_'.$request->get('id');
         $user = new User;
@@ -331,6 +332,7 @@ class AttemptController extends Controller
         $user->name = $request->get('name');
     }else
       $user = null;
+    }
 
 
     if($test->status==3 && $request->get('id')){
@@ -410,7 +412,9 @@ class AttemptController extends Controller
       if($testtype == 'writing'){
         //$type = Type::where('name','writing')->first();
         
+
         $test_ids = Test::where('type_id',3)->get()->pluck('id');
+        
         $wattempt = Attempt::whereIn('test_id',$test_ids)->where('user_id',$user->id)->orderBy('created_at','desc')->limit(2)->get();
 
         $wcount =0;
