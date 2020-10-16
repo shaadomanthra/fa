@@ -143,8 +143,21 @@ class User extends Authenticatable
                 ->where('user_id', $this->id)
                 ->orderBy('id','desc')
                 ->pluck('test_id')->toArray();
+                 
+                $ids = array_unique($test_id);
+                 
         $tests = Test::whereIn('id',$test_id)->get();
         return $tests;
+    }
+
+     public function testCount(){
+        $test_id = DB::table('attempts')
+                ->select('test_id')
+                ->where('user_id', $this->id)
+                ->orderBy('id','desc')
+                ->pluck('test_id')->toArray();
+        $ids = array_unique($test_id);
+        return count($ids);
     }
 
     public function testAccess($id){

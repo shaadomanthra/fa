@@ -32,9 +32,9 @@ class AdminController extends Controller
         /* writing data */
         $test_ids = Obj::whereIn('type_id',[3])->pluck('id')->toArray();
        
-        $data['writing']= Attempt::whereIn('test_id',$test_ids)->whereNull('answer')->orderBy('created_at','desc')->get();
+        $data['writing']= Attempt::whereIn('test_id',$test_ids)->whereNull('answer')->with('user')->orderBy('created_at','desc')->get();
 
-        $attempts = Attempt::where('user_id','!=',0)->orderBy('created_at','desc')->get();
+        $attempts = Attempt::where('user_id','!=',0)->orderBy('created_at','desc')->with('user')->with('test')->limit(100)->get();
 
        
         
@@ -62,7 +62,7 @@ class AdminController extends Controller
         $data['latest'] = $latest;
         $data['attempt_total'] = $count; 
   
-        $data['coupon'] = Coupon::where('code','FA5Y9')->first();
+        $data['coupon'] = '';//Coupon::where('code','FA5Y9')->first();
 
         $user = \auth::user();
 

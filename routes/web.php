@@ -162,6 +162,7 @@ Route::get('/couponcode/code','Product\CouponController@use')->name('coupon.use'
 /* Pages */
 
 Route::get('/contact', function(){ return view('appl.pages.contact');})->name('contact');
+Route::get('/frame', function(){ return view('appl.pages.terms');})->name('terms');
 Route::get('/downloads', function(){ return view('appl.pages.downloads');})->name('downloads');
 
 

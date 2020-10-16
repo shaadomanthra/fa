@@ -17,7 +17,11 @@
 @elseif($test->category->name=='IELTS' || $test->category->name=='GENERAL')
   @if($extract->layout == 'default' ||  !$extract->layout)
     @foreach($extract->fillup_order as $f)
-      @if($test->category->name=='IELTS' && $f->qno==-1)
+      @if($f->layout=='ielts_two_blank')
+        @include('appl.test.attempt.layouts.ielts_two_blank') 
+      @elseif($f->layout=='two_blank')
+        @include('appl.test.attempt.layouts.two_blank') 
+      @elseif($test->category->name=='IELTS' && $f->qno==-1)
           @include('appl.test.attempt.layouts.ielts_example') 
       @else
             @include('appl.test.attempt.layouts.ielts_title') 
@@ -27,6 +31,10 @@
     @foreach($extract->fillup_order as $f)
       @if($test->category->name=='IELTS' && $f->qno==-1)
           @include('appl.test.attempt.layouts.ielts_example') 
+      @elseif($f->layout=='two_blank')
+        @include('appl.test.attempt.layouts.two_blank') 
+      @elseif($f->layout=='ielts_two_blank')
+        @include('appl.test.attempt.layouts.ielts_two_blank') 
       @else
             @include('appl.test.attempt.layouts.'.$extract->layout) 
       @endif 

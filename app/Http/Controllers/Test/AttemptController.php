@@ -286,6 +286,7 @@ class AttemptController extends Controller
     $test = $this->test;
     $product = $this->product;
     $session_id = $request->session()->getID();
+    $url = $request->get('uri');
 
     $product_id = $test_id = null;
 
@@ -312,16 +313,56 @@ class AttemptController extends Controller
       }
     }
     else{
-      if($price!=0){
+      if($price!=0 && $test->status!=3){
           return view('appl.product.product.purchase')
                         ->with('test',$test)
                         ->with('product',$product);
           }
 
+
+      
+    }
+
+    if(!\auth::user()){
+    if($test->status==3 && $request->get('id')){
+        $session_id = $request->get('source').'_'.$request->get('id');
+        $user = new User;
+        $user->email = $request->get('source').'_'.$request->get('id');
+        $user->username = $request->get('username');
+        $user->name = $request->get('name');
+    }else
       $user = null;
     }
 
+
+    if($test->status==3 && $request->get('id')){
+      $session = Session::where('id',$session_id)->first();
+          if(!$session){
+              $session = new Session();
+              $session->name = $request->get('username');
+              $session->phone =$request->get('phone');
+              $session->id = $session_id;
+              $session->ip_address = $request->ip();
+              $session->user_agent=$request->server('HTTP_USER_AGENT');
+              $session->last_activity = 1;
+              $session->payload = $request->get('id');
+              $session->save();
+          }else{
+            $session->last_activity = 1;
+            $session->save();
+          }
+
+          $request->session()->put('open', $session_id);
+
+
+          $attempt = Attempt::where('test_id',$this->test->id)->where('session_id',$session_id)->first();
+
+         
+    }
+
+
     
+
 
     /* Pre validation */
     $this->precheck($request);
@@ -329,10 +370,12 @@ class AttemptController extends Controller
 
 
     /* If Attempted show report */
-    if($user)
-      $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
-    else if($test->status==2)
+    
+    if($test->status==2 || $test->status==3){
       $attempt = Attempt::where('test_id',$this->test->id)->where('session_id',$session_id)->first();
+    }
+    else if($user)
+      $attempt = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->first();
     else
       $attempt = null;
 
@@ -344,6 +387,9 @@ class AttemptController extends Controller
         return redirect()->route('test.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
         else
          return redirect()->route('test.analysis',['test'=>$this->test->slug]); 
+      }else{
+        if($test->status==3)
+          return redirect()->to($url."?status=0&reference=".$session_id."&test=".$this->test->id);
       }
     }
 
@@ -366,7 +412,9 @@ class AttemptController extends Controller
       if($testtype == 'writing'){
         //$type = Type::where('name','writing')->first();
         
+
         $test_ids = Test::where('type_id',3)->get()->pluck('id');
+        
         $wattempt = Attempt::whereIn('test_id',$test_ids)->where('user_id',$user->id)->orderBy('created_at','desc')->limit(2)->get();
 
         $wcount =0;
@@ -404,6 +452,7 @@ class AttemptController extends Controller
             ->with('pte',$pte)
             ->with('test',$test)
             ->with('product',$product)
+            ->with('user',$user)
             ->with('timer',1)
             ->with('time',$test->test_time);
     else if($view == 'gre')
@@ -415,6 +464,7 @@ class AttemptController extends Controller
             ->with('qcount',$qcount)
             ->with('test',$test)
             ->with('product',$product)
+            ->with('user',$user)
             ->with('timer',1)
             ->with('time',$test->test_time);
    else if($view =='reading'){
@@ -426,6 +476,7 @@ class AttemptController extends Controller
         ->with('test',$test)
         ->with('product',$product)
         ->with('reading',1)
+        ->with('user',$user)
         ->with('timer',1)
         ->with('time',$test->test_time);
     }
@@ -434,10 +485,12 @@ class AttemptController extends Controller
                   ->with('test',$test)
                   ->with('product',$product)
                   ->with('attempt',$attempt)
+                  ->with('user',$user)
                   ->with('view',true)
                   ->with('editor',true);
       }
       else{
+
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
@@ -445,6 +498,7 @@ class AttemptController extends Controller
                   ->with('app',$this)
                   ->with('pte',$pte)
                   ->with('timer',$user)
+                  ->with('user',$user)
                   ->with('time',$test->test_time)
                   ->with('editor',true)
                   ->with('player',1);
@@ -492,6 +546,7 @@ class AttemptController extends Controller
             ->with('grammar',true)
             ->with('app',$this)
             ->with('qcount',$qcount)
+            ->with('user',$user)
             ->with('test',$test)
             ->with('pte',$pte)
             ->with('product',$product)
@@ -505,6 +560,7 @@ class AttemptController extends Controller
             ->with('try',true)
             ->with('gre',true)
             ->with('app',$this)
+            ->with('user',$user)
             ->with('qcount',$qcount)
             ->with('test',$test)
             ->with('product',$product)
@@ -520,6 +576,7 @@ class AttemptController extends Controller
                 ->with('app',$this)
                 ->with('qcount',$qcount)
                 ->with('test',$test)
+                ->with('user',$user)
                 ->with('pte',$pte)
                 ->with('product',$product)
                 ->with('reading',1)
@@ -531,6 +588,7 @@ class AttemptController extends Controller
         return view('appl.test.attempt.try_'.$view)
                   ->with('test',$test)
                   ->with('product',$product)
+                  ->with('user',$user)
                   ->with('attempt',$attempt)
                   ->with('view',true)
                   ->with('editor',true);
@@ -543,6 +601,7 @@ class AttemptController extends Controller
                   ->with('app',$this)
                   ->with('pte',$pte)
                   ->with('attempt',$attempt)
+                  ->with('user',$user)
                   ->with('timer',$user)
                   ->with('time',$test->test_time)
                   ->with('view',true)
@@ -645,7 +704,15 @@ class AttemptController extends Controller
    public function store($slug,Request $request){
       
       //dd($request->all());
-      $session_id = $request->session()->getID();
+      if($request->get('source'))
+        $session_id = $request->get('source').'_'.$request->get('id');
+      else
+        $session_id = null;
+
+      $open = $request->get('open');
+
+
+      $url = $request->get('uri');
       $result = array();
       $score =0;
       $test = $this->test;
@@ -654,26 +721,34 @@ class AttemptController extends Controller
       else
       $product = $test->product;
 
-
       $user = \auth::user();
-
       if(!$user){
           $user = new User();
           $user->id = 0;
       }
 
-      if($test->status==2)
+      if($test->status==2 || $test->status==3)
         $attempt = Attempt::where('test_id',$this->test->id)->where('session_id',$session_id)->first();
       else  
         $attempt = Attempt::where('test_id',$this->test->id)->where('user_id',$user->id)->first();
 
 
+      
+
       if($attempt){
-        if($product)
-      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
-      else
-      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
+
+        if($test->status==3){
+            return redirect()->to($url."?status=0&reference=".$session_id."&test=".$this->test->id);
+        }else{
+            if($product)
+              return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+            else
+              return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
+        }
+        
       }
+
+
 
 
       foreach($test->mcq_order as $mcq){
@@ -725,7 +800,6 @@ class AttemptController extends Controller
         }
 
         if($fillup->layout=='duolingo_missing_letter'){
-          
             $fillup->answer= str_replace('[', '', $fillup->answer);
             $fillup->answer= str_replace(']', '', $fillup->answer);
             $result[$fillup->qno]['answer'] = $fillup->answer;
@@ -744,6 +818,8 @@ class AttemptController extends Controller
           $result[$fillup->qno]['duo_multianswer'] =1;
         }
       }
+
+
 
       
       ksort($result);
@@ -769,8 +845,8 @@ class AttemptController extends Controller
         $data[$i]['status'] = $res['status'];
         $data[$i]['accuracy'] =$res['accuracy'];
 
-        if ($request->session()->has('open') && $test->status==2)
-          $data[$i]['session_id'] = $request->session()->getID();
+        if ($request->session()->has('open') && ($test->status==2 || $test->status==3 ) )
+          $data[$i]['session_id'] = $session_id;
 
 
         $resp = $request->get($qno);
@@ -884,6 +960,8 @@ class AttemptController extends Controller
         dd();
       }
 
+
+
       if(!$request->get('admin'))
         Attempt::insert($data); 
       
@@ -945,6 +1023,11 @@ class AttemptController extends Controller
         else
           $view = 'solutions';
 
+
+
+        if($url)
+          return redirect()->to($url."?status=1&reference=".$session_id."&test=".$this->test->id);
+        else
          return view('appl.test.attempt.alerts.'.$view)
               ->with('result',$result)
               ->with('section_score',$section_score)
@@ -959,11 +1042,14 @@ class AttemptController extends Controller
       }
 
       
-
+    if($url)
+          return redirect()->to($url."?status=1&reference=".$session_id."&test=".$this->test->id);
+    else{
       if($product)
-      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug]);
+      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'product'=>$product->slug,'session_id'=>$session_id,'open'=>$open]);
       else
-      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug]); 
+      return redirect()->route($this->module.'.analysis',['test'=>$this->test->slug,'session_id'=>$session_id,'open'=>$open]); 
+    }
    }
 
    /* calculate section score */
@@ -1233,6 +1319,10 @@ class AttemptController extends Controller
    public function analysis($slug,Request $request){
       $test = Test::where('slug',$slug)->first();
 
+      $open = $request->get('open');
+      $private = $request->get('private');
+
+
 
       if($request->get('user_id'))
         $user = User::where('id',$request->get('user_id'))->first();
@@ -1243,10 +1333,12 @@ class AttemptController extends Controller
         $session_id = $request->get('session_id');
         $user=null;
       }
-      else
-      $session_id = $request->session()->getID();
-
-
+      else{
+        if($request->get('source') && $request->get('id'))
+          $session_id = $request->get('source').'_'.$request->get('id');
+        else
+          $session_id = $request->session()->getID();
+      }
 
       if($user)
         $result = Attempt::where('test_id',$test->id)->where('user_id',$user->id)->get();
@@ -1260,8 +1352,7 @@ class AttemptController extends Controller
         }
       
 
-      if($request->get('session_id')){
-        $session_id = $request->get('session_id');
+      if($session_id){
         $user= Session::where('id',$session_id)->first();
       }
 
@@ -1278,6 +1369,11 @@ class AttemptController extends Controller
       foreach($result as $r){
         if($r->accuracy==1)
           $score++;
+      }
+
+      if($request->get('json')){
+        echo json_encode(['score'=>$score]);
+        exit();
       }
 
       $band =0;
@@ -1317,6 +1413,12 @@ class AttemptController extends Controller
           $view = 'thankyou';
       else
           $view = 'solutions';
+
+
+      if($private)
+          $view = 'solutions_private';
+      else if($open)
+          $view = 'solutions_open';
 
 
       
@@ -1463,7 +1565,7 @@ class AttemptController extends Controller
        if(isset($request->all()['audio'])){
                 $file      = $request->all()['audio'];
                 $filename  = $userid.'_'.$question.'.wav';
-                $path = Storage::disk('public')->putFileAs('responses', $request->file('audio'),$filename);
+                $path = Storage::disk('s3')->putFileAs('responses', $request->file('audio'),$filename);
         }
         echo $path;
    }

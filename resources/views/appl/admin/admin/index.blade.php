@@ -231,7 +231,7 @@
     <tr class="{{ $k++}}">
       
       <td><a href="{{ route('user.show',$l->id) }}" class="">{{ $l['name']}}</a> </td>
-      <td>{{ count($l->tests()) }} </td>
+      <td>{{ $l->testCount() }} </td>
       <td>{{ \Carbon\Carbon::parse($l->lastlogin_at)->diffForHumans()}}</td>
     </tr>
     @endforeach
@@ -246,7 +246,6 @@
 
 <div class="bg-white p-4 rounded">
     <h3 class="mb-4"><i class="fa fa-gg"></i> Tests Attempted
-    <span class="badge badge-warning float-right">{{ $data['attempt_total'] }}</span>
     </h3>
     <div class="table-responsive">
     <table class="table">
